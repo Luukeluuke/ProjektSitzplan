@@ -31,19 +31,55 @@
                         <ColumnDefinition Width="*"></ColumnDefinition>
                         <ColumnDefinition Width="200"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <Grid Grid.Column="0">
-                        <Label Content="LOGO SITZPLAN" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource Turqouise}" FontFamily="Segoe UI Semibold" FontSize="16"></Label>
-                    </Grid>
+                    <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Label Content="LOGO SITZPLAN" Foreground="{StaticResource Turqouise}" FontFamily="Segoe UI Semibold" FontSize="16"></Label>
+                    </StackPanel>
                     <Grid Grid.Column="1">
                         <!-- TODO: -->
                     </Grid>
                     <Grid Grid.Column="2">
-                        <Label Content="BUTTONS" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource Turqouise}" FontFamily="Segoe UI Semibold" FontSize="16"></Label>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="WindowMinimizeButton" Grid.Column="0" Template="{StaticResource Flat}" Background="{x:Null}" Height="Auto" materialDesign:RippleAssist.Feedback="Transparent" IsTabStop="False" Click="WindowMinimizeButton_Click" PreviewMouseDown="WindowMinimizeButton_PreviewMouseDown" MouseEnter="WindowMinimizeButton_MouseEnter" MouseLeave="WindowMinimizeButton_MouseLeave">
+                            <Image Source="/ProjektSitzplan;component/src/Design/Images/Minimize.png"></Image>
+                        </Button>
+                        <Button x:Name="WindowRestoreButton" Grid.Column="1" Template="{StaticResource Flat}" Background="{x:Null}" Height="Auto" materialDesign:RippleAssist.Feedback="Transparent" IsTabStop="False" Click="WindowRestoreButton_Click" PreviewMouseDown="WindowRestoreButton_PreviewMouseDown" MouseEnter="WindowRestoreButton_MouseEnter" MouseLeave="WindowRestoreButton_MouseLeave">
+                            <Image Source="/ProjektSitzplan;component/src/Design/Images/Restore1.png"></Image>
+                        </Button>
+                        <Button x:Name="WindowCloseButton" Grid.Column="2" Template="{StaticResource Flat}" Background="{x:Null}" Height="Auto" materialDesign:RippleAssist.Feedback="Transparent" IsTabStop="False" Click="WindowCloseButton_Click" PreviewMouseDown="WindowCloseButton_PreviewMouseDown" MouseEnter="WindowCloseButton_MouseEnter" MouseLeave="WindowCloseButton_MouseLeave">
+                            <Image Source="/ProjektSitzplan;component/src/Design/Images/Close.png"></Image>
+                        </Button>
                     </Grid>
                 </Grid>
             </Border>
             <Grid Grid.Column="0" Grid.Row="1" Background="{StaticResource Blue}">
-                
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="80"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <Label Content="Sitzpläne" Foreground="{StaticResource White}" FontFamily="Segoe UI Semibold" FontSize="16"></Label>
+                    </StackPanel>
+                </Grid>
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" IsTabStop="False">
+                    <ItemsControl x:Name="SitzpläneItemsControl">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
             </Grid>
             <Grid Grid.Column="1" Grid.Row="1" Background="{StaticResource VeryLightBlue}">
                 <Button x:Name="TestButton" Grid.Column="1" Grid.Row="1" Content="Teste mich!" HorizontalAlignment="Center" VerticalAlignment="Center" Width="134" Click="TestButton_Click"/>

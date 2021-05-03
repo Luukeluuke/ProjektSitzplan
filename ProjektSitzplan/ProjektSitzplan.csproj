@@ -71,7 +71,7 @@
     <Compile Include="src\Lehrer.cs" />
     <Compile Include="src\Person.cs" />
     <Compile Include="src\Schüler.cs" />
-    <Compile Include="src\Sitzplan.cs" />
+    <Compile Include="src\Sitzplan1.cs" />
     <Compile Include="src\Tisch.cs" />
     <Compile Include="Test.cs" />
     <Page Include="MainWindow.xaml">
@@ -121,6 +121,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="src\Design\Images\Close.png" />
+    <Resource Include="src\Design\Images\Minimize.png" />
+    <Resource Include="src\Design\Images\Restore1.png" />
+    <Resource Include="src\Design\Images\Restore2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets')" />

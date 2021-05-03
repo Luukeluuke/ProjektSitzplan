@@ -14,24 +14,62 @@ namespace ProjektSitzplan
         public List<Tisch> Tische { get; private set; } = new List<Tisch>();
         public SchulKlasse Klasse { get; private set; }
 
-        public Sitzplan(int tischAnzahl, SchulKlasse klasse)
+        public int Seed { get; private set; }
+
+        public Sitzplan(int tischAnzahl, SchulKlasse klasse, int seed)
         {
             TischAnzahl = tischAnzahl;
             Klasse = klasse;
+            Seed = seed;
+
+            GeneriereSitzplan();
         }
 
+        public Sitzplan(int tischAnzahl, SchulKlasse klasse) : this(tischAnzahl, klasse, Environment.TickCount) { }
+
         [JsonConstructor]
-        public Sitzplan(int tischAnzahl, SchulKlasse klasse, List<Tisch> tische) : this(tischAnzahl, klasse)
+        public Sitzplan(int tischAnzahl, SchulKlasse klasse, List<Tisch> tische, int seed)
         {
+            TischAnzahl = tischAnzahl;
+            Klasse = klasse;
+            Seed = seed;
             Tische = tische;
         }
 
-        private void GeneriereSitzplan(Random rand)
+        public List<Schüler> Mischen(List<Schüler> liste)
         {
+            //Fisher-Yates shuffle https://en.wikipedia.org/wiki/Fisher–Yates_shuffle
+            Random rand = new Random(Seed);
+            int n = liste.Count;
+            while (n > 1)
+            {
+                n--;
+                int randomInt = rand.Next(n + 1);
+                Schüler randomSchüler = liste[randomInt];
+                liste[randomInt] = liste[n];
+                liste[n] = randomSchüler;
+            }
+            return liste;
+        }
+
+        private void GeneriereSitzplan()
+        {
+            List<Schüler> GemischteSchülerListe = Mischen(Klasse.SchülerListe);
+
+            /* Beispiel
+                6 tische mit 6 plätzen
+                30 Schüler
+                berechne anzahl pro tisch und rest
+                prüfe ob bereits vorhanden im sleben ausbildungsbetrieb/geschlecht/beruf
+             */
+
+            /*while(GemischteSchülerListe.Count > 0)
+            {
+                
+            }*/
+
             // todo
-
-
-
+            
             /*
             Möglichst unterschiedliche Verteilung in den maximal 6 Blöcken 
             Maximale Trennung von Azubis aus demselben Betrieb 
@@ -41,16 +79,6 @@ namespace ProjektSitzplan
             Berücksichtigung des Geschlechts (optional) 
             Verteilparameter einstellbar (optional)
             */
-        }
-
-        public void GeneriereSitzplan(int seed)
-        {
-            GeneriereSitzplan(new Random(seed));
-        }
-
-        public void GeneriereSitzplan()
-        {
-            GeneriereSitzplan(new Random());
         }
 
         public void AlsDateiSpeichern(string path)

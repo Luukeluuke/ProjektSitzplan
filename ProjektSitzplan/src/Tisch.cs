@@ -10,7 +10,7 @@ namespace ProjektSitzplan
     class Tisch
     {
         public int SitzplatzAnzahl { get; private set; }
-        public List<Schüler> SchülerListe { get; private set; } = new List<Schüler>();
+        public List<Schüler> Sitzplätze { get; private set; } = new List<Schüler>();
 
         public Tisch(int sitzplatzAnzahl)
         {
@@ -21,7 +21,7 @@ namespace ProjektSitzplan
         public Tisch(int sitzplatzAnzahl, List<Schüler> schülerListe)
         {
             SitzplatzAnzahl = sitzplatzAnzahl;
-            SchülerListe = schülerListe;
+            Sitzplätze = schülerListe;
         }
 
         public void SchülerHinzufügen(Schüler schüler)
@@ -32,19 +32,19 @@ namespace ProjektSitzplan
                 return;
             }
 
-            if (SchülerListe.Count >= SitzplatzAnzahl)
+            if (Sitzplätze.Count >= SitzplatzAnzahl)
             {
                 // todo throw tisch voll exception
                 return;
             }
 
-            if (SchülerListe.Contains(schüler))
+            if (Sitzplätze.Contains(schüler))
             {
                 // todo throw schüler bereits in tisch exception
                 return;
             }
 
-            SchülerListe.Add(schüler);
+            Sitzplätze.Add(schüler);
         }
 
         public void SchülerEntfernen(Schüler schüler)
@@ -55,13 +55,13 @@ namespace ProjektSitzplan
                 return;
             }
 
-            if (!SchülerListe.Contains(schüler))
+            if (!Sitzplätze.Contains(schüler))
             {
                 // todo schüler nicht in list exception
                 return;
             }
 
-            SchülerListe.Remove(schüler);
+            Sitzplätze.Remove(schüler);
         }
     }
 }

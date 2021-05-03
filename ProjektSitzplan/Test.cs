@@ -10,29 +10,12 @@ namespace ProjektSitzplan
 {
     static class Test
     {
+        private static Random random;
+
         public static void TestFunction()
         {
-            Tisch tisch1 = new Tisch(6);
-            Tisch tisch2 = new Tisch(6);
-            Tisch tisch3 = new Tisch(6);
-            Tisch tisch4 = new Tisch(6);
-
-            Betrieb idemia = new Betrieb("Idemia");
-            Betrieb ENKreis = new Betrieb("Ennepe-Ruhr-Kreis");
-
-            Schüler sweer = new Schüler("Sweer", "Sülberg", Person.EGeschlecht.Männlich, Person.EBeruf.Anwendungsentwicklung, idemia);
-            Schüler luca = new Schüler("Luca", "Berger", Person.EGeschlecht.Männlich, Person.EBeruf.Anwendungsentwicklung, ENKreis);
-            Schüler björn = new Schüler("Björn", "Nölle", Person.EGeschlecht.Männlich, Person.EBeruf.SystemIntegration, ENKreis);
-
-            Lehrer lehrer = new Lehrer("Sebastian", "Wieschollek", Person.EGeschlecht.Männlich, Person.EBeruf.Lehrer);
-
-            SchulKlasse klasse = new SchulKlasse(lehrer);
-
-            klasse.SchülerHinzufügen(sweer);
-            klasse.SchülerHinzufügen(luca);
-            klasse.SchülerHinzufügen(björn);
-
-            Sitzplan sitzplan = new Sitzplan(6, klasse);
+            random = new Random(123);
+            Sitzplan sitzplan = GeneriereTestSitzplan(6, 40, 123);
 
             string path = @"test\abc\123\sitzplan1.json";
 
@@ -40,6 +23,38 @@ namespace ProjektSitzplan
             sitzplan = Sitzplan.AusDateiLaden(path);
 
             Print(sitzplan.ToString());
+        }
+
+        private static Sitzplan GeneriereTestSitzplan(int Tische, int SchülerAnzahl, int seed)
+        {
+            return new Sitzplan(Tische, GeneriereTestKlasse(SchülerAnzahl), seed);
+        }
+
+        private static SchulKlasse GeneriereTestKlasse(int SchülerAnzahl)
+        {
+            Lehrer lehrer = new Lehrer("KlassenLehrer", "KlassenLehrer", RandomGeschlecht(), Person.EBeruf.Lehrer);
+            SchulKlasse klasse = new SchulKlasse(lehrer);
+            AddTestData(klasse, SchülerAnzahl);
+            return klasse;
+        }
+
+
+        private static void AddTestData(SchulKlasse klasse, int Anzahl)
+        {
+            for (int i = 0; i < Anzahl; i++)
+            {
+                klasse.SchülerHinzufügen(new Schüler($"Test {i}v", $"Text {i}n", RandomGeschlecht(), RandomBeruf(), new Betrieb($"Text {i}b")));
+            }
+        }
+
+        private static Person.EGeschlecht RandomGeschlecht()
+        {
+            return (Person.EGeschlecht)random.Next(2);
+        }
+
+        private static Person.EBeruf RandomBeruf()
+        {
+            return (Person.EBeruf)random.Next(1, 7);
         }
 
         public static void Print(string s)
