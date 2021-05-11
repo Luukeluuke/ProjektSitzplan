@@ -7,20 +7,15 @@ using System.Threading.Tasks;
 
 namespace ProjektSitzplan
 {
-    class Tisch
+    class TischBlock
     {
-        public int SitzplatzAnzahl { get; private set; }
         public List<Schüler> Sitzplätze { get; private set; } = new List<Schüler>();
 
-        public Tisch(int sitzplatzAnzahl)
-        {
-            SitzplatzAnzahl = sitzplatzAnzahl;
-        }
+        public TischBlock() { }
 
         [JsonConstructor]
-        public Tisch(int sitzplatzAnzahl, List<Schüler> schülerListe)
+        public TischBlock(List<Schüler> schülerListe)
         {
-            SitzplatzAnzahl = sitzplatzAnzahl;
             Sitzplätze = schülerListe;
         }
 
@@ -29,12 +24,6 @@ namespace ProjektSitzplan
             if (schüler == null)
             {
                 // todo throw schüler null exception
-                return;
-            }
-
-            if (Sitzplätze.Count >= SitzplatzAnzahl)
-            {
-                // todo throw tisch voll exception
                 return;
             }
 

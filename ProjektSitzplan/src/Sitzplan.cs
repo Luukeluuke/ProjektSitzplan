@@ -11,7 +11,7 @@ namespace ProjektSitzplan
     class Sitzplan
     {
         public int TischAnzahl { get; private set; }
-        public List<Tisch> Tische { get; private set; } = new List<Tisch>();
+        public List<TischBlock> Tische { get; private set; }
         public SchulKlasse Klasse { get; private set; }
 
         public int Seed { get; private set; }
@@ -28,7 +28,7 @@ namespace ProjektSitzplan
         public Sitzplan(int tischAnzahl, SchulKlasse klasse) : this(tischAnzahl, klasse, Environment.TickCount) { }
 
         [JsonConstructor]
-        public Sitzplan(int tischAnzahl, SchulKlasse klasse, List<Tisch> tische, int seed)
+        public Sitzplan(int tischAnzahl, SchulKlasse klasse, List<TischBlock> tische, int seed)
         {
             TischAnzahl = tischAnzahl;
             Klasse = klasse;
@@ -56,6 +56,12 @@ namespace ProjektSitzplan
         {
             List<Schüler> GemischteSchülerListe = Mischen(Klasse.SchülerListe);
 
+            Tische = new List<TischBlock>();
+            for (int i = 0; i < TischAnzahl; i++)
+            {
+                Tische.Add(new TischBlock());
+            }
+
             /* Beispiel
                 6 tische mit 6 plätzen
                 30 Schüler
@@ -63,12 +69,23 @@ namespace ProjektSitzplan
                 prüfe ob bereits vorhanden im sleben ausbildungsbetrieb/geschlecht/beruf
              */
 
-            /*while(GemischteSchülerListe.Count > 0)
+            for(int tischCount = 0; GemischteSchülerListe.Count > 0; tischCount++)
             {
-                
-            }*/
+                if (tischCount > Tische.Count - 1)
+                {
+                    tischCount = 0;
+                }
 
-            // todo
+                TischBlock tisch = Tische[tischCount];
+
+                Schüler schüler = WähleGeeignetenSchüler(tisch, GemischteSchülerListe);
+
+                tisch.SchülerHinzufügen(schüler);
+                GemischteSchülerListe.Remove(schüler);
+            }
+
+
+            // todo test if this realy works...
             
             /*
             Möglichst unterschiedliche Verteilung in den maximal 6 Blöcken 
@@ -79,6 +96,36 @@ namespace ProjektSitzplan
             Berücksichtigung des Geschlechts (optional) 
             Verteilparameter einstellbar (optional)
             */
+        }
+
+        private Schüler WähleGeeignetenSchüler(TischBlock tisch, List<Schüler> gemischteSchüler)
+        {
+            Schüler höchsterSchüler = gemischteSchüler[0];
+            int höchstePunkte = BerechneSchülerpunkte(tisch, höchsterSchüler);
+            for (int i = 1; i < gemischteSchüler.Count; i++)
+            {
+                Schüler aktuellerSchüler = gemischteSchüler[i];
+                int schülerpunkte = BerechneSchülerpunkte(tisch, aktuellerSchüler);
+
+                if (schülerpunkte > höchstePunkte)
+                {
+                    höchstePunkte = schülerpunkte;
+                    höchsterSchüler = aktuellerSchüler;
+                }
+            }
+
+            return höchsterSchüler;
+        }
+
+        private int BerechneSchülerpunkte(TischBlock tisch, Schüler schüler)
+        {
+            int punkte = 0;
+
+            punkte += tisch.Sitzplätze.Any(sitzplatz => sitzplatz.AusbildungsBetrieb.Name.ToLower().Equals(schüler.AusbildungsBetrieb.Name.ToLower())) ? -1 : 1;
+            punkte += tisch.Sitzplätze.Any(sitzplatz => sitzplatz.Beruf == schüler.Beruf) ? -1 : 1;
+            punkte += tisch.Sitzplätze.Any(sitzplatz => sitzplatz.Geschlecht == schüler.Geschlecht) ? -1 : 1;
+
+            return punkte;
         }
 
         public void AlsDateiSpeichern(string path)

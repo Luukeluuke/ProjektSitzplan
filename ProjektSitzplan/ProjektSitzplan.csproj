@@ -71,8 +71,8 @@
     <Compile Include="src\Lehrer.cs" />
     <Compile Include="src\Person.cs" />
     <Compile Include="src\Schüler.cs" />
-    <Compile Include="src\Sitzplan1.cs" />
-    <Compile Include="src\Tisch.cs" />
+    <Compile Include="src\Sitzplan.cs" />
+    <Compile Include="src\TischBlock.cs" />
     <Compile Include="Test.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
