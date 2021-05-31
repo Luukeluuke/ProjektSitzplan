@@ -8,6 +8,6 @@ namespace ProjektSitzplan
 {
     class Lehrer : Person
     {
-        public Lehrer(string vorname, string nachname, EGeschlecht geschlecht, EBeruf beruf) : base(vorname, nachname, geschlecht, beruf) { }
+        public Lehrer(string vorname, string nachname, EGeschlecht geschlecht) : base(vorname, nachname, geschlecht, EBeruf.Lehrer) { }
     }
 }
