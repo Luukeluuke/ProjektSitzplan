@@ -57,12 +57,12 @@ namespace ProjektSitzplan
             klasse.SchülerHinzufügen(new Schüler("Danyel", "Tang", Person.EGeschlecht.Männlich, Person.EBeruf.Anwendungsentwicklung, new Betrieb("")));
             klasse.SchülerHinzufügen(new Schüler("Jerimy", "Duvall", Person.EGeschlecht.Männlich, Person.EBeruf.Anwendungsentwicklung, new Betrieb("")));
             klasse.SchülerHinzufügen(new Schüler("Martin", "Blanks", Person.EGeschlecht.Männlich, Person.EBeruf.Anwendungsentwicklung, new Betrieb("")));
-            klasse.SchülerHinzufügen(new Schüler("Oscar", "Wahl", Person.EGeschlecht.Männlich, Person.EBeruf.Anwendungsentwicklung, new Betrieb("")));
-            klasse.SchülerHinzufügen(new Schüler("Simon", "Shatley", Person.EGeschlecht.Männlich, Person.EBeruf.Anwendungsentwicklung, new Betrieb("")));
-            klasse.SchülerHinzufügen(new Schüler("Scott", "Orlandi", Person.EGeschlecht.Männlich, Person.EBeruf.Anwendungsentwicklung, new Betrieb("")));
-            klasse.SchülerHinzufügen(new Schüler("Christopher", "Palumbo", Person.EGeschlecht.Männlich, Person.EBeruf.Anwendungsentwicklung, new Betrieb("")));
-            klasse.SchülerHinzufügen(new Schüler("Erick", "Kühl", Person.EGeschlecht.Männlich, Person.EBeruf.Anwendungsentwicklung, new Betrieb("")));
-            
+            klasse.SchülerHinzufügen(new Schüler("Light", "Yagami", Person.EGeschlecht.Männlich, Person.EBeruf.Anwendungsentwicklung, new Betrieb("")));
+            klasse.SchülerHinzufügen(new Schüler("Eren", "Jäger", Person.EGeschlecht.Männlich, Person.EBeruf.Anwendungsentwicklung, new Betrieb("")));
+            klasse.SchülerHinzufügen(new Schüler("Levi", "Ackerman", Person.EGeschlecht.Männlich, Person.EBeruf.Anwendungsentwicklung, new Betrieb("")));
+            klasse.SchülerHinzufügen(new Schüler("Erwin", "Smith", Person.EGeschlecht.Männlich, Person.EBeruf.Anwendungsentwicklung, new Betrieb("")));
+            klasse.SchülerHinzufügen(new Schüler("Minato", "Namikaze", Person.EGeschlecht.Männlich, Person.EBeruf.Anwendungsentwicklung, new Betrieb("")));
+
             // SEL
             klasse.SchülerHinzufügen(new Schüler("Logan", "Buckland", Person.EGeschlecht.Männlich, Person.EBeruf.SystemElektroniker, new Betrieb("")));
             klasse.SchülerHinzufügen(new Schüler("Danny", "Winkelman", Person.EGeschlecht.Männlich, Person.EBeruf.SystemElektroniker, new Betrieb("")));
@@ -90,16 +90,16 @@ namespace ProjektSitzplan
             klasse.SchülerHinzufügen(new Schüler("Eden", "Douthitt", Person.EGeschlecht.Männlich, Person.EBeruf.SystemIntegration, new Betrieb("")));
             klasse.SchülerHinzufügen(new Schüler("Nat", "Defrancisco", Person.EGeschlecht.Männlich, Person.EBeruf.SystemIntegration, new Betrieb("")));
             klasse.SchülerHinzufügen(new Schüler("Norris", "Vargas", Person.EGeschlecht.Männlich, Person.EBeruf.SystemIntegration, new Betrieb("")));
-            klasse.SchülerHinzufügen(new Schüler("Light", "Yagami", Person.EGeschlecht.Männlich, Person.EBeruf.SystemIntegration, new Betrieb("")));
-            klasse.SchülerHinzufügen(new Schüler("Eren", "Jäger", Person.EGeschlecht.Männlich, Person.EBeruf.SystemIntegration, new Betrieb("")));
-            klasse.SchülerHinzufügen(new Schüler("Levi", "Ackerman", Person.EGeschlecht.Männlich, Person.EBeruf.SystemIntegration, new Betrieb("")));
-            klasse.SchülerHinzufügen(new Schüler("Erwin", "Smith", Person.EGeschlecht.Männlich, Person.EBeruf.SystemIntegration, new Betrieb("")));
-            klasse.SchülerHinzufügen(new Schüler("Minato", "Namikaze", Person.EGeschlecht.Männlich, Person.EBeruf.SystemIntegration, new Betrieb("")));
             klasse.SchülerHinzufügen(new Schüler("Jonas", "Chacko", Person.EGeschlecht.Männlich, Person.EBeruf.SystemIntegration, new Betrieb("")));
             klasse.SchülerHinzufügen(new Schüler("Benny", "Warnock", Person.EGeschlecht.Männlich, Person.EBeruf.SystemIntegration, new Betrieb("")));
             klasse.SchülerHinzufügen(new Schüler("Patrick", "Demaria", Person.EGeschlecht.Männlich, Person.EBeruf.SystemIntegration, new Betrieb("")));
             klasse.SchülerHinzufügen(new Schüler("Hans", "Cowley", Person.EGeschlecht.Männlich, Person.EBeruf.SystemIntegration, new Betrieb("")));
             klasse.SchülerHinzufügen(new Schüler("Gerry", "Herzog", Person.EGeschlecht.Männlich, Person.EBeruf.SystemIntegration, new Betrieb("")));
+            klasse.SchülerHinzufügen(new Schüler("Oscar", "Wahl", Person.EGeschlecht.Männlich, Person.EBeruf.SystemIntegration, new Betrieb("")));
+            klasse.SchülerHinzufügen(new Schüler("Simon", "Shatley", Person.EGeschlecht.Männlich, Person.EBeruf.SystemIntegration, new Betrieb("")));
+            klasse.SchülerHinzufügen(new Schüler("Scott", "Orlandi", Person.EGeschlecht.Männlich, Person.EBeruf.SystemIntegration, new Betrieb("")));
+            klasse.SchülerHinzufügen(new Schüler("Christopher", "Palumbo", Person.EGeschlecht.Männlich, Person.EBeruf.SystemIntegration, new Betrieb("")));
+            klasse.SchülerHinzufügen(new Schüler("Erick", "Kühl", Person.EGeschlecht.Männlich, Person.EBeruf.SystemIntegration, new Betrieb("")));
 
             Sitzplan sitzplan = new Sitzplan(6, klasse);
             sitzplan.AlsDateiSpeichern(path);
