@@ -10,11 +10,17 @@ namespace ProjektSitzplan
     class Schüler : Person
     {
         public Betrieb AusbildungsBetrieb { get; private set; }
+        // todo bild?
 
         [JsonConstructor]
         public Schüler(string vorname, string nachname, EGeschlecht geschlecht, EBeruf beruf, Betrieb betrieb) : base(vorname, nachname, geschlecht, beruf)
         {
             AusbildungsBetrieb = betrieb;
+        }
+
+        public override string ToString()
+        {
+            return $"{base.ToString()}, Betrieb: {AusbildungsBetrieb.Name}";
         }
     }
 }

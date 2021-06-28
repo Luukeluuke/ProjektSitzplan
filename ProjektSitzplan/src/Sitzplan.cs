@@ -36,8 +36,9 @@ namespace ProjektSitzplan
             Tische = tische;
         }
 
-        public List<Schüler> Mischen(List<Schüler> liste)
+        public List<Schüler> Mischen(List<Schüler> originalListe)
         {
+            List<Schüler> liste = originalListe.OrderBy(schüler => schüler.Nachname).ToList();
             //Fisher-Yates shuffle https://en.wikipedia.org/wiki/Fisher–Yates_shuffle
             Random rand = new Random(Seed);
             int n = liste.Count;
@@ -100,6 +101,7 @@ namespace ProjektSitzplan
 
         private Schüler WähleGeeignetenSchüler(TischBlock tisch, List<Schüler> gemischteSchüler)
         {
+            Random rand = new Random(Seed);
             Schüler höchsterSchüler = gemischteSchüler[0];
             int höchstePunkte = BerechneSchülerpunkte(tisch, höchsterSchüler);
             for (int i = 1; i < gemischteSchüler.Count; i++)
@@ -110,6 +112,11 @@ namespace ProjektSitzplan
                 if (schülerpunkte > höchstePunkte)
                 {
                     höchstePunkte = schülerpunkte;
+                    höchsterSchüler = aktuellerSchüler;
+                }
+                // Zusätzlicher Zufallsfaktor
+                else if (schülerpunkte == höchstePunkte && rand.Next(0, 2) == 1)
+                {
                     höchsterSchüler = aktuellerSchüler;
                 }
             }

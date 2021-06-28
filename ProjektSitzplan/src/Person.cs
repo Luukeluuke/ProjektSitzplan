@@ -14,6 +14,7 @@ namespace ProjektSitzplan
         //public int Alter { get; private set; }
         public EGeschlecht Geschlecht { get; private set; }
         public EBeruf Beruf { get; private set; }
+        // todo bild?
 
         public enum EGeschlecht : ushort
         {
@@ -40,6 +41,11 @@ namespace ProjektSitzplan
             Nachname = nachname;
             Geschlecht = geschlecht;
             Beruf = beruf;
+        }
+
+        public override string ToString()
+        {
+            return $"({Vorname}, {Nachname}, {Geschlecht}, {Beruf})";
         }
     }
 }
