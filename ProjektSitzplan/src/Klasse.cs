@@ -12,6 +12,9 @@ namespace ProjektSitzplan
         public List<Schüler> SchülerListe { get; private set; } = new List<Schüler>();
         public Lehrer KlassenLehrer { get; private set; }
 
+        private static string errorEntfernen = "Schüler konnte nicht aus der Klasse entfernt werden.";
+        private static string errorHinzufügen = "Schüler konnte der Klasse nicht hinzugefügt werden.";
+
         public SchulKlasse(Lehrer lehrer)
         {
             KlassenLehrer = lehrer;
@@ -27,14 +30,12 @@ namespace ProjektSitzplan
         {
             if (schüler == null)
             {
-                // todo throw schüler null exception
-                return;
+                throw new SchülerNullException(errorHinzufügen);
             }
 
             if (SchülerListe.Contains(schüler))
             {
-                // todo throw schüler bereits in tisch exception
-                return;
+                throw new SchülerInListeException(schüler, errorHinzufügen);
             }
 
             SchülerListe.Add(schüler);
@@ -44,14 +45,12 @@ namespace ProjektSitzplan
         {
             if (schüler == null)
             {
-                // todo throw schüler null exception
-                return;
+                throw new SchülerNullException(errorEntfernen);
             }
 
             if (!SchülerListe.Contains(schüler))
             {
-                // todo schüler nicht in list exception
-                return;
+                throw new SchülerNichtInListeException(schüler, errorEntfernen);
             }
 
             SchülerListe.Remove(schüler);

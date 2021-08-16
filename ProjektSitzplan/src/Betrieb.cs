@@ -18,9 +18,9 @@ namespace ProjektSitzplan
         }
 
         [JsonConstructor]
-        public Betrieb(string name, string email) : this(name)
+        public Betrieb(string name, string eMail) : this(name)
         {
-            EMail = email;
+            EMail = eMail;
         }
     }
 }

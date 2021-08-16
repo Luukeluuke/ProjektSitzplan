@@ -11,26 +11,27 @@ namespace ProjektSitzplan
     {
         public List<Schüler> Sitzplätze { get; private set; } = new List<Schüler>();
 
+        private static string errorEntfernen = "Schüler konnte nicht von dem TischBlock entfernt werden.";
+        private static string errorHinzufügen = "Schüler konnte dem TischBlock nicht hinzugefügt werden.";
+
         public TischBlock() { }
 
         [JsonConstructor]
-        public TischBlock(List<Schüler> schülerListe)
+        public TischBlock(List<Schüler> sitzplätze)
         {
-            Sitzplätze = schülerListe;
+            Sitzplätze = sitzplätze;
         }
 
         public void SchülerHinzufügen(Schüler schüler)
         {
             if (schüler == null)
             {
-                // todo throw schüler null exception
-                return;
+                throw new SchülerNullException(errorHinzufügen);
             }
 
             if (Sitzplätze.Contains(schüler))
             {
-                // todo throw schüler bereits in tisch exception
-                return;
+                throw new SchülerInListeException(schüler, errorHinzufügen);
             }
 
             Sitzplätze.Add(schüler);
@@ -40,14 +41,12 @@ namespace ProjektSitzplan
         {
             if (schüler == null)
             {
-                // todo throw schüler null exception
-                return;
+                throw new SchülerNullException(errorEntfernen);
             }
 
             if (!Sitzplätze.Contains(schüler))
             {
-                // todo schüler nicht in list exception
-                return;
+                throw new SchülerNichtInListeException(schüler, errorEntfernen);
             }
 
             Sitzplätze.Remove(schüler);

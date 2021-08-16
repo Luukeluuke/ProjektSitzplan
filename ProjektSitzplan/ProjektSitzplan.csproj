@@ -71,6 +71,7 @@
     <Compile Include="src\Lehrer.cs" />
     <Compile Include="src\Person.cs" />
     <Compile Include="src\Schüler.cs" />
+    <Compile Include="src\SchülerException.cs" />
     <Compile Include="src\Sitzplan.cs" />
     <Compile Include="src\TischBlock.cs" />
     <Compile Include="Test.cs" />

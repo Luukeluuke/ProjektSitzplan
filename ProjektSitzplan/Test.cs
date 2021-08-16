@@ -20,8 +20,6 @@ namespace ProjektSitzplan
             Sitzplan sitzplan2 = LadeTestSitzplan();
             Print(sitzplan2.ToString());
 
-            //todo fix save/load tisch from json in sitzplan
-
             /*
             Sitzplan sitzplan = GeneriereTestSitzplan(6, 40, 123);
 
@@ -31,7 +29,6 @@ namespace ProjektSitzplan
             sitzplan = Sitzplan.AusDateiLaden(path);
             Print(sitzplan.ToString());
             //*/
-
 
         }
 
@@ -46,7 +43,7 @@ namespace ProjektSitzplan
             
             try
             {
-                return Sitzplan.AusDateiLaden(pfad);
+              return Sitzplan.AusDateiLaden(pfad);
             }
             catch (FileNotFoundException) { }
 
@@ -65,7 +62,7 @@ namespace ProjektSitzplan
             klasse.SchülerHinzufügen(new Schüler("Levi", "Ackerman", Person.EGeschlecht.Männlich, Person.EBeruf.Anwendungsentwicklung, new Betrieb("")));
             klasse.SchülerHinzufügen(new Schüler("Erwin", "Smith", Person.EGeschlecht.Männlich, Person.EBeruf.Anwendungsentwicklung, new Betrieb("")));
             klasse.SchülerHinzufügen(new Schüler("Minato", "Namikaze", Person.EGeschlecht.Männlich, Person.EBeruf.Anwendungsentwicklung, new Betrieb("")));
-
+            
             // SEL
             klasse.SchülerHinzufügen(new Schüler("Logan", "Buckland", Person.EGeschlecht.Männlich, Person.EBeruf.SystemElektroniker, new Betrieb("")));
             klasse.SchülerHinzufügen(new Schüler("Danny", "Winkelman", Person.EGeschlecht.Männlich, Person.EBeruf.SystemElektroniker, new Betrieb("")));

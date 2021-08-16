@@ -1,9 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProjektSitzplan
 {
@@ -12,10 +7,15 @@ namespace ProjektSitzplan
         public Betrieb AusbildungsBetrieb { get; private set; }
         // todo bild?
 
-        [JsonConstructor]
-        public Schüler(string vorname, string nachname, EGeschlecht geschlecht, EBeruf beruf, Betrieb betrieb) : base(vorname, nachname, geschlecht, beruf)
+        public Schüler(string vorname, string nachname, EGeschlecht geschlecht, EBeruf beruf, Betrieb ausbildungsBetrieb) : base(vorname, nachname, geschlecht, beruf, null)
         {
-            AusbildungsBetrieb = betrieb;
+            AusbildungsBetrieb = ausbildungsBetrieb;
+        }
+
+        [JsonConstructor]
+        public Schüler(string vorname, string nachname, EGeschlecht geschlecht, EBeruf beruf, string eMail, Betrieb ausbildungsBetrieb) : base(vorname, nachname, geschlecht, beruf, eMail)
+        {
+            AusbildungsBetrieb = ausbildungsBetrieb;
         }
 
         public override string ToString()

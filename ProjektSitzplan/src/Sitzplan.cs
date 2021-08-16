@@ -147,8 +147,7 @@ namespace ProjektSitzplan
             {
                 return JsonConvert.DeserializeObject<Sitzplan>(File.ReadAllText(path));
             }
-            // todo exception handling? custom exception
-            throw new FileNotFoundException();
+            throw new PfadNichtGefundenException(path, "Beim laden des sitzplans ist ein fehler aufgetreten!");
         }
     }
 }
