@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using ProjektSitzplan.Exceptions;
 using System.Collections.Generic;
 
 namespace ProjektSitzplan.Structures

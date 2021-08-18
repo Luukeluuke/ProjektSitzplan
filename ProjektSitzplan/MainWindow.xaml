@@ -7,37 +7,29 @@
         xmlns:local="clr-namespace:ProjektSitzplan" xmlns:System="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Height="600" Width="1000" MinHeight="600" MinWidth="1000"
-        WindowStyle="None" ResizeMode="CanResize" AllowsTransparency="True"
-        Activated="Window_Activated" Deactivated="Window_Deactivated">
+        WindowStyle="None" ResizeMode="CanResize" AllowsTransparency="True">
     <WindowChrome.WindowChrome>
-        <WindowChrome CaptionHeight="35" UseAeroCaptionButtons="False">
+        <WindowChrome CaptionHeight="32">
         </WindowChrome>
     </WindowChrome.WindowChrome>
-    <Border x:Name="WindowBorder" BorderThickness="1" BorderBrush="{StaticResource Black}">
+    <Border x:Name="WindowBorder" BorderThickness="1" BorderBrush="{StaticResource 2}">
         <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="200"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="35"></RowDefinition>
+                <RowDefinition Height="32"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="60"></RowDefinition>
             </Grid.RowDefinitions>
-            <Border Grid.ColumnSpan="3" Grid.Row="0" BorderThickness="0 0 0 1" BorderBrush="{StaticResource Black}" Background="{StaticResource OxfordBlue}">
+            <Border Grid.ColumnSpan="3" Grid.Row="0" BorderThickness="0 0 0 1" BorderBrush="{StaticResource 2}" Background="{StaticResource 1}">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="200"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
-                        <ColumnDefinition Width="200"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Label Content="LOGO SITZPLAN" Foreground="{StaticResource OrangeWeb}" FontFamily="Segoe UI Semibold" FontSize="16"></Label>
+                    <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5 0 0 0">
+                        <Label Content="LOGO" Foreground="{StaticResource 3}" FontFamily="Segoe UI Semibold" FontSize="16"></Label>
+                        <Label Content="Sitzplan" Foreground="{StaticResource 3}" FontFamily="Segoe UI Semibold" FontSize="16" Margin="5 0 0 0"></Label>
                     </StackPanel>
-                    <Grid Grid.Column="1">
-                        <!-- TODO: -->
-                    </Grid>
                     <Grid Grid.Column="2" HorizontalAlignment="Right" WindowChrome.IsHitTestVisibleInChrome="True">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"></ColumnDefinition>
@@ -56,21 +48,8 @@
                     </Grid>
                 </Grid>
             </Border>
-            <Grid Grid.Column="0" Grid.Row="1" Background="{StaticResource OxfordBlue}">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="80"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"></RowDefinition>
-                        <RowDefinition Height="*"></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                        <Label Content="Sitzpläne" Foreground="{StaticResource White}" FontFamily="Segoe UI Semibold" FontSize="16"></Label>
-                    </StackPanel>
-                </Grid>
-                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" IsTabStop="False">
+            <Grid Grid.Column="0" Grid.Row="1" Background="{StaticResource 1}">
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible" IsTabStop="False">
                     <ItemsControl x:Name="SitzpläneItemsControl">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
@@ -82,13 +61,27 @@
                     </ItemsControl>
                 </ScrollViewer>
             </Grid>
-            <Grid Grid.Column="1" Grid.Row="1" Background="{StaticResource OxfordBlue}">
-                <Button x:Name="TestButton" Grid.Column="1" Grid.Row="1" Content="Teste mich!" HorizontalAlignment="Center" VerticalAlignment="Center" Width="134" Click="TestButton_Click"/>
+            <Grid Grid.Column="1" Grid.Row="1" Background="{StaticResource 1}">
+                <Button x:Name="TestButton" Grid.Column="1" Grid.Row="1" Content="Ja" HorizontalAlignment="Center" VerticalAlignment="Center" Width="134" Click="TestButton_Click"/>
             </Grid>
-            <Grid Grid.Column="2" Grid.Row="1" Background="{StaticResource OxfordBlue}">
-                
+            <Grid Grid.Column="0" Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Border Grid.Column="0" Grid.Row="0" BorderThickness="0 1 0 0" BorderBrush="{StaticResource 2_1}">
+                    <Menu Height="Auto" Background="{StaticResource 1}" Foreground="{StaticResource 4}" FontSize="14" FontFamily="Segoe UI Semibold">
+                        <MenuItem Header="Datei " materialDesign:RippleAssist.IsDisabled="True" Height="25" Width="Auto" >
+                            <MenuItem Header="Neu " Margin="0" materialDesign:RippleAssist.IsDisabled="True" Height="25" Width="Auto">
+                                <MenuItem Header="Sitzplan " Margin="0" materialDesign:RippleAssist.IsDisabled="True" Height="25" Width="Auto"></MenuItem>
+                                <MenuItem Header="Klasse " Margin="0" materialDesign:RippleAssist.IsDisabled="True" Height="25" Width="Auto"></MenuItem>
+                                <MenuItem Header="Lehrer " Margin="0" materialDesign:RippleAssist.IsDisabled="True" Height="25" Width="Auto"></MenuItem>
+                            </MenuItem>
+                        </MenuItem>
+                    </Menu>
+                </Border>
             </Grid>
-            <Border Grid.ColumnSpan="3" Grid.Row="3" BorderThickness="0 1 0 0" BorderBrush="{StaticResource Black}" Background="{StaticResource OxfordBlue}">
+            <Border Grid.ColumnSpan="3" Grid.Row="3" BorderThickness="0 1 0 0" BorderBrush="{StaticResource 2}" Background="{StaticResource 1}">
                 
             </Border>
         </Grid>

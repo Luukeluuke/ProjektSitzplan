@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjektSitzplan.Structures;
+using System;
 
 namespace ProjektSitzplan.Exceptions
 {

@@ -11,15 +11,12 @@ namespace ProjektSitzplan
     /// </summary>
     public partial class MainWindow : Window
     {
-        private static SolidColorBrush DarkBlue = GetColor("212A49");
-        private static SolidColorBrush Blue = GetColor("223055");
-        private static SolidColorBrush Gray = GetColor("3E4866");
-        private static SolidColorBrush LightGray = GetColor("4E5A80");
-        private static SolidColorBrush White = GetColor("FBFAFF");
-        private static SolidColorBrush Turqouise = GetColor("20E9B5");
-
-        private static SolidColorBrush LightBlue = GetColor("253154");
-        private static SolidColorBrush VeryLightBlue = GetColor("28355C");
+        private static SolidColorBrush c1 = GetColor("232834");
+        private static SolidColorBrush c2 = GetColor("32394B");
+        private static SolidColorBrush c2_1 = GetColor("282E3C");
+        private static SolidColorBrush c3 = GetColor("FBD03C");
+        private static SolidColorBrush c3_1 = GetColor("FCDA61");
+        private static SolidColorBrush c4 = GetColor("F1F1F1");
 
         public MainWindow()
         {
@@ -152,18 +149,6 @@ namespace ProjektSitzplan
 
         [DllImport("User32")]
         internal static extern IntPtr MonitorFromWindow(IntPtr handle, int flags);
-        #endregion
-
-        #region Window
-        private void Window_Activated(object sender, System.EventArgs e)
-        {
-            WindowBorder.BorderBrush = Gray;
-        }
-
-        private void Window_Deactivated(object sender, System.EventArgs e)
-        {
-            WindowBorder.BorderBrush = LightGray;
-        }
         #endregion
 
         #region WindowMinimizeButton
