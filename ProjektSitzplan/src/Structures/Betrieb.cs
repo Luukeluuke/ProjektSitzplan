@@ -1,18 +1,13 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ProjektSitzplan
+namespace ProjektSitzplan.Structures
 {
     class Betrieb
     {
         public string Name { get; private set; }
         public string EMail { get; private set; } = null;
 
-        public Betrieb (string name)
+        public Betrieb(string name)
         {
             Name = name;
         }

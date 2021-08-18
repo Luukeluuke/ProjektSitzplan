@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace ProjektSitzplan
+namespace ProjektSitzplan.Structures
 {
     class Schüler : Person
     {

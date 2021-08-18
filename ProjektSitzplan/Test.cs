@@ -1,10 +1,5 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace ProjektSitzplan
@@ -40,10 +35,10 @@ namespace ProjektSitzplan
         private static Sitzplan LadeTestSitzplan()
         {
             string pfad = @"testing\TestKlasse.json";
-            
+
             try
             {
-              return Sitzplan.AusDateiLaden(pfad);
+                return Sitzplan.AusDateiLaden(pfad);
             }
             catch (FileNotFoundException) { }
 
@@ -62,12 +57,12 @@ namespace ProjektSitzplan
             klasse.SchülerHinzufügen(new Schüler("Levi", "Ackerman", Person.EGeschlecht.Männlich, Person.EBeruf.Anwendungsentwicklung, new Betrieb("")));
             klasse.SchülerHinzufügen(new Schüler("Erwin", "Smith", Person.EGeschlecht.Männlich, Person.EBeruf.Anwendungsentwicklung, new Betrieb("")));
             klasse.SchülerHinzufügen(new Schüler("Minato", "Namikaze", Person.EGeschlecht.Männlich, Person.EBeruf.Anwendungsentwicklung, new Betrieb("")));
-            
+
             // SEL
             klasse.SchülerHinzufügen(new Schüler("Logan", "Buckland", Person.EGeschlecht.Männlich, Person.EBeruf.SystemElektroniker, new Betrieb("")));
             klasse.SchülerHinzufügen(new Schüler("Danny", "Winkelman", Person.EGeschlecht.Männlich, Person.EBeruf.SystemElektroniker, new Betrieb("")));
             klasse.SchülerHinzufügen(new Schüler("Denis", "Khang", Person.EGeschlecht.Männlich, Person.EBeruf.SystemElektroniker, new Betrieb("")));
-            
+
             // SIN
             klasse.SchülerHinzufügen(new Schüler("Staci", "Mote", Person.EGeschlecht.Weiblich, Person.EBeruf.SystemIntegration, new Betrieb("")));
             klasse.SchülerHinzufügen(new Schüler("Burk", "Balcon", Person.EGeschlecht.Männlich, Person.EBeruf.SystemIntegration, new Betrieb("")));

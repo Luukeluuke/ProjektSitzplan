@@ -3,10 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ProjektSitzplan
+namespace ProjektSitzplan.Structures
 {
     class Sitzplan
     {
@@ -70,7 +68,7 @@ namespace ProjektSitzplan
                 prüfe ob bereits vorhanden im sleben ausbildungsbetrieb/geschlecht/beruf
              */
 
-            for(int tischCount = 0; GemischteSchülerListe.Count > 0; tischCount++)
+            for (int tischCount = 0; GemischteSchülerListe.Count > 0; tischCount++)
             {
                 if (tischCount > Tische.Count - 1)
                 {
@@ -87,7 +85,7 @@ namespace ProjektSitzplan
 
 
             // todo test if this realy works...
-            
+
             /*
             Möglichst unterschiedliche Verteilung in den maximal 6 Blöcken 
             Maximale Trennung von Azubis aus demselben Betrieb 
@@ -147,7 +145,7 @@ namespace ProjektSitzplan
             {
                 return JsonConvert.DeserializeObject<Sitzplan>(File.ReadAllText(path));
             }
-            throw new PfadNichtGefundenException(path, "Beim laden des sitzplans ist ein fehler aufgetreten!");
+            throw new PfadNichtGefundenException(path, "Beim laden des Sitzplans ist ein Fehler aufgetreten!");
         }
     }
 }

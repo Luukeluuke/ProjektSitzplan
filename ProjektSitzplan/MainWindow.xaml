@@ -10,9 +10,10 @@
         WindowStyle="None" ResizeMode="CanResize" AllowsTransparency="True"
         Activated="Window_Activated" Deactivated="Window_Deactivated">
     <WindowChrome.WindowChrome>
-        <WindowChrome CaptionHeight="40"></WindowChrome>
+        <WindowChrome CaptionHeight="35" UseAeroCaptionButtons="False">
+        </WindowChrome>
     </WindowChrome.WindowChrome>
-    <Border x:Name="WindowBorder" BorderThickness="1" BorderBrush="{StaticResource Gray}">
+    <Border x:Name="WindowBorder" BorderThickness="1" BorderBrush="{StaticResource Black}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200"></ColumnDefinition>
@@ -20,11 +21,11 @@
                 <ColumnDefinition Width="200"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="35"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
                 <RowDefinition Height="60"></RowDefinition>
             </Grid.RowDefinitions>
-            <Border Grid.ColumnSpan="3" Grid.Row="0" BorderThickness="0 0 0 1" BorderBrush="{StaticResource Gray}" Background="{StaticResource DarkBlue}">
+            <Border Grid.ColumnSpan="3" Grid.Row="0" BorderThickness="0 0 0 1" BorderBrush="{StaticResource Black}" Background="{StaticResource OxfordBlue}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="200"></ColumnDefinition>
@@ -32,16 +33,16 @@
                         <ColumnDefinition Width="200"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Label Content="LOGO SITZPLAN" Foreground="{StaticResource Turqouise}" FontFamily="Segoe UI Semibold" FontSize="16"></Label>
+                        <Label Content="LOGO SITZPLAN" Foreground="{StaticResource OrangeWeb}" FontFamily="Segoe UI Semibold" FontSize="16"></Label>
                     </StackPanel>
                     <Grid Grid.Column="1">
                         <!-- TODO: -->
                     </Grid>
-                    <Grid Grid.Column="2">
+                    <Grid Grid.Column="2" HorizontalAlignment="Right" WindowChrome.IsHitTestVisibleInChrome="True">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <Button x:Name="WindowMinimizeButton" Grid.Column="0" Template="{StaticResource Flat}" Background="{x:Null}" Height="Auto" materialDesign:RippleAssist.Feedback="Transparent" IsTabStop="False" Click="WindowMinimizeButton_Click" PreviewMouseDown="WindowMinimizeButton_PreviewMouseDown" MouseEnter="WindowMinimizeButton_MouseEnter" MouseLeave="WindowMinimizeButton_MouseLeave">
                             <Image Source="/ProjektSitzplan;component/src/Design/Images/Minimize.png"></Image>
@@ -55,7 +56,7 @@
                     </Grid>
                 </Grid>
             </Border>
-            <Grid Grid.Column="0" Grid.Row="1" Background="{StaticResource Blue}">
+            <Grid Grid.Column="0" Grid.Row="1" Background="{StaticResource OxfordBlue}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="80"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
@@ -81,13 +82,13 @@
                     </ItemsControl>
                 </ScrollViewer>
             </Grid>
-            <Grid Grid.Column="1" Grid.Row="1" Background="{StaticResource VeryLightBlue}">
+            <Grid Grid.Column="1" Grid.Row="1" Background="{StaticResource OxfordBlue}">
                 <Button x:Name="TestButton" Grid.Column="1" Grid.Row="1" Content="Teste mich!" HorizontalAlignment="Center" VerticalAlignment="Center" Width="134" Click="TestButton_Click"/>
             </Grid>
-            <Grid Grid.Column="2" Grid.Row="1" Background="{StaticResource Blue}">
+            <Grid Grid.Column="2" Grid.Row="1" Background="{StaticResource OxfordBlue}">
                 
             </Grid>
-            <Border Grid.ColumnSpan="3" Grid.Row="3" BorderThickness="0 1 0 0" BorderBrush="{StaticResource Gray}" Background="{StaticResource DarkBlue}">
+            <Border Grid.ColumnSpan="3" Grid.Row="3" BorderThickness="0 1 0 0" BorderBrush="{StaticResource Black}" Background="{StaticResource OxfordBlue}">
                 
             </Border>
         </Grid>

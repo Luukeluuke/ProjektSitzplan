@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Interop;
 using System.Windows.Media;
 
 namespace ProjektSitzplan
@@ -23,11 +24,17 @@ namespace ProjektSitzplan
         public MainWindow()
         {
             InitializeComponent();
+
+            SourceInitialized += (s, e) =>
+            {
+                IntPtr handle = (new WindowInteropHelper(this)).Handle;
+                HwndSource.FromHwnd(handle).AddHook(new HwndSourceHook(WindowProc));
+            };
         }
-        
+
         private void TestButton_Click(object sender, RoutedEventArgs e)
         {
-            Test.TestFunction ();
+            Test.TestFunction();
         }
 
         #region WindowProc Handling

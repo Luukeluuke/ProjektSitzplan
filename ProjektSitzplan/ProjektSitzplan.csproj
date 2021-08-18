@@ -66,14 +66,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="src\Betrieb.cs" />
-    <Compile Include="src\Klasse.cs" />
-    <Compile Include="src\Lehrer.cs" />
-    <Compile Include="src\Person.cs" />
-    <Compile Include="src\Schüler.cs" />
+    <Compile Include="src\Structures\Betrieb.cs" />
+    <Compile Include="src\Structures\Klasse.cs" />
+    <Compile Include="src\Structures\Lehrer.cs" />
+    <Compile Include="src\Structures\Person.cs" />
+    <Compile Include="src\Structures\Schüler.cs" />
     <Compile Include="src\SchülerException.cs" />
-    <Compile Include="src\Sitzplan.cs" />
-    <Compile Include="src\TischBlock.cs" />
+    <Compile Include="src\Structures\Sitzplan.cs" />
+    <Compile Include="src\Structures\TischBlock.cs" />
     <Compile Include="Test.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
