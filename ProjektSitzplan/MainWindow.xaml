@@ -12,82 +12,124 @@
         <WindowChrome CaptionHeight="32">
         </WindowChrome>
     </WindowChrome.WindowChrome>
-    <Border x:Name="WindowBorder" BorderThickness="1" BorderBrush="{StaticResource 2}">
+    <Border x:Name="WindowBorder" BorderThickness="1" BorderBrush="{StaticResource WindowBorderBrush}">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="32"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="60"></RowDefinition>
             </Grid.RowDefinitions>
-            <Border Grid.ColumnSpan="3" Grid.Row="0" BorderThickness="0 0 0 1" BorderBrush="{StaticResource 2}" Background="{StaticResource 1}">
-                <Grid>
+            <Grid Grid.Column="0" Grid.Row="0" Background="{StaticResource TopBarBackground}">
+                <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5 0 0 0">
+                    <!-- TODO: Hier kommt iwann das Logo hin -->
+                    <Label Content="Sitzplan" Foreground="{StaticResource TopBarForeground}" FontFamily="Segoe UI Semibold" FontSize="16"></Label>
+                </StackPanel>
+                <Grid Grid.Column="0" Grid.Row="0"  HorizontalAlignment="Right" WindowChrome.IsHitTestVisibleInChrome="True">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5 0 0 0">
-                        <Label Content="Sitzplan" Foreground="{StaticResource 3}" FontFamily="Segoe UI Semibold" FontSize="16"></Label>
-                    </StackPanel>
-                    <Grid Grid.Column="2" HorizontalAlignment="Right" WindowChrome.IsHitTestVisibleInChrome="True">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"></ColumnDefinition>
-                            <ColumnDefinition Width="Auto"></ColumnDefinition>
-                            <ColumnDefinition Width="Auto"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <Button x:Name="WindowMinimizeButton" Grid.Column="0" Template="{StaticResource Flat}" Background="{x:Null}" Height="Auto" materialDesign:RippleAssist.Feedback="Transparent" IsTabStop="False" Click="WindowMinimizeButton_Click" PreviewMouseDown="WindowMinimizeButton_PreviewMouseDown" MouseEnter="WindowMinimizeButton_MouseEnter" MouseLeave="WindowMinimizeButton_MouseLeave">
-                            <Image Source="/ProjektSitzplan;component/src/Design/Images/Minimize.png"></Image>
-                        </Button>
-                        <Button x:Name="WindowRestoreButton" Grid.Column="1" Template="{StaticResource Flat}" Background="{x:Null}" Height="Auto" materialDesign:RippleAssist.Feedback="Transparent" IsTabStop="False" Click="WindowRestoreButton_Click" PreviewMouseDown="WindowRestoreButton_PreviewMouseDown" MouseEnter="WindowRestoreButton_MouseEnter" MouseLeave="WindowRestoreButton_MouseLeave">
-                            <Image Source="/ProjektSitzplan;component/src/Design/Images/Restore1.png"></Image>
-                        </Button>
-                        <Button x:Name="WindowCloseButton" Grid.Column="2" Template="{StaticResource Flat}" Background="{x:Null}" Height="Auto" materialDesign:RippleAssist.Feedback="Transparent" IsTabStop="False" Click="WindowCloseButton_Click" PreviewMouseDown="WindowCloseButton_PreviewMouseDown" MouseEnter="WindowCloseButton_MouseEnter" MouseLeave="WindowCloseButton_MouseLeave">
-                            <Image Source="/ProjektSitzplan;component/src/Design/Images/Close.png"></Image>
-                        </Button>
+                    <Button x:Name="WindowMinimizeButton" Grid.Column="0" Template="{StaticResource Flat}" Background="{x:Null}" Height="30" materialDesign:RippleAssist.Feedback="Transparent" IsTabStop="False" Click="WindowMinimizeButton_Click" PreviewMouseDown="WindowMinimizeButton_PreviewMouseDown" MouseEnter="WindowMinimizeButton_MouseEnter" MouseLeave="WindowMinimizeButton_MouseLeave">
+                        <Image Source="/ProjektSitzplan;component/src/Design/Images/MinimizeB9BBBE.png"></Image>
+                    </Button>
+                    <Button x:Name="WindowRestoreButton" Grid.Column="1" Template="{StaticResource Flat}" Background="{x:Null}" Height="30" materialDesign:RippleAssist.Feedback="Transparent" IsTabStop="False" Click="WindowRestoreButton_Click" PreviewMouseDown="WindowRestoreButton_PreviewMouseDown" MouseEnter="WindowRestoreButton_MouseEnter" MouseLeave="WindowRestoreButton_MouseLeave">
+                        <Image Source="/ProjektSitzplan;component/src/Design/Images/Restore1B9BBBE.png"></Image>
+                    </Button>
+                    <Button x:Name="WindowCloseButton" Grid.Column="2" Template="{StaticResource Flat}" Background="{x:Null}" Height="30" materialDesign:RippleAssist.Feedback="Transparent" IsTabStop="False" Click="WindowCloseButton_Click" PreviewMouseDown="WindowCloseButton_PreviewMouseDown" MouseEnter="WindowCloseButton_MouseEnter" MouseLeave="WindowCloseButton_MouseLeave">
+                        <Image Source="/ProjektSitzplan;component/src/Design/Images/CloseB9BBBE.png"></Image>
+                    </Button>
+                </Grid>
+            </Grid>
+            <Grid Grid.Column="0" Grid.Row="1" Background="{StaticResource 1}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="180"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column="0" Grid.Row="0" BorderThickness="0 0 1 0" BorderBrush="{StaticResource TransitionStart}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="5"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Column="0" Grid.Row="0">
+                            <Menu Background="{StaticResource MenuBackground}" FontFamily="Segoe UI Semibold" FontSize="14">
+                                <MenuItem Height="30" Width="180">
+                                    <MenuItem>
+                                        <MenuItem.Header>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Label Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="14" Content="Speichern&#x09;&#x09;"></Label>
+                                                <Label Foreground="{StaticResource MenuShortcut}" Content="Strg + S"></Label>
+                                            </StackPanel>
+                                        </MenuItem.Header>
+                                    </MenuItem>
+                                    <MenuItem>
+                                        <MenuItem.Header>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Label Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="14" Content="Klasse erstellen&#x09;&#x09;"></Label>
+                                                <Label Foreground="{StaticResource MenuShortcut}" Content="Strg + N"></Label>
+                                            </StackPanel>
+                                        </MenuItem.Header>
+                                    </MenuItem>
+                                    <MenuItem>
+                                        <MenuItem.Header>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Label Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="14" Content="Klasse importieren&#x09;"></Label>
+                                                <Label Foreground="{StaticResource MenuShortcut}" Content="Strg + I"></Label>
+                                            </StackPanel>
+                                        </MenuItem.Header>
+                                    </MenuItem>
+                                    <MenuItem>
+                                        <MenuItem.Header>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Label Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="14" Content="Klasse exportieren&#x09;"></Label>
+                                                <Label Foreground="{StaticResource MenuShortcut}" Content="Strg + E"></Label>
+                                            </StackPanel>
+                                        </MenuItem.Header>
+                                    </MenuItem>
+                                    <MenuItem>
+                                        <MenuItem.Header>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Label Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="14" Content="Beenden&#x09;&#x09;&#x09;"></Label>
+                                                <Label Foreground="{StaticResource MenuShortcut}" Content="Alt + F4"></Label>
+                                            </StackPanel>
+                                        </MenuItem.Header>
+                                    </MenuItem>
+                                </MenuItem>
+                            </Menu>
+                            <Label Content="Datei" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="14" IsHitTestVisible="False"></Label>
+                            <!--<Button Grid.Column="0" Grid.Row="0" Template="{StaticResource Flat}" Height="30" Background="{StaticResource MenuBackground}" materialDesign:RippleAssist.IsDisabled="True"></Button>
+                            <Label x:Name="KlasseErstellenBtn" Content="Klasse erstellen" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource 4}" FontFamily="Segoe UI Semibold" FontSize="14" IsHitTestVisible="False"></Label>-->
+                        </Grid>
+                        <Border Grid.Column="0" Grid.Row="1" BorderThickness="0 1 0 0" BorderBrush="{StaticResource TransitionStart}" Background="{StaticResource MenuBackground}">
+                            <ScrollViewer>
+                                
+                            </ScrollViewer>
+                        </Border>
+                        <Grid Grid.Column="0" Grid.Row="2" Background="{StaticResource MenuBackground}">
+
+                        </Grid>
+                    </Grid>
+                </Border>
+                <Grid Grid.Column="1" Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="5"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Column="0" Grid.Row="0" Background="{StaticResource MenuBackground}">
+
+                    </Grid>
+                    <Border Grid.Column="0" Grid.Row="1" BorderThickness="0 1 0 1" BorderBrush="{StaticResource TransitionStart}">
+                        <Border BorderThickness="1" BorderBrush="{StaticResource TransitionEnd}" Background="{StaticResource ContentBackground}">
+                            <Button x:Name="TestButton" Grid.Column="0" Grid.Row="0" Content="Ja" HorizontalAlignment="Center" VerticalAlignment="Center" Width="134" Click="TestButton_Click"/>
+                        </Border>
+                    </Border>
+                    <Grid Grid.Column="0" Grid.Row="2" Background="{StaticResource MenuBackground}">
+                        
                     </Grid>
                 </Grid>
-            </Border>
-            <Grid Grid.Column="0" Grid.Row="1" Background="{StaticResource 1}">
-                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible" IsTabStop="False">
-                    <ItemsControl x:Name="SitzpläneItemsControl">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Grid>
-                                    
-                                </Grid>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </ScrollViewer>
             </Grid>
-            <Grid Grid.Column="0" Grid.Row="1" Background="{StaticResource 1}">
-            </Grid>
-            <Grid Grid.Column="0" Grid.Row="1">
-                <Grid Grid.Column="0" Grid.Row="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="180"></ColumnDefinition>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Border Grid.Column="0" Grid.Row="0" BorderThickness="0 0 1 0" BorderBrush="{StaticResource 2}">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="31"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <Border BorderThickness="0 0 0 1" BorderBrush="{StaticResource 2}">
-                                <Grid>
-                                    <Button Grid.Column="0" Grid.Row="0" Template="{StaticResource Flat}" Height="30" Background="{StaticResource 2_1}" materialDesign:RippleAssist.IsDisabled="True"></Button>
-                                    <Label x:Name="SitzplanErstellenBtn" Content="Sitzplan erstellen" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource 4}" FontFamily="Segoe UI Semibold" FontSize="14" IsHitTestVisible="False"></Label>
-                                </Grid>
-                            </Border>
-                        </Grid>
-                    </Border>
-                    <Button x:Name="TestButton" Grid.Column="1" Grid.Row="1" Content="Ja" HorizontalAlignment="Center" VerticalAlignment="Center" Width="134" Click="TestButton_Click"/>
-                </Grid>
-            </Grid>
-            <Border Grid.Column="0" Grid.Row="3" BorderThickness="0 1 0 0" BorderBrush="{StaticResource 2}" Background="{StaticResource 1}">
-                
-            </Border>
         </Grid>
     </Border>
 </Window>

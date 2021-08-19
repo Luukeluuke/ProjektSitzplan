@@ -124,10 +124,20 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="src\Design\Images\Close.png" />
-    <Resource Include="src\Design\Images\Minimize.png" />
-    <Resource Include="src\Design\Images\Restore1.png" />
-    <Resource Include="src\Design\Images\Restore2.png" />
+    <Resource Include="src\Design\Images\Restore1B9BBBE.png" />
+    <Resource Include="src\Design\Images\Restore1DCDDDE.png" />
+    <Resource Include="src\Design\Images\Restore1FFFFFF.png" />
+    <Resource Include="src\Design\Images\Restore2B9BBBE.png" />
+    <Resource Include="src\Design\Images\Restore2DCDDDE.png" />
+    <Resource Include="src\Design\Images\Restore2FFFFFF.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="src\Design\Images\CloseB9BBBE.png" />
+    <Resource Include="src\Design\Images\CloseDCDDDE.png" />
+    <Resource Include="src\Design\Images\CloseFFFFFF.png" />
+    <Resource Include="src\Design\Images\MinimizeB9BBBE.png" />
+    <Resource Include="src\Design\Images\MinimizeDCDDDE.png" />
+    <Resource Include="src\Design\Images\MinimizeFFFFFF.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets')" />

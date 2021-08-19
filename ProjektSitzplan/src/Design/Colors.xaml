@@ -7,6 +7,22 @@
     <SolidColorBrush x:Key="3_1" Color="#FCDA61"></SolidColorBrush>
     <SolidColorBrush x:Key="4" Color="#F1F1F1"></SolidColorBrush>
 
-    <SolidColorBrush x:Key="OxfordBlue_Übergang1" Color="#213052"></SolidColorBrush>
-    <SolidColorBrush x:Key="OxfordBlue_Übergang2" Color="#223152"></SolidColorBrush>
+    <SolidColorBrush x:Key="WindowBorderBrush" Color="#202225"></SolidColorBrush>
+    
+    <SolidColorBrush x:Key="TopBarBackground" Color="#202225"></SolidColorBrush>
+    <SolidColorBrush x:Key="TopBarForeground" Color="#878B91"></SolidColorBrush>
+    <SolidColorBrush x:Key="TopBarHoverForeground" Color="#D1DDDE"></SolidColorBrush>
+    <SolidColorBrush x:Key="TopBarPreviewForeground" Color="#FFFFFF"></SolidColorBrush>
+    
+    <SolidColorBrush x:Key="TransitionStart" Color="#2B2E33"></SolidColorBrush>
+    <SolidColorBrush x:Key="TransitionEnd" Color="#32353B"></SolidColorBrush>
+
+    <SolidColorBrush x:Key="ContentBackground" Color="#36393F"></SolidColorBrush>
+
+    <SolidColorBrush x:Key="MenuBackground" Color="#2F3136"></SolidColorBrush>
+    <SolidColorBrush x:Key="MenuForeground" Color="#D7D8D9"></SolidColorBrush>
+    <SolidColorBrush x:Key="MenuShortcut" Color="#878B91"></SolidColorBrush>
+    
+    <SolidColorBrush x:Key="ToolTipBackground" Color="#18191C"></SolidColorBrush>
+    <SolidColorBrush x:Key="ToolTipForeground" Color="#D7D8D9"></SolidColorBrush>
 </ResourceDictionary>

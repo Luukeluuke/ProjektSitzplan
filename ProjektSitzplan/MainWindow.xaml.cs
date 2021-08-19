@@ -20,6 +20,8 @@ namespace ProjektSitzplan
 
         public MainWindow()
         {
+            //TODO:In Menu typische symbole einbauen
+
             InitializeComponent();
 
             SourceInitialized += (s, e) =>
