@@ -87,7 +87,7 @@
                                             </StackPanel>
                                         </MenuItem.Header>
                                     </MenuItem>
-                                    <MenuItem>
+                                    <MenuItem x:Name="MenuBeendenBtn" Click="MenuBeendenBtn_Click">
                                         <MenuItem.Header>
                                             <StackPanel Orientation="Horizontal">
                                                 <Label Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="14" Content="Beenden&#x09;&#x09;&#x09;"></Label>

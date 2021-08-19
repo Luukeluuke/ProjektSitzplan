@@ -232,5 +232,10 @@ namespace ProjektSitzplan
             return (SolidColorBrush)new BrushConverter().ConvertFrom($"#{hex}");
         }
         #endregion
+
+        private void MenuBeendenBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }
