@@ -27,8 +27,7 @@
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5 0 0 0">
-                        <Label Content="LOGO" Foreground="{StaticResource 3}" FontFamily="Segoe UI Semibold" FontSize="16"></Label>
-                        <Label Content="Sitzplan" Foreground="{StaticResource 3}" FontFamily="Segoe UI Semibold" FontSize="16" Margin="5 0 0 0"></Label>
+                        <Label Content="Sitzplan" Foreground="{StaticResource 3}" FontFamily="Segoe UI Semibold" FontSize="16"></Label>
                     </StackPanel>
                     <Grid Grid.Column="2" HorizontalAlignment="Right" WindowChrome.IsHitTestVisibleInChrome="True">
                         <Grid.ColumnDefinitions>
@@ -61,27 +60,32 @@
                     </ItemsControl>
                 </ScrollViewer>
             </Grid>
-            <Grid Grid.Column="1" Grid.Row="1" Background="{StaticResource 1}">
-                <Button x:Name="TestButton" Grid.Column="1" Grid.Row="1" Content="Ja" HorizontalAlignment="Center" VerticalAlignment="Center" Width="134" Click="TestButton_Click"/>
+            <Grid Grid.Column="0" Grid.Row="1" Background="{StaticResource 1}">
             </Grid>
             <Grid Grid.Column="0" Grid.Row="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
-                </Grid.RowDefinitions>
-                <Border Grid.Column="0" Grid.Row="0" BorderThickness="0 1 0 0" BorderBrush="{StaticResource 2_1}">
-                    <Menu Height="Auto" Background="{StaticResource 1}" Foreground="{StaticResource 4}" FontSize="14" FontFamily="Segoe UI Semibold">
-                        <MenuItem Header="Datei " materialDesign:RippleAssist.IsDisabled="True" Height="25" Width="Auto" >
-                            <MenuItem Header="Neu " Margin="0" materialDesign:RippleAssist.IsDisabled="True" Height="25" Width="Auto">
-                                <MenuItem Header="Sitzplan " Margin="0" materialDesign:RippleAssist.IsDisabled="True" Height="25" Width="Auto"></MenuItem>
-                                <MenuItem Header="Klasse " Margin="0" materialDesign:RippleAssist.IsDisabled="True" Height="25" Width="Auto"></MenuItem>
-                                <MenuItem Header="Lehrer " Margin="0" materialDesign:RippleAssist.IsDisabled="True" Height="25" Width="Auto"></MenuItem>
-                            </MenuItem>
-                        </MenuItem>
-                    </Menu>
-                </Border>
+                <Grid Grid.Column="0" Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="180"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="0" Grid.Row="0" BorderThickness="0 0 1 0" BorderBrush="{StaticResource 2}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="31"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Border BorderThickness="0 0 0 1" BorderBrush="{StaticResource 2}">
+                                <Grid>
+                                    <Button Grid.Column="0" Grid.Row="0" Template="{StaticResource Flat}" Height="30" Background="{StaticResource 2_1}" materialDesign:RippleAssist.IsDisabled="True"></Button>
+                                    <Label x:Name="SitzplanErstellenBtn" Content="Sitzplan erstellen" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource 4}" FontFamily="Segoe UI Semibold" FontSize="14" IsHitTestVisible="False"></Label>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </Border>
+                    <Button x:Name="TestButton" Grid.Column="1" Grid.Row="1" Content="Ja" HorizontalAlignment="Center" VerticalAlignment="Center" Width="134" Click="TestButton_Click"/>
+                </Grid>
             </Grid>
-            <Border Grid.ColumnSpan="3" Grid.Row="3" BorderThickness="0 1 0 0" BorderBrush="{StaticResource 2}" Background="{StaticResource 1}">
+            <Border Grid.Column="0" Grid.Row="3" BorderThickness="0 1 0 0" BorderBrush="{StaticResource 2}" Background="{StaticResource 1}">
                 
             </Border>
         </Grid>
