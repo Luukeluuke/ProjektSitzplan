@@ -8,6 +8,7 @@ namespace ProjektSitzplan.Structures
     {
         public List<Schüler> SchülerListe { get; private set; } = new List<Schüler>();
         public Lehrer KlassenLehrer { get; private set; }
+        public List<Sitzplan> Sitzpläne { get; private set; } = new List<Sitzplan>();
 
         private static string errorEntfernen = "Schüler konnte nicht aus der Klasse entfernt werden.";
         private static string errorHinzufügen = "Schüler konnte der Klasse nicht hinzugefügt werden.";
@@ -21,6 +22,11 @@ namespace ProjektSitzplan.Structures
         public SchulKlasse(Lehrer klassenLehrer, List<Schüler> schülerListe) : this(klassenLehrer)
         {
             SchülerListe = schülerListe;
+        }
+
+        public void SitzplanHinzufügen(Sitzplan sitzplan)
+        {
+
         }
 
         public void SchülerHinzufügen(Schüler schüler)

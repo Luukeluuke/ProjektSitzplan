@@ -20,7 +20,8 @@ namespace ProjektSitzplan
 
         public MainWindow()
         {
-            //TODO:In Menu typische symbole einbauen
+            //TODO: In Menu typische symbole einbauen
+            //TODO: DIe Klasse Exportieren Funktion im Datei Menü Disablen wenn keine ausgewählt ist. Und die speichern funktion auch
 
             InitializeComponent();
 

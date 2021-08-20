@@ -58,32 +58,46 @@
                                     <MenuItem>
                                         <MenuItem.Header>
                                             <StackPanel Orientation="Horizontal">
-                                                <Label Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="14" Content="Speichern&#x09;&#x09;"></Label>
-                                                <Label Foreground="{StaticResource MenuShortcut}" Content="Strg + S"></Label>
+                                                <Label Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="14" Content="Klasse"></Label>
                                             </StackPanel>
                                         </MenuItem.Header>
+                                        <MenuItem>
+                                            <MenuItem.Header>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Label Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="14" Content="Klasse erstellen&#x09;&#x09;"></Label>
+                                                    <Label Foreground="{StaticResource MenuShortcut}" Content="Strg + N"></Label>
+                                                </StackPanel>
+                                            </MenuItem.Header>
+                                        </MenuItem>
+                                        <MenuItem>
+                                            <MenuItem.Header>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Label Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="14" Content="Klasse importieren&#x09;"></Label>
+                                                    <Label Foreground="{StaticResource MenuShortcut}" Content="Strg + I"></Label>
+                                                </StackPanel>
+                                            </MenuItem.Header>
+                                        </MenuItem>
+                                        <MenuItem IsEnabled="False">
+                                            <MenuItem.Header>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Label Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="14" Content="Klasse exportieren&#x09;"></Label>
+                                                    <Label Foreground="{StaticResource MenuShortcut}" Content="Strg + E"></Label>
+                                                </StackPanel>
+                                            </MenuItem.Header>
+                                        </MenuItem>
+                                        <MenuItem IsEnabled="False">
+                                            <MenuItem.Header>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Label Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="14" Content="Speichern&#x09;&#x09;"></Label>
+                                                    <Label Foreground="{StaticResource MenuShortcut}" Content="Strg + S"></Label>
+                                                </StackPanel>
+                                            </MenuItem.Header>
+                                        </MenuItem>
                                     </MenuItem>
                                     <MenuItem>
                                         <MenuItem.Header>
                                             <StackPanel Orientation="Horizontal">
-                                                <Label Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="14" Content="Klasse erstellen&#x09;&#x09;"></Label>
-                                                <Label Foreground="{StaticResource MenuShortcut}" Content="Strg + N"></Label>
-                                            </StackPanel>
-                                        </MenuItem.Header>
-                                    </MenuItem>
-                                    <MenuItem>
-                                        <MenuItem.Header>
-                                            <StackPanel Orientation="Horizontal">
-                                                <Label Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="14" Content="Klasse importieren&#x09;"></Label>
-                                                <Label Foreground="{StaticResource MenuShortcut}" Content="Strg + I"></Label>
-                                            </StackPanel>
-                                        </MenuItem.Header>
-                                    </MenuItem>
-                                    <MenuItem>
-                                        <MenuItem.Header>
-                                            <StackPanel Orientation="Horizontal">
-                                                <Label Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="14" Content="Klasse exportieren&#x09;"></Label>
-                                                <Label Foreground="{StaticResource MenuShortcut}" Content="Strg + E"></Label>
+                                                <Label Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="14" Content="Hilfe&#x09;&#x09;&#x09;"></Label>
                                             </StackPanel>
                                         </MenuItem.Header>
                                     </MenuItem>
@@ -108,9 +122,9 @@
                                 </ScrollViewer>
                                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical">
                                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Es sind&#10;noch keine Klassen&#10;vorhanden" TextAlignment="Center" Foreground="{StaticResource MenuComment}" FontSize="13" FontFamily="Segoe UI Semibold"></TextBlock>
-                                    <Grid Background="Red" Margin="0 10 0 0">
-                                        <Button HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Template="{StaticResource Flat}"></Button>
-                                        <Label ></Label>
+                                    <Grid Margin="0 10 0 0">
+                                        <Button HorizontalAlignment="Center" VerticalAlignment="Center" Width="105" Template="{StaticResource Flat}" Background="{StaticResource MenuFreeButtonBackground}"></Button>
+                                        <Label HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuFreeButtonForeground}" Content="Klasse erstellen" FontSize="13" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"></Label>
                                     </Grid>
                                 </StackPanel>
                             </Grid>
