@@ -42,7 +42,7 @@
             </Grid>
             <Grid Grid.Column="0" Grid.Row="1" Background="{StaticResource 1}">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="180"></ColumnDefinition>
+                    <ColumnDefinition Width="160"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Border Grid.Column="0" Grid.Row="0" BorderThickness="0 0 1 0" BorderBrush="{StaticResource TransitionStart}">
@@ -54,7 +54,7 @@
                         </Grid.RowDefinitions>
                         <Grid Grid.Column="0" Grid.Row="0">
                             <Menu Background="{StaticResource MenuBackground}" FontFamily="Segoe UI Semibold" FontSize="14">
-                                <MenuItem Height="30" Width="180">
+                                <MenuItem Height="30" Width="160">
                                     <MenuItem>
                                         <MenuItem.Header>
                                             <StackPanel Orientation="Horizontal">
@@ -102,13 +102,20 @@
                             <Label x:Name="KlasseErstellenBtn" Content="Klasse erstellen" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource 4}" FontFamily="Segoe UI Semibold" FontSize="14" IsHitTestVisible="False"></Label>-->
                         </Grid>
                         <Border Grid.Column="0" Grid.Row="1" BorderThickness="0 1 0 0" BorderBrush="{StaticResource TransitionStart}" Background="{StaticResource MenuBackground}">
-                            <ScrollViewer>
-                                
-                            </ScrollViewer>
+                            <Grid>
+                                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                                    
+                                </ScrollViewer>
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical">
+                                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Es sind&#10;noch keine Klassen&#10;vorhanden" TextAlignment="Center" Foreground="{StaticResource MenuComment}" FontSize="13" FontFamily="Segoe UI Semibold"></TextBlock>
+                                    <Grid Background="Red" Margin="0 10 0 0">
+                                        <Button HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Template="{StaticResource Flat}"></Button>
+                                        <Label ></Label>
+                                    </Grid>
+                                </StackPanel>
+                            </Grid>
                         </Border>
-                        <Grid Grid.Column="0" Grid.Row="2" Background="{StaticResource MenuBackground}">
-
-                        </Grid>
+                        <Grid Grid.Column="0" Grid.Row="2" Background="{StaticResource MenuBackground}"></Grid>
                     </Grid>
                 </Border>
                 <Grid Grid.Column="1" Grid.Row="0">
