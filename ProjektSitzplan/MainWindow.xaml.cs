@@ -1,6 +1,8 @@
-﻿using System;
+﻿using ProjektSitzplan.Design;
+using System;
 using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Interop;
 using System.Windows.Media;
 
@@ -24,6 +26,18 @@ namespace ProjektSitzplan
             //TODO: DIe Klasse Exportieren Funktion im Datei Menü Disablen wenn keine ausgewählt ist. Und die speichern funktion auch
 
             InitializeComponent();
+            StateChanged += (s, e) => 
+            {
+                if (WindowState.Equals(WindowState.Normal))
+                {
+                    WindowRestoreButton.Content = Utility.GetImage("Restore1B9BBBE");
+                }
+                else if (WindowState.Equals(WindowState.Maximized))
+                {
+                    WindowRestoreButton.Content = Utility.GetImage("Restore2B9BBBE");
+                }
+
+            };
 
             SourceInitialized += (s, e) =>
             {
@@ -155,24 +169,62 @@ namespace ProjektSitzplan
         #endregion
 
         #region WindowMinimizeButton
-        private void WindowMinimizeButton_Click(object sender, RoutedEventArgs e)
+        private void TopBarButton_Click(object sender, RoutedEventArgs e)
         {
-            WindowState = WindowState.Minimized;
+            Button sBtn = Utility.GetButton(sender);
+
+            switch (sBtn.Uid)
+            {
+                case "0": //Minimize
+                    {
+                        WindowState = WindowState.Minimized;
+                        return;
+                    }
+                case "1": //Restore
+                    {
+                        WindowState = WindowState.Equals(WindowState.Normal) ? WindowState.Maximized : WindowState.Normal;
+                        return;
+                    }
+                case "2": //Close
+                    {
+                        Close();
+                        return;
+                    }
+            }
+
+            throw new NotImplementedException();
         }
 
-        private void WindowMinimizeButton_PreviewMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void TopBarButton_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
+            Button sBtn = Utility.GetButton(sender);
 
+            sBtn.Background = PSColors.TopBarHoverBackground;
+            sBtn.Content = Utility.GetImage($"{Utility.GetTopBarImagePrefix(sBtn, this)}DCDDDE");
         }
 
-        private void WindowMinimizeButton_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        private void TopBarButton_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
+            Button sBtn = Utility.GetButton(sender);
 
+            sBtn.Background = Brushes.Transparent;
+            sBtn.Content = Utility.GetImage($"{Utility.GetTopBarImagePrefix(sBtn, this)}B9BBBE");
         }
 
-        private void WindowMinimizeButton_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        private void TopBarButton_PreviewMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+            Button sBtn = Utility.GetButton(sender);
 
+            sBtn.Background = PSColors.TopBarPreviewBackground;
+            sBtn.Content = Utility.GetImage($"{Utility.GetTopBarImagePrefix(sBtn, this)}FFFFFF");
+        }
+
+        private void TopBarButton_PreviewMouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Button sBtn = Utility.GetButton(sender);
+
+            sBtn.Background = PSColors.TopBarHoverBackground;
+            sBtn.Content = Utility.GetImage($"{Utility.GetTopBarImagePrefix(sBtn, this)}DCDDDE");
         }
         #endregion
 
@@ -238,5 +290,7 @@ namespace ProjektSitzplan
         {
             Close();
         }
+
+
     }
 }

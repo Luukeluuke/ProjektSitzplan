@@ -11,7 +11,9 @@
     
     <SolidColorBrush x:Key="TopBarBackground" Color="#202225"></SolidColorBrush>
     <SolidColorBrush x:Key="TopBarForeground" Color="#878B91"></SolidColorBrush>
+    <SolidColorBrush x:Key="TopBarHoverBackground" Color="#282B2E"></SolidColorBrush>
     <SolidColorBrush x:Key="TopBarHoverForeground" Color="#D1DDDE"></SolidColorBrush>
+    <SolidColorBrush x:Key="TopBarPreviewBackground" Color="#282E32"></SolidColorBrush>
     <SolidColorBrush x:Key="TopBarPreviewForeground" Color="#FFFFFF"></SolidColorBrush>
     
     <SolidColorBrush x:Key="TransitionStart" Color="#2B2E33"></SolidColorBrush>

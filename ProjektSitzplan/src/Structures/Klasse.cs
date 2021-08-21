@@ -26,7 +26,7 @@ namespace ProjektSitzplan.Structures
 
         public void SitzplanHinzufügen(Sitzplan sitzplan)
         {
-
+            Sitzpläne.Add(sitzplan);
         }
 
         public void SchülerHinzufügen(Schüler schüler)

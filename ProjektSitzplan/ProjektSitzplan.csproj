@@ -66,6 +66,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="src\Design\PSColors.cs" />
     <Compile Include="src\Structures\Betrieb.cs" />
     <Compile Include="src\Structures\Klasse.cs" />
     <Compile Include="src\Structures\Lehrer.cs" />
@@ -74,6 +75,7 @@
     <Compile Include="src\SchülerException.cs" />
     <Compile Include="src\Structures\Sitzplan.cs" />
     <Compile Include="src\Structures\TischBlock.cs" />
+    <Compile Include="src\Utility.cs" />
     <Compile Include="Test.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

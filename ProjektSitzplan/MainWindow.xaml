@@ -6,11 +6,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjektSitzplan" xmlns:System="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Height="600" Width="1000" MinHeight="600" MinWidth="1000"
+        Height="600" Width="1000"
         WindowStyle="None" ResizeMode="CanResize" AllowsTransparency="True">
     <WindowChrome.WindowChrome>
-        <WindowChrome CaptionHeight="32">
-        </WindowChrome>
+        <WindowChrome CaptionHeight="32"></WindowChrome>
     </WindowChrome.WindowChrome>
     <Border x:Name="WindowBorder" BorderThickness="1" BorderBrush="{StaticResource WindowBorderBrush}">
         <Grid>
@@ -29,13 +28,13 @@
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="WindowMinimizeButton" Grid.Column="0" Template="{StaticResource Flat}" Background="{x:Null}" Height="30" materialDesign:RippleAssist.Feedback="Transparent" IsTabStop="False" Click="WindowMinimizeButton_Click" PreviewMouseDown="WindowMinimizeButton_PreviewMouseDown" MouseEnter="WindowMinimizeButton_MouseEnter" MouseLeave="WindowMinimizeButton_MouseLeave">
+                    <Button x:Name="WindowMinimizeButton" Grid.Column="0" Uid="0" Template="{StaticResource Flat}" Background="{x:Null}"  materialDesign:RippleAssist.Feedback="Transparent" IsTabStop="False" Click="TopBarButton_Click" PreviewMouseDown="TopBarButton_PreviewMouseDown" PreviewMouseUp="TopBarButton_PreviewMouseUp" MouseEnter="TopBarButton_MouseEnter" MouseLeave="TopBarButton_MouseLeave">
                         <Image Source="/ProjektSitzplan;component/src/Design/Images/MinimizeB9BBBE.png"></Image>
                     </Button>
-                    <Button x:Name="WindowRestoreButton" Grid.Column="1" Template="{StaticResource Flat}" Background="{x:Null}" Height="30" materialDesign:RippleAssist.Feedback="Transparent" IsTabStop="False" Click="WindowRestoreButton_Click" PreviewMouseDown="WindowRestoreButton_PreviewMouseDown" MouseEnter="WindowRestoreButton_MouseEnter" MouseLeave="WindowRestoreButton_MouseLeave">
+                    <Button x:Name="WindowRestoreButton" Grid.Column="1" Uid="1" Template="{StaticResource Flat}" Background="{x:Null}" materialDesign:RippleAssist.Feedback="Transparent" IsTabStop="False" Click="TopBarButton_Click" PreviewMouseDown="TopBarButton_PreviewMouseDown" PreviewMouseUp="TopBarButton_PreviewMouseUp" MouseEnter="TopBarButton_MouseEnter" MouseLeave="TopBarButton_MouseLeave">
                         <Image Source="/ProjektSitzplan;component/src/Design/Images/Restore1B9BBBE.png"></Image>
                     </Button>
-                    <Button x:Name="WindowCloseButton" Grid.Column="2" Template="{StaticResource Flat}" Background="{x:Null}" Height="30" materialDesign:RippleAssist.Feedback="Transparent" IsTabStop="False" Click="WindowCloseButton_Click" PreviewMouseDown="WindowCloseButton_PreviewMouseDown" MouseEnter="WindowCloseButton_MouseEnter" MouseLeave="WindowCloseButton_MouseLeave">
+                    <Button x:Name="WindowCloseButton" Grid.Column="2" Uid="2" Template="{StaticResource Flat}" Background="{x:Null}" materialDesign:RippleAssist.Feedback="Transparent" IsTabStop="False" Click="TopBarButton_Click" PreviewMouseDown="TopBarButton_PreviewMouseDown" PreviewMouseUp="TopBarButton_PreviewMouseUp" MouseEnter="TopBarButton_MouseEnter" MouseLeave="TopBarButton_MouseLeave">
                         <Image Source="/ProjektSitzplan;component/src/Design/Images/CloseB9BBBE.png"></Image>
                     </Button>
                 </Grid>
@@ -53,7 +52,7 @@
                             <RowDefinition Height="5"></RowDefinition>
                         </Grid.RowDefinitions>
                         <Grid Grid.Column="0" Grid.Row="0">
-                            <Menu Background="{StaticResource MenuBackground}" FontFamily="Segoe UI Semibold" FontSize="14">
+                            <Menu Background="{StaticResource MenuBackground}" FontFamily="Segoe UI Semibold" FontSize="14" materialDesign:RippleAssist.IsDisabled="True">
                                 <MenuItem Height="30" Width="160">
                                     <MenuItem>
                                         <MenuItem.Header>
