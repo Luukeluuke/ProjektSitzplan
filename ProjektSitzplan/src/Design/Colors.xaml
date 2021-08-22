@@ -1,12 +1,5 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <SolidColorBrush x:Key="1" Color="#232834"></SolidColorBrush>
-    <SolidColorBrush x:Key="2" Color="#32394B"></SolidColorBrush>
-    <SolidColorBrush x:Key="2_1" Color="#282E3C"></SolidColorBrush>
-    <SolidColorBrush x:Key="3" Color="#FBD03C"></SolidColorBrush>
-    <SolidColorBrush x:Key="3_1" Color="#FCDA61"></SolidColorBrush>
-    <SolidColorBrush x:Key="4" Color="#F1F1F1"></SolidColorBrush>
-
     <SolidColorBrush x:Key="WindowBorderBrush" Color="#202225"></SolidColorBrush>
     
     <SolidColorBrush x:Key="TopBarBackground" Color="#202225"></SolidColorBrush>
@@ -20,7 +13,27 @@
     <SolidColorBrush x:Key="TransitionEnd" Color="#32353B"></SolidColorBrush>
 
     <SolidColorBrush x:Key="ContentBackground" Color="#36393F"></SolidColorBrush>
-
+    <SolidColorBrush x:Key="ContentForeground" Color="#878B91"></SolidColorBrush>
+    <SolidColorBrush x:Key="ContentHoverForeground" Color="#D1DDDE"></SolidColorBrush>
+    <SolidColorBrush x:Key="ContentDivider" Color="#42454A"></SolidColorBrush>
+    <SolidColorBrush x:Key="ContentControlBorder" Color="#32353B"></SolidColorBrush>
+    <SolidColorBrush x:Key="ContentDataGridRowHover" Color="#32353B"></SolidColorBrush>
+    <SolidColorBrush x:Key="ContentDataGridRowBorderHover" Color="#32353B"></SolidColorBrush>
+    <SolidColorBrush x:Key="ContentDataGridRowBorderSelectedBackground" Color="#2B2E33"></SolidColorBrush>
+    <SolidColorBrush x:Key="ContentDataGridRowBorderSelectedBorder" Color="#2B2E33"></SolidColorBrush>
+    <SolidColorBrush x:Key="ContentDataGridRowBorderSelectedForeground" Color="#FFFFFF"></SolidColorBrush>
+    <SolidColorBrush x:Key="ContentDataGridSelectedCellForeground" Color="#FFFFFF"></SolidColorBrush>
+    <SolidColorBrush x:Key="ContentButtonBackground" Color="#32353B"></SolidColorBrush>
+    <SolidColorBrush x:Key="ContentButtonForeground" Color="#72767D"></SolidColorBrush>
+    <SolidColorBrush x:Key="ContentButtonHoverBackground" Color="#3B3E45"></SolidColorBrush>
+    <SolidColorBrush x:Key="ContentButtonHoverForeground" Color="#D1DDDE"></SolidColorBrush>
+    <SolidColorBrush x:Key="ContentButtonPreviewBackground" Color="#43474F"></SolidColorBrush>
+    <SolidColorBrush x:Key="ContentButtonPreviewForeground" Color="#FFFFFF"></SolidColorBrush>
+    <SolidColorBrush x:Key="ContentTextBoxSelectedForeground" Color="#FFFFFF"></SolidColorBrush>
+    <SolidColorBrush x:Key="ContentTextBoxSelectedBorder" Color="#D1DDDE"></SolidColorBrush>
+    <SolidColorBrush x:Key="ContentTextBoxSelectedCaret" Color="#D1DDDE"></SolidColorBrush>
+    <!-- <SolidColorBrush x:Key="ContentSubMenuBackground" Color="#3a3d44"></SolidColorBrush> -->
+    
     <SolidColorBrush x:Key="MenuBackground" Color="#2F3136"></SolidColorBrush>
     <SolidColorBrush x:Key="MenuForeground" Color="#D7D8D9"></SolidColorBrush>
     <SolidColorBrush x:Key="MenuShortcut" Color="#878B91"></SolidColorBrush>

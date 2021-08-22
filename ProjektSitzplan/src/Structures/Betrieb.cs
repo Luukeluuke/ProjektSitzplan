@@ -2,7 +2,7 @@
 
 namespace ProjektSitzplan.Structures
 {
-    class Betrieb
+    public class Betrieb
     {
         public string Name { get; private set; }
         public string EMail { get; private set; } = null;
@@ -17,5 +17,12 @@ namespace ProjektSitzplan.Structures
         {
             EMail = eMail;
         }
+
+        #region Public Methods
+        public override string ToString()
+        {
+            return Name;
+        }
+        #endregion
     }
 }

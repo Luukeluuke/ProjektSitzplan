@@ -6,8 +6,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjektSitzplan" xmlns:System="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
+        DataContext="{Binding RelativeSource={RelativeSource self}}"
         Height="600" Width="1000"
-        WindowStyle="None" ResizeMode="CanResize" AllowsTransparency="True">
+        WindowStyle="None" ResizeMode="CanResize" AllowsTransparency="True"
+        Loaded="Window_Loaded">
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="32"></WindowChrome>
     </WindowChrome.WindowChrome>
@@ -39,7 +41,7 @@
                     </Button>
                 </Grid>
             </Grid>
-            <Grid Grid.Column="0" Grid.Row="1" Background="{StaticResource 1}">
+            <Grid Grid.Column="0" Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="160"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
@@ -60,7 +62,7 @@
                                                 <Label Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="14" Content="Klasse"></Label>
                                             </StackPanel>
                                         </MenuItem.Header>
-                                        <MenuItem>
+                                        <MenuItem Click="KlasseErstellenBtn_Click">
                                             <MenuItem.Header>
                                                 <StackPanel Orientation="Horizontal">
                                                     <Label Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="14" Content="Klasse erstellen&#x09;&#x09;"></Label>
@@ -111,18 +113,83 @@
                                 </MenuItem>
                             </Menu>
                             <Label Content="Datei" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="14" IsHitTestVisible="False"></Label>
-                            <!--<Button Grid.Column="0" Grid.Row="0" Template="{StaticResource Flat}" Height="30" Background="{StaticResource MenuBackground}" materialDesign:RippleAssist.IsDisabled="True"></Button>
-                            <Label x:Name="KlasseErstellenBtn" Content="Klasse erstellen" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource 4}" FontFamily="Segoe UI Semibold" FontSize="14" IsHitTestVisible="False"></Label>-->
                         </Grid>
                         <Border Grid.Column="0" Grid.Row="1" BorderThickness="0 1 0 0" BorderBrush="{StaticResource TransitionStart}" Background="{StaticResource MenuBackground}">
                             <Grid>
-                                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                                    
-                                </ScrollViewer>
-                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical">
+                                <DataGrid x:Name="MenuKlassenDtGrd" BorderBrush="{StaticResource ContentControlBorder}" Background="{x:Null}" Foreground="{StaticResource ContentForeground}" FontFamily="Segoe UI Semibold" CanUserDeleteRows="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserResizeColumns="True" CanUserResizeRows="False" CanUserSortColumns="True" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding AusgewählteKlasse}" SelectedCellsChanged="MenuKlassenDtGrd_SelectedCellsChanged">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Klassen" Binding="{Binding Name}" Width="*"></DataGridTextColumn>
+                                    </DataGrid.Columns>
+                                    <DataGrid.Resources>
+                                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                                            <Setter Property="Background" Value="{StaticResource ContentBackground}"></Setter>
+                                            <Setter Property="Foreground" Value="{StaticResource ContentForeground}"></Setter>
+                                            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+                                            <Setter Property="FontSize" Value="14"></Setter>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type DataGridColumnHeader}">
+                                                        <Border Background="Transparent">
+                                                            <ContentPresenter Margin="5"/>
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Style.Triggers>
+                                                <Trigger Property="DataGridColumnHeader.IsMouseOver" Value="True">
+                                                    <Setter Property="Foreground" Value="{StaticResource ContentHoverForeground}"></Setter>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                        <Style TargetType="{x:Type DataGridRow}">
+                                            <Setter Property="Background" Value="{x:Null}"></Setter>
+                                            <Setter Property="Margin" Value="0"></Setter>
+                                            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+                                            <Setter Property="IsHitTestVisible" Value="True"></Setter>
+                                            <Style.Triggers>
+                                                <Trigger Property="DataGridRow.IsSelected" Value="True">
+                                                    <Setter Property="Background" Value="{StaticResource ContentDataGridRowBorderSelectedBackground}" />
+                                                    <Setter Property="BorderBrush" Value="{StaticResource ContentDataGridRowBorderSelectedBorder}" />
+                                                    <Setter Property="Foreground" Value="{StaticResource ContentDataGridRowBorderSelectedForeground}" />
+                                                </Trigger>
+                                                <MultiTrigger>
+                                                    <MultiTrigger.Conditions>
+                                                        <Condition Property="DataGridRow.IsMouseOver" Value="True"></Condition>
+                                                        <Condition Property="DataGridRow.IsSelected" Value="False"></Condition>
+                                                    </MultiTrigger.Conditions>
+                                                    <MultiTrigger.Setters>
+                                                        <Setter Property="Background" Value="{StaticResource ContentDataGridRowHover}" />
+                                                        <Setter Property="BorderBrush" Value="{StaticResource ContentDataGridRowBorderHover}" />
+                                                        <Setter Property="Foreground" Value="{StaticResource ContentHoverForeground}" />
+                                                    </MultiTrigger.Setters>
+                                                </MultiTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                        <Style TargetType="DataGridCell">
+                                            <Setter Property="BorderBrush" Value="{x:Null}"></Setter>
+                                            <Setter Property="Focusable" Value="False"></Setter>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type DataGridCell}">
+                                                        <Border Background="Transparent">
+                                                            <ContentPresenter Margin="5"/>
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Style.Triggers>
+                                                <Trigger Property="DataGridCell.IsSelected" Value="True">
+                                                    <Setter Property="Background" Value="{x:Null}"></Setter>
+                                                    <Setter Property="Foreground" Value="{StaticResource ContentDataGridSelectedCellForeground}"></Setter>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </DataGrid.Resources>
+                                </DataGrid>
+                                <StackPanel x:Name="KeineKlassenGefundenStPnl" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical" Visibility="Hidden">
                                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Es sind&#10;noch keine Klassen&#10;vorhanden" TextAlignment="Center" Foreground="{StaticResource MenuComment}" FontSize="13" FontFamily="Segoe UI Semibold"></TextBlock>
                                     <Grid Margin="0 10 0 0">
-                                        <Button HorizontalAlignment="Center" VerticalAlignment="Center" Width="105" Template="{StaticResource Flat}" Background="{StaticResource MenuFreeButtonBackground}"></Button>
+                                        <Button x:Name="KlasseErstellenBtn" HorizontalAlignment="Center" VerticalAlignment="Center" Width="105" Template="{StaticResource Flat}" Background="{StaticResource MenuFreeButtonBackground}" Click="KlasseErstellenBtn_Click"></Button>
                                         <Label HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuFreeButtonForeground}" Content="Klasse erstellen" FontSize="13" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"></Label>
                                     </Grid>
                                 </StackPanel>
@@ -138,11 +205,165 @@
                         <RowDefinition Height="5"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Grid Grid.Column="0" Grid.Row="0" Background="{StaticResource MenuBackground}">
-
+                        
                     </Grid>
                     <Border Grid.Column="0" Grid.Row="1" BorderThickness="0 1 0 1" BorderBrush="{StaticResource TransitionStart}">
                         <Border BorderThickness="1" BorderBrush="{StaticResource TransitionEnd}" Background="{StaticResource ContentBackground}">
-                            <Button x:Name="TestButton" Grid.Column="0" Grid.Row="0" Content="Ja" HorizontalAlignment="Center" VerticalAlignment="Center" Width="134" Click="TestButton_Click"/>
+                            <Grid Margin="5 5 4 5">
+                                <Grid x:Name="KlasseHinzufügenGrd" Visibility="Hidden">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1.25*"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Border Grid.Column="0" Grid.Row="0" BorderThickness="0 0 1 0" BorderBrush="{StaticResource ContentDivider}">
+                                        <Grid Margin="0 0 5 0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"></RowDefinition>
+                                                <RowDefinition Height="2*"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Border Grid.Column="0" Grid.Row="0" BorderThickness="0 0 0 1" BorderBrush="{StaticResource ContentDivider}">
+                                                <Grid>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto"></RowDefinition>
+                                                        <RowDefinition Height="Auto"></RowDefinition>
+                                                    </Grid.RowDefinitions>
+                                                    <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="15" Foreground="{StaticResource ContentForeground}" Content="Klasse erstellen"></Label>
+                                                    <Grid Grid.Column="0" Grid.Row="1">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="14" Foreground="{StaticResource ContentForeground}" Content="Name: "></Label>
+                                                        <TextBox Grid.Column="1" Grid.Row="0" x:Name="KEKlassenNameTxbx" HorizontalAlignment="Stretch" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" Foreground="{StaticResource ContentForeground}" BorderBrush="{StaticResource ContentForeground}" FontSize="14" materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource ContentTextBoxSelectedBorder}" CaretBrush="{StaticResource ContentTextBoxSelectedCaret}" GotKeyboardFocus="KEKlassenNameTxbx_GotKeyboardFocus" LostKeyboardFocus="KEKlassenNameTxbx_LostKeyboardFocus"></TextBox>
+                                                    </Grid>
+                                                </Grid>
+                                            </Border>
+                                        </Grid>
+                                    </Border>
+                                    <Grid Grid.Column="1" Grid.Row="0" Margin="5 0 0 0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                            <RowDefinition Height="*"></RowDefinition>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Border Grid.Column="0" Grid.Row="0" BorderThickness="0 0 0 1" BorderBrush="{StaticResource ContentDivider}">
+                                            <Grid Margin="0 0 0 5" DataContext="{Binding AusgewählteKlasse}">
+                                                <Label HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Segoe UI Semibold" FontSize="15" Foreground="{StaticResource ContentForeground}" Content="Schüler"></Label>
+                                                <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center" Orientation="Horizontal">
+                                                    <Label HorizontalAlignment="Right" VerticalAlignment="Center" FontFamily="Segoe UI Semibold" FontSize="15" Foreground="{StaticResource ContentForeground}" Content="Anzahl: "></Label>
+                                                    <TextBlock x:Name="KEAnzahlSchülerTxbk" HorizontalAlignment="Right" VerticalAlignment="Center" FontFamily="Segoe UI Semibold" FontSize="15" Foreground="{StaticResource ContentForeground}"></TextBlock>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Border>
+                                        <Border Grid.Column="0" Grid.Row="1" Margin="0 5 0 0" BorderThickness="2" BorderBrush="{StaticResource ContentControlBorder}">
+                                            <Grid>
+                                                <Label x:Name="KlasseErstellenKeineSchülerVorhandenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe UI Semibold" FontSize="13" Foreground="{StaticResource ContentForeground}" Content="Es sind noch keine Schüler vorhanden"></Label>
+                                                <DataGrid x:Name="KESchülerDtGrd" BorderBrush="{StaticResource ContentControlBorder}" Background="{x:Null}" Foreground="{StaticResource ContentForeground}" FontFamily="Segoe UI Semibold" CanUserDeleteRows="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserResizeColumns="True" CanUserResizeRows="False" CanUserSortColumns="True" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding KEAusgewählterSchüler}" SelectedCellsChanged="KESchülerDtGrd_SelectedCellsChanged">
+                                                    <DataGrid.Columns>
+                                                        <DataGridTextColumn Header="Nachname" Binding="{Binding Nachname}"></DataGridTextColumn>
+                                                        <DataGridTextColumn Header="Vorname" Binding="{Binding Vorname}"></DataGridTextColumn>
+                                                        <DataGridTextColumn Header="Beruf" Binding="{Binding Beruf}" Width="*">
+                                                        </DataGridTextColumn>
+                                                    </DataGrid.Columns>
+                                                    <DataGrid.Resources>
+                                                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                                                            <Setter Property="Background" Value="{StaticResource ContentBackground}"></Setter>
+                                                            <Setter Property="Foreground" Value="{StaticResource ContentForeground}"></Setter>
+                                                            <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+                                                            <Setter Property="Template">
+                                                                <Setter.Value>
+                                                                    <ControlTemplate TargetType="{x:Type DataGridColumnHeader}">
+                                                                        <Border Background="Transparent">
+                                                                            <ContentPresenter Margin="5"/>
+                                                                        </Border>
+                                                                    </ControlTemplate>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                            <Style.Triggers>
+                                                                <Trigger Property="DataGridColumnHeader.IsMouseOver" Value="True">
+                                                                    <Setter Property="Foreground" Value="{StaticResource ContentHoverForeground}"></Setter>
+                                                                </Trigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                        <Style TargetType="{x:Type DataGridRow}">
+                                                            <Setter Property="Background" Value="{x:Null}"></Setter>
+                                                            <Setter Property="Margin" Value="0"></Setter>
+                                                            <Setter Property="IsHitTestVisible" Value="True"></Setter>
+                                                            <Style.Triggers>
+                                                                <Trigger Property="DataGridRow.IsSelected" Value="True">
+                                                                    <Setter Property="Background" Value="{StaticResource ContentDataGridRowBorderSelectedBackground}" />
+                                                                    <Setter Property="BorderBrush" Value="{StaticResource ContentDataGridRowBorderSelectedBorder}" />
+                                                                    <Setter Property="Foreground" Value="{StaticResource ContentDataGridRowBorderSelectedForeground}" />
+                                                                </Trigger>
+                                                                <MultiTrigger>
+                                                                    <MultiTrigger.Conditions>
+                                                                        <Condition Property="DataGridRow.IsMouseOver" Value="True"></Condition>
+                                                                        <Condition Property="DataGridRow.IsSelected" Value="False"></Condition>
+                                                                    </MultiTrigger.Conditions>
+                                                                    <MultiTrigger.Setters>
+                                                                        <Setter Property="Background" Value="{StaticResource ContentDataGridRowHover}" />
+                                                                        <Setter Property="BorderBrush" Value="{StaticResource ContentDataGridRowBorderHover}" />
+                                                                        <Setter Property="Foreground" Value="{StaticResource ContentHoverForeground}" />
+                                                                    </MultiTrigger.Setters>
+                                                                </MultiTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                        <Style TargetType="DataGridCell">
+                                                            <Setter Property="BorderBrush" Value="{x:Null}"></Setter>
+                                                            <Setter Property="Focusable" Value="False"></Setter>
+                                                            <Setter Property="Template">
+                                                                <Setter.Value>
+                                                                    <ControlTemplate TargetType="{x:Type DataGridCell}">
+                                                                        <Border Background="Transparent">
+                                                                            <ContentPresenter Margin="5"/>
+                                                                        </Border>
+                                                                    </ControlTemplate>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                            <Style.Triggers>
+                                                                <Trigger Property="DataGridCell.IsSelected" Value="True">
+                                                                    <Setter Property="Background" Value="{x:Null}"></Setter>
+                                                                    <Setter Property="Foreground" Value="{StaticResource ContentDataGridSelectedCellForeground}"></Setter>
+                                                                </Trigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </DataGrid.Resources>
+                                                </DataGrid>
+                                            </Grid>
+                                        </Border>
+                                        <Grid Grid.Column="0" Grid.Row="2" Margin="0 5 0 0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="40"></RowDefinition>
+                                                <RowDefinition Height="40"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Border Grid.Column="0" Grid.Row="0" BorderThickness="0 0 0 1" BorderBrush="{StaticResource ContentDivider}">
+                                                <Grid Margin="0 0 0 5">
+                                                    <Button x:Name="KESchülerEntfernenBtn" HorizontalAlignment="Stretch" Height="Auto" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource Flat}"></Button>
+                                                    <Label x:Name="KESchülerEntfernenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Ausgewählten Schüler entfernen" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"></Label>
+                                                </Grid>
+                                            </Border>
+                                            <Grid Grid.Column="0" Grid.Row="1" Margin="0 5 0 0">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                                    <ColumnDefinition Width="5"></ColumnDefinition>
+                                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid Grid.Column="0" Grid.Row="1">
+                                                    <Button x:Name="KEAbbrechenBtn" HorizontalAlignment="Stretch" Height="Auto" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource Flat}"></Button>
+                                                    <Label x:Name="KEAbbrechenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Abbrechen" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"></Label>
+                                                </Grid>
+                                                <Grid Grid.Column="2" Grid.Row="1">
+                                                    <Button x:Name="KEKlasseErstellenBtn" HorizontalAlignment="Stretch" Height="Auto" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource Flat}" Click="KEKlasseErstellenBtn_Click"></Button>
+                                                    <Label x:Name="KEKlasseErstellenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Klasse erstellen" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"></Label>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                                <Grid x:Name="KlasseÜbersichtGrd" Visibility="Hidden">
+                                    <Label Foreground="White" HorizontalAlignment="Center" Content="{Binding Name}" VerticalAlignment="Center" DataContext="{Binding AusgewählteKlasse}"></Label>
+                                </Grid>
+                            </Grid>
                         </Border>
                     </Border>
                     <Grid Grid.Column="0" Grid.Row="2" Background="{StaticResource MenuBackground}">

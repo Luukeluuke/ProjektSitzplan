@@ -66,6 +66,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="src\DataHandler.cs" />
     <Compile Include="src\Design\PSColors.cs" />
     <Compile Include="src\Structures\Betrieb.cs" />
     <Compile Include="src\Structures\Klasse.cs" />

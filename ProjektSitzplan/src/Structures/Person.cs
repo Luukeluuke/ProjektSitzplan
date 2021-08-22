@@ -2,7 +2,7 @@
 
 namespace ProjektSitzplan.Structures
 {
-    class Person
+    public class Person
     {
         public string Vorname { get; private set; }
         public string Nachname { get; private set; }

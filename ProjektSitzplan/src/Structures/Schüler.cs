@@ -2,7 +2,7 @@
 
 namespace ProjektSitzplan.Structures
 {
-    class Schüler : Person
+    public class Schüler : Person
     {
         public Betrieb AusbildungsBetrieb { get; private set; }
         // todo bild?

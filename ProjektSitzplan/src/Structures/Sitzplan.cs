@@ -11,26 +11,23 @@ namespace ProjektSitzplan.Structures
     {
         public int TischAnzahl { get; private set; }
         public List<TischBlock> Tische { get; private set; }
-        public SchulKlasse Klasse { get; private set; }
 
         public int Seed { get; private set; }
 
-        public Sitzplan(int tischAnzahl, SchulKlasse klasse, int seed)
+        public Sitzplan(int tischAnzahl, List<Schüler> schüler, int seed)
         {
             TischAnzahl = tischAnzahl;
-            Klasse = klasse;
             Seed = seed;
 
-            GeneriereSitzplan();
+            GeneriereSitzplan(schüler);
         }
 
-        public Sitzplan(int tischAnzahl, SchulKlasse klasse) : this(tischAnzahl, klasse, Environment.TickCount) { }
+        public Sitzplan(int tischAnzahl, List<Schüler> schüler) : this(tischAnzahl, schüler, Environment.TickCount) { }
 
         [JsonConstructor]
-        public Sitzplan(int tischAnzahl, SchulKlasse klasse, List<TischBlock> tische, int seed)
+        public Sitzplan(int tischAnzahl, List<TischBlock> tische, int seed)
         {
             TischAnzahl = tischAnzahl;
-            Klasse = klasse;
             Seed = seed;
             Tische = tische;
         }
@@ -52,9 +49,9 @@ namespace ProjektSitzplan.Structures
             return liste;
         }
 
-        private void GeneriereSitzplan()
+        private void GeneriereSitzplan(List<Schüler> schülerListe)
         {
-            List<Schüler> GemischteSchülerListe = Mischen(Klasse.SchülerListe);
+            List<Schüler> GemischteSchülerListe = Mischen(schülerListe);
 
             Tische = new List<TischBlock>();
             for (int i = 0; i < TischAnzahl; i++)

@@ -30,7 +30,7 @@ namespace ProjektSitzplan
 
         private static Sitzplan GeneriereTestSitzplan(int Tische, int SchülerAnzahl, int seed)
         {
-            return new Sitzplan(Tische, GeneriereTestKlasse(SchülerAnzahl), seed);
+            return new Sitzplan(Tische, GeneriereTestKlasse(SchülerAnzahl).SchülerListe, seed);
         }
 
         private static Sitzplan LadeTestSitzplan()
@@ -45,7 +45,7 @@ namespace ProjektSitzplan
 
             Lehrer lehrer = new Lehrer("Hanz", "Eisel", Person.EGeschlecht.Männlich);
 
-            SchulKlasse klasse = new SchulKlasse(lehrer);
+            SchulKlasse klasse = new SchulKlasse("tatata", lehrer);
 
             // AWE
             klasse.SchülerHinzufügen(new Schüler("Ember", "Salmon", Person.EGeschlecht.Weiblich, Person.EBeruf.Anwendungsentwicklung, new Betrieb("")));
@@ -97,16 +97,17 @@ namespace ProjektSitzplan
             klasse.SchülerHinzufügen(new Schüler("Christopher", "Palumbo", Person.EGeschlecht.Männlich, Person.EBeruf.SystemIntegration, new Betrieb("")));
             klasse.SchülerHinzufügen(new Schüler("Erick", "Kühl", Person.EGeschlecht.Männlich, Person.EBeruf.SystemIntegration, new Betrieb("")));
 
-            Sitzplan sitzplan = new Sitzplan(6, klasse);
+            Sitzplan sitzplan = new Sitzplan(6, klasse.SchülerListe);
             sitzplan.AlsDateiSpeichern(pfad);
 
             return sitzplan;
         }
 
+
         private static SchulKlasse GeneriereTestKlasse(int SchülerAnzahl)
         {
             Lehrer lehrer = new Lehrer("KlassenLehrer", "KlassenLehrer", RandomGeschlecht());
-            SchulKlasse klasse = new SchulKlasse(lehrer);
+            SchulKlasse klasse = new SchulKlasse("TaTa", lehrer);
             AddTestData(klasse, SchülerAnzahl);
             return klasse;
         }

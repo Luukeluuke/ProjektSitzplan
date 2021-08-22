@@ -1,5 +1,10 @@
 ﻿using ProjektSitzplan.Design;
+using ProjektSitzplan.Structures;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,21 +16,117 @@ namespace ProjektSitzplan
     /// <summary>
     /// Interaktionslogik für MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
-        private static SolidColorBrush c1 = GetColor("232834");
-        private static SolidColorBrush c2 = GetColor("32394B");
-        private static SolidColorBrush c2_1 = GetColor("282E3C");
-        private static SolidColorBrush c3 = GetColor("FBD03C");
-        private static SolidColorBrush c3_1 = GetColor("FCDA61");
-        private static SolidColorBrush c4 = GetColor("F1F1F1");
+        private EWindowContent windowContent = EWindowContent.Leer;
+        private EWindowContent WindowContent 
+        { 
+            get
+            {
+                return windowContent;
+            }
+            set
+            {
+                switch (value)
+                {
+                    case EWindowContent.Leer:
+                        {
+                            KlasseHinzufügenGrd.Visibility = Visibility.Hidden;
+
+                            break;
+                        }
+                    case EWindowContent.KlasseErstellen:
+                        {
+                            KlasseÜbersichtGrd.Visibility = Visibility.Hidden;
+
+                            KlasseHinzufügenGrd.Visibility = Visibility.Visible;
+
+                            break;
+                        }
+                    case EWindowContent.KlasseÜbersicht:
+                        {
+                            KlasseHinzufügenGrd.Visibility = Visibility.Hidden;
+
+                            KlasseÜbersichtGrd.Visibility = Visibility.Visible;
+
+                            break;
+                        }
+                }
+
+                windowContent = value;
+            }
+        }
+
+        private SchulKlasse ausgewählteKlasse;
+        SchulKlasse AusgewählteKlasse 
+        {
+            get
+            {
+                return ausgewählteKlasse;
+            }
+            set 
+            {
+                Set(ref ausgewählteKlasse, value);
+
+                switch (WindowContent)
+                {
+                    case EWindowContent.KlasseErstellen:
+                        {
+                            KESchülerDtGrd.ItemsSource = AusgewählteKlasse.SchülerListe;
+                            KEAnzahlSchülerTxbk.Text = AusgewählteKlasse.AnzahlSchüler.ToString();
+
+                            break;
+                        }
+                }
+            }
+        }
+
+        private Schüler keAusgewählterSchüler;
+        public Schüler KEAusgewählterSchüler
+        {
+            get
+            {
+                return keAusgewählterSchüler;
+            }
+            set
+            {
+                Set(ref keAusgewählterSchüler, value);
+            }
+        }
+
+        private enum EWindowContent
+        {
+            Leer, //Default
+            KlasseErstellen,
+            KlasseÜbersicht
+            //TODO: Weitere hier hinzufügen
+        }
+
+        #region INotifyPropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void NotifyPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+        protected bool Set<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+        {
+            if (EqualityComparer<T>.Default.Equals(field, value))
+            {
+                return false;
+            }
+            field = value;
+            NotifyPropertyChanged(propertyName);
+            return true;
+        }
+        #endregion
 
         public MainWindow()
         {
             //TODO: In Menu typische symbole einbauen
             //TODO: DIe Klasse Exportieren Funktion im Datei Menü Disablen wenn keine ausgewählt ist. Und die speichern funktion auch
+            //TODO: Beim erstellen der klasse darauf achten das der klassenname keine Path.GetInvalidCHars beinhaltet
 
             InitializeComponent();
+
             StateChanged += (s, e) => 
             {
                 if (WindowState.Equals(WindowState.Normal))
@@ -38,12 +139,14 @@ namespace ProjektSitzplan
                 }
 
             };
-
             SourceInitialized += (s, e) =>
             {
                 IntPtr handle = (new WindowInteropHelper(this)).Handle;
                 HwndSource.FromHwnd(handle).AddHook(new HwndSourceHook(WindowProc));
             };
+
+            Directory.CreateDirectory("SchulKlassen");
+            DataHandler.LadeSchulKlassen();
         }
 
         private void TestButton_Click(object sender, RoutedEventArgs e)
@@ -168,7 +271,7 @@ namespace ProjektSitzplan
         internal static extern IntPtr MonitorFromWindow(IntPtr handle, int flags);
         #endregion
 
-        #region WindowMinimizeButton
+        #region TopBarButtons
         private void TopBarButton_Click(object sender, RoutedEventArgs e)
         {
             Button sBtn = Utility.GetButton(sender);
@@ -228,51 +331,6 @@ namespace ProjektSitzplan
         }
         #endregion
 
-        #region WindowRestoreButton
-        private void WindowRestoreButton_Click(object sender, RoutedEventArgs e)
-        {
-            WindowState = WindowState.Equals(WindowState.Normal) ? WindowState.Maximized : WindowState.Normal;
-        }
-
-        private void WindowRestoreButton_PreviewMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-
-        }
-
-        private void WindowRestoreButton_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-
-        }
-
-        private void WindowRestoreButton_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-
-        }
-        #endregion
-
-        #region WindowCloseButton
-        private void WindowCloseButton_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-
-        private void WindowCloseButton_PreviewMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-
-        }
-
-        private void WindowCloseButton_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-
-        }
-
-        private void WindowCloseButton_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-
-        }
-        #endregion
-
-
         #region Private Methods
         /// <summary>
         /// Converts a hex string into a color
@@ -286,11 +344,64 @@ namespace ProjektSitzplan
         }
         #endregion
 
+        #region Menu
+        #region Beenden
         private void MenuBeendenBtn_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
+        #endregion
+        #endregion
 
+        private void KlasseErstellenBtn_Click(object sender, RoutedEventArgs e)
+        {
+            WindowContent = EWindowContent.KlasseErstellen;
+            KeineKlassenGefundenStPnl.Visibility = Visibility.Hidden;
 
+            AusgewählteKlasse = new SchulKlasse("ITO-2",
+                new Lehrer("Sebastian", "Wieschollek", Person.EGeschlecht.Männlich),
+                    new List<Schüler>
+                    {
+                        new Schüler("Luca", "Berger", Person.EGeschlecht.Männlich, Person.EBeruf.Anwendungsentwicklung, new Betrieb("EN-Kreis")),
+                        new Schüler("Sweer", "Sülberg", Person.EGeschlecht.Männlich, Person.EBeruf.Anwendungsentwicklung, new Betrieb("Idemia"))
+                    });
+
+            AusgewählteKlasse.ErstelleSitzplan(2);
+        }
+
+        private void KESchülerDtGrd_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+            
+        }
+
+        private void KEKlassenNameTxbx_GotKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e)
+        {
+            KEKlassenNameTxbx.Foreground = PSColors.ContentTextBoxSelectedForeground;
+        }
+
+        private void KEKlassenNameTxbx_LostKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e)
+        {
+            KEKlassenNameTxbx.Foreground = PSColors.ContentForeground;
+        }
+
+        private void KEKlasseErstellenBtn_Click(object sender, RoutedEventArgs e)
+        {
+            DataHandler.FügeSchulKlasseHinzu(AusgewählteKlasse);
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (DataHandler.SchulKlassen.Count.Equals(0))
+            {
+                KeineKlassenGefundenStPnl.Visibility = Visibility.Visible;
+            }
+
+            MenuKlassenDtGrd.ItemsSource = DataHandler.SchulKlassen;
+        }
+
+        private void MenuKlassenDtGrd_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+            WindowContent = EWindowContent.KlasseÜbersicht;
+        }
     }
 }
