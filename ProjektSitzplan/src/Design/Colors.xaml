@@ -33,6 +33,7 @@
     <SolidColorBrush x:Key="ContentTextBoxSelectedForeground" Color="#FFFFFF"></SolidColorBrush>
     <SolidColorBrush x:Key="ContentTextBoxSelectedBorder" Color="#D1DDDE"></SolidColorBrush>
     <SolidColorBrush x:Key="ContentTextBoxSelectedCaret" Color="#D1DDDE"></SolidColorBrush>
+    <SolidColorBrush x:Key="ContentComboBoxSelectedBorder"></SolidColorBrush>
     <!-- <SolidColorBrush x:Key="ContentSubMenuBackground" Color="#3a3d44"></SolidColorBrush> -->
     
     <SolidColorBrush x:Key="MenuBackground" Color="#2F3136"></SolidColorBrush>

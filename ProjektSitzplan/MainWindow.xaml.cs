@@ -119,11 +119,13 @@ namespace ProjektSitzplan
         }
         #endregion
 
+
         public MainWindow()
         {
             //TODO: In Menu typische symbole einbauen
             //TODO: DIe Klasse Exportieren Funktion im Datei Menü Disablen wenn keine ausgewählt ist. Und die speichern funktion auch
             //TODO: Beim erstellen der klasse darauf achten das der klassenname keine Path.GetInvalidCHars beinhaltet
+            //TODO: Sorting icon bei Klassen usw ka
 
             InitializeComponent();
 
@@ -147,11 +149,6 @@ namespace ProjektSitzplan
 
             Directory.CreateDirectory("SchulKlassen");
             DataHandler.LadeSchulKlassen();
-        }
-
-        private void TestButton_Click(object sender, RoutedEventArgs e)
-        {
-            Test.TestFunction();
         }
 
         #region WindowProc Handling
@@ -271,6 +268,7 @@ namespace ProjektSitzplan
         internal static extern IntPtr MonitorFromWindow(IntPtr handle, int flags);
         #endregion
 
+        #region Allgemeine Events
         #region TopBarButtons
         private void TopBarButton_Click(object sender, RoutedEventArgs e)
         {
@@ -330,6 +328,7 @@ namespace ProjektSitzplan
             sBtn.Content = Utility.GetImage($"{Utility.GetTopBarImagePrefix(sBtn, this)}DCDDDE");
         }
         #endregion
+        #endregion
 
         #region Private Methods
         /// <summary>
@@ -344,51 +343,8 @@ namespace ProjektSitzplan
         }
         #endregion
 
-        #region Menu
-        #region Beenden
-        private void MenuBeendenBtn_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-        #endregion
-        #endregion
 
-        private void KlasseErstellenBtn_Click(object sender, RoutedEventArgs e)
-        {
-            WindowContent = EWindowContent.KlasseErstellen;
-            KeineKlassenGefundenStPnl.Visibility = Visibility.Hidden;
-
-            AusgewählteKlasse = new SchulKlasse("ITO-2",
-                new Lehrer("Sebastian", "Wieschollek", Person.EGeschlecht.Männlich),
-                    new List<Schüler>
-                    {
-                        new Schüler("Luca", "Berger", Person.EGeschlecht.Männlich, Person.EBeruf.Anwendungsentwicklung, new Betrieb("EN-Kreis")),
-                        new Schüler("Sweer", "Sülberg", Person.EGeschlecht.Männlich, Person.EBeruf.Anwendungsentwicklung, new Betrieb("Idemia"))
-                    });
-
-            AusgewählteKlasse.ErstelleSitzplan(2);
-        }
-
-        private void KESchülerDtGrd_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
-        {
-            
-        }
-
-        private void KEKlassenNameTxbx_GotKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e)
-        {
-            KEKlassenNameTxbx.Foreground = PSColors.ContentTextBoxSelectedForeground;
-        }
-
-        private void KEKlassenNameTxbx_LostKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e)
-        {
-            KEKlassenNameTxbx.Foreground = PSColors.ContentForeground;
-        }
-
-        private void KEKlasseErstellenBtn_Click(object sender, RoutedEventArgs e)
-        {
-            DataHandler.FügeSchulKlasseHinzu(AusgewählteKlasse);
-        }
-
+        #region Window
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             if (DataHandler.SchulKlassen.Count.Equals(0))
@@ -398,10 +354,82 @@ namespace ProjektSitzplan
 
             MenuKlassenDtGrd.ItemsSource = DataHandler.SchulKlassen;
         }
+        #endregion
 
+        #region Menu
+        #region Beenden
+        private void MenuBeendenBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+        #endregion
+
+        #region MenuKlassenDtGrd
         private void MenuKlassenDtGrd_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
             WindowContent = EWindowContent.KlasseÜbersicht;
         }
+
+        private void MenuKlassenDtGrd_Sorting(object sender, DataGridSortingEventArgs e)
+        {
+            if (e.Column.SortDirection.Equals(ListSortDirection.Ascending))
+            {
+                MenuKlassenSortingPkIco.Kind = MaterialDesignThemes.Wpf.PackIconKind.SortAlphabeticalAscending;
+            }
+            else
+            {
+                MenuKlassenSortingPkIco.Kind = MaterialDesignThemes.Wpf.PackIconKind.SortAlphabeticalDescending;
+            }
+        }
+        #endregion
+
+        #region KeineKlassenVorhandenKlasseErstellen
+        private void MenuKeineKlassenVorhandenKlasseErstellenBtn_Click(object sender, RoutedEventArgs e)
+        {
+            WindowContent = EWindowContent.KlasseErstellen;
+            KeineKlassenGefundenStPnl.Visibility = Visibility.Hidden;
+        }
+        #endregion
+        #endregion
+
+        #region Content - Klasse erstellen
+        #region KEKlasseNameTxBx
+        private void KEKlassenNameTxbx_GotKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e)
+        {
+            KEKlassenNameTxbx.Foreground = PSColors.ContentTextBoxSelectedForeground;
+        }
+
+        private void KEKlassenNameTxbx_LostKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e)
+        {
+            KEKlassenNameTxbx.Foreground = PSColors.ContentForeground;
+        }
+        #endregion
+
+        #region KEGEschlechtCb
+        private void KEGeschlechtCb_GotKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e)
+        {
+
+        }
+
+        private void KEGeschlechtCb_LostKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e)
+        {
+
+        }
+        #endregion
+
+        #region KESchülerDtGrd
+        private void KESchülerDtGrd_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+
+        }
+        #endregion
+
+        #region KEKlasseErstellenBtn
+        private void KEKlasseErstellenBtn_Click(object sender, RoutedEventArgs e)
+        {
+            DataHandler.FügeSchulKlasseHinzu(AusgewählteKlasse);
+        }
+        #endregion
+        #endregion
     }
 }
