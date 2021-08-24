@@ -43,7 +43,7 @@
             </Grid>
             <Grid Grid.Column="0" Grid.Row="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="160"></ColumnDefinition>
+                    <ColumnDefinition Width="120"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Border Grid.Column="0" Grid.Row="0" BorderThickness="0 0 1 0" BorderBrush="{StaticResource TransitionStart}">
@@ -209,7 +209,7 @@
                     </Grid>
                     <Border Grid.Column="0" Grid.Row="1" BorderThickness="0 1 0 1" BorderBrush="{StaticResource TransitionStart}">
                         <Border BorderThickness="1" BorderBrush="{StaticResource TransitionEnd}" Background="{StaticResource ContentBackground}">
-                            <Grid Margin="5 5 4 5">
+                            <Grid Margin="4 5 4 5">
                                 <Grid x:Name="KlasseHinzufügenGrd" Visibility="Hidden">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="1.25*"></ColumnDefinition>
@@ -218,7 +218,7 @@
                                     <Border Grid.Column="0" Grid.Row="0" BorderThickness="0 0 1 0" BorderBrush="{StaticResource ContentDivider}">
                                         <Grid Margin="0 0 5 0">
                                             <Grid.RowDefinitions>
-                                                <RowDefinition Height="*"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
                                                 <RowDefinition Height="2*"></RowDefinition>
                                             </Grid.RowDefinitions>
                                             <Border Grid.Column="0" Grid.Row="0" BorderThickness="0 0 0 1" BorderBrush="{StaticResource ContentDivider}">
@@ -226,18 +226,33 @@
                                                     <Grid.RowDefinitions>
                                                         <RowDefinition Height="Auto"></RowDefinition>
                                                         <RowDefinition Height="Auto"></RowDefinition>
+                                                        <RowDefinition Height="Auto"></RowDefinition>
                                                     </Grid.RowDefinitions>
-                                                    <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="15" Foreground="{StaticResource ContentForeground}" Content="Klasse erstellen"></Label>
-                                                    <Grid Grid.Column="0" Grid.Row="1">
+                                                    <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="15" Foreground="{StaticResource ContentTitleForeground}" Content="Klasse erstellen"></Label>
+                                                    <Grid Grid.Column="0" Grid.Row="1" Margin="0 5 0 0">
                                                         <Grid.ColumnDefinitions>
                                                             <ColumnDefinition Width="Auto"></ColumnDefinition>
                                                             <ColumnDefinition Width="*"></ColumnDefinition>
+                                                            <ColumnDefinition Width="*"></ColumnDefinition>
                                                         </Grid.ColumnDefinitions>
-                                                        <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="14" Foreground="{StaticResource ContentForeground}" Content="Name: "></Label>
+                                                        <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="14" Foreground="{StaticResource ContentForeground}" Content="Klassenname*: "></Label>
                                                         <TextBox Grid.Column="1" Grid.Row="0" x:Name="KEKlassenNameTxbx" HorizontalAlignment="Stretch" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" Foreground="{StaticResource ContentForeground}" BorderBrush="{StaticResource ContentForeground}" FontSize="14" materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource ContentTextBoxSelectedBorder}" CaretBrush="{StaticResource ContentTextBoxSelectedCaret}" GotKeyboardFocus="KEKlassenNameTxbx_GotKeyboardFocus" LostKeyboardFocus="KEKlassenNameTxbx_LostKeyboardFocus"></TextBox>
+                                                    </Grid>
+                                                    <Grid Grid.Column="0" Grid.Row="2" Margin="0 5 0 10">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="14" Foreground="{StaticResource ContentForeground}" Content="Klassenlehrer:  "></Label>
+                                                        <TextBox Grid.Column="1" Grid.Row="0" x:Name="KEKlassenLehrerTxbx" HorizontalAlignment="Stretch" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" Foreground="{StaticResource ContentForeground}" BorderBrush="{StaticResource ContentForeground}" FontSize="14" materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource ContentTextBoxSelectedBorder}" CaretBrush="{StaticResource ContentTextBoxSelectedCaret}" GotKeyboardFocus="KEKlassenNameTxbx_GotKeyboardFocus" LostKeyboardFocus="KEKlassenNameTxbx_LostKeyboardFocus"></TextBox>
                                                     </Grid>
                                                 </Grid>
                                             </Border>
+                                            <Grid Grid.Column="0" Grid.Row="1" Margin="0 5 0 0">
+                                                <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="15" Foreground="{StaticResource ContentTitleForeground}" Content="Schüler hinzufügen"></Label>
+                                                <materialDesign:PackIcon HorizontalAlignment="Center" Height="500" Width="500" VerticalAlignment="Center" Kind="WindowClose" Foreground="#FFFFFF"></materialDesign:PackIcon>
+                                            </Grid>
                                         </Grid>
                                     </Border>
                                     <Grid Grid.Column="1" Grid.Row="0" Margin="5 0 0 0">
@@ -248,7 +263,7 @@
                                         </Grid.RowDefinitions>
                                         <Border Grid.Column="0" Grid.Row="0" BorderThickness="0 0 0 1" BorderBrush="{StaticResource ContentDivider}">
                                             <Grid Margin="0 0 0 5" DataContext="{Binding AusgewählteKlasse}">
-                                                <Label HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Segoe UI Semibold" FontSize="15" Foreground="{StaticResource ContentForeground}" Content="Schüler"></Label>
+                                                <Label HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Segoe UI Semibold" FontSize="15" Foreground="{StaticResource ContentTitleForeground}" Content="Schüler"></Label>
                                                 <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center" Orientation="Horizontal">
                                                     <Label HorizontalAlignment="Right" VerticalAlignment="Center" FontFamily="Segoe UI Semibold" FontSize="15" Foreground="{StaticResource ContentForeground}" Content="Anzahl: "></Label>
                                                     <TextBlock x:Name="KEAnzahlSchülerTxbk" HorizontalAlignment="Right" VerticalAlignment="Center" FontFamily="Segoe UI Semibold" FontSize="15" Foreground="{StaticResource ContentForeground}"></TextBlock>
@@ -258,12 +273,13 @@
                                         <Border Grid.Column="0" Grid.Row="1" Margin="0 5 0 0" BorderThickness="2" BorderBrush="{StaticResource ContentControlBorder}">
                                             <Grid>
                                                 <Label x:Name="KlasseErstellenKeineSchülerVorhandenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe UI Semibold" FontSize="13" Foreground="{StaticResource ContentForeground}" Content="Es sind noch keine Schüler vorhanden"></Label>
-                                                <DataGrid x:Name="KESchülerDtGrd" BorderBrush="{StaticResource ContentControlBorder}" Background="{x:Null}" Foreground="{StaticResource ContentForeground}" FontFamily="Segoe UI Semibold" CanUserDeleteRows="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserResizeColumns="True" CanUserResizeRows="False" CanUserSortColumns="True" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding KEAusgewählterSchüler}" SelectedCellsChanged="KESchülerDtGrd_SelectedCellsChanged">
+                                                <DataGrid x:Name="KESchülerDtGrd" BorderBrush="{StaticResource ContentControlBorder}" Background="{x:Null}" Foreground="{StaticResource ContentForeground}" FontFamily="Segoe UI Semibold" CanUserDeleteRows="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserResizeColumns="True" CanUserResizeRows="False" CanUserSortColumns="True" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding KEAusgewählterSchüler}" SelectedCellsChanged="KESchülerDtGrd_SelectedCellsChanged" HorizontalScrollBarVisibility="Auto">
                                                     <DataGrid.Columns>
                                                         <DataGridTextColumn Header="Nachname" Binding="{Binding Nachname}"></DataGridTextColumn>
                                                         <DataGridTextColumn Header="Vorname" Binding="{Binding Vorname}"></DataGridTextColumn>
-                                                        <DataGridTextColumn Header="Beruf" Binding="{Binding Beruf}" Width="*">
-                                                        </DataGridTextColumn>
+                                                        <DataGridTextColumn Header="Beruf" Binding="{Binding Beruf}"></DataGridTextColumn>
+                                                        <DataGridTextColumn Header="Betrieb" Binding="{Binding AusbildungsBetrieb}"></DataGridTextColumn>
+                                                        <DataGridTextColumn Header="Geschlecht" Binding="{Binding Geschlecht}"></DataGridTextColumn>
                                                     </DataGrid.Columns>
                                                     <DataGrid.Resources>
                                                         <Style TargetType="{x:Type DataGridColumnHeader}">

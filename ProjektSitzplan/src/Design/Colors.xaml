@@ -14,6 +14,7 @@
 
     <SolidColorBrush x:Key="ContentBackground" Color="#36393F"></SolidColorBrush>
     <SolidColorBrush x:Key="ContentForeground" Color="#878B91"></SolidColorBrush>
+    <SolidColorBrush x:Key="ContentTitleForeground" Color="#D7D8D9"></SolidColorBrush>
     <SolidColorBrush x:Key="ContentHoverForeground" Color="#D1DDDE"></SolidColorBrush>
     <SolidColorBrush x:Key="ContentDivider" Color="#42454A"></SolidColorBrush>
     <SolidColorBrush x:Key="ContentControlBorder" Color="#32353B"></SolidColorBrush>
