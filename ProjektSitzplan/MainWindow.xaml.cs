@@ -9,6 +9,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
 
@@ -33,13 +34,13 @@ namespace ProjektSitzplan
                     case EWindowContent.Leer:
                         {
                             KlasseHinzufügenGrd.Visibility = Visibility.Hidden;
+                            KlasseÜbersichtGrd.Visibility = Visibility.Hidden;
 
                             break;
                         }
                     case EWindowContent.KlasseErstellen:
                         {
                             KlasseÜbersichtGrd.Visibility = Visibility.Hidden;
-
                             KlasseHinzufügenGrd.Visibility = Visibility.Visible;
 
                             break;
@@ -103,6 +104,30 @@ namespace ProjektSitzplan
             //TODO: Weitere hier hinzufügen
         }
 
+        #region Commands
+        public static RoutedCommand CommandCreate = new RoutedCommand();
+        public static RoutedCommand CommandImport = new RoutedCommand();
+        public static RoutedCommand CommandExport = new RoutedCommand();
+        public static RoutedCommand CommandSave = new RoutedCommand();
+        public static RoutedCommand CommandReload = new RoutedCommand();
+        public static RoutedCommand CommandUndo = new RoutedCommand();
+        public static RoutedCommand CommandRedo = new RoutedCommand();
+
+        private void InitCommands()
+        {
+            CommandCreate.InputGestures.Add(new KeyGesture(Key.N, ModifierKeys.Control));
+            CommandImport.InputGestures.Add(new KeyGesture(Key.I, ModifierKeys.Control));
+            CommandExport.InputGestures.Add(new KeyGesture(Key.E, ModifierKeys.Control));
+            CommandSave.InputGestures.Add(new KeyGesture(Key.S, ModifierKeys.Control));
+            CommandReload.InputGestures.Add(new KeyGesture(Key.F5));
+            CommandUndo.InputGestures.Add(new KeyGesture(Key.Z, ModifierKeys.Control));
+            CommandRedo.InputGestures.Add(new KeyGesture(Key.Z, ModifierKeys.Control | ModifierKeys.Shift));
+            CommandRedo.InputGestures.Add(new KeyGesture(Key.Y, ModifierKeys.Control));
+            
+            CommandBindings.Add(new CommandBinding(CommandCreate, MenuKlasseErstellenBtn_Click));
+        }
+        #endregion
+
         private Label[] ContentLabels { get; set; }
         private PackIconSet[] ContentPackIconsSets { get; set; }
 
@@ -132,6 +157,8 @@ namespace ProjektSitzplan
             //TODO: WindowCloseButton backgrouznd sollte rot werden
             
             InitializeComponent();
+
+            InitCommands();
 
             StateChanged += (s, e) => 
             {
@@ -423,7 +450,7 @@ namespace ProjektSitzplan
             ContentPackIconsSets = new PackIconSet[]
             {
                 null, //Kein Icon vorhanden dann null, aber die Uids sollten halt trotzdem ausgefüllt werden
-                null,
+                new PackIconSet(KESchülerHinzufügenPkIco, PackIconSet.EIconType.Content, PSColors.IconHoverGreen, PSColors.IconPreviewGreen),
                 new PackIconSet(KESchülerEntfernenPkIco, PackIconSet.EIconType.Content, PSColors.IconHoverRed, PSColors.IconPreviewRed),
                 new PackIconSet(KEAbbrechenPkIco, PackIconSet.EIconType.Content, PSColors.IconHoverRed, PSColors.IconPreviewRed),
                 new PackIconSet(KEKlasseErstellenPkIco, PackIconSet.EIconType.Content, PSColors.IconHoverGreen, PSColors.IconPreviewGreen)
@@ -432,6 +459,13 @@ namespace ProjektSitzplan
         #endregion
 
         #region Menu
+        #region MenuAktualisierenBtn
+        private void MenuAktualisierenBtn_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO:
+        }
+        #endregion
+
         #region Beenden
         private void MenuBeendenBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -442,27 +476,31 @@ namespace ProjektSitzplan
         #region MenuKlassenDtGrd
         private void MenuKlassenDtGrd_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
-            WindowContent = EWindowContent.KlasseÜbersicht;
+            if(!MenuKlassenDtGrd.SelectedIndex.Equals(-1))
+            {
+                WindowContent = EWindowContent.KlasseÜbersicht;
+            }
         }
 
         private void MenuKlassenDtGrd_Sorting(object sender, DataGridSortingEventArgs e)
         {
             if (e.Column.SortDirection.Equals(ListSortDirection.Ascending))
             {
-                MenuKlassenSortingPkIco.Kind = MaterialDesignThemes.Wpf.PackIconKind.SortAlphabeticalAscending;
+                MenuKlassenSortingPkIco.Kind = PackIconKind.SortAlphabeticalAscending;
             }
             else
             {
-                MenuKlassenSortingPkIco.Kind = MaterialDesignThemes.Wpf.PackIconKind.SortAlphabeticalDescending;
+                MenuKlassenSortingPkIco.Kind = PackIconKind.SortAlphabeticalDescending;
             }
         }
         #endregion
 
         #region KeineKlassenVorhandenKlasseErstellen
-        private void MenuKeineKlassenVorhandenKlasseErstellenBtn_Click(object sender, RoutedEventArgs e)
+        private void MenuKlasseErstellenBtn_Click(object sender, RoutedEventArgs e)
         {
             WindowContent = EWindowContent.KlasseErstellen;
             KeineKlassenGefundenStPnl.Visibility = Visibility.Hidden;
+            MenuKlassenDtGrd.SelectedIndex = -1;
         }
         #endregion
         #endregion
@@ -477,6 +515,27 @@ namespace ProjektSitzplan
         private void KEGeschlechtCb_LostKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e)
         {
 
+        }
+        #endregion
+
+        #region KESchülerHinzufügenBtn
+        private void KESchülerHinzufügenBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Schüler neuerSchüler = new Schüler(KESchülerVornameTxbx.Text, 
+                KESchülerNachnameTxbx.Text,
+                (Person.EGeschlecht)Enum.Parse(typeof(Person.EGeschlecht), KESchülerGeschlechtCb.SelectedItem.ToString()),
+                (Person.EBeruf)Enum.Parse(typeof(Person.EBeruf), KESchülerBerufCb.SelectedItem.ToString()),
+                new Betrieb(KESchülerBetriebTxbx.Text));
+            
+
+            #region Clear Inputs
+            KESchülerNachnameTxbx.Text = "";
+            KESchülerVornameTxbx.Text = "";
+            KESchülerBetriebTxbx.Text = "";
+            KESchülerGeschlechtCb.SelectedIndex = -1;
+            KESchülerBerufCb.SelectedIndex = -1;
+            KESchülerMailTxbx.Text = "";
+            #endregion
         }
         #endregion
 
@@ -499,13 +558,16 @@ namespace ProjektSitzplan
         #region KEFelderLeerenBtn
         private void KEFelderLeerenBtn_Click(object sender, RoutedEventArgs e)
         {
+            KEKlassenNameTxbx.Text = "";
+            KEKlassenLehrerTxbx.Text = "";
 
+            KESchülerNachnameTxbx.Text = "";
+            KESchülerVornameTxbx.Text = "";
+            KESchülerBetriebTxbx.Text = "";
+            KESchülerGeschlechtCb.SelectedIndex = -1;
+            KESchülerBerufCb.SelectedIndex = -1;
+            KESchülerMailTxbx.Text = "";
         }
         #endregion
-
-        private void MenuAktualisierenBtn_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }
