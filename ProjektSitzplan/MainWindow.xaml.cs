@@ -1,4 +1,5 @@
-﻿using ProjektSitzplan.Design;
+﻿using MaterialDesignThemes.Wpf;
+using ProjektSitzplan.Design;
 using ProjektSitzplan.Structures;
 using System;
 using System.Collections.Generic;
@@ -102,6 +103,9 @@ namespace ProjektSitzplan
             //TODO: Weitere hier hinzufügen
         }
 
+        private Label[] ContentLabels { get; set; }
+        private PackIconSet[] ContentPackIconsSets { get; set; }
+
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -126,7 +130,7 @@ namespace ProjektSitzplan
             //TODO: DIe Klasse Exportieren Funktion im Datei Menü Disablen wenn keine ausgewählt ist. Und die speichern funktion auch
             //TODO: Beim erstellen der klasse darauf achten das der klassenname keine Path.GetInvalidCHars beinhaltet
             //TODO: WindowCloseButton backgrouznd sollte rot werden
-
+            
             InitializeComponent();
 
             StateChanged += (s, e) => 
@@ -328,19 +332,49 @@ namespace ProjektSitzplan
             sBtn.Content = Utility.GetImage($"{Utility.GetTopBarImagePrefix(sBtn, this)}DCDDDE");
         }
         #endregion
+
+        #region ContentButtons
+        private void ContentButton_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            Button sBtn = Utility.GetButton(sender);
+
+            sBtn.Background = PSColors.ContentButtonHoverBackground;
+            ContentLabels[Utility.GetUid(sBtn)].Foreground = PSColors.ContentButtonHoverForeground;
+
+            ContentPackIconsSets[Utility.GetUid(sBtn)]?.HandleColor(PackIconSet.EEventType.Enter);
+        }
+
+        private void ContentButton_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            Button sBtn = Utility.GetButton(sender);
+
+            sBtn.Background = PSColors.ContentButtonBackground;
+            ContentLabels[Utility.GetUid(sBtn)].Foreground = PSColors.ContentButtonForeground;
+            ContentPackIconsSets[Utility.GetUid(sBtn)]?.HandleColor(PackIconSet.EEventType.Leave);
+        }
+
+        private void ContentButton_PreviewMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Button sBtn = Utility.GetButton(sender);
+
+            sBtn.Background = PSColors.ContentButtonPreviewBackground;
+            ContentLabels[Utility.GetUid(sBtn)].Foreground = PSColors.ContentButtonPreviewForeground;
+            ContentPackIconsSets[Utility.GetUid(sBtn)]?.HandleColor(PackIconSet.EEventType.PreviewDown);
+        }
+
+        private void ContentButton_PreviewMouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Button sBtn = Utility.GetButton(sender);
+
+            sBtn.Background = PSColors.ContentButtonHoverBackground;
+            ContentLabels[Utility.GetUid(sBtn)].Foreground = PSColors.ContentButtonHoverForeground;
+            ContentPackIconsSets[Utility.GetUid(sBtn)]?.HandleColor(PackIconSet.EEventType.PreviewUp);
+        }
+        #endregion
         #endregion
 
         #region Private Methods
-        /// <summary>
-        /// Converts a hex string into a color
-        /// </summary>
-        /// <param name="hex">without #</param>
-        /// <returns>Color object</returns>
-        private static SolidColorBrush GetColor(string hex)
-        {
-            hex = hex.TrimStart('#');
-            return (SolidColorBrush)new BrushConverter().ConvertFrom($"#{hex}");
-        }
+        //lol wir haben keine
         #endregion
 
 
@@ -353,6 +387,23 @@ namespace ProjektSitzplan
             }
 
             MenuKlassenDtGrd.ItemsSource = DataHandler.SchulKlassen;
+
+            ContentLabels = new Label[]
+            {
+                KEFelderLeerenLbl,
+                KEKSchülerHinzufügenLbl,
+                KESchülerEntfernenLbl,
+                KEAbbrechenLbl,
+                KEKlasseErstellenLbl
+            };
+            ContentPackIconsSets = new PackIconSet[]
+            {
+                null, //Kein Icon vorhanden dann null, aber die Uids sollten halt trotzdem ausgefüllt werden
+                null,
+                new PackIconSet(KESchülerEntfernenPkIco, PackIconSet.EIconType.Content, PSColors.IconHoverRed, PSColors.IconPreviewRed),
+                new PackIconSet(KEAbbrechenPkIco, PackIconSet.EIconType.Content, PSColors.IconHoverRed, PSColors.IconPreviewRed),
+                new PackIconSet(KEKlasseErstellenPkIco, PackIconSet.EIconType.Content, PSColors.IconHoverGreen, PSColors.IconPreviewGreen)
+            };
         }
         #endregion
 

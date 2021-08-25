@@ -37,6 +37,11 @@ namespace ProjektSitzplan.Design
         public static readonly SolidColorBrush ContentTextBoxSelectedBorder = GetColor("D1DDDE");
         public static readonly SolidColorBrush ContentTextBoxSelectedCaret = GetColor("D1DDDE");
 
+        public static readonly SolidColorBrush IconHoverRed = GetColor("C80004");
+        public static readonly SolidColorBrush IconPreviewRed = GetColor("DC0005");
+        public static readonly SolidColorBrush IconHoverGreen = GetColor("007300");
+        public static readonly SolidColorBrush IconPreviewGreen = GetColor("008000");
+
         public static readonly SolidColorBrush MenuBackground = GetColor("2F3136");
         public static readonly SolidColorBrush MenuForeground = GetColor("D7D8D9");
         public static readonly SolidColorBrush MenuShortcut = GetColor("878B91");

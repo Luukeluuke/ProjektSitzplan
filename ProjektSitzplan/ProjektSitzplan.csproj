@@ -68,6 +68,7 @@
     </ApplicationDefinition>
     <Compile Include="src\DataHandler.cs" />
     <Compile Include="src\Design\PSColors.cs" />
+    <Compile Include="src\PackIconSet.cs" />
     <Compile Include="src\Structures\Betrieb.cs" />
     <Compile Include="src\Structures\Klasse.cs" />
     <Compile Include="src\Structures\Lehrer.cs" />

@@ -34,6 +34,11 @@
     <SolidColorBrush x:Key="ContentTextBoxSelectedBorder" Color="#D1DDDE"></SolidColorBrush>
     <SolidColorBrush x:Key="ContentTextBoxSelectedCaret" Color="#D1DDDE"></SolidColorBrush>
     <SolidColorBrush x:Key="ContentComboBoxSelectedBorder"></SolidColorBrush>
+
+    <SolidColorBrush x:Key="IconHoverRed" Color="#C80004"></SolidColorBrush>
+    <SolidColorBrush x:Key="IconPreviewRed" Color="#DC0005"></SolidColorBrush>
+    <SolidColorBrush x:Key="IconHoverGreen" Color="#007300"></SolidColorBrush>
+    <SolidColorBrush x:Key="IconPreviewGreen" Color="#008000"></SolidColorBrush>
     <!-- <SolidColorBrush x:Key="ContentSubMenuBackground" Color="#3a3d44"></SolidColorBrush> -->
     
     <SolidColorBrush x:Key="MenuBackground" Color="#2F3136"></SolidColorBrush>
