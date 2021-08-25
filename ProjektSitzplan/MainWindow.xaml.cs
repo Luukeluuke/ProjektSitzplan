@@ -371,6 +371,30 @@ namespace ProjektSitzplan
             ContentPackIconsSets[Utility.GetUid(sBtn)]?.HandleColor(PackIconSet.EEventType.PreviewUp);
         }
         #endregion
+
+        #region ContentTextBox
+        private void ContentTextBox_GotKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e)
+        {
+            (sender as TextBox).Foreground = PSColors.ContentTextBoxSelectedForeground;
+        }
+
+        private void ContentTextBox_LostKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e)
+        {
+            (sender as TextBox).Foreground = PSColors.ContentForeground;
+        }
+        #endregion
+
+        #region ContentTextBox
+        private void ContentComboBox_GotKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e)
+        {
+            (sender as ComboBox).Foreground = PSColors.ContentTextBoxSelectedForeground;
+        }
+
+        private void ContentComboBox_LostKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e)
+        {
+            (sender as ComboBox).Foreground = PSColors.ContentForeground;
+        }
+        #endregion
         #endregion
 
         #region Private Methods
@@ -444,18 +468,6 @@ namespace ProjektSitzplan
         #endregion
 
         #region Content - Klasse erstellen
-        #region KEKlasseNameTxBx
-        private void KEKlassenNameTxbx_GotKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e)
-        {
-            KEKlassenNameTxbx.Foreground = PSColors.ContentTextBoxSelectedForeground;
-        }
-
-        private void KEKlassenNameTxbx_LostKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e)
-        {
-            KEKlassenNameTxbx.Foreground = PSColors.ContentForeground;
-        }
-        #endregion
-
         #region KEGEschlechtCb
         private void KEGeschlechtCb_GotKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e)
         {
@@ -481,6 +493,19 @@ namespace ProjektSitzplan
             DataHandler.FügeSchulKlasseHinzu(AusgewählteKlasse);
         }
         #endregion
+
         #endregion
+
+        #region KEFelderLeerenBtn
+        private void KEFelderLeerenBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        #endregion
+
+        private void MenuAktualisierenBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

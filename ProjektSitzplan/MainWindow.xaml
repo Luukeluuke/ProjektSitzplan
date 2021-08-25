@@ -103,6 +103,14 @@
                                             </StackPanel>
                                         </MenuItem.Header>
                                     </MenuItem>
+                                    <MenuItem x:Name="MenuAktualisierenBtn" Click="MenuAktualisierenBtn_Click">
+                                        <MenuItem.Header>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Label Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="14" Content="Aktualisieren&#x09;&#x09;"></Label>
+                                                <Label Foreground="{StaticResource MenuShortcut}" Content="F5"></Label>
+                                            </StackPanel>
+                                        </MenuItem.Header>
+                                    </MenuItem>
                                     <MenuItem x:Name="MenuBeendenBtn" Click="MenuBeendenBtn_Click">
                                         <MenuItem.Header>
                                             <StackPanel Orientation="Horizontal">
@@ -250,7 +258,7 @@
                                                             <ColumnDefinition Width="0.5*"></ColumnDefinition>
                                                         </Grid.ColumnDefinitions>
                                                         <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="14" Foreground="{StaticResource ContentForeground}" Content="Klassenname *:   "></Label>
-                                                        <TextBox Grid.Column="1" Grid.Row="0" x:Name="KEKlassenNameTxbx" HorizontalAlignment="Stretch" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" Foreground="{StaticResource ContentForeground}" BorderBrush="{StaticResource ContentForeground}" FontSize="14" materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource ContentTextBoxSelectedBorder}" CaretBrush="{StaticResource ContentTextBoxSelectedCaret}" GotKeyboardFocus="KEKlassenNameTxbx_GotKeyboardFocus" LostKeyboardFocus="KEKlassenNameTxbx_LostKeyboardFocus"></TextBox>
+                                                        <TextBox Grid.Column="1" Grid.Row="0" x:Name="KEKlassenNameTxbx" HorizontalAlignment="Stretch" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" Foreground="{StaticResource ContentForeground}" BorderBrush="{StaticResource ContentForeground}" FontSize="14" materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource ContentTextBoxSelectedBorder}" CaretBrush="{StaticResource ContentTextBoxSelectedCaret}" GotKeyboardFocus="ContentTextBox_GotKeyboardFocus" LostKeyboardFocus="ContentTextBox_LostKeyboardFocus"></TextBox>
                                                     </Grid>
                                                     <Grid Grid.Column="0" Grid.Row="2" Margin="0 5 0 20">
                                                         <Grid.ColumnDefinitions>
@@ -259,7 +267,7 @@
                                                             <ColumnDefinition Width="0.5*"></ColumnDefinition>
                                                         </Grid.ColumnDefinitions>
                                                         <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="14" Foreground="{StaticResource ContentForeground}" Content="Klassenlehrer:     "></Label>
-                                                        <TextBox Grid.Column="1" Grid.Row="0" x:Name="KEKlassenLehrerTxbx" HorizontalAlignment="Stretch" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" Foreground="{StaticResource ContentForeground}" BorderBrush="{StaticResource ContentForeground}" FontSize="14" materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource ContentTextBoxSelectedBorder}" CaretBrush="{StaticResource ContentTextBoxSelectedCaret}" GotKeyboardFocus="KEKlassenNameTxbx_GotKeyboardFocus" LostKeyboardFocus="KEKlassenNameTxbx_LostKeyboardFocus"></TextBox>
+                                                        <TextBox Grid.Column="1" Grid.Row="0" x:Name="KEKlassenLehrerTxbx" HorizontalAlignment="Stretch" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" Foreground="{StaticResource ContentForeground}" BorderBrush="{StaticResource ContentForeground}" FontSize="14" materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource ContentTextBoxSelectedBorder}" CaretBrush="{StaticResource ContentTextBoxSelectedCaret}" GotKeyboardFocus="ContentTextBox_GotKeyboardFocus" LostKeyboardFocus="ContentTextBox_LostKeyboardFocus"></TextBox>
                                                     </Grid>
                                                 </Grid>
                                             </Border>
@@ -282,7 +290,7 @@
                                                         <ColumnDefinition Width="0.5*"></ColumnDefinition>
                                                     </Grid.ColumnDefinitions>
                                                     <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="14" Foreground="{StaticResource ContentForeground}" Content="Nachname *:      "></Label>
-                                                    <TextBox Grid.Column="1" Grid.Row="0" x:Name="KENachnameTxbx" HorizontalAlignment="Stretch" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" Foreground="{StaticResource ContentForeground}" BorderBrush="{StaticResource ContentForeground}" FontSize="14" materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource ContentTextBoxSelectedBorder}" CaretBrush="{StaticResource ContentTextBoxSelectedCaret}" GotKeyboardFocus="KEKlassenNameTxbx_GotKeyboardFocus" LostKeyboardFocus="KEKlassenNameTxbx_LostKeyboardFocus"></TextBox>
+                                                    <TextBox Grid.Column="1" Grid.Row="0" x:Name="KENachnameTxbx" HorizontalAlignment="Stretch" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" Foreground="{StaticResource ContentForeground}" BorderBrush="{StaticResource ContentForeground}" FontSize="14" materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource ContentTextBoxSelectedBorder}" CaretBrush="{StaticResource ContentTextBoxSelectedCaret}" GotKeyboardFocus="ContentTextBox_GotKeyboardFocus" LostKeyboardFocus="ContentTextBox_LostKeyboardFocus"></TextBox>
                                                 </Grid>
                                                 <Grid Grid.Column="0" Grid.Row="2" Margin="0 5 0 5">
                                                     <Grid.ColumnDefinitions>
@@ -291,7 +299,7 @@
                                                         <ColumnDefinition Width="0.5*"></ColumnDefinition>
                                                     </Grid.ColumnDefinitions>
                                                     <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="14" Foreground="{StaticResource ContentForeground}" Content="Vorname *:         "></Label>
-                                                    <TextBox Grid.Column="1" Grid.Row="0" x:Name="KESchülerVornameTxbx" HorizontalAlignment="Stretch" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" Foreground="{StaticResource ContentForeground}" BorderBrush="{StaticResource ContentForeground}" FontSize="14" materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource ContentTextBoxSelectedBorder}" CaretBrush="{StaticResource ContentTextBoxSelectedCaret}" GotKeyboardFocus="KEKlassenNameTxbx_GotKeyboardFocus" LostKeyboardFocus="KEKlassenNameTxbx_LostKeyboardFocus"></TextBox>
+                                                    <TextBox Grid.Column="1" Grid.Row="0" x:Name="KESchülerVornameTxbx" HorizontalAlignment="Stretch" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" Foreground="{StaticResource ContentForeground}" BorderBrush="{StaticResource ContentForeground}" FontSize="14" materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource ContentTextBoxSelectedBorder}" CaretBrush="{StaticResource ContentTextBoxSelectedCaret}" GotKeyboardFocus="ContentTextBox_GotKeyboardFocus" LostKeyboardFocus="ContentTextBox_LostKeyboardFocus"></TextBox>
                                                 </Grid>
                                                 <Grid Grid.Column="0" Grid.Row="3" Margin="0 5 0 5">
                                                     <Grid.ColumnDefinitions>
@@ -300,7 +308,7 @@
                                                         <ColumnDefinition Width="0.5*"></ColumnDefinition>
                                                     </Grid.ColumnDefinitions>
                                                     <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="14" Foreground="{StaticResource ContentForeground}" Content="Betrieb *:            "></Label>
-                                                    <TextBox Grid.Column="1" Grid.Row="0" x:Name="KESchülerBetriebTxbx" HorizontalAlignment="Stretch" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" Foreground="{StaticResource ContentForeground}" BorderBrush="{StaticResource ContentForeground}" FontSize="14" materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource ContentTextBoxSelectedBorder}" CaretBrush="{StaticResource ContentTextBoxSelectedCaret}" GotKeyboardFocus="KEKlassenNameTxbx_GotKeyboardFocus" LostKeyboardFocus="KEKlassenNameTxbx_LostKeyboardFocus"></TextBox>
+                                                    <TextBox Grid.Column="1" Grid.Row="0" x:Name="KESchülerBetriebTxbx" HorizontalAlignment="Stretch" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" Foreground="{StaticResource ContentForeground}" BorderBrush="{StaticResource ContentForeground}" FontSize="14" materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource ContentTextBoxSelectedBorder}" CaretBrush="{StaticResource ContentTextBoxSelectedCaret}" GotKeyboardFocus="ContentTextBox_GotKeyboardFocus" LostKeyboardFocus="ContentTextBox_LostKeyboardFocus"></TextBox>
                                                 </Grid>
                                                 <Grid Grid.Column="0" Grid.Row="4" Margin="0 5 0 5">
                                                     <Grid.ColumnDefinitions>
@@ -309,7 +317,7 @@
                                                         <ColumnDefinition Width="0.5*"></ColumnDefinition>
                                                     </Grid.ColumnDefinitions>
                                                     <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="14" Foreground="{StaticResource ContentForeground}" Content="Geschlecht *:      "></Label>
-                                                    <ComboBox x:Name="KEGeschlechtCb" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" Foreground="{StaticResource ContentForeground}" BorderBrush="{StaticResource ContentForeground}" FontSize="14" materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource ContentComboBoxSelectedBorder}" GotKeyboardFocus="KEGeschlechtCb_GotKeyboardFocus" LostKeyboardFocus="KEGeschlechtCb_LostKeyboardFocus">
+                                                    <ComboBox x:Name="KEGeschlechtCb" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" Foreground="{StaticResource ContentForeground}" BorderBrush="{StaticResource ContentForeground}" FontSize="14" materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource ContentComboBoxSelectedBorder}" GotKeyboardFocus="ContentComboBox_GotKeyboardFocus" LostKeyboardFocus="ContentComboBox_LostKeyboardFocus">
                                                         <ComboBox.Resources>
                                                             <SolidColorBrush x:Key="MaterialDesignPaper" Color="#32353B"/>
                                                             <SolidColorBrush x:Key="MaterialDesignTextFieldBoxHoverBackground" Color="Red"/>
@@ -325,7 +333,7 @@
                                                         <ColumnDefinition Width="0.5*"></ColumnDefinition>
                                                     </Grid.ColumnDefinitions>
                                                     <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="14" Foreground="{StaticResource ContentForeground}" Content="Beruf *:               "></Label>
-                                                    <ComboBox x:Name="KEBerufCb" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" Foreground="{StaticResource ContentForeground}" BorderBrush="{StaticResource ContentForeground}" FontSize="14" materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource ContentComboBoxSelectedBorder}" GotKeyboardFocus="KEGeschlechtCb_GotKeyboardFocus" LostKeyboardFocus="KEGeschlechtCb_LostKeyboardFocus">
+                                                    <ComboBox x:Name="KEBerufCb" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" Foreground="{StaticResource ContentForeground}" BorderBrush="{StaticResource ContentForeground}" FontSize="14" materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource ContentComboBoxSelectedBorder}" GotKeyboardFocus="ContentComboBox_GotKeyboardFocus" LostKeyboardFocus="ContentComboBox_LostKeyboardFocus">
                                                         <ComboBox.Resources>
                                                             <SolidColorBrush x:Key="MaterialDesignPaper" Color="#32353B"/>
                                                             <SolidColorBrush x:Key="MaterialDesignTextFieldBoxHoverBackground" Color="Red"/>
@@ -346,7 +354,7 @@
                                                         <ColumnDefinition Width="0.5*"></ColumnDefinition>
                                                     </Grid.ColumnDefinitions>
                                                     <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="14" Foreground="{StaticResource ContentForeground}" Content="E-Mail:                "></Label>
-                                                    <TextBox Grid.Column="1" Grid.Row="0" x:Name="KEEMailTxbx" HorizontalAlignment="Stretch" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" Foreground="{StaticResource ContentForeground}" BorderBrush="{StaticResource ContentForeground}" FontSize="14" materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource ContentTextBoxSelectedBorder}" CaretBrush="{StaticResource ContentTextBoxSelectedCaret}" GotKeyboardFocus="KEKlassenNameTxbx_GotKeyboardFocus" LostKeyboardFocus="KEKlassenNameTxbx_LostKeyboardFocus"></TextBox>
+                                                    <TextBox Grid.Column="1" Grid.Row="0" x:Name="KEEMailTxbx" HorizontalAlignment="Stretch" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" Foreground="{StaticResource ContentForeground}" BorderBrush="{StaticResource ContentForeground}" FontSize="14" materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource ContentTextBoxSelectedBorder}" CaretBrush="{StaticResource ContentTextBoxSelectedCaret}" GotKeyboardFocus="ContentTextBox_GotKeyboardFocus" LostKeyboardFocus="ContentTextBox_LostKeyboardFocus"></TextBox>
                                                     <Label Grid.Column="1" Grid.Row="0" Margin="0 30 0 0" HorizontalAlignment="Right" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="13" Foreground="{StaticResource ContentForeground}" Content="* Pflichtpfeld"></Label>
                                                 </Grid>
                                                 <Grid Grid.Column="0" Grid.Row="7">
@@ -361,7 +369,7 @@
                                                             <ColumnDefinition Width="*"></ColumnDefinition>
                                                         </Grid.ColumnDefinitions>
                                                         <Grid Grid.Column="0" Grid.Row="1">
-                                                            <Button x:Name="KEFelderLeerenBtn" Uid="0" HorizontalAlignment="Stretch" Height="Auto" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource Flat}" materialDesign:RippleAssist.IsDisabled="True" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp"></Button>
+                                                            <Button x:Name="KEFelderLeerenBtn" Uid="0" HorizontalAlignment="Stretch" Height="Auto" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource Flat}" materialDesign:RippleAssist.IsDisabled="True" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp" Click="KEFelderLeerenBtn_Click"></Button>
                                                             <Label x:Name="KEFelderLeerenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Felder leeren" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"></Label>
                                                         </Grid>
                                                         <Grid Grid.Column="2" Grid.Row="1">
