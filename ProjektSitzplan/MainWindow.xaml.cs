@@ -122,10 +122,10 @@ namespace ProjektSitzplan
 
         public MainWindow()
         {
-            //TODO: In Menu typische symbole einbauen
+            //TODO: In Menu typische symbole einbauen // Import export save help
             //TODO: DIe Klasse Exportieren Funktion im Datei Menü Disablen wenn keine ausgewählt ist. Und die speichern funktion auch
             //TODO: Beim erstellen der klasse darauf achten das der klassenname keine Path.GetInvalidCHars beinhaltet
-            //TODO: Sorting icon bei Klassen usw ka
+            //TODO: WindowCloseButton backgrouznd sollte rot werden
 
             InitializeComponent();
 

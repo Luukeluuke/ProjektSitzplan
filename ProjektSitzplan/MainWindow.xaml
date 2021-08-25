@@ -337,7 +337,7 @@
                                                     </Grid.ColumnDefinitions>
                                                     <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="14" Foreground="{StaticResource ContentForeground}" Content="E-Mail:                "></Label>
                                                     <TextBox Grid.Column="1" Grid.Row="0" x:Name="KEEMailTxbx" HorizontalAlignment="Stretch" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" Foreground="{StaticResource ContentForeground}" BorderBrush="{StaticResource ContentForeground}" FontSize="14" materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource ContentTextBoxSelectedBorder}" CaretBrush="{StaticResource ContentTextBoxSelectedCaret}" GotKeyboardFocus="KEKlassenNameTxbx_GotKeyboardFocus" LostKeyboardFocus="KEKlassenNameTxbx_LostKeyboardFocus"></TextBox>
-                                                    <Label Grid.Column="1" Grid.Row="0" Margin="0 33 0 0" HorizontalAlignment="Right" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="13" Foreground="{StaticResource ContentForeground}" Content="* Pflichtpfeld"></Label>
+                                                    <Label Grid.Column="1" Grid.Row="0" Margin="0 30 0 0" HorizontalAlignment="Right" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="13" Foreground="{StaticResource ContentForeground}" Content="* Pflichtpfeld"></Label>
                                                 </Grid>
                                             </Grid>
                                         </Grid>
