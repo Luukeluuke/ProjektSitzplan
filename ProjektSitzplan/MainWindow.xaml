@@ -22,7 +22,8 @@
             <Grid Grid.Column="0" Grid.Row="0" Background="{StaticResource TopBarBackground}">
                 <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5 0 0 0">
                     <!-- TODO: Hier kommt iwann das Logo hin -->
-                    <Label Content="Sitzplan" Foreground="{StaticResource TopBarForeground}" FontFamily="Segoe UI Semibold" FontSize="16"></Label>
+                    <Image VerticalAlignment="Center" Margin="0 7 0 7" Source="/ProjektSitzplan;component/src/Design/Images/Logos/Logo878B91.png"></Image>
+                    <Label Margin="1 0 0 0" Content="Sitzplan" Foreground="{StaticResource TopBarForeground}" FontFamily="Segoe UI Semibold" FontSize="16"></Label>
                 </StackPanel>
                 <Grid Grid.Column="0" Grid.Row="0"  HorizontalAlignment="Right" WindowChrome.IsHitTestVisibleInChrome="True">
                     <Grid.ColumnDefinitions>
@@ -270,6 +271,7 @@
                                                     <RowDefinition Height="Auto"></RowDefinition>
                                                     <RowDefinition Height="Auto"></RowDefinition>
                                                     <RowDefinition Height="Auto"></RowDefinition>
+                                                    <RowDefinition Height="Auto"></RowDefinition>
                                                 </Grid.RowDefinitions>
                                                 <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="15" Foreground="{StaticResource ContentTitleForeground}" Content="Schüler hinzufügen"></Label>
                                                 <Grid Grid.Column="0" Grid.Row="1" Margin="0 5 0 5">
@@ -335,6 +337,7 @@
                                                     </Grid.ColumnDefinitions>
                                                     <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="14" Foreground="{StaticResource ContentForeground}" Content="E-Mail:                "></Label>
                                                     <TextBox Grid.Column="1" Grid.Row="0" x:Name="KEEMailTxbx" HorizontalAlignment="Stretch" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" Foreground="{StaticResource ContentForeground}" BorderBrush="{StaticResource ContentForeground}" FontSize="14" materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource ContentTextBoxSelectedBorder}" CaretBrush="{StaticResource ContentTextBoxSelectedCaret}" GotKeyboardFocus="KEKlassenNameTxbx_GotKeyboardFocus" LostKeyboardFocus="KEKlassenNameTxbx_LostKeyboardFocus"></TextBox>
+                                                    <Label Grid.Column="1" Grid.Row="0" Margin="0 33 0 0" HorizontalAlignment="Right" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="13" Foreground="{StaticResource ContentForeground}" Content="* Pflichtpfeld"></Label>
                                                 </Grid>
                                             </Grid>
                                         </Grid>
@@ -439,7 +442,10 @@
                                             <Border Grid.Column="0" Grid.Row="0" BorderThickness="0 0 0 1" BorderBrush="{StaticResource ContentDivider}">
                                                 <Grid Margin="0 0 0 5">
                                                     <Button x:Name="KESchülerEntfernenBtn" HorizontalAlignment="Stretch" Height="Auto" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource Flat}"></Button>
-                                                    <Label x:Name="KESchülerEntfernenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Ausgewählten Schüler entfernen" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"></Label>
+                                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                                                        <Label x:Name="KESchülerEntfernenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Ausgewählten Schüler entfernen" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"></Label>
+                                                        <materialDesign:PackIcon Margin="2 0 0 0" VerticalAlignment="Center" Kind="Trash" Height="18" Width="18" Foreground="{StaticResource ContentButtonForeground}" IsHitTestVisible="False"></materialDesign:PackIcon>
+                                                    </StackPanel>
                                                 </Grid>
                                             </Border>
                                             <Grid Grid.Column="0" Grid.Row="1" Margin="0 5 0 0">
@@ -450,11 +456,17 @@
                                                 </Grid.ColumnDefinitions>
                                                 <Grid Grid.Column="0" Grid.Row="1">
                                                     <Button x:Name="KEAbbrechenBtn" HorizontalAlignment="Stretch" Height="Auto" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource Flat}"></Button>
-                                                    <Label x:Name="KEAbbrechenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Abbrechen" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"></Label>
+                                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                                                        <Label x:Name="KEAbbrechenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Abbrechen" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"></Label>
+                                                        <materialDesign:PackIcon Margin="2 0 0 0" VerticalAlignment="Center" Kind="CloseBold" Height="18" Width="18" Foreground="{StaticResource ContentButtonForeground}" IsHitTestVisible="False"></materialDesign:PackIcon>
+                                                    </StackPanel>
                                                 </Grid>
                                                 <Grid Grid.Column="2" Grid.Row="1">
                                                     <Button x:Name="KEKlasseErstellenBtn" HorizontalAlignment="Stretch" Height="Auto" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource Flat}" Click="KEKlasseErstellenBtn_Click"></Button>
-                                                    <Label x:Name="KEKlasseErstellenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Klasse erstellen" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"></Label>
+                                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                                                        <Label x:Name="KEKlasseErstellenLbl" Content="Klasse erstellen" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"></Label>
+                                                        <materialDesign:PackIcon Margin="2 0 0 0" VerticalAlignment="Center" Kind="CheckBold" Height="18" Width="18" Foreground="{StaticResource ContentButtonForeground}" IsHitTestVisible="False"></materialDesign:PackIcon>
+                                                    </StackPanel>
                                                 </Grid>
                                             </Grid>
                                         </Grid>
