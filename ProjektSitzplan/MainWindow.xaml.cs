@@ -521,21 +521,51 @@ namespace ProjektSitzplan
         #region KESchülerHinzufügenBtn
         private void KESchülerHinzufügenBtn_Click(object sender, RoutedEventArgs e)
         {
-            Schüler neuerSchüler = new Schüler(KESchülerVornameTxbx.Text, 
-                KESchülerNachnameTxbx.Text,
-                (Person.EGeschlecht)Enum.Parse(typeof(Person.EGeschlecht), KESchülerGeschlechtCb.SelectedItem.ToString()),
-                (Person.EBeruf)Enum.Parse(typeof(Person.EBeruf), KESchülerBerufCb.SelectedItem.ToString()),
-                new Betrieb(KESchülerBetriebTxbx.Text));
-            
+			string vorname = KESchülerVornameTxbx.Text.Trim();
+            string nachname = KESchülerNachnameTxbx.Text.Trim();
+            string betrieb = KESchülerBetriebTxbx.Text.Trim();
+            string email = KESchülerMailTxbx.Text.Trim();
 
-            #region Clear Inputs
-            KESchülerNachnameTxbx.Text = "";
-            KESchülerVornameTxbx.Text = "";
-            KESchülerBetriebTxbx.Text = "";
-            KESchülerGeschlechtCb.SelectedIndex = -1;
-            KESchülerBerufCb.SelectedIndex = -1;
-            KESchülerMailTxbx.Text = "";
-            #endregion
+            if (vorname == "" || nachname == "" || betrieb == "")
+            {
+                // TODO fehler ausgeben: nicht alle pflichtfelder ausgefüllt
+                return;
+            }
+			
+            Person.EGeschlecht geschlecht;
+            Person.EBeruf beruf;
+            try
+            {
+                /*
+                JO :D hab das problem mal gelöst
+                beide optionen hier sollten funktionieren
+                allerdings gibts bei der ersten ein fehler wenn noch kein objekt ausgewählt wurde
+                also würde ich einfach bei dem zweiten bleiben :D
+                */
+
+                //string geschlechtStr = ((ComboBoxItem)KESchülerGeschlechtCb.SelectedItem).Content.ToString();
+                //string berufStr = ((ComboBoxItem)KESchülerBerufCb.SelectedValue).Content.ToString();
+                geschlecht = (Person.EGeschlecht)Enum.Parse(typeof(Person.EGeschlecht), KESchülerGeschlechtCb.Text, true);
+                beruf = (Person.EBeruf)Enum.Parse(typeof(Person.EBeruf), KESchülerBerufCb.Text, true);
+            } catch (ArgumentException)
+            {
+                // TODO fehler ausgeben: kein geschlecht oder Beruf ausgewählt :D
+                return;
+            }
+
+            Schüler neuerSchüler;
+
+            if (email == "")
+            {
+                neuerSchüler = new Schüler(vorname, nachname, geschlecht, beruf, new Betrieb(betrieb));
+            } else
+            {
+                neuerSchüler = new Schüler(vorname, nachname, geschlecht, beruf, email, new Betrieb(betrieb));
+            }
+
+            // TODO schüler zu klasse hinzufügen
+
+            KESchülerFelderLeeren();
         }
         #endregion
 
@@ -561,6 +591,11 @@ namespace ProjektSitzplan
             KEKlassenNameTxbx.Text = "";
             KEKlassenLehrerTxbx.Text = "";
 
+            KESchülerFelderLeeren();
+        }
+
+        private void KESchülerFelderLeeren()
+        {
             KESchülerNachnameTxbx.Text = "";
             KESchülerVornameTxbx.Text = "";
             KESchülerBetriebTxbx.Text = "";
