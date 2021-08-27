@@ -20,7 +20,7 @@ namespace ProjektSitzplan
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
-        private EWindowContent windowContent = EWindowContent.Leer;
+        private EWindowContent windowContent = ;
         private EWindowContent WindowContent 
         { 
             get
@@ -33,6 +33,7 @@ namespace ProjektSitzplan
                 {
                     case EWindowContent.Leer:
                         {
+                            //TODO: Make this with a schnieke method
                             KlasseHinzufügenGrd.Visibility = Visibility.Hidden;
                             KlasseÜbersichtGrd.Visibility = Visibility.Hidden;
 

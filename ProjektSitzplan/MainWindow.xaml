@@ -227,7 +227,7 @@
                         <RowDefinition Height="5"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Grid Grid.Column="0" Grid.Row="0" Background="{StaticResource MenuBackground}">
-                        
+
                     </Grid>
                     <Border Grid.Column="0" Grid.Row="1" BorderThickness="0 1 0 1" BorderBrush="{StaticResource TransitionStart}">
                         <Border BorderThickness="1" BorderBrush="{StaticResource TransitionEnd}" Background="{StaticResource ContentBackground}">
@@ -514,27 +514,23 @@
                                         </Grid>
                                     </Grid>
                                 </Grid>
-                                <Grid x:Name="KlasseÜbersichtGrd" Visibility="Hidden">
-                                    <Label Foreground="White" HorizontalAlignment="Center" Content="{Binding Name}" VerticalAlignment="Center" DataContext="{Binding AusgewählteKlasse}"></Label>
+                                <Grid x:Name="KlasseÜbersichtGrd" Visibility="Hidden" DataContext="{Binding AusgewählteKlasse}">
+                                    <Label Foreground="White" HorizontalAlignment="Center" Content="{Binding Name}" VerticalAlignment="Center"></Label>
+                                </Grid>
+                                <Grid x:Name="LeerGrd">
+                                    <StackPanel x:Name="LKeineKlasseAusgewähltStkPnl" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Vertical" Visibility="Hidden">
+                                        <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="14" Foreground="{StaticResource ContentForeground}" Content="Es ist keine Klasse ausgewählt"></Label>
+                                        <materialDesign:PackIcon  Margin="5 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Top" Height="30" Width="30" Kind="ArrowLeft" Foreground="{StaticResource ContentButtonForeground}"></materialDesign:PackIcon>
+                                    </StackPanel>
                                 </Grid>
                             </Grid>
                         </Border>
                     </Border>
                     <Grid Grid.Column="0" Grid.Row="2" Background="{StaticResource MenuBackground}">
-                        
+
                     </Grid>
                 </Grid>
             </Grid>
         </Grid>
     </Border>
-    <!--<Window.CommandBindings>
-        <CommandBinding Command="{x:Static local:MainWindow.CommandSave}"/>
-        --><!--<CommandBinding Command="{x:Static local:MainWindow.CommandCreate}"/>--><!--
-        <CommandBinding Command="{x:Static local:MainWindow.CommandImport}"/>
-        <CommandBinding Command="{x:Static local:MainWindow.CommandExport}"/>
-        <CommandBinding Command="{x:Static local:MainWindow.CommandReload}"/>
-        <CommandBinding Command="{x:Static local:MainWindow.CommandUndo}"/>
-        <CommandBinding Command="{x:Static local:MainWindow.CommandRedo}"/>
-        <CommandBinding Command="{x:Static local:MainWindow.CommandRedo}"/>
-    </Window.CommandBindings>-->
 </Window>
