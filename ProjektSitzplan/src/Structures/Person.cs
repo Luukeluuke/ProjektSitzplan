@@ -23,7 +23,7 @@ namespace ProjektSitzplan.Structures
         {
             Lehrer = 0,
             Anwendungsentwicklung = 1,
-            SystemIntegration = 2,
+            Systemintegration = 2,
             DatenUndProzessanalyse = 3,
             DigitaleVernetzung = 4,
             KaufmanFürITSystemManagement = 5,

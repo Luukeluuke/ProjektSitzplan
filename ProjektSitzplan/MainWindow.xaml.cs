@@ -20,7 +20,7 @@ namespace ProjektSitzplan
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
-        private EWindowContent windowContent = ;
+        private EWindowContent windowContent = EWindowContent.Leer;
         private EWindowContent WindowContent 
         { 
             get
@@ -37,6 +37,8 @@ namespace ProjektSitzplan
                             KlasseHinzufügenGrd.Visibility = Visibility.Hidden;
                             KlasseÜbersichtGrd.Visibility = Visibility.Hidden;
 
+                            LKeineKlasseAusgewähltStkPnl.Visibility = Visibility.Visible;
+
                             break;
                         }
                     case EWindowContent.KlasseErstellen:
@@ -44,13 +46,16 @@ namespace ProjektSitzplan
                             KlasseÜbersichtGrd.Visibility = Visibility.Hidden;
                             KlasseHinzufügenGrd.Visibility = Visibility.Visible;
 
+                            LKeineKlasseAusgewähltStkPnl.Visibility = Visibility.Hidden;
+
                             break;
                         }
                     case EWindowContent.KlasseÜbersicht:
                         {
                             KlasseHinzufügenGrd.Visibility = Visibility.Hidden;
-
                             KlasseÜbersichtGrd.Visibility = Visibility.Visible;
+
+                            LKeineKlasseAusgewähltStkPnl.Visibility = Visibility.Hidden;
 
                             break;
                         }
@@ -315,7 +320,30 @@ namespace ProjektSitzplan
                     }
                 case "1": //Restore
                     {
-                        WindowState = WindowState.Equals(WindowState.Normal) ? WindowState.Maximized : WindowState.Normal;
+                        if (WindowState.Equals(WindowState.Normal))
+                        {
+                            WindowState = WindowState.Maximized;
+                            WindowRestoreButton.ToolTip = new ToolTip() 
+                            { 
+                                Content = "Verkleinern", 
+                                Foreground = PSColors.ToolTipForeground, 
+                                Background = PSColors.ToolTipBackground, 
+                                FontFamily = new FontFamily("Segoe UI Semibold"), 
+                                FontSize = 12
+                            };
+                        }
+                        else
+                        {
+                            WindowState = WindowState.Normal;
+                            WindowRestoreButton.ToolTip = new ToolTip() 
+                            { 
+                                Content = "Maximieren", 
+                                Foreground = PSColors.ToolTipForeground, 
+                                Background = PSColors.ToolTipBackground, 
+                                FontFamily = new FontFamily("Segoe UI Semibold"), 
+                                FontSize = 12 
+                            };
+                        }
                         return;
                     }
                 case "2": //Close
@@ -433,10 +461,15 @@ namespace ProjektSitzplan
         #region Window
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            if (DataHandler.SchulKlassen.Count.Equals(0))
+            if (DataHandler.KlassenVorhanden())
+            {
+                LKeineKlasseAusgewähltStkPnl.Visibility = Visibility.Visible;
+            }
+            else
             {
                 KeineKlassenGefundenStPnl.Visibility = Visibility.Visible;
             }
+
 
             MenuKlassenDtGrd.ItemsSource = DataHandler.SchulKlassen;
 
@@ -537,18 +570,10 @@ namespace ProjektSitzplan
             Person.EBeruf beruf;
             try
             {
-                /*
-                JO :D hab das problem mal gelöst
-                beide optionen hier sollten funktionieren
-                allerdings gibts bei der ersten ein fehler wenn noch kein objekt ausgewählt wurde
-                also würde ich einfach bei dem zweiten bleiben :D
-                */
-
-                //string geschlechtStr = ((ComboBoxItem)KESchülerGeschlechtCb.SelectedItem).Content.ToString();
-                //string berufStr = ((ComboBoxItem)KESchülerBerufCb.SelectedValue).Content.ToString();
                 geschlecht = (Person.EGeschlecht)Enum.Parse(typeof(Person.EGeschlecht), KESchülerGeschlechtCb.Text, true);
                 beruf = (Person.EBeruf)Enum.Parse(typeof(Person.EBeruf), KESchülerBerufCb.Text, true);
-            } catch (ArgumentException)
+            } 
+            catch (ArgumentException)
             {
                 // TODO fehler ausgeben: kein geschlecht oder Beruf ausgewählt :D
                 return;
@@ -577,13 +602,18 @@ namespace ProjektSitzplan
         }
         #endregion
 
+        #region KEAbbrechenBtn
+        private void KEAbbrechenBtn_Click(object sender, RoutedEventArgs e)
+        {
+            WindowContent = EWindowContent.Leer;
+        }
+        #endregion
+
         #region KEKlasseErstellenBtn
         private void KEKlasseErstellenBtn_Click(object sender, RoutedEventArgs e)
         {
             DataHandler.FügeSchulKlasseHinzu(AusgewählteKlasse);
         }
-        #endregion
-
         #endregion
 
         #region KEFelderLeerenBtn
@@ -605,5 +635,7 @@ namespace ProjektSitzplan
             KESchülerMailTxbx.Text = "";
         }
         #endregion
+        #endregion
+
     }
 }

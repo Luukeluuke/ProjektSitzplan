@@ -2,6 +2,7 @@
 using ProjektSitzplan.Exceptions;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace ProjektSitzplan.Structures
 {
@@ -12,6 +13,7 @@ namespace ProjektSitzplan.Structures
         public Lehrer KlassenLehrer { get; private set; }
         public List<Sitzplan> Sitzpläne { get; private set; } = new List<Sitzplan>();
         public int AnzahlSchüler { get => SchülerListe.Count; }
+        public string ToolTipÜbersicht { get => ToToolTipString(); }
 
         private static string errorEntfernen = "Schüler konnte nicht aus der Klasse entfernt werden.";
         private static string errorHinzufügen = "Schüler konnte der Klasse nicht hinzugefügt werden.";
@@ -87,6 +89,23 @@ namespace ProjektSitzplan.Structures
             Sitzpläne.Add(sitzplan);
 
             return sitzplan;
+        }
+        #endregion
+
+        #region Private Methods
+        private string ToToolTipString()
+        {
+            //TODO: Sweer do your thing. Die wo 0 ist entfernen
+            //wo 0
+
+            return $"Schüler: {AnzahlSchüler}\n\n" +
+                $"Systemintegration: {SchülerListe.Where(s => s.Beruf.Equals(Person.EBeruf.Systemintegration)).Count()}\n" +
+                $"Anwendungsentwicklung: {SchülerListe.Where(s => s.Beruf.Equals(Person.EBeruf.Anwendungsentwicklung)).Count()}\n" +
+                $"System Elektroniker: {SchülerListe.Where(s => s.Beruf.Equals(Person.EBeruf.SystemElektroniker)).Count()}\n" +
+                $"Kaufman IT-Systemmanagement: {SchülerListe.Where(s => s.Beruf.Equals(Person.EBeruf.KaufmanFürITSystemManagement)).Count()}\n" +
+                $"Kaufman Digitalisierungsmanagement: {SchülerListe.Where(s => s.Beruf.Equals(Person.EBeruf.KaufmanFürDigitalisierungsManagement)).Count()}\n" +
+                $"Daten und Prozessanalyse: {SchülerListe.Where(s => s.Beruf.Equals(Person.EBeruf.DatenUndProzessanalyse)).Count()}\n" +
+                $"Digitale Vernetzung: {SchülerListe.Where(s => s.Beruf.Equals(Person.EBeruf.DigitaleVernetzung)).Count()}";
         }
         #endregion
     }

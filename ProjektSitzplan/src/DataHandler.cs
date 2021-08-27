@@ -13,6 +13,11 @@ namespace ProjektSitzplan
         public static List<SchulKlasse> SchulKlassen { get; private set; } = new List<SchulKlasse>();
 
         #region Public Methods
+        public static bool KlassenVorhanden()
+        {
+            return SchulKlassen.Count > 0;
+        }
+
         public static bool ExistiertKlasseBereits(SchulKlasse schulKlasse)
         {
             if (schulKlasse != null)
