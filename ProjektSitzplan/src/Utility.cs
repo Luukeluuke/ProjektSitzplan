@@ -28,7 +28,7 @@ namespace ProjektSitzplan
             return new Image { Source = new BitmapImage(new Uri($"pack://application:,,,/ProjektSitzplan;component/src/Design/Images/{imageFilename}.{imageType.ToString()}", UriKind.Absolute)), IsHitTestVisible = false };
         }
 
-        public static string GetTopBarImagePrefix(Button sBtn, MainWindow mw)
+        public static string GetTopBarImagePrefix(Button sBtn, Window thisWindow)
         {
             switch (sBtn.Uid)
             {
@@ -38,7 +38,7 @@ namespace ProjektSitzplan
                     }
                 case "1":
                     {
-                        return mw.WindowState.Equals(WindowState.Normal) || mw.WindowState.Equals(WindowState.Minimized) ? "Restore1" : "Restore2";
+                        return thisWindow.WindowState.Equals(WindowState.Normal) || thisWindow.WindowState.Equals(WindowState.Minimized) ? "Restore1" : "Restore2";
                     }
                 case "2":
                     {

@@ -69,6 +69,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="PsMessageBox.xaml.cs">
+      <DependentUpon>PsMessageBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="src\DataHandler.cs" />
     <Compile Include="src\Design\PSColors.cs" />
     <Compile Include="src\PackIconSet.cs" />
@@ -94,6 +97,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="PsMessageBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="src\Design\Colors.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

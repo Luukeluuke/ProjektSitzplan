@@ -21,7 +21,6 @@
             </Grid.RowDefinitions>
             <Grid Grid.Column="0" Grid.Row="0" Background="{StaticResource TopBarBackground}">
                 <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5 0 0 0">
-                    <!-- TODO: Hier kommt iwann das Logo hin -->
                     <Image VerticalAlignment="Center" Margin="0 7 0 7" Source="/ProjektSitzplan;component/src/Design/Images/Logos/Logo878B91.png"></Image>
                     <Label Margin="1 0 0 0" Content="Sitzplan" Foreground="{StaticResource TopBarForeground}" FontFamily="Segoe UI Semibold" FontSize="16"></Label>
                 </StackPanel>
@@ -551,6 +550,7 @@
                                 </Grid>
                                 <Grid x:Name="KlasseÜbersichtGrd" Visibility="Hidden" DataContext="{Binding AusgewählteKlasse}">
                                     <Label Foreground="White" HorizontalAlignment="Center" Content="{Binding Name}" VerticalAlignment="Center"></Label>
+                                    <Button VerticalAlignment="Top" Click="Button_Click"></Button>
                                 </Grid>
                                 <Grid x:Name="LeerGrd">
                                     <StackPanel x:Name="LKeineKlasseAusgewähltStkPnl" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Vertical" Visibility="Hidden">
