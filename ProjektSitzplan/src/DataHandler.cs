@@ -13,14 +13,30 @@ namespace ProjektSitzplan
         public static List<SchulKlasse> SchulKlassen { get; private set; } = new List<SchulKlasse>();
 
         #region Public Methods
+        public static bool ExistiertKlasseBereits(SchulKlasse schulKlasse)
+        {
+            if (schulKlasse != null)
+            {
+                return ExistiertKlasseBereits(schulKlasse.Name);
+            }
+            return false;
+        }
+
         public static bool ExistiertKlasseBereits(string klassenName)
         {
-            return SchulKlassen.Where(k => k.Name.Equals(klassenName)).Count() > 0;
+            if (klassenName != null)
+            {
+                //return SchulKlassen.Where(k => k.Name.Equals(klassenName)).Count() > 0;
+                return SchulKlassen.Any(k => k.Name.Equals(klassenName));
+            }
+            return false;
         }
 
         public static void FügeSchulKlasseHinzu(SchulKlasse schulKlasse)
         {
-            if (!SchulKlassen.Contains(schulKlasse))
+            //if (!SchulKlassen.Contains(schulKlasse))
+            //TODO Macht das so nicht mehr Sinn? Außerdem sollte man da ne fehlermeldung zeigen oder so?
+            if (!ExistiertKlasseBereits(schulKlasse))
             {
                 SchulKlassen.Add(schulKlasse);
             }
@@ -40,7 +56,10 @@ namespace ProjektSitzplan
         {
             foreach (string sKlasseFile in Directory.GetFiles("SchulKlassen"))
             {
-                SchulKlassen.Add(SchulKlasse.AusDateiLaden(sKlasseFile));
+                if (sKlasseFile.EndsWith(".json"))
+                {
+                    SchulKlassen.Add(SchulKlasse.AusDateiLaden(sKlasseFile));
+                }
             }
         }
         #endregion
