@@ -43,9 +43,7 @@ namespace ProjektSitzplan
             }
             catch (FileNotFoundException) { }
 
-            Lehrer lehrer = new Lehrer("Hanz", "Eisel", Person.EGeschlecht.Männlich);
-
-            SchulKlasse klasse = new SchulKlasse("tatata", lehrer);
+            SchulKlasse klasse = new SchulKlasse("tatata");
 
             // AWE
             klasse.SchülerHinzufügen(new Schüler("Ember", "Salmon", Person.EGeschlecht.Weiblich, Person.EBeruf.Anwendungsentwicklung, new Betrieb("")));
@@ -106,8 +104,7 @@ namespace ProjektSitzplan
 
         private static SchulKlasse GeneriereTestKlasse(int SchülerAnzahl)
         {
-            Lehrer lehrer = new Lehrer("KlassenLehrer", "KlassenLehrer", RandomGeschlecht());
-            SchulKlasse klasse = new SchulKlasse("TaTa", lehrer);
+            SchulKlasse klasse = new SchulKlasse("TaTa");
             AddTestData(klasse, SchülerAnzahl);
             return klasse;
         }

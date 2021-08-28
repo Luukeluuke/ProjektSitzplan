@@ -82,7 +82,7 @@
                                                 </StackPanel>
                                             </MenuItem.Header>
                                         </MenuItem>
-                                        <MenuItem>
+                                        <MenuItem x:Name="MenuKlasseImportierenBtn" Click="MenuKlasseImportierenBtn_Click">
                                             <MenuItem.Icon>
                                                 <materialDesign:PackIcon Kind="FileImport" Foreground="{StaticResource MenuForeground}"></materialDesign:PackIcon>
                                             </MenuItem.Icon>
@@ -93,7 +93,7 @@
                                                 </StackPanel>
                                             </MenuItem.Header>
                                         </MenuItem>
-                                        <MenuItem IsEnabled="False">
+                                        <MenuItem x:Name="MenuKlasseExportierenBtn" Click="MenuKlasseExportierenBtn_Click" IsEnabled="False">
                                             <MenuItem.Icon>
                                                 <materialDesign:PackIcon Kind="FileExport" Foreground="{StaticResource MenuForeground}"></materialDesign:PackIcon>
                                             </MenuItem.Icon>
@@ -104,7 +104,7 @@
                                                 </StackPanel>
                                             </MenuItem.Header>
                                         </MenuItem>
-                                        <MenuItem IsEnabled="False">
+                                        <MenuItem x:Name="MenuKlasseSpeichernBtn" Click="MenuKlasseSpeichernBtn_Click" IsEnabled="False">
                                             <MenuItem.Icon>
                                                 <materialDesign:PackIcon Kind="ContentSave" Foreground="{StaticResource MenuForeground}"></materialDesign:PackIcon>
                                             </MenuItem.Icon>
@@ -116,7 +116,7 @@
                                             </MenuItem.Header>
                                         </MenuItem>
                                     </MenuItem>
-                                    <MenuItem>
+                                    <MenuItem x:Name="MenuHilfeBtn" Click="MenuHilfeBtn_Click">
                                         <MenuItem.Icon>
                                             <materialDesign:PackIcon Kind="Help" Foreground="{StaticResource MenuForeground}"></materialDesign:PackIcon>
                                         </MenuItem.Icon>
@@ -285,7 +285,7 @@
                                                         <RowDefinition Height="Auto"></RowDefinition>
                                                     </Grid.RowDefinitions>
                                                     <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="15" Foreground="{StaticResource ContentTitleForeground}" Content="Klasse erstellen"></Label>
-                                                    <Grid Grid.Column="0" Grid.Row="1" Margin="0 5 0 5">
+                                                    <Grid Grid.Column="0" Grid.Row="1" Margin="0 5 0 20">
                                                         <Grid.ColumnDefinitions>
                                                             <ColumnDefinition Width="Auto"></ColumnDefinition>
                                                             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -293,15 +293,6 @@
                                                         </Grid.ColumnDefinitions>
                                                         <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="14" Foreground="{StaticResource ContentForeground}" Content="Klassenname *:   "></Label>
                                                         <TextBox Grid.Column="1" Grid.Row="0" x:Name="KEKlassenNameTxbx" HorizontalAlignment="Stretch" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" Foreground="{StaticResource ContentForeground}" BorderBrush="{StaticResource ContentForeground}" FontSize="14" materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource ContentTextBoxSelectedBorder}" CaretBrush="{StaticResource ContentTextBoxSelectedCaret}" GotKeyboardFocus="ContentTextBox_GotKeyboardFocus" LostKeyboardFocus="ContentTextBox_LostKeyboardFocus"></TextBox>
-                                                    </Grid>
-                                                    <Grid Grid.Column="0" Grid.Row="2" Margin="0 5 0 20">
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition Width="Auto"></ColumnDefinition>
-                                                            <ColumnDefinition Width="*"></ColumnDefinition>
-                                                            <ColumnDefinition Width="0.5*"></ColumnDefinition>
-                                                        </Grid.ColumnDefinitions>
-                                                        <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="14" Foreground="{StaticResource ContentForeground}" Content="Klassenlehrer:     "></Label>
-                                                        <TextBox Grid.Column="1" Grid.Row="0" x:Name="KEKlassenLehrerTxbx" HorizontalAlignment="Stretch" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" Foreground="{StaticResource ContentForeground}" BorderBrush="{StaticResource ContentForeground}" FontSize="14" materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource ContentTextBoxSelectedBorder}" CaretBrush="{StaticResource ContentTextBoxSelectedCaret}" GotKeyboardFocus="ContentTextBox_GotKeyboardFocus" LostKeyboardFocus="ContentTextBox_LostKeyboardFocus"></TextBox>
                                                     </Grid>
                                                 </Grid>
                                             </Border>
@@ -370,7 +361,6 @@
                                                     <ComboBox x:Name="KESchülerBerufCb" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" Foreground="{StaticResource ContentForeground}" BorderBrush="{StaticResource ContentForeground}" FontSize="14" materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource ContentComboBoxSelectedBorder}" GotKeyboardFocus="ContentComboBox_GotKeyboardFocus" LostKeyboardFocus="ContentComboBox_LostKeyboardFocus">
                                                         <ComboBox.Resources>
                                                             <SolidColorBrush x:Key="MaterialDesignPaper" Color="#32353B"/>
-                                                            <SolidColorBrush x:Key="MaterialDesignTextFieldBoxHoverBackground" Color="Red"/>
                                                         </ComboBox.Resources>
                                                         <ComboBoxItem Content="Anwendungsentwicklung"/>
                                                         <ComboBoxItem Content="Systemintegration"/>
@@ -380,15 +370,6 @@
                                                         <ComboBoxItem Content="Digitalisierungsmanagement"/>
                                                         <ComboBoxItem Content="System Elektroniker"/>
                                                     </ComboBox>
-                                                </Grid>
-                                                <Grid Grid.Column="0" Grid.Row="6" Margin="0 5 0 5">
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
-                                                        <ColumnDefinition Width="*"></ColumnDefinition>
-                                                        <ColumnDefinition Width="0.5*"></ColumnDefinition>
-                                                    </Grid.ColumnDefinitions>
-                                                    <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="14" Foreground="{StaticResource ContentForeground}" Content="E-Mail:                "></Label>
-                                                    <TextBox Grid.Column="1" Grid.Row="0" x:Name="KESchülerMailTxbx" HorizontalAlignment="Stretch" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" Foreground="{StaticResource ContentForeground}" BorderBrush="{StaticResource ContentForeground}" FontSize="14" materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource ContentTextBoxSelectedBorder}" CaretBrush="{StaticResource ContentTextBoxSelectedCaret}" GotKeyboardFocus="ContentTextBox_GotKeyboardFocus" LostKeyboardFocus="ContentTextBox_LostKeyboardFocus"></TextBox>
                                                     <Label Grid.Column="1" Grid.Row="0" Margin="0 30 0 0" HorizontalAlignment="Right" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="13" Foreground="{StaticResource ContentForeground}" Content="* Pflichtpfeld"></Label>
                                                 </Grid>
                                                 <Grid Grid.Column="0" Grid.Row="7">
@@ -436,7 +417,7 @@
                                         <Border Grid.Column="0" Grid.Row="1" Margin="0 5 0 0" BorderThickness="2" BorderBrush="{StaticResource ContentControlBorder}">
                                             <Grid>
                                                 <Label x:Name="KlasseErstellenKeineSchülerVorhandenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe UI Semibold" FontSize="13" Foreground="{StaticResource ContentForeground}" Content="Es sind noch keine Schüler vorhanden"></Label>
-                                                <DataGrid x:Name="KESchülerDtGrd" BorderBrush="{StaticResource ContentControlBorder}" Background="{x:Null}" Foreground="{StaticResource ContentForeground}" FontFamily="Segoe UI Semibold" CanUserDeleteRows="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserResizeColumns="True" CanUserResizeRows="False" CanUserSortColumns="True" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding KEAusgewählterSchüler}" SelectedCellsChanged="KESchülerDtGrd_SelectedCellsChanged" HorizontalScrollBarVisibility="Auto">
+                                                <DataGrid x:Name="KESchülerDtGrd" DataContext="{Binding KESchülerListe}" BorderBrush="{StaticResource ContentControlBorder}" Background="{x:Null}" Foreground="{StaticResource ContentForeground}" FontFamily="Segoe UI Semibold" CanUserDeleteRows="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserResizeColumns="True" CanUserResizeRows="False" CanUserSortColumns="True" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding KEAusgewählterSchüler}" SelectedCellsChanged="KESchülerDtGrd_SelectedCellsChanged" HorizontalScrollBarVisibility="Auto">
                                                     <DataGrid.Columns>
                                                         <DataGridTextColumn Header="Nachname" Binding="{Binding Nachname}"></DataGridTextColumn>
                                                         <DataGridTextColumn Header="Vorname" Binding="{Binding Vorname}"></DataGridTextColumn>

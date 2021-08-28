@@ -6,14 +6,9 @@ namespace ProjektSitzplan.Structures
     {
         public Betrieb AusbildungsBetrieb { get; private set; }
         // todo bild?
-
-        public Schüler(string vorname, string nachname, EGeschlecht geschlecht, EBeruf beruf, Betrieb ausbildungsBetrieb) : base(vorname, nachname, geschlecht, beruf, null)
-        {
-            AusbildungsBetrieb = ausbildungsBetrieb;
-        }
-
+        
         [JsonConstructor]
-        public Schüler(string vorname, string nachname, EGeschlecht geschlecht, EBeruf beruf, string eMail, Betrieb ausbildungsBetrieb) : base(vorname, nachname, geschlecht, beruf, eMail)
+        public Schüler(string vorname, string nachname, EGeschlecht geschlecht, EBeruf beruf, Betrieb ausbildungsBetrieb) : base(vorname, nachname, geschlecht, beruf)
         {
             AusbildungsBetrieb = ausbildungsBetrieb;
         }

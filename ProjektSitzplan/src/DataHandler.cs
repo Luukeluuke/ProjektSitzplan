@@ -59,6 +59,7 @@ namespace ProjektSitzplan
 
         public static void LadeSchulKlassen()
         {
+            SchulKlassen.Clear();
             foreach (string sKlasseFile in Directory.GetFiles("SchulKlassen"))
             {
                 if (sKlasseFile.EndsWith(".json"))

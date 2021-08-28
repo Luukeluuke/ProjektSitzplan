@@ -77,7 +77,6 @@
     <Compile Include="src\PackIconSet.cs" />
     <Compile Include="src\Structures\Betrieb.cs" />
     <Compile Include="src\Structures\Klasse.cs" />
-    <Compile Include="src\Structures\Lehrer.cs" />
     <Compile Include="src\Structures\Person.cs" />
     <Compile Include="src\Structures\Schüler.cs" />
     <Compile Include="src\SchülerException.cs" />

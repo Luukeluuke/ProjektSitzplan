@@ -6,10 +6,8 @@ namespace ProjektSitzplan.Structures
     {
         public string Vorname { get; private set; }
         public string Nachname { get; private set; }
-        //public int Alter { get; private set; }
         public EGeschlecht Geschlecht { get; private set; }
         public EBeruf Beruf { get; private set; }
-        public string EMail { get; private set; }
 
         // todo bild?
 
@@ -32,13 +30,12 @@ namespace ProjektSitzplan.Structures
         }
 
         [JsonConstructor]
-        public Person(string vorname, string nachname, EGeschlecht geschlecht, EBeruf beruf, string eMail)
+        public Person(string vorname, string nachname, EGeschlecht geschlecht, EBeruf beruf)
         {
             Vorname = vorname;
             Nachname = nachname;
             Geschlecht = geschlecht;
             Beruf = beruf;
-            EMail = eMail;
         }
 
         public override string ToString()

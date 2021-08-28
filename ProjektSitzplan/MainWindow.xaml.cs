@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Windows;
@@ -65,7 +66,7 @@ namespace ProjektSitzplan
             }
         }
 
-        private SchulKlasse ausgewählteKlasse;
+        private SchulKlasse ausgewählteKlasse = null;
         SchulKlasse AusgewählteKlasse 
         {
             get
@@ -76,16 +77,13 @@ namespace ProjektSitzplan
             {
                 Set(ref ausgewählteKlasse, value);
 
-                switch (WindowContent)
-                {
-                    case EWindowContent.KlasseErstellen:
-                        {
-                            KESchülerDtGrd.ItemsSource = AusgewählteKlasse.SchülerListe;
-                            KEAnzahlSchülerTxbk.Text = AusgewählteKlasse.AnzahlSchüler.ToString();
-
-                            break;
-                        }
-                }
+                //switch (WindowContent)
+                //{
+                //    case EWindowContent.KlasseErstellen:
+                //        {
+                //            break;
+                //        }
+                //}
             }
         }
 
@@ -159,8 +157,8 @@ namespace ProjektSitzplan
         {
             //TODO: In Menu typische symbole einbauen // Import export save help
             //TODO: DIe Klasse Exportieren Funktion im Datei Menü Disablen wenn keine ausgewählt ist. Und die speichern funktion auch
-            //TODO: Beim erstellen der klasse darauf achten das der klassenname keine Path.GetInvalidCHars beinhaltet
-            //TODO: WindowCloseButton backgrouznd sollte rot werden
+            //TODO: Wenn datein importiert die wo die klasse den selben namen hat wie eine bereits vorhandene klasse?
+            
             
             InitializeComponent();
 
@@ -440,7 +438,7 @@ namespace ProjektSitzplan
         }
         #endregion
 
-        #region ContentTextBox
+        #region ContentComboBox
         private void ContentComboBox_GotKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e)
         {
             (sender as ComboBox).Foreground = PSColors.ContentTextBoxSelectedForeground;
@@ -472,6 +470,7 @@ namespace ProjektSitzplan
 
 
             MenuKlassenDtGrd.ItemsSource = DataHandler.SchulKlassen;
+            //KESchülerDtGrd.ItemsSource = KESchülerListe;
 
             ContentLabels = new Label[]
             {
@@ -493,6 +492,36 @@ namespace ProjektSitzplan
         #endregion
 
         #region Menu
+        #region MenuKlasseImportBtn
+        private void MenuKlasseImportierenBtn_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO:
+        }
+        #endregion
+
+
+        #region MenuKlasseExportierenBtn
+        private void MenuKlasseExportierenBtn_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO:
+        }
+        #endregion
+
+        #region MenuKlasseSpeichernBtn
+        private void MenuKlasseSpeichernBtn_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO:
+        }
+        #endregion
+
+
+        #region MenuHilfeBtn
+        private void MenuHilfeBtn_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO: Hinterher die Anleitungs Pdf einfach aufrufen oder so.
+        }
+        #endregion
+
         #region MenuAktualisierenBtn
         private void MenuAktualisierenBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -530,35 +559,25 @@ namespace ProjektSitzplan
         #endregion
 
         #region KeineKlassenVorhandenKlasseErstellen
+        private List<Schüler> KESchülerListe = new List<Schüler>();
         private void MenuKlasseErstellenBtn_Click(object sender, RoutedEventArgs e)
         {
             WindowContent = EWindowContent.KlasseErstellen;
             KeineKlassenGefundenStPnl.Visibility = Visibility.Hidden;
             MenuKlassenDtGrd.SelectedIndex = -1;
+
+            KESchülerListe.Clear();
         }
         #endregion
         #endregion
 
         #region Content - Klasse erstellen
-        #region KEGEschlechtCb
-        private void KEGeschlechtCb_GotKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e)
-        {
-
-        }
-
-        private void KEGeschlechtCb_LostKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e)
-        {
-
-        }
-        #endregion
-
         #region KESchülerHinzufügenBtn
         private void KESchülerHinzufügenBtn_Click(object sender, RoutedEventArgs e)
         {
 			string vorname = KESchülerVornameTxbx.Text.Trim();
             string nachname = KESchülerNachnameTxbx.Text.Trim();
             string betrieb = KESchülerBetriebTxbx.Text.Trim();
-            string email = KESchülerMailTxbx.Text.Trim();
 
             if (vorname == "" || nachname == "" || betrieb == "")
             {
@@ -579,16 +598,9 @@ namespace ProjektSitzplan
                 return;
             }
 
-            Schüler neuerSchüler;
+            Schüler neuerSchüler = new Schüler(vorname, nachname, geschlecht, beruf, new Betrieb(betrieb));
 
-            if (email == "")
-            {
-                neuerSchüler = new Schüler(vorname, nachname, geschlecht, beruf, new Betrieb(betrieb));
-            } else
-            {
-                neuerSchüler = new Schüler(vorname, nachname, geschlecht, beruf, email, new Betrieb(betrieb));
-            }
-
+            KESchülerListe.Add(neuerSchüler);
             // TODO schüler zu klasse hinzufügen
 
             KESchülerFelderLeeren();
@@ -612,16 +624,40 @@ namespace ProjektSitzplan
         #region KEKlasseErstellenBtn
         private void KEKlasseErstellenBtn_Click(object sender, RoutedEventArgs e)
         {
-            DataHandler.FügeSchulKlasseHinzu(AusgewählteKlasse);
+            string klassenName = KEKlassenNameTxbx.Text;
+
+            if (!Uri.IsWellFormedUriString(klassenName, UriKind.RelativeOrAbsolute))
+            {
+                // TODO: ERR
+                return;
+            }
+
+            if (DataHandler.ExistiertKlasseBereits(klassenName))
+            {
+                // TODO: ERR
+                return;
+            }
+
+            SchulKlasse neueKlasse = new SchulKlasse(klassenName, KESchülerListe);
+            DataHandler.FügeSchulKlasseHinzu(neueKlasse);
+
+            AusgewählteKlasse = neueKlasse;
+            KESchülerListe.Clear();
+
+            KESchülerFelderLeeren();
+            KEKlassenNameTxbx.Text = "";
+
+            KlasseHinzufügenGrd.Visibility = Visibility.Hidden;
+
+            DataHandler.LadeSchulKlassen();
+            MenuKlassenDtGrd.ItemsSource = null;
+            MenuKlassenDtGrd.ItemsSource = DataHandler.SchulKlassen;
         }
         #endregion
 
         #region KEFelderLeerenBtn
         private void KEFelderLeerenBtn_Click(object sender, RoutedEventArgs e)
         {
-            KEKlassenNameTxbx.Text = "";
-            KEKlassenLehrerTxbx.Text = "";
-
             KESchülerFelderLeeren();
         }
 
@@ -632,7 +668,6 @@ namespace ProjektSitzplan
             KESchülerBetriebTxbx.Text = "";
             KESchülerGeschlechtCb.SelectedIndex = -1;
             KESchülerBerufCb.SelectedIndex = -1;
-            KESchülerMailTxbx.Text = "";
         }
         #endregion
 

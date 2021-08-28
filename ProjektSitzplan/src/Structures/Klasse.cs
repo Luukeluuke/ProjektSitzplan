@@ -10,7 +10,6 @@ namespace ProjektSitzplan.Structures
     {
         public string Name { get; private set; }
         public List<Schüler> SchülerListe { get; private set; } = new List<Schüler>();
-        public Lehrer KlassenLehrer { get; private set; }
         public List<Sitzplan> Sitzpläne { get; private set; } = new List<Sitzplan>();
         public int AnzahlSchüler { get => SchülerListe.Count; }
         public string ToolTipÜbersicht { get => ToToolTipString(); }
@@ -19,14 +18,13 @@ namespace ProjektSitzplan.Structures
         private static string errorHinzufügen = "Schüler konnte der Klasse nicht hinzugefügt werden.";
 
         #region Constructors
-        public SchulKlasse(string name, Lehrer lehrer)
+        public SchulKlasse(string name)
         {
             Name = name;
-            KlassenLehrer = lehrer;
         }
 
         [JsonConstructor]
-        public SchulKlasse(string name, Lehrer klassenLehrer, List<Schüler> schülerListe) : this(name, klassenLehrer)
+        public SchulKlasse(string name, List<Schüler> schülerListe) : this(name)
         {
             SchülerListe = schülerListe;
         }
