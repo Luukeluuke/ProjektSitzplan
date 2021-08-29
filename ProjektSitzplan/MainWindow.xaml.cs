@@ -581,7 +581,7 @@ namespace ProjektSitzplan
 
             if (vorname == "" || nachname == "" || betrieb == "")
             {
-                // TODO fehler ausgeben: nicht alle pflichtfelder ausgefüllt
+                ErrorHandler.ZeigeFehler(ErrorHandler.ERR_SH_PflichtfelderNichtAusgefüllt);
                 return;
             }
 			
@@ -594,16 +594,16 @@ namespace ProjektSitzplan
             } 
             catch (ArgumentException)
             {
-                // TODO fehler ausgeben: kein geschlecht oder Beruf ausgewählt :D
+                ErrorHandler.ZeigeFehler(ErrorHandler.ERR_SH_PflichtfelderNichtAusgefüllt);
                 return;
             }
 
             Schüler neuerSchüler = new Schüler(vorname, nachname, geschlecht, beruf, new Betrieb(betrieb));
 
             KESchülerListe.Add(neuerSchüler);
-            // TODO schüler zu klasse hinzufügen
 
             KESchülerFelderLeeren();
+            // TODO: schüler werden nicht richtig angezeigt!!
         }
         #endregion
 
@@ -624,17 +624,23 @@ namespace ProjektSitzplan
         #region KEKlasseErstellenBtn
         private void KEKlasseErstellenBtn_Click(object sender, RoutedEventArgs e)
         {
-            string klassenName = KEKlassenNameTxbx.Text;
+            string klassenName = KEKlassenNameTxbx.Text.Trim();
 
-            if (!Uri.IsWellFormedUriString(klassenName, UriKind.RelativeOrAbsolute))
+            if (klassenName == null || klassenName.Equals(""))
             {
-                // TODO: ERR
+                ErrorHandler.ZeigeFehler(ErrorHandler.ERR_KE_LeererName);
+                return;
+            }
+
+            if (Path.GetInvalidFileNameChars().Any(klassenName.Contains))
+            {
+                ErrorHandler.ZeigeFehler(ErrorHandler.ERR_KE_UriUngültig);
                 return;
             }
 
             if (DataHandler.ExistiertKlasseBereits(klassenName))
             {
-                // TODO: ERR
+                ErrorHandler.ZeigeFehler(ErrorHandler.ERR_KE_KlasserExistiertBereits);
                 return;
             }
 

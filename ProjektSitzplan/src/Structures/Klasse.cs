@@ -95,6 +95,11 @@ namespace ProjektSitzplan.Structures
         #region Private Methods
         private string ToToolTipString()
         {
+            if (AnzahlSchüler == 0)
+            {
+                return "Die Klasse ist leer!"; //TODO: irgend n tedxt der sinn ergibt bei ner leeren klasse...
+            }
+
             StringBuilder builder = new StringBuilder();
             builder.Append($"Schüler: {AnzahlSchüler}\n");
 
