@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Windows;
@@ -66,7 +65,7 @@ namespace ProjektSitzplan
             }
         }
 
-        private SchulKlasse ausgewählteKlasse = null;
+        private SchulKlasse ausgewählteKlasse;
         SchulKlasse AusgewählteKlasse 
         {
             get
@@ -76,14 +75,6 @@ namespace ProjektSitzplan
             set 
             {
                 Set(ref ausgewählteKlasse, value);
-
-                //switch (WindowContent)
-                //{
-                //    case EWindowContent.KlasseErstellen:
-                //        {
-                //            break;
-                //        }
-                //}
             }
         }
 
@@ -541,6 +532,8 @@ namespace ProjektSitzplan
         {
             if(!MenuKlassenDtGrd.SelectedIndex.Equals(-1))
             {
+                AusgewählteKlasse = MenuKlassenDtGrd.SelectedItem as SchulKlasse;
+
                 WindowContent = EWindowContent.KlasseÜbersicht;
             }
         }
@@ -559,7 +552,6 @@ namespace ProjektSitzplan
         #endregion
 
         #region KeineKlassenVorhandenKlasseErstellen
-        private List<Schüler> KESchülerListe = new List<Schüler>();
         private void MenuKlasseErstellenBtn_Click(object sender, RoutedEventArgs e)
         {
             WindowContent = EWindowContent.KlasseErstellen;
@@ -622,10 +614,12 @@ namespace ProjektSitzplan
         #endregion
 
         #region KEKlasseErstellenBtn
+        private List<Schüler> KESchülerListe = new List<Schüler>();
         private void KEKlasseErstellenBtn_Click(object sender, RoutedEventArgs e)
         {
             string klassenName = KEKlassenNameTxbx.Text;
 
+            //TODO: Das hier funktioniert so noch nicht. Man kann klassen mit bsp /// erstellen, die datei heißt dasnn einfach ".json".
             if (!Uri.IsWellFormedUriString(klassenName, UriKind.RelativeOrAbsolute))
             {
                 // TODO: ERR
@@ -647,10 +641,10 @@ namespace ProjektSitzplan
             KESchülerFelderLeeren();
             KEKlassenNameTxbx.Text = "";
 
-            KlasseHinzufügenGrd.Visibility = Visibility.Hidden;
+
+            WindowContent = EWindowContent.Leer;
 
             DataHandler.LadeSchulKlassen();
-            MenuKlassenDtGrd.ItemsSource = null;
             MenuKlassenDtGrd.ItemsSource = DataHandler.SchulKlassen;
         }
         #endregion
