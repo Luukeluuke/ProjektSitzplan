@@ -1,8 +1,10 @@
 ﻿using Newtonsoft.Json;
 using ProjektSitzplan.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace ProjektSitzplan.Structures
 {
@@ -93,17 +95,19 @@ namespace ProjektSitzplan.Structures
         #region Private Methods
         private string ToToolTipString()
         {
-            //TODO: Sweer do your thing. Die wo 0 ist entfernen
-            //wo 0
+            StringBuilder builder = new StringBuilder();
+            builder.Append($"Schüler: {AnzahlSchüler}\n");
 
-            return $"Schüler: {AnzahlSchüler}\n\n" +
-                $"Systemintegration: {SchülerListe.Where(s => s.Beruf.Equals(Person.EBeruf.Systemintegration)).Count()}\n" +
-                $"Anwendungsentwicklung: {SchülerListe.Where(s => s.Beruf.Equals(Person.EBeruf.Anwendungsentwicklung)).Count()}\n" +
-                $"System Elektroniker: {SchülerListe.Where(s => s.Beruf.Equals(Person.EBeruf.SystemElektroniker)).Count()}\n" +
-                $"Kaufman IT-Systemmanagement: {SchülerListe.Where(s => s.Beruf.Equals(Person.EBeruf.KaufmanFürITSystemManagement)).Count()}\n" +
-                $"Kaufman Digitalisierungsmanagement: {SchülerListe.Where(s => s.Beruf.Equals(Person.EBeruf.KaufmanFürDigitalisierungsManagement)).Count()}\n" +
-                $"Daten und Prozessanalyse: {SchülerListe.Where(s => s.Beruf.Equals(Person.EBeruf.DatenUndProzessanalyse)).Count()}\n" +
-                $"Digitale Vernetzung: {SchülerListe.Where(s => s.Beruf.Equals(Person.EBeruf.DigitaleVernetzung)).Count()}";
+            foreach (Person.EBeruf beruf in Enum.GetValues(typeof(Person.EBeruf)))
+            {
+                int cnt = SchülerListe.Count(s => s.Beruf.Equals(beruf));
+                if (cnt > 0)
+                {
+                    builder.Append($"\n{beruf}: {cnt}");
+                }
+            }
+
+            return builder.ToString();
         }
         #endregion
     }
