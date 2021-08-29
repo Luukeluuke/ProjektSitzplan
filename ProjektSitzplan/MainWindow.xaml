@@ -22,7 +22,7 @@
             <Grid Grid.Column="0" Grid.Row="0" Background="{StaticResource TopBarBackground}">
                 <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5 0 0 0">
                     <Image VerticalAlignment="Center" Margin="0 7 0 7" Source="/ProjektSitzplan;component/src/Design/Images/Logos/Logo878B91.png"></Image>
-                    <Label Margin="1 0 0 0" Content="Sitzplan" Foreground="{StaticResource TopBarForeground}" FontFamily="Segoe UI Semibold" FontSize="16"></Label>
+                    <Label x:Name="SitzplanLbl" Margin="1 0 0 0" Content="Sitzplan" Foreground="{StaticResource TopBarForeground}" FontFamily="Segoe UI Semibold" FontSize="16" MouseDoubleClick="SitzplanLbl_MouseDoubleClick" WindowChrome.IsHitTestVisibleInChrome="True"></Label>
                 </StackPanel>
                 <Grid Grid.Column="0" Grid.Row="0"  HorizontalAlignment="Right" WindowChrome.IsHitTestVisibleInChrome="True">
                     <Grid.ColumnDefinitions>
@@ -163,8 +163,8 @@
                                                         <ColumnDefinition Width="*"></ColumnDefinition>
                                                         <ColumnDefinition Width="Auto"></ColumnDefinition>
                                                     </Grid.ColumnDefinitions>
-                                                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Klassen"></TextBlock>
                                                     <materialDesign:PackIcon x:Name="MenuKlassenSortingPkIco" Grid.Column="1" Grid.Row="0" Margin="5 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Top" Height="22" Width="22" Kind="SortAlphabeticalAscending"></materialDesign:PackIcon>
+                                                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Klassen"></TextBlock>
                                                 </Grid>
                                             </DataGridTextColumn.Header>
                                         </DataGridTextColumn>
@@ -187,6 +187,9 @@
                                             <Style.Triggers>
                                                 <Trigger Property="DataGridColumnHeader.IsMouseOver" Value="True">
                                                     <Setter Property="Foreground" Value="{StaticResource ContentHoverForeground}"></Setter>
+                                                </Trigger>
+                                                <Trigger Property="ScrollViewer.VerticalScrollBarVisibility" Value="Visible">
+                                                    <Setter Property="Margin" Value="18 0 0 0"></Setter>
                                                 </Trigger>
                                             </Style.Triggers>
                                         </Style>
@@ -242,7 +245,7 @@
                                         </Style>
                                     </DataGrid.Resources>
                                 </DataGrid>
-                                <StackPanel x:Name="KeineKlassenGefundenStPnl" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical" Visibility="Hidden">
+                                <StackPanel x:Name="KeineKlassenGefundenStkPnl" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical" Visibility="Hidden">
                                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Es sind&#10;noch keine Klassen&#10;vorhanden" TextAlignment="Center" Foreground="{StaticResource MenuComment}" FontSize="13" FontFamily="Segoe UI Semibold"></TextBlock>
                                     <Grid Margin="0 10 0 0">
                                         <Button x:Name="KlasseErstellenBtn" HorizontalAlignment="Center" VerticalAlignment="Center" Width="105" Template="{StaticResource Flat}" Background="{StaticResource MenuFreeButtonBackground}" Click="MenuKlasseErstellenBtn_Click"></Button>
@@ -366,7 +369,7 @@
                                                         <ComboBoxItem Content="Systemintegration"/>
                                                         <ComboBoxItem Content="Daten und Prozessanalyse"/>
                                                         <ComboBoxItem Content="Digitale Vernetzung"/>
-                                                        <ComboBoxItem Content="IT-Systemmanagement"/>
+                                                        <ComboBoxItem Content="IT Systemmanagement"/>
                                                         <ComboBoxItem Content="Digitalisierungsmanagement"/>
                                                         <ComboBoxItem Content="System Elektroniker"/>
                                                     </ComboBox>
@@ -416,8 +419,8 @@
                                         </Border>
                                         <Border Grid.Column="0" Grid.Row="1" Margin="0 5 0 0" BorderThickness="2" BorderBrush="{StaticResource ContentControlBorder}">
                                             <Grid>
-                                                <Label x:Name="KlasseErstellenKeineSchülerVorhandenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe UI Semibold" FontSize="13" Foreground="{StaticResource ContentForeground}" Content="Es sind noch keine Schüler vorhanden"></Label>
-                                                <DataGrid x:Name="KESchülerDtGrd" DataContext="{Binding KESchülerListe}" BorderBrush="{StaticResource ContentControlBorder}" Background="{x:Null}" Foreground="{StaticResource ContentForeground}" FontFamily="Segoe UI Semibold" CanUserDeleteRows="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserResizeColumns="True" CanUserResizeRows="False" CanUserSortColumns="True" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding KEAusgewählterSchüler}" SelectedCellsChanged="KESchülerDtGrd_SelectedCellsChanged" HorizontalScrollBarVisibility="Auto">
+                                                <Label x:Name="KEKeineSchülerVorhandenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe UI Semibold" FontSize="13" Foreground="{StaticResource ContentForeground}" Content="Es sind noch keine Schüler vorhanden"></Label>
+                                                <DataGrid x:Name="KESchülerDtGrd" DataContext="{Binding KESchülerListe}" BorderBrush="{StaticResource ContentControlBorder}" Background="{x:Null}" Foreground="{StaticResource ContentForeground}" FontFamily="Segoe UI Semibold" CanUserDeleteRows="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserResizeColumns="True" CanUserResizeRows="False" CanUserSortColumns="True" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding KEAusgewählterSchüler}" HorizontalScrollBarVisibility="Auto">
                                                     <DataGrid.Columns>
                                                         <DataGridTextColumn Header="Nachname" Binding="{Binding Nachname}"></DataGridTextColumn>
                                                         <DataGridTextColumn Header="Vorname" Binding="{Binding Vorname}"></DataGridTextColumn>
@@ -498,7 +501,7 @@
                                             </Grid.RowDefinitions>
                                             <Border Grid.Column="0" Grid.Row="0" BorderThickness="0 0 0 1" BorderBrush="{StaticResource ContentDivider}">
                                                 <Grid Margin="0 0 0 5">
-                                                    <Button x:Name="KESchülerEntfernenBtn" Uid="2" HorizontalAlignment="Stretch" Height="Auto" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource Flat}" materialDesign:RippleAssist.IsDisabled="True" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp"></Button>
+                                                    <Button x:Name="KESchülerEntfernenBtn" Uid="2" HorizontalAlignment="Stretch" Height="Auto" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource Flat}" materialDesign:RippleAssist.IsDisabled="True" Click="KESchülerEntfernenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp"></Button>
                                                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                                                         <Label x:Name="KESchülerEntfernenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Ausgewählten Schüler entfernen" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"></Label>
                                                         <materialDesign:PackIcon x:Name="KESchülerEntfernenPkIco" Margin="2 0 0 0" VerticalAlignment="Center" Kind="Trash" Height="18" Width="18" Foreground="{StaticResource ContentButtonForeground}" IsHitTestVisible="False"></materialDesign:PackIcon>

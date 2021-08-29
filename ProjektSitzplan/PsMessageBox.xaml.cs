@@ -29,7 +29,8 @@ namespace ProjektSitzplan
         {
             Yes,
             No,
-            OK
+            OK,
+            WindowClosed
         }
 
         public enum EPsMessageBoxButtons
@@ -68,7 +69,7 @@ namespace ProjektSitzplan
 
         public PsMessageBox(string title, string text, EPsMessageBoxButtons psMessageBoxButtons) : this(text, psMessageBoxButtons)
         {
-            SitzplanLbl.Content = $"Sitzplan - {title}";
+            SitzplanLbl.Content = $"{title}";
         }
         #endregion
 
@@ -81,11 +82,11 @@ namespace ProjektSitzplan
             switch (sBtn.Uid)
             {
                 case "0": WindowState = WindowState.Minimized; return;
-                case "1":
+                case "2":
                     {
                         if (!(OnPsMessageBoxButtonPressed is null))
                         {
-                            OnPsMessageBoxButtonPressed(sender, new PsMessagBoxEventArgs(EPsMessageBoxResult.No));
+                            OnPsMessageBoxButtonPressed(sender, new PsMessagBoxEventArgs(EPsMessageBoxResult.WindowClosed));
                         }
                         Close();
 

@@ -97,7 +97,7 @@ namespace ProjektSitzplan.Structures
         {
             if (AnzahlSchüler == 0)
             {
-                return "Die Klasse ist leer!"; //TODO: irgend n tedxt der sinn ergibt bei ner leeren klasse...
+                return "Diese Klasse hat noch keine Schüler!";
             }
 
             StringBuilder builder = new StringBuilder();

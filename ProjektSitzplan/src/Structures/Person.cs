@@ -22,10 +22,10 @@ namespace ProjektSitzplan.Structures
             Lehrer = 0,
             Anwendungsentwicklung = 1,
             Systemintegration = 2,
-            DatenUndProzessanalyse = 3,
+            DatenundProzessanalyse = 3,
             DigitaleVernetzung = 4,
-            KaufmanFürITSystemManagement = 5,
-            KaufmanFürDigitalisierungsManagement = 6,
+            ITSystemmanagement = 5,
+            DigitalisierungsManagement = 6,
             SystemElektroniker = 7
         }
 

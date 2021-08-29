@@ -27,7 +27,7 @@
                             </Button.ToolTip>
                             <Image x:Name="MinimizeButtonImage" Source="/ProjektSitzplan;component/src/Design/Images/MinimizeB9BBBE.png" Width="22" IsHitTestVisible="False"></Image>
                         </Button>
-                        <Button x:Name="CloseBtn" Uid="2X" Template="{StaticResource Flat}" Background="{x:Null}" materialDesign:RippleAssist.IsDisabled="True" IsTabStop="False" Height="30" Click="TopBarButton_Click" MouseEnter="TopBarButton_MouseEnter" MouseLeave="TopBarButton_MouseLeave" PreviewMouseDown="TopBarButton_PreviewMouseDown" PreviewMouseUp="TopBarButton_PreviewMouseUp" Width="55">
+                        <Button x:Name="CloseBtn" Uid="2" Template="{StaticResource Flat}" Background="{x:Null}" materialDesign:RippleAssist.IsDisabled="True" IsTabStop="False" Height="30" Click="TopBarButton_Click" MouseEnter="TopBarButton_MouseEnter" MouseLeave="TopBarButton_MouseLeave" PreviewMouseDown="TopBarButton_PreviewMouseDown" PreviewMouseUp="TopBarButton_PreviewMouseUp" Width="55">
                             <Button.ToolTip>
                                 <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12">Schließen</ToolTip>
                             </Button.ToolTip>

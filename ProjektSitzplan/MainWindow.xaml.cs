@@ -4,7 +4,9 @@ using ProjektSitzplan.Structures;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Windows;
@@ -104,7 +106,7 @@ namespace ProjektSitzplan
         public static RoutedCommand CommandImport = new RoutedCommand();
         public static RoutedCommand CommandExport = new RoutedCommand();
         public static RoutedCommand CommandSave = new RoutedCommand();
-        public static RoutedCommand CommandReload = new RoutedCommand();
+        public static RoutedCommand CommandRefresh = new RoutedCommand();
         public static RoutedCommand CommandUndo = new RoutedCommand();
         public static RoutedCommand CommandRedo = new RoutedCommand();
 
@@ -114,12 +116,13 @@ namespace ProjektSitzplan
             CommandImport.InputGestures.Add(new KeyGesture(Key.I, ModifierKeys.Control));
             CommandExport.InputGestures.Add(new KeyGesture(Key.E, ModifierKeys.Control));
             CommandSave.InputGestures.Add(new KeyGesture(Key.S, ModifierKeys.Control));
-            CommandReload.InputGestures.Add(new KeyGesture(Key.F5));
+            CommandRefresh.InputGestures.Add(new KeyGesture(Key.F5));
             CommandUndo.InputGestures.Add(new KeyGesture(Key.Z, ModifierKeys.Control));
             CommandRedo.InputGestures.Add(new KeyGesture(Key.Z, ModifierKeys.Control | ModifierKeys.Shift));
             CommandRedo.InputGestures.Add(new KeyGesture(Key.Y, ModifierKeys.Control));
             
             CommandBindings.Add(new CommandBinding(CommandCreate, MenuKlasseErstellenBtn_Click));
+            CommandBindings.Add(new CommandBinding(CommandRefresh, KlassenAktualisieren));
         }
         #endregion
 
@@ -443,7 +446,41 @@ namespace ProjektSitzplan
         #endregion
 
         #region Private Methods
-        //lol wir haben keine
+        private void KlassenAktualisieren(object sender = null, RoutedEventArgs e = null) //Die parameter einach nur für den compiler damit das hier als command klappt
+        {
+            DataHandler.LadeSchulKlassen();
+            MenuKlassenDtGrd.ItemsSource = null;
+            MenuKlassenDtGrd.ItemsSource = DataHandler.SchulKlassen;
+
+            if (DataHandler.SchulKlassen.Count > 0)
+            {
+                LKeineKlasseAusgewähltStkPnl.Visibility = Visibility.Visible;
+                KeineKlassenGefundenStkPnl.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                LKeineKlasseAusgewähltStkPnl.Visibility = Visibility.Hidden;
+                KeineKlassenGefundenStkPnl.Visibility = Visibility.Visible;
+            }
+        }
+
+        //TODO: Diese MEthode in den AusgewähltenSchülerEntfernenbtn einbauen. AM ende einfach yeyeyeokyeofsj
+        private void AktualisiereKESchülerDtGrd()
+        {
+            KESchülerDtGrd.ItemsSource = null;
+            KESchülerDtGrd.ItemsSource = KESchülerListe;
+
+            KEAnzahlSchülerTxbk.Text = KESchülerListe.Count.ToString();
+
+            if (KESchülerListe.Count > 0)
+            {
+                KEKeineSchülerVorhandenLbl.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                KEKeineSchülerVorhandenLbl.Visibility = Visibility.Visible;
+            }
+        }
         #endregion
 
 
@@ -456,7 +493,7 @@ namespace ProjektSitzplan
             }
             else
             {
-                KeineKlassenGefundenStPnl.Visibility = Visibility.Visible;
+                KeineKlassenGefundenStkPnl.Visibility = Visibility.Visible;
             }
 
 
@@ -483,6 +520,13 @@ namespace ProjektSitzplan
         #endregion
 
         #region Menu
+        #region SitzplanLbl
+        private void SitzplanLbl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            Process.Start(Environment.CurrentDirectory);
+        }
+        #endregion
+
         #region MenuKlasseImportBtn
         private void MenuKlasseImportierenBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -516,7 +560,7 @@ namespace ProjektSitzplan
         #region MenuAktualisierenBtn
         private void MenuAktualisierenBtn_Click(object sender, RoutedEventArgs e)
         {
-            //TODO:
+            KlassenAktualisieren();
         }
         #endregion
 
@@ -555,7 +599,7 @@ namespace ProjektSitzplan
         private void MenuKlasseErstellenBtn_Click(object sender, RoutedEventArgs e)
         {
             WindowContent = EWindowContent.KlasseErstellen;
-            KeineKlassenGefundenStPnl.Visibility = Visibility.Hidden;
+            KeineKlassenGefundenStkPnl.Visibility = Visibility.Hidden;
             MenuKlassenDtGrd.SelectedIndex = -1;
 
             KESchülerListe.Clear();
@@ -564,6 +608,22 @@ namespace ProjektSitzplan
         #endregion
 
         #region Content - Klasse erstellen
+        #region KEFelderLeerenBtn
+        private void KEFelderLeerenBtn_Click(object sender, RoutedEventArgs e)
+        {
+            KESchülerFelderLeeren();
+        }
+
+        private void KESchülerFelderLeeren()
+        {
+            KESchülerNachnameTxbx.Text = "";
+            KESchülerVornameTxbx.Text = "";
+            KESchülerBetriebTxbx.Text = "";
+            KESchülerGeschlechtCb.SelectedIndex = -1;
+            KESchülerBerufCb.SelectedIndex = -1;
+        }
+        #endregion
+
         #region KESchülerHinzufügenBtn
         private void KESchülerHinzufügenBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -582,7 +642,7 @@ namespace ProjektSitzplan
             try
             {
                 geschlecht = (Person.EGeschlecht)Enum.Parse(typeof(Person.EGeschlecht), KESchülerGeschlechtCb.Text, true);
-                beruf = (Person.EBeruf)Enum.Parse(typeof(Person.EBeruf), KESchülerBerufCb.Text, true);
+                beruf = (Person.EBeruf)Enum.Parse(typeof(Person.EBeruf), KESchülerBerufCb.Text.Replace(" ", ""), true);
             } 
             catch (ArgumentException)
             {
@@ -593,16 +653,23 @@ namespace ProjektSitzplan
             Schüler neuerSchüler = new Schüler(vorname, nachname, geschlecht, beruf, new Betrieb(betrieb));
 
             KESchülerListe.Add(neuerSchüler);
+            KESchülerDtGrd.ItemsSource = null;
+            KESchülerDtGrd.ItemsSource = KESchülerListe;
+            
+            KEAnzahlSchülerTxbk.Text = KESchülerListe.Count.ToString();
+            AktualisiereKESchülerDtGrd();
 
             KESchülerFelderLeeren();
             // TODO: schüler werden nicht richtig angezeigt!!
         }
         #endregion
 
-        #region KESchülerDtGrd
-        private void KESchülerDtGrd_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        #region KESchülerEntfernenBtn
+        private void KESchülerEntfernenBtn_Click(object sender, RoutedEventArgs e)
         {
+            KESchülerListe.Remove(KESchülerDtGrd.SelectedItem as Schüler);
 
+            AktualisiereKESchülerDtGrd();
         }
         #endregion
 
@@ -621,7 +688,7 @@ namespace ProjektSitzplan
 
             if (klassenName == null || klassenName.Equals(""))
             {
-                ErrorHandler.ZeigeFehler(ErrorHandler.ERR_KE_LeererName);
+                ErrorHandler.ZeigeFehler(ErrorHandler.ERR_KE_KeinName);
                 return;
             }
 
@@ -649,24 +716,7 @@ namespace ProjektSitzplan
 
             WindowContent = EWindowContent.Leer;
 
-            DataHandler.LadeSchulKlassen();
-            MenuKlassenDtGrd.ItemsSource = DataHandler.SchulKlassen;
-        }
-        #endregion
-
-        #region KEFelderLeerenBtn
-        private void KEFelderLeerenBtn_Click(object sender, RoutedEventArgs e)
-        {
-            KESchülerFelderLeeren();
-        }
-
-        private void KESchülerFelderLeeren()
-        {
-            KESchülerNachnameTxbx.Text = "";
-            KESchülerVornameTxbx.Text = "";
-            KESchülerBetriebTxbx.Text = "";
-            KESchülerGeschlechtCb.SelectedIndex = -1;
-            KESchülerBerufCb.SelectedIndex = -1;
+            KlassenAktualisieren();
         }
         #endregion
 
