@@ -67,7 +67,7 @@ namespace ProjektSitzplan.Structures
 
             SchülerListe.Remove(schüler);
         }
-         
+
         public void AlsDateiSpeichern(string path)
         {
             Directory.CreateDirectory(Path.GetDirectoryName(path));

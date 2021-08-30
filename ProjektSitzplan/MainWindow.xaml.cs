@@ -24,8 +24,8 @@ namespace ProjektSitzplan
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
         private EWindowContent windowContent = EWindowContent.Leer;
-        private EWindowContent WindowContent 
-        { 
+        private EWindowContent WindowContent
+        {
             get
             {
                 return windowContent;
@@ -69,13 +69,13 @@ namespace ProjektSitzplan
         }
 
         private SchulKlasse ausgewählteKlasse;
-        SchulKlasse AusgewählteKlasse 
+        SchulKlasse AusgewählteKlasse
         {
             get
             {
                 return ausgewählteKlasse;
             }
-            set 
+            set
             {
                 Set(ref ausgewählteKlasse, value);
             }
@@ -121,7 +121,7 @@ namespace ProjektSitzplan
             CommandUndo.InputGestures.Add(new KeyGesture(Key.Z, ModifierKeys.Control));
             CommandRedo.InputGestures.Add(new KeyGesture(Key.Z, ModifierKeys.Control | ModifierKeys.Shift));
             CommandRedo.InputGestures.Add(new KeyGesture(Key.Y, ModifierKeys.Control));
-            
+
             CommandBindings.Add(new CommandBinding(CommandCreate, MenuKlasseErstellenBtn_Click));
             CommandBindings.Add(new CommandBinding(CommandImport, MenuKlasseImportierenBtn_Click));
             CommandBindings.Add(new CommandBinding(CommandExport, MenuKlasseExportierenBtn_Click));
@@ -155,13 +155,13 @@ namespace ProjektSitzplan
             //TODO: In Menu typische symbole einbauen // Import export save help
             //TODO: DIe Klasse Exportieren Funktion im Datei Menü Disablen wenn keine ausgewählt ist. Und die speichern funktion auch
             //TODO: Wenn datein importiert die wo die klasse den selben namen hat wie eine bereits vorhandene klasse?
-            
-            
+
+
             InitializeComponent();
 
             InitCommands();
 
-            StateChanged += (s, e) => 
+            StateChanged += (s, e) =>
             {
                 if (WindowState.Equals(WindowState.Normal))
                 {
@@ -318,25 +318,25 @@ namespace ProjektSitzplan
                         if (WindowState.Equals(WindowState.Normal))
                         {
                             WindowState = WindowState.Maximized;
-                            WindowRestoreButton.ToolTip = new ToolTip() 
-                            { 
-                                Content = "Verkleinern", 
-                                Foreground = PSColors.ToolTipForeground, 
-                                Background = PSColors.ToolTipBackground, 
-                                FontFamily = new FontFamily("Segoe UI Semibold"), 
+                            WindowRestoreButton.ToolTip = new ToolTip()
+                            {
+                                Content = "Verkleinern",
+                                Foreground = PSColors.ToolTipForeground,
+                                Background = PSColors.ToolTipBackground,
+                                FontFamily = new FontFamily("Segoe UI Semibold"),
                                 FontSize = 12
                             };
                         }
                         else
                         {
                             WindowState = WindowState.Normal;
-                            WindowRestoreButton.ToolTip = new ToolTip() 
-                            { 
-                                Content = "Maximieren", 
-                                Foreground = PSColors.ToolTipForeground, 
-                                Background = PSColors.ToolTipBackground, 
-                                FontFamily = new FontFamily("Segoe UI Semibold"), 
-                                FontSize = 12 
+                            WindowRestoreButton.ToolTip = new ToolTip()
+                            {
+                                Content = "Maximieren",
+                                Foreground = PSColors.ToolTipForeground,
+                                Background = PSColors.ToolTipBackground,
+                                FontFamily = new FontFamily("Segoe UI Semibold"),
+                                FontSize = 12
                             };
                         }
                         return;
@@ -550,6 +550,7 @@ namespace ProjektSitzplan
         private void MenuKlasseExportierenBtn_Click(object sender, RoutedEventArgs e)
         {
             //TODO:
+            new ExportWindow().ShowDialog();
         }
         #endregion
 
@@ -585,7 +586,7 @@ namespace ProjektSitzplan
         #region MenuKlassenDtGrd
         private void MenuKlassenDtGrd_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
-            if(!MenuKlassenDtGrd.SelectedIndex.Equals(-1))
+            if (!MenuKlassenDtGrd.SelectedIndex.Equals(-1))
             {
                 AusgewählteKlasse = MenuKlassenDtGrd.SelectedItem as SchulKlasse;
 
@@ -638,7 +639,7 @@ namespace ProjektSitzplan
         #region KESchülerHinzufügenBtn
         private void KESchülerHinzufügenBtn_Click(object sender, RoutedEventArgs e)
         {
-			string vorname = KESchülerVornameTxbx.Text.Trim();
+            string vorname = KESchülerVornameTxbx.Text.Trim();
             string nachname = KESchülerNachnameTxbx.Text.Trim();
             string betrieb = KESchülerBetriebTxbx.Text.Trim();
 
@@ -647,14 +648,14 @@ namespace ProjektSitzplan
                 ErrorHandler.ZeigeFehler(ErrorHandler.ERR_SH_PflichtfelderNichtAusgefüllt);
                 return;
             }
-			
+
             Person.EGeschlecht geschlecht;
             Person.EBeruf beruf;
             try
             {
                 geschlecht = (Person.EGeschlecht)Enum.Parse(typeof(Person.EGeschlecht), KESchülerGeschlechtCb.Text, true);
                 beruf = (Person.EBeruf)Enum.Parse(typeof(Person.EBeruf), KESchülerBerufCb.Text.Replace(" ", ""), true);
-            } 
+            }
             catch (ArgumentException)
             {
                 ErrorHandler.ZeigeFehler(ErrorHandler.ERR_SH_PflichtfelderNichtAusgefüllt);
@@ -666,7 +667,7 @@ namespace ProjektSitzplan
             KESchülerListe.Add(neuerSchüler);
             KESchülerDtGrd.ItemsSource = null;
             KESchülerDtGrd.ItemsSource = KESchülerListe;
-            
+
             KEAnzahlSchülerTxbk.Text = KESchülerListe.Count.ToString();
             AktualisiereKESchülerDtGrd();
 

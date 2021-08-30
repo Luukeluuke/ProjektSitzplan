@@ -4,9 +4,54 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjektSitzplan"
-        mc:Ignorable="d"
-        Title="ExportWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        WindowStyle="None" ResizeMode="NoResize" Background="{StaticResource ContentBackground}"
+        Title="Projekt Sitzplan - MessageBox" Height="450" Width="650" WindowStartupLocation="CenterScreen"
+        Loaded="Window_Loaded">
+    <Border BorderBrush="{DynamicResource WindowBorderBrush}" BorderThickness="1">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="31"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Border Grid.Column="0" Grid.Row="0" BorderBrush="{StaticResource TransitionStart}" BorderThickness="0 0 0 1">
+                <Grid x:Name="TitleBarGrid" Background="{StaticResource TopBarBackground}" MouseDown="TitleBarGrid_MouseDown">
+                    <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5 0 0 0">
+                        <Image VerticalAlignment="Center" Margin="0 7 0 7" Source="/ProjektSitzplan;component/src/Design/Images/Logos/Logo878B91.png"></Image>
+                        <Label Margin="1 0 0 0" Content="Export" Foreground="{StaticResource TopBarForeground}" FontFamily="Segoe UI Semibold" FontSize="16"></Label>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+                        <Button x:Name="MinimizeBtn" Uid="0" Template="{StaticResource Flat}" Background="{x:Null}" materialDesign:RippleAssist.IsDisabled="True" IsTabStop="False" Height="30" Click="TopBarButton_Click" MouseEnter="TopBarButton_MouseEnter" MouseLeave="TopBarButton_MouseLeave" PreviewMouseDown="TopBarButton_PreviewMouseDown" PreviewMouseUp="TopBarButton_PreviewMouseUp" Width="55">
+                            <Button.ToolTip>
+                                <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12">Minimieren</ToolTip>
+                            </Button.ToolTip>
+                            <Image x:Name="MinimizeButtonImage" Source="/ProjektSitzplan;component/src/Design/Images/MinimizeB9BBBE.png" Width="22" IsHitTestVisible="False"></Image>
+                        </Button>
+                        <Button x:Name="CloseBtn" Uid="2" Template="{StaticResource Flat}" Background="{x:Null}" materialDesign:RippleAssist.IsDisabled="True" IsTabStop="False" Height="30" Click="TopBarButton_Click" MouseEnter="TopBarButton_MouseEnter" MouseLeave="TopBarButton_MouseLeave" PreviewMouseDown="TopBarButton_PreviewMouseDown" PreviewMouseUp="TopBarButton_PreviewMouseUp" Width="55">
+                            <Button.ToolTip>
+                                <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12">Schließen</ToolTip>
+                            </Button.ToolTip>
+                            <Image x:Name="CloseButtonImage" Source="/ProjektSitzplan;component/src/Design/Images/CloseB9BBBE.png" Width="22" IsHitTestVisible="False"></Image>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
+            <Border Grid.Column="0" Grid.Row="1" BorderBrush="{StaticResource TransitionEnd}" BorderThickness="0 1 0 1">
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="0" Grid.Row="0" BorderBrush="{StaticResource ContentDivider}" BorderThickness="0 0 1 0">
+                        <Grid Margin="0 0 5 0">
+                            
+                        </Grid>
+                    </Border>
+                    <Grid Grid.Column="1" Grid.Row="0" Margin="5 0 0 0">
+                        
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
 </Window>

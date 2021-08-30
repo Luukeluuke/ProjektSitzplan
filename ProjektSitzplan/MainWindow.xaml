@@ -93,7 +93,7 @@
                                                 </StackPanel>
                                             </MenuItem.Header>
                                         </MenuItem>
-                                        <MenuItem x:Name="MenuKlasseExportierenBtn" Click="MenuKlasseExportierenBtn_Click" IsEnabled="False">
+                                        <MenuItem x:Name="MenuKlasseExportierenBtn" Click="MenuKlasseExportierenBtn_Click" IsEnabled="True">
                                             <MenuItem.Icon>
                                                 <materialDesign:PackIcon Kind="FileExport" Foreground="{StaticResource MenuForeground}"></materialDesign:PackIcon>
                                             </MenuItem.Icon>
