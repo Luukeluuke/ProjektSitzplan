@@ -531,7 +531,7 @@ namespace ProjektSitzplan
         #region MenuKlasseImportBtn
         private void MenuKlasseImportierenBtn_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: Hie sweer import hin
+            //TODO: Hier Sweer import hin
 
             KlassenAktualisieren();
         }
