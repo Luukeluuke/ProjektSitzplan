@@ -67,7 +67,7 @@ namespace ProjektSitzplan.Structures
 
             SchülerListe.Remove(schüler);
         }
-
+         
         public void AlsDateiSpeichern(string path)
         {
             Directory.CreateDirectory(Path.GetDirectoryName(path));
@@ -78,9 +78,15 @@ namespace ProjektSitzplan.Structures
         {
             if (File.Exists(path))
             {
-                return JsonConvert.DeserializeObject<SchulKlasse>(File.ReadAllText(path));
+                return AusJsonStringLaden(File.ReadAllText(path));
             }
             throw new PfadNichtGefundenException(path, "Beim laden der Klasse ist ein Fehler aufgetreten!");
+        }
+
+        public static SchulKlasse AusJsonStringLaden(string json)
+        {
+            //TODO: Fehlermeldung bei fehlerhafter json datei
+            return JsonConvert.DeserializeObject<SchulKlasse>(json);
         }
 
         public Sitzplan ErstelleSitzplan(int tischAnzahl)

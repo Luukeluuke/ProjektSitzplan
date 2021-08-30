@@ -154,7 +154,7 @@
                         </Grid>
                         <Border Grid.Column="0" Grid.Row="1" BorderThickness="0 1 0 0" BorderBrush="{StaticResource TransitionStart}" Background="{StaticResource MenuBackground}">
                             <Grid>
-                                <DataGrid x:Name="MenuKlassenDtGrd" BorderBrush="{StaticResource ContentControlBorder}" Background="{x:Null}" Foreground="{StaticResource ContentForeground}" FontFamily="Segoe UI Semibold" CanUserDeleteRows="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserResizeColumns="True" CanUserResizeRows="False" CanUserSortColumns="True" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding AusgewählteKlasse}" SelectedCellsChanged="MenuKlassenDtGrd_SelectedCellsChanged" Sorting="MenuKlassenDtGrd_Sorting">
+                                <DataGrid x:Name="MenuKlassenDtGrd" BorderBrush="{StaticResource MenuDataGridRowBorder}" Background="{x:Null}" Foreground="{StaticResource ContentForeground}" FontFamily="Segoe UI Semibold" CanUserDeleteRows="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserResizeColumns="True" CanUserResizeRows="False" CanUserSortColumns="True" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding AusgewählteKlasse}" SelectedCellsChanged="MenuKlassenDtGrd_SelectedCellsChanged" Sorting="MenuKlassenDtGrd_Sorting">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Binding="{Binding Name}" Width="*" SortDirection="Ascending">
                                             <DataGridTextColumn.Header>
@@ -205,9 +205,9 @@
                                             </Setter>
                                             <Style.Triggers>
                                                 <Trigger Property="DataGridRow.IsSelected" Value="True">
-                                                    <Setter Property="Background" Value="{StaticResource MenuDataGridRowBorderSelectedBackground}" />
-                                                    <Setter Property="BorderBrush" Value="{StaticResource ContentDataGridRowBorderSelectedBorder}" />
-                                                    <Setter Property="Foreground" Value="{StaticResource ContentDataGridRowBorderSelectedForeground}" />
+                                                    <Setter Property="Background" Value="{StaticResource MenuDataGridRowSelectedBackground}" />
+                                                    <Setter Property="BorderBrush" Value="{StaticResource MenuDataGridRowBorderSelected}" />
+                                                    <Setter Property="Foreground" Value="{StaticResource MenuDataGridRowSelectedForeground}" />
                                                 </Trigger>
                                                 <MultiTrigger>
                                                     <MultiTrigger.Conditions>
@@ -215,8 +215,8 @@
                                                         <Condition Property="DataGridRow.IsSelected" Value="False"></Condition>
                                                     </MultiTrigger.Conditions>
                                                     <MultiTrigger.Setters>
-                                                        <Setter Property="Background" Value="{StaticResource ContentDataGridRowHover}" />
-                                                        <Setter Property="BorderBrush" Value="{StaticResource ContentDataGridRowBorderHover}" />
+                                                        <Setter Property="Background" Value="{StaticResource MenuDataGridRowHoverBackground}" />
+                                                        <Setter Property="BorderBrush" Value="{StaticResource MenuDataGridRowBorderHover}" />
                                                         <Setter Property="Foreground" Value="{StaticResource ContentHoverForeground}" />
                                                     </MultiTrigger.Setters>
                                                 </MultiTrigger>
@@ -264,7 +264,7 @@
                         <RowDefinition Height="5"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Grid Grid.Column="0" Grid.Row="0" Background="{StaticResource MenuBackground}">
-
+                        
                     </Grid>
                     <Border Grid.Column="0" Grid.Row="1" BorderThickness="0 1 0 1" BorderBrush="{StaticResource TransitionStart}">
                         <Border BorderThickness="1" BorderBrush="{StaticResource TransitionEnd}" Background="{StaticResource ContentBackground}">

@@ -40,7 +40,7 @@ namespace ProjektSitzplan
         public static void FügeSchulKlasseHinzu(SchulKlasse schulKlasse)
         {
             //if (!SchulKlassen.Contains(schulKlasse))
-            //TODO Macht das so nicht mehr Sinn? Außerdem sollte man da ne fehlermeldung zeigen oder so?
+            //TODO Macht das so nicht mehr Sinn? Außerdem sollte man da ne fehlermeldung zeigen oder so? vor allem beim import :D
             if (!ExistiertKlasseBereits(schulKlasse))
             {
                 SchulKlassen.Add(schulKlasse);

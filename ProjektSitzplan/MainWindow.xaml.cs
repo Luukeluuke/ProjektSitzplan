@@ -1,4 +1,5 @@
 ﻿using MaterialDesignThemes.Wpf;
+using Microsoft.Win32;
 using ProjektSitzplan.Design;
 using ProjektSitzplan.Structures;
 using System;
@@ -123,6 +124,7 @@ namespace ProjektSitzplan
             
             CommandBindings.Add(new CommandBinding(CommandCreate, MenuKlasseErstellenBtn_Click));
             CommandBindings.Add(new CommandBinding(CommandImport, MenuKlasseImportierenBtn_Click));
+            CommandBindings.Add(new CommandBinding(CommandExport, MenuKlasseExportierenBtn_Click));
             CommandBindings.Add(new CommandBinding(CommandRefresh, KlassenAktualisieren));
         }
         #endregion
@@ -531,12 +533,18 @@ namespace ProjektSitzplan
         #region MenuKlasseImportBtn
         private void MenuKlasseImportierenBtn_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: Hier Sweer import hin
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Json files (*.json)|*.json";
+            openFileDialog.InitialDirectory = $@"{Environment.CurrentDirectory}\SchulKlassen";
+            if (openFileDialog.ShowDialog() == true)
+            {
+                SchulKlasse klasse = SchulKlasse.AusDateiLaden(openFileDialog.FileName);
+                DataHandler.FügeSchulKlasseHinzu(klasse);
+            }
 
             KlassenAktualisieren();
         }
         #endregion
-
 
         #region MenuKlasseExportierenBtn
         private void MenuKlasseExportierenBtn_Click(object sender, RoutedEventArgs e)

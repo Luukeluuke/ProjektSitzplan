@@ -46,12 +46,13 @@
     <SolidColorBrush x:Key="MenuComment" Color="#878B91"></SolidColorBrush>
     <SolidColorBrush x:Key="MenuFreeButtonBackground" Color="#36393F"></SolidColorBrush>
     <SolidColorBrush x:Key="MenuFreeButtonForeground" Color="#D7D8D9"></SolidColorBrush>
-    <SolidColorBrush x:Key="MenuDataGridRowHover" Color="#32353B"></SolidColorBrush>
+    <SolidColorBrush x:Key="MenuDataGridRowBorder" Color="#2B2E33"></SolidColorBrush>
+    <SolidColorBrush x:Key="MenuDataGridRowHoverBackground" Color="#32353B"></SolidColorBrush>
     <SolidColorBrush x:Key="MenuDataGridRowBorderHover" Color="#32353B"></SolidColorBrush>
-    <SolidColorBrush x:Key="MenuDataGridRowBorderSelectedBackground" Color="#32353B"></SolidColorBrush>
-    <SolidColorBrush x:Key="MenuDataGridRowBorderSelectedBorder" Color="#2B2E33"></SolidColorBrush>
-    <SolidColorBrush x:Key="MenuDataGridRowBorderSelectedForeground" Color="#FFFFFF"></SolidColorBrush>
-    <SolidColorBrush x:Key="MenuDataGridSelectedCellForeground" Color="#FFFFFF"></SolidColorBrush>
+    <SolidColorBrush x:Key="MenuDataGridRowSelectedBackground" Color="#2B2E33"></SolidColorBrush>
+    <SolidColorBrush x:Key="MenuDataGridRowBorderSelected" Color="#2B2E33"></SolidColorBrush>
+    <SolidColorBrush x:Key="MenuDataGridRowSelectedForeground" Color="#FFFFFF"></SolidColorBrush>
+    <SolidColorBrush x:Key="MenuDataGriCellSelectedForeground" Color="#FFFFFF"></SolidColorBrush>
     
     <SolidColorBrush x:Key="ToolTipBackground" Color="#18191C"></SolidColorBrush>
     <SolidColorBrush x:Key="ToolTipForeground" Color="#D7D8D9"></SolidColorBrush>
