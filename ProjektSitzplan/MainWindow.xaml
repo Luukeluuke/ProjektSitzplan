@@ -532,8 +532,10 @@
                                         </Grid>
                                     </Grid>
                                 </Grid>
-                                <Grid x:Name="KlasseÜbersichtGrd" Visibility="Hidden">
-                                    <Label Foreground="White" HorizontalAlignment="Center" Content="{Binding AusgewählteKlasse.Name}" VerticalAlignment="Center" FontSize="30"></Label>
+                                <Grid x:Name="KlasseÜbersichtGrd" Visibility="Visible">
+                                    <Grid HorizontalAlignment="Right" VerticalAlignment="Center">
+                                        
+                                    </Grid>
                                 </Grid>
                                 <Grid x:Name="LeerGrd">
                                     <StackPanel x:Name="LKeineKlasseAusgewähltStkPnl" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Vertical" Visibility="Hidden">
