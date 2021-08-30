@@ -122,6 +122,7 @@ namespace ProjektSitzplan
             CommandRedo.InputGestures.Add(new KeyGesture(Key.Y, ModifierKeys.Control));
             
             CommandBindings.Add(new CommandBinding(CommandCreate, MenuKlasseErstellenBtn_Click));
+            CommandBindings.Add(new CommandBinding(CommandImport, MenuKlasseImportierenBtn_Click));
             CommandBindings.Add(new CommandBinding(CommandRefresh, KlassenAktualisieren));
         }
         #endregion
@@ -530,7 +531,9 @@ namespace ProjektSitzplan
         #region MenuKlasseImportBtn
         private void MenuKlasseImportierenBtn_Click(object sender, RoutedEventArgs e)
         {
-            //TODO:
+            //TODO: Hie sweer import hin
+
+            KlassenAktualisieren();
         }
         #endregion
 
