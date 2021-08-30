@@ -97,7 +97,7 @@ namespace ProjektSitzplan.Structures
         {
             if (AnzahlSchüler == 0)
             {
-                return "Diese Klasse hat noch keine Schüler!";
+                return "Diese Klasse hat noch keine Schüler";
             }
 
             StringBuilder builder = new StringBuilder();

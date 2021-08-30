@@ -664,6 +664,13 @@ namespace ProjektSitzplan
         }
         #endregion
 
+        #region KESchülerDtGrd
+        private void KESchülerDtGrd_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+            KESchülerEntfernenBtn.IsEnabled = !KESchülerDtGrd.SelectedIndex.Equals(-1);
+        }
+        #endregion
+
         #region KESchülerEntfernenBtn
         private void KESchülerEntfernenBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -719,30 +726,6 @@ namespace ProjektSitzplan
             KlassenAktualisieren();
         }
         #endregion
-
         #endregion
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            PsMessageBox ff = new PsMessageBox("Test Test", "Hallo das ist ein Test", PsMessageBox.EPsMessageBoxButtons.OK);
-            ff.OnPsMessageBoxButtonPressed += Ff_OnPsMessageBoxButtonPressed;
-            ff.ShowDialog();
-        }
-
-        private void Ff_OnPsMessageBoxButtonPressed(object source, PsMessagBoxEventArgs e)
-        {
-            //Hallo hier das wird ausgelöst wenn ein button in der messagebox ausgelößt wird
-            switch (e.PsMessageBoxButtonResult)
-            {
-                case PsMessageBox.EPsMessageBoxResult.Yes:
-                    break;
-                case PsMessageBox.EPsMessageBoxResult.No:
-                    break;
-                case PsMessageBox.EPsMessageBoxResult.OK:
-                    break;
-                default:
-                    break;
-            }
-        }
     }
 }
