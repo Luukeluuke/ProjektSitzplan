@@ -87,7 +87,6 @@
     <Compile Include="src\Structures\Sitzplan.cs" />
     <Compile Include="src\Structures\TischBlock.cs" />
     <Compile Include="src\Utility.cs" />
-    <Compile Include="Test.cs" />
     <Page Include="ExportWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
