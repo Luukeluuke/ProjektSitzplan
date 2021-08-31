@@ -390,8 +390,7 @@ namespace ProjektSitzplan
             Button sBtn = Utility.GetButton(sender);
 
             sBtn.Background = PSColors.ContentButtonHoverBackground;
-            ContentLabels[Utility.GetUid(sBtn)].Foreground = PSColors.ContentButtonHoverForeground;
-
+            ContentLabels[Utility.GetUid(sBtn)]?.SetForeground(PSColors.ContentButtonHoverForeground);
             ContentPackIconsSets[Utility.GetUid(sBtn)]?.HandleColor(PackIconSet.EEventType.Enter);
         }
 
@@ -400,7 +399,7 @@ namespace ProjektSitzplan
             Button sBtn = Utility.GetButton(sender);
 
             sBtn.Background = PSColors.ContentButtonBackground;
-            ContentLabels[Utility.GetUid(sBtn)].Foreground = PSColors.ContentButtonForeground;
+            ContentLabels[Utility.GetUid(sBtn)]?.SetForeground(PSColors.ContentButtonForeground);
             ContentPackIconsSets[Utility.GetUid(sBtn)]?.HandleColor(PackIconSet.EEventType.Leave);
         }
 
@@ -409,7 +408,7 @@ namespace ProjektSitzplan
             Button sBtn = Utility.GetButton(sender);
 
             sBtn.Background = PSColors.ContentButtonPreviewBackground;
-            ContentLabels[Utility.GetUid(sBtn)].Foreground = PSColors.ContentButtonPreviewForeground;
+            ContentLabels[Utility.GetUid(sBtn)]?.SetForeground(PSColors.ContentButtonPreviewForeground);
             ContentPackIconsSets[Utility.GetUid(sBtn)]?.HandleColor(PackIconSet.EEventType.PreviewDown);
         }
 
@@ -418,7 +417,7 @@ namespace ProjektSitzplan
             Button sBtn = Utility.GetButton(sender);
 
             sBtn.Background = PSColors.ContentButtonHoverBackground;
-            ContentLabels[Utility.GetUid(sBtn)].Foreground = PSColors.ContentButtonHoverForeground;
+            ContentLabels[Utility.GetUid(sBtn)]?.SetForeground(PSColors.ContentButtonHoverForeground);
             ContentPackIconsSets[Utility.GetUid(sBtn)]?.HandleColor(PackIconSet.EEventType.PreviewUp);
         }
         #endregion
@@ -509,7 +508,8 @@ namespace ProjektSitzplan
                 KEKSchülerHinzufügenLbl,
                 KESchülerEntfernenLbl,
                 KEAbbrechenLbl,
-                KEKlasseErstellenLbl
+                KEKlasseErstellenLbl,
+                null
             };
             ContentPackIconsSets = new PackIconSet[]
             {
@@ -517,7 +517,8 @@ namespace ProjektSitzplan
                 new PackIconSet(KESchülerHinzufügenPkIco, PackIconSet.EIconType.Content, PSColors.IconHoverGreen, PSColors.IconPreviewGreen),
                 new PackIconSet(KESchülerEntfernenPkIco, PackIconSet.EIconType.Content, PSColors.IconHoverRed, PSColors.IconPreviewRed),
                 new PackIconSet(KEAbbrechenPkIco, PackIconSet.EIconType.Content, PSColors.IconHoverRed, PSColors.IconPreviewRed),
-                new PackIconSet(KEKlasseErstellenPkIco, PackIconSet.EIconType.Content, PSColors.IconHoverGreen, PSColors.IconPreviewGreen)
+                new PackIconSet(KEKlasseErstellenPkIco, PackIconSet.EIconType.Content, PSColors.IconHoverGreen, PSColors.IconPreviewGreen),
+                new PackIconSet(ÜSitzplanAnzeigenPkIco, PackIconSet.EIconType.Content, PSColors.ContentButtonHoverForeground, PSColors.ContentButtonPreviewForeground)
             };
         }
         #endregion
@@ -737,6 +738,12 @@ namespace ProjektSitzplan
             KlassenAktualisieren();
         }
         #endregion
+
         #endregion
+
+        private void ÜSitzplanAnzeigenBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

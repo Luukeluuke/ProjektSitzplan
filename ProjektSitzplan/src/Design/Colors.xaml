@@ -24,6 +24,7 @@
     <SolidColorBrush x:Key="ContentDataGridRowBorderSelectedBorder" Color="#2B2E33"></SolidColorBrush>
     <SolidColorBrush x:Key="ContentDataGridRowBorderSelectedForeground" Color="#FFFFFF"></SolidColorBrush>
     <SolidColorBrush x:Key="ContentDataGridSelectedCellForeground" Color="#FFFFFF"></SolidColorBrush>
+    <SolidColorBrush x:Key="ContentButtonBorder" Color="#3B3E45"></SolidColorBrush>
     <SolidColorBrush x:Key="ContentButtonBackground" Color="#32353B"></SolidColorBrush>
     <SolidColorBrush x:Key="ContentButtonForeground" Color="#72767D"></SolidColorBrush>
     <SolidColorBrush x:Key="ContentButtonHoverBackground" Color="#3B3E45"></SolidColorBrush>

@@ -30,19 +30,19 @@
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="WindowMinimizeButton" Grid.Column="0" Uid="0" Template="{StaticResource Flat}" Background="{x:Null}"  materialDesign:RippleAssist.Feedback="Transparent" IsTabStop="False" Click="TopBarButton_Click" PreviewMouseDown="TopBarButton_PreviewMouseDown" PreviewMouseUp="TopBarButton_PreviewMouseUp" MouseEnter="TopBarButton_MouseEnter" MouseLeave="TopBarButton_MouseLeave">
+                    <Button x:Name="WindowMinimizeButton" Grid.Column="0" Uid="0" Template="{StaticResource FlatTopBar}" Background="{x:Null}"  materialDesign:RippleAssist.Feedback="Transparent" IsTabStop="False" Click="TopBarButton_Click" PreviewMouseDown="TopBarButton_PreviewMouseDown" PreviewMouseUp="TopBarButton_PreviewMouseUp" MouseEnter="TopBarButton_MouseEnter" MouseLeave="TopBarButton_MouseLeave">
                         <Button.ToolTip>
                             <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12">Minimieren</ToolTip>
                         </Button.ToolTip>
                         <Image Source="/ProjektSitzplan;component/src/Design/Images/MinimizeB9BBBE.png"></Image>
                     </Button>
-                    <Button x:Name="WindowRestoreButton" Grid.Column="1" Uid="1" Template="{StaticResource Flat}" Background="{x:Null}" materialDesign:RippleAssist.Feedback="Transparent" IsTabStop="False" Click="TopBarButton_Click" PreviewMouseDown="TopBarButton_PreviewMouseDown" PreviewMouseUp="TopBarButton_PreviewMouseUp" MouseEnter="TopBarButton_MouseEnter" MouseLeave="TopBarButton_MouseLeave">
+                    <Button x:Name="WindowRestoreButton" Grid.Column="1" Uid="1" Template="{StaticResource FlatTopBar}" Background="{x:Null}" materialDesign:RippleAssist.Feedback="Transparent" IsTabStop="False" Click="TopBarButton_Click" PreviewMouseDown="TopBarButton_PreviewMouseDown" PreviewMouseUp="TopBarButton_PreviewMouseUp" MouseEnter="TopBarButton_MouseEnter" MouseLeave="TopBarButton_MouseLeave">
                         <Button.ToolTip>
                             <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12">Maximieren</ToolTip>
                         </Button.ToolTip>
                         <Image Source="/ProjektSitzplan;component/src/Design/Images/Restore1B9BBBE.png"></Image>
                     </Button>
-                    <Button x:Name="WindowCloseButton" Grid.Column="2" Uid="2" Template="{StaticResource Flat}" Background="{x:Null}" materialDesign:RippleAssist.Feedback="Transparent" IsTabStop="False" Click="TopBarButton_Click" PreviewMouseDown="TopBarButton_PreviewMouseDown" PreviewMouseUp="TopBarButton_PreviewMouseUp" MouseEnter="TopBarButton_MouseEnter" MouseLeave="TopBarButton_MouseLeave">
+                    <Button x:Name="WindowCloseButton" Grid.Column="2" Uid="2" Template="{StaticResource FlatTopBar}" Background="{x:Null}" materialDesign:RippleAssist.Feedback="Transparent" IsTabStop="False" Click="TopBarButton_Click" PreviewMouseDown="TopBarButton_PreviewMouseDown" PreviewMouseUp="TopBarButton_PreviewMouseUp" MouseEnter="TopBarButton_MouseEnter" MouseLeave="TopBarButton_MouseLeave">
                         <Button.ToolTip>
                             <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12">Schließen</ToolTip>
                         </Button.ToolTip>
@@ -248,7 +248,7 @@
                                 <StackPanel x:Name="KeineKlassenGefundenStkPnl" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical" Visibility="Hidden">
                                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Es sind&#10;noch keine Klassen&#10;vorhanden" TextAlignment="Center" Foreground="{StaticResource MenuComment}" FontSize="13" FontFamily="Segoe UI Semibold"></TextBlock>
                                     <Grid Margin="0 10 0 0">
-                                        <Button x:Name="KlasseErstellenBtn" HorizontalAlignment="Center" VerticalAlignment="Center" Width="105" Template="{StaticResource Flat}" Background="{StaticResource MenuFreeButtonBackground}" Click="MenuKlasseErstellenBtn_Click"></Button>
+                                        <Button x:Name="KlasseErstellenBtn" HorizontalAlignment="Center" VerticalAlignment="Center" Width="105" Template="{StaticResource FlatContent}" Background="{StaticResource MenuFreeButtonBackground}" Click="MenuKlasseErstellenBtn_Click"></Button>
                                         <Label HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuFreeButtonForeground}" Content="Klasse erstellen" FontSize="13" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"></Label>
                                     </Grid>
                                 </StackPanel>
@@ -387,11 +387,11 @@
                                                             <ColumnDefinition Width="*"></ColumnDefinition>
                                                         </Grid.ColumnDefinitions>
                                                         <Grid Grid.Column="0" Grid.Row="1" Visibility="Visible">
-                                                            <Button x:Name="KEFelderLeerenBtn" Uid="0" TabIndex="106" HorizontalAlignment="Stretch" Height="Auto" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource Flat}" materialDesign:RippleAssist.IsDisabled="True" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp" Click="KEFelderLeerenBtn_Click"></Button>
+                                                            <Button x:Name="KEFelderLeerenBtn" Uid="0" TabIndex="106" HorizontalAlignment="Stretch" Height="Auto" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp" Click="KEFelderLeerenBtn_Click"></Button>
                                                             <Label x:Name="KEFelderLeerenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Felder leeren" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"></Label>
                                                         </Grid>
                                                         <Grid Grid.Column="2" Grid.Row="1">
-                                                            <Button x:Name="KESchülerHinzufügenBtn" Uid="1" TabIndex="107" HorizontalAlignment="Stretch" Height="Auto" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource Flat}" materialDesign:RippleAssist.IsDisabled="True" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp" Click="KESchülerHinzufügenBtn_Click"></Button>
+                                                            <Button x:Name="KESchülerHinzufügenBtn" Uid="1" TabIndex="107" HorizontalAlignment="Stretch" Height="Auto" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp" Click="KESchülerHinzufügenBtn_Click"></Button>
                                                             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                                                                 <Label x:Name="KEKSchülerHinzufügenLbl" Content="Schüler hinzufügen" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"></Label>
                                                                 <materialDesign:PackIcon x:Name="KESchülerHinzufügenPkIco" Margin="2 0 0 0" VerticalAlignment="Center" Kind="AddBold" Height="18" Width="18" Foreground="{StaticResource ContentButtonForeground}" IsHitTestVisible="False"></materialDesign:PackIcon>
@@ -501,7 +501,7 @@
                                             </Grid.RowDefinitions>
                                             <Border Grid.Column="0" Grid.Row="0" BorderThickness="0 0 0 1" BorderBrush="{StaticResource ContentDivider}">
                                                 <Grid Margin="0 0 0 5">
-                                                    <Button x:Name="KESchülerEntfernenBtn" Uid="2" TabIndex="108" HorizontalAlignment="Stretch" Height="Auto" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource Flat}" materialDesign:RippleAssist.IsDisabled="True" Click="KESchülerEntfernenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp" IsEnabled="False"></Button>
+                                                    <Button x:Name="KESchülerEntfernenBtn" Uid="2" TabIndex="108" HorizontalAlignment="Stretch" Height="Auto" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" Click="KESchülerEntfernenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp" IsEnabled="False"></Button>
                                                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                                                         <Label x:Name="KESchülerEntfernenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Ausgewählten Schüler entfernen" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"></Label>
                                                         <materialDesign:PackIcon x:Name="KESchülerEntfernenPkIco" Margin="2 0 0 0" VerticalAlignment="Center" Kind="Trash" Height="18" Width="18" Foreground="{StaticResource ContentButtonForeground}" IsHitTestVisible="False"></materialDesign:PackIcon>
@@ -515,14 +515,14 @@
                                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                                 </Grid.ColumnDefinitions>
                                                 <Grid Grid.Column="0" Grid.Row="1">
-                                                    <Button x:Name="KEAbbrechenBtn" Uid="3" TabIndex="109" HorizontalAlignment="Stretch" Height="Auto" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource Flat}" materialDesign:RippleAssist.IsDisabled="True" Click="KEAbbrechenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp"></Button>
+                                                    <Button x:Name="KEAbbrechenBtn" Uid="3" TabIndex="109" HorizontalAlignment="Stretch" Height="Auto" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" Click="KEAbbrechenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp"></Button>
                                                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                                                         <Label x:Name="KEAbbrechenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Abbrechen" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"></Label>
                                                         <materialDesign:PackIcon x:Name="KEAbbrechenPkIco" Margin="2 0 0 0" VerticalAlignment="Center" Kind="CloseBold" Height="18" Width="18" Foreground="{StaticResource ContentButtonForeground}" IsHitTestVisible="False"></materialDesign:PackIcon>
                                                     </StackPanel>
                                                 </Grid>
                                                 <Grid Grid.Column="2" Grid.Row="1">
-                                                    <Button x:Name="KEKlasseErstellenBtn" Uid="4" TabIndex="110" HorizontalAlignment="Stretch" Height="Auto" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource Flat}" Click="KEKlasseErstellenBtn_Click" materialDesign:RippleAssist.IsDisabled="True" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp"></Button>
+                                                    <Button x:Name="KEKlasseErstellenBtn" Uid="4" TabIndex="110" HorizontalAlignment="Stretch" Height="Auto" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}" Click="KEKlasseErstellenBtn_Click" materialDesign:RippleAssist.IsDisabled="True" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp"></Button>
                                                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                                                         <Label x:Name="KEKlasseErstellenLbl" Content="Klasse erstellen" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"></Label>
                                                         <materialDesign:PackIcon x:Name="KEKlasseErstellenPkIco" Margin="2 0 0 0" VerticalAlignment="Center" Kind="CheckBold" Height="18" Width="18" Foreground="{StaticResource ContentButtonForeground}" IsHitTestVisible="False"></materialDesign:PackIcon>
@@ -534,10 +534,11 @@
                                 </Grid>
                                 <Grid x:Name="KlasseÜbersichtGrd" Visibility="Visible">
                                     <Grid HorizontalAlignment="Right" VerticalAlignment="Center">
-                                        
+                                        <Button x:Name="ÜSitzplanAnzeigenBtn" Uid="5" HorizontalAlignment="Right" VerticalAlignment="Center" Width="35" Height="80" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" Background="{StaticResource ContentButtonBackground}" Click="ÜSitzplanAnzeigenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp"></Button>
+                                        <materialDesign:PackIcon x:Name="ÜSitzplanAnzeigenPkIco" HorizontalAlignment="Center" VerticalAlignment="Center" Kind="ArrowCollapseLeft" Height="23" Width="23" Foreground="{StaticResource ContentButtonForeground}" IsHitTestVisible="False"></materialDesign:PackIcon>
                                     </Grid>
                                 </Grid>
-                                <Grid x:Name="LeerGrd">
+                                <Grid x:Name="LeerGrd" Visibility="Visible">
                                     <StackPanel x:Name="LKeineKlasseAusgewähltStkPnl" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Vertical" Visibility="Hidden">
                                         <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="14" Foreground="{StaticResource ContentForeground}" Content="Es ist keine Klasse ausgewählt"></Label>
                                         <materialDesign:PackIcon  Margin="5 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Top" Height="25" Width="25" Kind="ArrowLeftBold" Foreground="{StaticResource ContentButtonForeground}"></materialDesign:PackIcon>
