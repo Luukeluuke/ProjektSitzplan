@@ -44,7 +44,107 @@
                     </Grid.ColumnDefinitions>
                     <Border Grid.Column="0" Grid.Row="0" BorderBrush="{StaticResource ContentDivider}" BorderThickness="0 0 1 0">
                         <Grid Margin="0 0 5 0">
-                            
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="31"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15 0 0 0" Text="Gefundene Klassen" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="14"/>
+                            <Border Grid.Column="0" Grid.Row="1">
+                                <!--
+                                <DataGrid x:Name="MenuKlassenDtGrd" BorderBrush="{StaticResource MenuDataGridRowBorder}" Background="{x:Null}" Foreground="{StaticResource ContentForeground}" FontFamily="Segoe UI Semibold" CanUserDeleteRows="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserResizeColumns="True" CanUserResizeRows="False" CanUserSortColumns="True" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding AusgewählteKlasse}" SelectedCellsChanged="MenuKlassenDtGrd_SelectedCellsChanged" Sorting="MenuKlassenDtGrd_Sorting">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Binding="{Binding Name}" Width="*" SortDirection="Ascending">
+                                            <DataGridTextColumn.Header>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                    </Grid.ColumnDefinitions>
+                                                    <materialDesign:PackIcon x:Name="MenuKlassenSortingPkIco" Grid.Column="1" Grid.Row="0" Margin="5 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Top" Height="22" Width="22" Kind="SortAlphabeticalAscending"></materialDesign:PackIcon>
+                                                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Klassen"></TextBlock>
+                                                </Grid>
+                                            </DataGridTextColumn.Header>
+                                        </DataGridTextColumn>
+                                    </DataGrid.Columns>
+                                    <DataGrid.Resources>
+                                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                                            <Setter Property="Background" Value="{StaticResource ContentBackground}"></Setter>
+                                            <Setter Property="Foreground" Value="{StaticResource ContentForeground}"></Setter>
+                                            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+                                            <Setter Property="FontSize" Value="14"></Setter>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type DataGridColumnHeader}">
+                                                        <Border Background="Transparent">
+                                                            <ContentPresenter Margin="5"/>
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Style.Triggers>
+                                                <Trigger Property="DataGridColumnHeader.IsMouseOver" Value="True">
+                                                    <Setter Property="Foreground" Value="{StaticResource ContentHoverForeground}"></Setter>
+                                                </Trigger>
+                                                <Trigger Property="ScrollViewer.VerticalScrollBarVisibility" Value="Visible">
+                                                    <Setter Property="Margin" Value="18 0 0 0"></Setter>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                        <Style TargetType="{x:Type DataGridRow}">
+                                            <Setter Property="Background" Value="{x:Null}"></Setter>
+                                            <Setter Property="Margin" Value="0"></Setter>
+                                            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+                                            <Setter Property="IsHitTestVisible" Value="True"></Setter>
+                                            <Setter Property="ToolTip">
+                                                <Setter.Value>
+                                                    <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12" Content="{Binding ToolTipÜbersicht}"></ToolTip>
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Style.Triggers>
+                                                <Trigger Property="DataGridRow.IsSelected" Value="True">
+                                                    <Setter Property="Background" Value="{StaticResource MenuDataGridRowSelectedBackground}" />
+                                                    <Setter Property="BorderBrush" Value="{StaticResource MenuDataGridRowBorderSelected}" />
+                                                    <Setter Property="Foreground" Value="{StaticResource MenuDataGridRowSelectedForeground}" />
+                                                </Trigger>
+                                                <MultiTrigger>
+                                                    <MultiTrigger.Conditions>
+                                                        <Condition Property="DataGridRow.IsMouseOver" Value="True"></Condition>
+                                                        <Condition Property="DataGridRow.IsSelected" Value="False"></Condition>
+                                                    </MultiTrigger.Conditions>
+                                                    <MultiTrigger.Setters>
+                                                        <Setter Property="Background" Value="{StaticResource MenuDataGridRowHoverBackground}" />
+                                                        <Setter Property="BorderBrush" Value="{StaticResource MenuDataGridRowBorderHover}" />
+                                                        <Setter Property="Foreground" Value="{StaticResource ContentHoverForeground}" />
+                                                    </MultiTrigger.Setters>
+                                                </MultiTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                        <Style TargetType="DataGridCell">
+                                            <Setter Property="BorderBrush" Value="{x:Null}"></Setter>
+                                            <Setter Property="Focusable" Value="False"></Setter>
+                                            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+                                            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type DataGridCell}">
+                                                        <Border Background="Transparent">
+                                                            <ContentPresenter Margin="0 7 0 7"/>
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Style.Triggers>
+                                                <Trigger Property="DataGridCell.IsSelected" Value="True">
+                                                    <Setter Property="Background" Value="{x:Null}"></Setter>
+                                                    <Setter Property="Foreground" Value="{StaticResource ContentDataGridSelectedCellForeground}"></Setter>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </DataGrid.Resources>
+                                </DataGrid>
+                                -->
+                                
+                            </Border>
                         </Grid>
                     </Border>
                     <Grid Grid.Column="1" Grid.Row="0" Margin="5 0 0 0">
