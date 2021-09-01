@@ -156,6 +156,7 @@ namespace ProjektSitzplan
             //TODO: DIe Klasse Exportieren Funktion im Datei Menü Disablen wenn keine ausgewählt ist. Und die speichern funktion auch
             //TODO: Wenn datein importiert die wo die klasse den selben namen hat wie eine bereits vorhandene klasse?
 
+            //TODO: Design der Radio Buttons anpassen
 
             InitializeComponent();
 
