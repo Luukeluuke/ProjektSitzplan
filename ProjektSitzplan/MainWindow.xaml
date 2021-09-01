@@ -533,6 +533,22 @@
                                     </Grid>
                                 </Grid>
                                 <Grid x:Name="KlasseÜbersichtGrd" Visibility="Visible">
+                                    <StackPanel VerticalAlignment="Bottom">
+                                        <Grid Height="{Binding ElementName=KlasseÜbersichtGrd, Path=ActualHeight}" Width="{Binding ElementName=KlasseÜbersichtGrd, Path=ActualWidth}" Background="Red" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid Grid.Column="0" Grid.Row="0" Background="Gray">
+                                                
+                                            </Grid>
+                                            <Grid Grid.Column="1" Grid.Row="0">
+
+                                            </Grid>
+                                        </Grid>
+                                    </StackPanel>
+                                    
+                                    
                                     <Grid HorizontalAlignment="Right" VerticalAlignment="Center">
                                         <Button x:Name="ÜSitzplanAnzeigenBtn" Uid="5" HorizontalAlignment="Right" VerticalAlignment="Center" Width="35" Height="80" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" Background="{StaticResource ContentButtonBackground}" Click="ÜSitzplanAnzeigenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp"></Button>
                                         <materialDesign:PackIcon x:Name="ÜSitzplanAnzeigenPkIco" HorizontalAlignment="Center" VerticalAlignment="Center" Kind="ArrowCollapseLeft" Height="23" Width="23" Foreground="{StaticResource ContentButtonForeground}" IsHitTestVisible="False"></materialDesign:PackIcon>
