@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ProjektSitzplan
+﻿namespace ProjektSitzplan
 {
     static class ErrorHandler
     {
@@ -23,7 +16,7 @@ namespace ProjektSitzplan
 
         public static void ZeigeFehler(string fehler, string titel)
         {
-            new PsMessageBox(titel, fehler, PsMessageBox.EPsMessageBoxButtons.OK).Show();
+            new PsMessageBox(titel, fehler, PsMessageBox.EPsMessageBoxButtons.OK).ShowDialog();
         }
         public static void ZeigeFehler(string fehler)
         {
