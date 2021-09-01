@@ -157,6 +157,7 @@ namespace ProjektSitzplan
             //TODO: Wenn datein importiert die wo die klasse den selben namen hat wie eine bereits vorhandene klasse?
 
             //TODO: Design der Radio Buttons anpassen
+			//TODO: Fix data grid selection bug
 
             InitializeComponent();
 
