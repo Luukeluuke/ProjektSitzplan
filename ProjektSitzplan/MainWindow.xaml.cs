@@ -60,6 +60,8 @@ namespace ProjektSitzplan
 
                             LKeineKlasseAusgewähltStkPnl.Visibility = Visibility.Hidden;
 
+                            ZeigeKlasseAn();
+
                             break;
                         }
                 }
@@ -483,6 +485,14 @@ namespace ProjektSitzplan
                 KEKeineSchülerVorhandenLbl.Visibility = Visibility.Visible;
             }
         }
+
+        private void ZeigeKlasseAn()
+        {
+            ÜKlasseNameLbl.Content = AusgewählteKlasse.Name;
+            ÜKlasseAnzahlSchülerLbl.Content = AusgewählteKlasse.AnzahlSchüler;
+
+
+        }
         #endregion
 
 
@@ -588,7 +598,8 @@ namespace ProjektSitzplan
         {
             if(!MenuKlassenDtGrd.SelectedIndex.Equals(-1))
             {
-                AusgewählteKlasse = MenuKlassenDtGrd.SelectedItem as SchulKlasse;
+                //TODO: Wenn eine Klassen entfernt wird muss auch Klassen aktualisieren gemacht werden
+                AusgewählteKlasse = DataHandler.SchulKlassen[MenuKlassenDtGrd.SelectedIndex];
 
                 WindowContent = EWindowContent.KlasseÜbersicht;
             }
