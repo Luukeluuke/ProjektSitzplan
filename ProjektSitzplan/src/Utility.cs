@@ -10,7 +10,8 @@ namespace ProjektSitzplan
         public enum EImageType
         {
             png,
-            jpg
+            jpg,
+            jpeg
         }
 
         public static Button GetButton(object sender)
@@ -25,7 +26,7 @@ namespace ProjektSitzplan
 
         public static Image GetImage(string imageFilename, EImageType imageType = EImageType.png)
         {
-            return new Image { Source = new BitmapImage(new Uri($"pack://application:,,,/ProjektSitzplan;component/src/Design/Images/{imageFilename}.{imageType.ToString()}", UriKind.Absolute)), IsHitTestVisible = false };
+            return new Image { Source = new BitmapImage(new Uri($"pack://application:,,,/ProjektSitzplan;component/src/Design/Images/{imageFilename}.{imageType}", UriKind.Absolute)), IsHitTestVisible = false };
         }
 
         public static string GetTopBarImagePrefix(Button sBtn, Window thisWindow)

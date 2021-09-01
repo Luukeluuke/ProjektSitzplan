@@ -455,7 +455,7 @@ namespace ProjektSitzplan
             MenuKlassenDtGrd.ItemsSource = null;
             MenuKlassenDtGrd.ItemsSource = DataHandler.SchulKlassen;
 
-            if (DataHandler.SchulKlassen.Count > 0)
+            if (DataHandler.HatKlassen())
             {
                 LKeineKlasseAusgewähltStkPnl.Visibility = Visibility.Visible;
                 KeineKlassenGefundenStkPnl.Visibility = Visibility.Hidden;
@@ -492,7 +492,7 @@ namespace ProjektSitzplan
         #region Window
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            if (DataHandler.KlassenVorhanden())
+            if (DataHandler.HatKlassen())
             {
                 LKeineKlasseAusgewähltStkPnl.Visibility = Visibility.Visible;
                 MenuKlasseExportierenBtn.IsEnabled = true;
@@ -553,7 +553,7 @@ namespace ProjektSitzplan
         #region MenuKlasseExportierenBtn
         private void MenuKlasseExportierenBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (DataHandler.SchulKlassen.Count > 0)
+            if (DataHandler.HatKlassen())
             {
                 new ExportWindow().ShowDialog();
             }

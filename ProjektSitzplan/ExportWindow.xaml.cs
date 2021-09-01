@@ -242,9 +242,15 @@ namespace ProjektSitzplan
                     {
                         SchulKlasse klasse = (SchulKlasse) EXGefundenKlassenDtGrd.SelectedItem;
 
+                        if (klasse == null)
+                        {
+                            //TODO: ERROR
+                            return;
+                        }
+
                         SaveFileDialog saveFileDialog = new SaveFileDialog();
                         saveFileDialog.Filter = "Json files (*.json)|*.json";
-                        saveFileDialog.FileName = ""; //todo text here
+                        saveFileDialog.FileName = $"{klasse.Name}.json";
                         saveFileDialog.DefaultExt = ".json";
                         saveFileDialog.InitialDirectory = $@"{Environment.CurrentDirectory}\SchulKlassen";
 
