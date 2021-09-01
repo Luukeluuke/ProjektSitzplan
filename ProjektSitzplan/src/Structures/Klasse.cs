@@ -8,7 +8,7 @@ using System.Text;
 
 namespace ProjektSitzplan.Structures
 {
-    class SchulKlasse
+    public class SchulKlasse
     {
         public string Name { get; private set; }
         public List<Schüler> SchülerListe { get; private set; } = new List<Schüler>();

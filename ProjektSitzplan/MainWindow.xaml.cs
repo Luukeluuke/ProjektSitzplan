@@ -459,11 +459,13 @@ namespace ProjektSitzplan
             {
                 LKeineKlasseAusgewähltStkPnl.Visibility = Visibility.Visible;
                 KeineKlassenGefundenStkPnl.Visibility = Visibility.Hidden;
+                MenuKlasseExportierenBtn.IsEnabled = true;
             }
             else
             {
                 LKeineKlasseAusgewähltStkPnl.Visibility = Visibility.Hidden;
                 KeineKlassenGefundenStkPnl.Visibility = Visibility.Visible;
+                MenuKlasseExportierenBtn.IsEnabled = false;
             }
         }
 
@@ -493,10 +495,12 @@ namespace ProjektSitzplan
             if (DataHandler.KlassenVorhanden())
             {
                 LKeineKlasseAusgewähltStkPnl.Visibility = Visibility.Visible;
+                MenuKlasseExportierenBtn.IsEnabled = true;
             }
             else
             {
                 KeineKlassenGefundenStkPnl.Visibility = Visibility.Visible;
+                MenuKlasseExportierenBtn.IsEnabled = false;
             }
 
 
@@ -549,8 +553,10 @@ namespace ProjektSitzplan
         #region MenuKlasseExportierenBtn
         private void MenuKlasseExportierenBtn_Click(object sender, RoutedEventArgs e)
         {
-            //TODO:
-            new ExportWindow().ShowDialog();
+            if (DataHandler.SchulKlassen.Count > 0)
+            {
+                new ExportWindow().ShowDialog();
+            }
         }
         #endregion
 

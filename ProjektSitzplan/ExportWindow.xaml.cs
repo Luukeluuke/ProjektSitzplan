@@ -1,7 +1,15 @@
-﻿using ProjektSitzplan.Design;
+﻿using Microsoft.Win32;
+using ProjektSitzplan.Design;
+using ProjektSitzplan.Structures;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Globalization;
+using System.IO;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -10,10 +18,42 @@ namespace ProjektSitzplan
     /// <summary>
     /// Interaktionslogik für ExportWindow.xaml
     /// </summary>
-    public partial class ExportWindow : Window
+    public partial class ExportWindow : Window, INotifyPropertyChanged
     {
         private Label[] ContentLabels;
+        private PackIconSet[] ContentPackIconsSets;
 
+        public List<SchulKlasse> GefundeneKlassen { get; } = DataHandler.SchulKlassen;
+        public SchulKlasse ausgewählteKlasse = null;
+        public SchulKlasse AusgewählteKlasse 
+        {
+            get
+            {
+                return ausgewählteKlasse; 
+            } 
+            set
+            {
+                Set(ref ausgewählteKlasse, value);
+            }
+        }
+
+        #region INotifyPropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void NotifyPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+        protected bool Set<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+        {
+            if (EqualityComparer<T>.Default.Equals(field, value))
+            {
+                return false;
+            }
+            field = value;
+            NotifyPropertyChanged(propertyName);
+            return true;
+        }
+        #endregion
+        
         public enum ExportWidnowResult
         {
             Yes,
@@ -22,10 +62,35 @@ namespace ProjektSitzplan
             WindowClosed
         }
 
+        #region Radio Button
+        public enum EXType
+        {
+            JSON,
+            PDF,
+
+            None
+        }
+
+        public EXType SelectedOption { 
+            get 
+            {
+                if (EXPDFRad.IsChecked.Value)
+                    return EXType.PDF;
+
+                if (EXJSONRad.IsChecked.Value)
+                    return EXType.JSON;
+
+                return EXType.None;
+            }
+        }
+        #endregion
+
         #region Constructors
         public ExportWindow()
         {
             InitializeComponent();
+
+            EXGefundenKlassenDtGrd.ItemsSource = GefundeneKlassen;
         }
 
         //TODO: constructor mit schulklasse schon drin?
@@ -99,227 +164,112 @@ namespace ProjektSitzplan
         #region Window
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            ContentLabels = new Label[] {  };
-        }
-        #endregion
-    }
-}
-
-
-/*
-namespace ProjektSitzplan
-{
-    public delegate void PsMessageBoxButtonPressedEventHandler(object source, PsMessagBoxEventArgs e);
-    public class PsMessagBoxEventArgs : EventArgs
-    {
-        public PsMessagBoxEventArgs(PsMessageBox.EPsMessageBoxResult psMessageBoxResult)
-        {
-            PsMessageBoxButtonResult = psMessageBoxResult;
-        }
-
-        public PsMessageBox.EPsMessageBoxResult PsMessageBoxButtonResult { get; private set; }
-    }
-
-    /// <summary>
-    /// Interaktionslogik für PsMessageBox.xaml
-    /// </summary>
-    public partial class PsMessageBox : Window
-    {
-        public event PsMessageBoxButtonPressedEventHandler OnPsMessageBoxButtonPressed;
-
-        public enum EPsMessageBoxResult
-        {
-            Yes,
-            No,
-            OK,
-            WindowClosed
-        }
-
-        public enum EPsMessageBoxButtons
-        {
-            YesNo,
-            OK
-        }
-
-        private Label[] ContentLabels;
-
-        #region Constructors
-        public PsMessageBox(EPsMessageBoxButtons psMessageBoxButtons)
-        {
-            InitializeComponent();
-
-            switch (psMessageBoxButtons)
-            {
-                case EPsMessageBoxButtons.YesNo:
-                    {
-                        YesNoGrd.Visibility = Visibility.Visible;
-                        break;
-                    }
-                case EPsMessageBoxButtons.OK:
-                    {
-                        OKGrd.Visibility = Visibility.Visible;
-                        break;
-                    }
-            }
-
-        }
-
-        public PsMessageBox(string text, EPsMessageBoxButtons psMessageBoxButtons) : this(psMessageBoxButtons)
-        {
-            MessageTxbk.Text = text;
-        }
-
-        public PsMessageBox(string title, string text, EPsMessageBoxButtons psMessageBoxButtons) : this(text, psMessageBoxButtons)
-        {
-            SitzplanLbl.Content = $"{title}";
+            ContentLabels = new Label[] { EXAbbrechenLbl, EXExportLbl };
+            ContentPackIconsSets = new PackIconSet[] { 
+                new PackIconSet(EXExitPckIco, PackIconSet.EIconType.Content, PSColors.IconHoverRed, PSColors.IconPreviewRed),
+                new PackIconSet(EXExportPckIco, PackIconSet.EIconType.Content, PSColors.IconHoverGreen, PSColors.IconPreviewGreen)};
         }
         #endregion
 
-        #region General Events
-        #region TopBarButtons
-        private void TopBarButton_Click(object sender, RoutedEventArgs e)
-        {
-            Button sBtn = Utility.GetButton(sender);
-
-            switch (sBtn.Uid)
-            {
-                case "0": WindowState = WindowState.Minimized; return;
-                case "2":
-                    {
-                        if (!(OnPsMessageBoxButtonPressed is null))
-                        {
-                            OnPsMessageBoxButtonPressed(sender, new PsMessagBoxEventArgs(EPsMessageBoxResult.WindowClosed));
-                        }
-                        Close();
-
-                        return;
-                    }
-            }
-        }
-
-        private void TopBarButton_MouseEnter(object sender, MouseEventArgs e)
-        {
-            Button sBtn = Utility.GetButton(sender);
-
-            sBtn.Background = PSColors.TopBarHoverBackground;
-            sBtn.Content = Utility.GetImage($"{Utility.GetTopBarImagePrefix(sBtn, this)}DCDDDE");
-        }
-
-        private void TopBarButton_MouseLeave(object sender, MouseEventArgs e)
-        {
-            Button sBtn = Utility.GetButton(sender);
-
-            sBtn.Background = Brushes.Transparent;
-            sBtn.Content = Utility.GetImage($"{Utility.GetTopBarImagePrefix(sBtn, this)}B9BBBE");
-        }
-
-        private void TopBarButton_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            Button sBtn = Utility.GetButton(sender);
-
-            sBtn.Background = PSColors.TopBarPreviewBackground;
-            sBtn.Content = Utility.GetImage($"{Utility.GetTopBarImagePrefix(sBtn, this)}FFFFFF");
-        }
-
-        private void TopBarButton_PreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            Button sBtn = Utility.GetButton(sender);
-
-            sBtn.Background = PSColors.TopBarHoverBackground;
-            sBtn.Content = Utility.GetImage($"{Utility.GetTopBarImagePrefix(sBtn, this)}DCDDDE");
-        }
-        #endregion
 
         #region ContentButtons
-        private void Button_MouseEnter(object sender, MouseEventArgs e)
+        private void ContentButton_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
             Button sBtn = Utility.GetButton(sender);
 
             sBtn.Background = PSColors.ContentButtonHoverBackground;
             ContentLabels[Utility.GetUid(sBtn)].Foreground = PSColors.ContentButtonHoverForeground;
+
+            ContentPackIconsSets[Utility.GetUid(sBtn)]?.HandleColor(PackIconSet.EEventType.Enter);
         }
 
-        private void Button_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        private void ContentButton_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
             Button sBtn = Utility.GetButton(sender);
 
             sBtn.Background = PSColors.ContentButtonBackground;
             ContentLabels[Utility.GetUid(sBtn)].Foreground = PSColors.ContentButtonForeground;
+            ContentPackIconsSets[Utility.GetUid(sBtn)]?.HandleColor(PackIconSet.EEventType.Leave);
         }
 
-        private void Button_PreviewMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void ContentButton_PreviewMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             Button sBtn = Utility.GetButton(sender);
 
             sBtn.Background = PSColors.ContentButtonPreviewBackground;
             ContentLabels[Utility.GetUid(sBtn)].Foreground = PSColors.ContentButtonPreviewForeground;
+            ContentPackIconsSets[Utility.GetUid(sBtn)]?.HandleColor(PackIconSet.EEventType.PreviewDown);
         }
 
-        private void Button_PreviewMouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void ContentButton_PreviewMouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             Button sBtn = Utility.GetButton(sender);
 
             sBtn.Background = PSColors.ContentButtonHoverBackground;
             ContentLabels[Utility.GetUid(sBtn)].Foreground = PSColors.ContentButtonHoverForeground;
+            ContentPackIconsSets[Utility.GetUid(sBtn)]?.HandleColor(PackIconSet.EEventType.PreviewUp);
         }
         #endregion
-        #endregion
 
-        #region YesBtn
-        private void YesBtn_Click(object sender, RoutedEventArgs e)
+        public bool KannExportieren()
         {
-            if (!(OnPsMessageBoxButtonPressed is null))
-            {
-                OnPsMessageBoxButtonPressed(sender, new PsMessagBoxEventArgs(EPsMessageBoxResult.Yes));
-            }
+            return (EXGefundenKlassenDtGrd.SelectedIndex > -1) && SelectedOption != EXType.None;
+        }
+
+        private void UpdateExportBtn()
+        {
+            EXExportBtn.IsEnabled = KannExportieren();
+        }
+
+        private void EXGefundenKlassenDtGrd_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+            UpdateExportBtn();
+        }
+
+        private void EXAbbrechenBtn_Click(object sender, RoutedEventArgs e)
+        {
             Close();
         }
-        #endregion
 
-        #region NoBtn
-        private void NoBtn_Click(object sender, RoutedEventArgs e)
+        private void EXExportBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (!(OnPsMessageBoxButtonPressed is null))
-            {
-                OnPsMessageBoxButtonPressed(sender, new PsMessagBoxEventArgs(EPsMessageBoxResult.No));
-            }
-            Close();
-        }
-        #endregion
+            if (!KannExportieren())
+                return;
 
-        #region OKBtn
-        private void OKBtn_Click(object sender, RoutedEventArgs e)
-        {
-            if (!(OnPsMessageBoxButtonPressed is null))
+            switch (SelectedOption)
             {
-                OnPsMessageBoxButtonPressed(sender, new PsMessagBoxEventArgs(EPsMessageBoxResult.OK));
-            }
-            Close();
-        }
-        #endregion
+                case EXType.JSON:
+                    {
+                        SchulKlasse klasse = (SchulKlasse) EXGefundenKlassenDtGrd.SelectedItem;
 
-        #region Window
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            ContentLabels = new Label[] { YesLbl, NoLbl, OKLbl };
-        }
-        #endregion
+                        SaveFileDialog saveFileDialog = new SaveFileDialog();
+                        saveFileDialog.Filter = "Json files (*.json)|*.json";
+                        saveFileDialog.FileName = ""; //todo text here
+                        saveFileDialog.DefaultExt = ".json";
+                        saveFileDialog.InitialDirectory = $@"{Environment.CurrentDirectory}\SchulKlassen";
 
-        #region TitleBarGrid
-        private void TitleBarGrid_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            try
-            {
-                DragMove();
-            }
-            catch (InvalidOperationException)
-            {
-                //Passiert wenn man die rechte Maustaste drückt
+
+                        if (saveFileDialog.ShowDialog() == true)
+                            klasse.AlsDateiSpeichern(saveFileDialog.FileName);
+
+                        return;
+                    }
+                case EXType.PDF:
+                    {
+                        //TODO: Implement PDF export
+                        return;
+                    }
+                case EXType.None:
+                    {
+                        //TODO: IDK this should never happen thing :D
+                        return;
+                    }
             }
         }
-        #endregion
+
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            UpdateExportBtn();
+        }
     }
 }
-
- 
- */

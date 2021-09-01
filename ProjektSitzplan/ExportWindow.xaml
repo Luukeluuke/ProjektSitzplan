@@ -45,33 +45,22 @@
                     <Border Grid.Column="0" Grid.Row="0" BorderBrush="{StaticResource ContentDivider}" BorderThickness="0 0 1 0">
                         <Grid Margin="0 0 5 0">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="31"/>
+                                <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15 0 0 0" Text="Gefundene Klassen" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="14"/>
-                            <Border Grid.Column="0" Grid.Row="1">
-                                <!--
-                                <DataGrid x:Name="MenuKlassenDtGrd" BorderBrush="{StaticResource MenuDataGridRowBorder}" Background="{x:Null}" Foreground="{StaticResource ContentForeground}" FontFamily="Segoe UI Semibold" CanUserDeleteRows="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserResizeColumns="True" CanUserResizeRows="False" CanUserSortColumns="True" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding AusgewählteKlasse}" SelectedCellsChanged="MenuKlassenDtGrd_SelectedCellsChanged" Sorting="MenuKlassenDtGrd_Sorting">
+                            <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="15" Foreground="{StaticResource ContentTitleForeground}" Content="Gefundene Klassen"/>
+                            <Border Grid.Column="0" Grid.Row="1" BorderThickness="2" BorderBrush="{StaticResource ContentControlBorder}">
+
+                                <DataGrid x:Name="EXGefundenKlassenDtGrd" DataContext="{Binding GefundeneKlassen}" BorderBrush="{StaticResource ContentControlBorder}" Background="{x:Null}" Foreground="{StaticResource ContentForeground}" FontFamily="Segoe UI Semibold" CanUserDeleteRows="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserResizeColumns="True" CanUserResizeRows="False" CanUserSortColumns="True" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding AusgewählteKlasse}" HorizontalScrollBarVisibility="Auto" SelectedCellsChanged="EXGefundenKlassenDtGrd_SelectedCellsChanged">
                                     <DataGrid.Columns>
-                                        <DataGridTextColumn Binding="{Binding Name}" Width="*" SortDirection="Ascending">
-                                            <DataGridTextColumn.Header>
-                                                <Grid>
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="*"></ColumnDefinition>
-                                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
-                                                    </Grid.ColumnDefinitions>
-                                                    <materialDesign:PackIcon x:Name="MenuKlassenSortingPkIco" Grid.Column="1" Grid.Row="0" Margin="5 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Top" Height="22" Width="22" Kind="SortAlphabeticalAscending"></materialDesign:PackIcon>
-                                                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Klassen"></TextBlock>
-                                                </Grid>
-                                            </DataGridTextColumn.Header>
-                                        </DataGridTextColumn>
+                                        <DataGridTextColumn Header="Klasse" Binding="{Binding Name}"></DataGridTextColumn>
                                     </DataGrid.Columns>
                                     <DataGrid.Resources>
                                         <Style TargetType="{x:Type DataGridColumnHeader}">
+                                            <Setter Property="FontSize" Value="14"/>
                                             <Setter Property="Background" Value="{StaticResource ContentBackground}"></Setter>
                                             <Setter Property="Foreground" Value="{StaticResource ContentForeground}"></Setter>
-                                            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
-                                            <Setter Property="FontSize" Value="14"></Setter>
+                                            <Setter Property="HorizontalAlignment" Value="Left"></Setter>
                                             <Setter Property="Template">
                                                 <Setter.Value>
                                                     <ControlTemplate TargetType="{x:Type DataGridColumnHeader}">
@@ -85,26 +74,17 @@
                                                 <Trigger Property="DataGridColumnHeader.IsMouseOver" Value="True">
                                                     <Setter Property="Foreground" Value="{StaticResource ContentHoverForeground}"></Setter>
                                                 </Trigger>
-                                                <Trigger Property="ScrollViewer.VerticalScrollBarVisibility" Value="Visible">
-                                                    <Setter Property="Margin" Value="18 0 0 0"></Setter>
-                                                </Trigger>
                                             </Style.Triggers>
                                         </Style>
                                         <Style TargetType="{x:Type DataGridRow}">
                                             <Setter Property="Background" Value="{x:Null}"></Setter>
                                             <Setter Property="Margin" Value="0"></Setter>
-                                            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
                                             <Setter Property="IsHitTestVisible" Value="True"></Setter>
-                                            <Setter Property="ToolTip">
-                                                <Setter.Value>
-                                                    <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12" Content="{Binding ToolTipÜbersicht}"></ToolTip>
-                                                </Setter.Value>
-                                            </Setter>
                                             <Style.Triggers>
                                                 <Trigger Property="DataGridRow.IsSelected" Value="True">
-                                                    <Setter Property="Background" Value="{StaticResource MenuDataGridRowSelectedBackground}" />
-                                                    <Setter Property="BorderBrush" Value="{StaticResource MenuDataGridRowBorderSelected}" />
-                                                    <Setter Property="Foreground" Value="{StaticResource MenuDataGridRowSelectedForeground}" />
+                                                    <Setter Property="Background" Value="{StaticResource ContentDataGridRowBorderSelectedBackground}" />
+                                                    <Setter Property="BorderBrush" Value="{StaticResource ContentDataGridRowBorderSelectedBorder}" />
+                                                    <Setter Property="Foreground" Value="{StaticResource ContentDataGridRowBorderSelectedForeground}" />
                                                 </Trigger>
                                                 <MultiTrigger>
                                                     <MultiTrigger.Conditions>
@@ -112,8 +92,8 @@
                                                         <Condition Property="DataGridRow.IsSelected" Value="False"></Condition>
                                                     </MultiTrigger.Conditions>
                                                     <MultiTrigger.Setters>
-                                                        <Setter Property="Background" Value="{StaticResource MenuDataGridRowHoverBackground}" />
-                                                        <Setter Property="BorderBrush" Value="{StaticResource MenuDataGridRowBorderHover}" />
+                                                        <Setter Property="Background" Value="{StaticResource ContentDataGridRowHover}" />
+                                                        <Setter Property="BorderBrush" Value="{StaticResource ContentDataGridRowBorderHover}" />
                                                         <Setter Property="Foreground" Value="{StaticResource ContentHoverForeground}" />
                                                     </MultiTrigger.Setters>
                                                 </MultiTrigger>
@@ -122,13 +102,11 @@
                                         <Style TargetType="DataGridCell">
                                             <Setter Property="BorderBrush" Value="{x:Null}"></Setter>
                                             <Setter Property="Focusable" Value="False"></Setter>
-                                            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
-                                            <Setter Property="VerticalAlignment" Value="Center"></Setter>
                                             <Setter Property="Template">
                                                 <Setter.Value>
                                                     <ControlTemplate TargetType="{x:Type DataGridCell}">
                                                         <Border Background="Transparent">
-                                                            <ContentPresenter Margin="0 7 0 7"/>
+                                                            <ContentPresenter Margin="5"/>
                                                         </Border>
                                                     </ControlTemplate>
                                                 </Setter.Value>
@@ -142,13 +120,53 @@
                                         </Style>
                                     </DataGrid.Resources>
                                 </DataGrid>
-                                -->
                                 
                             </Border>
                         </Grid>
                     </Border>
                     <Grid Grid.Column="1" Grid.Row="0" Margin="5 0 0 0">
-                        
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="15" Foreground="{StaticResource ContentTitleForeground}" Content="Exportieren als:"/>
+                        <Grid Grid.Column="0" Grid.Row="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Column="0" Grid.Row="0">
+
+                                <RadioButton x:Name="EXPDFRad" Content="PDF" GroupName="Group1" Checked="RadioButton_Checked"/>
+                                <RadioButton x:Name="EXJSONRad" Content="Json" GroupName="Group1" Checked="RadioButton_Checked"/>
+
+                            </StackPanel>
+                            
+                            
+                            
+                            <Grid Grid.Column="0" Grid.Row="1" VerticalAlignment="Bottom">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="5"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Grid Grid.Column="0" Grid.Row="0">
+                                    <Button  x:Name="EXAbbrechenBtn" VerticalAlignment="Center" Uid="0" HorizontalAlignment="Stretch" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource Flat}"  materialDesign:RippleAssist.IsDisabled="True" Click="EXAbbrechenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp"/>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <Label x:Name="EXAbbrechenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Abbrechen" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"/>
+                                        <materialDesign:PackIcon x:Name="EXExitPckIco" IsHitTestVisible="False" Kind="Close" Margin="5 0 0 0" Height="23" Width="23" Foreground="{StaticResource ContentButtonForeground}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Grid>
+                                <Grid Grid.Column="2" Grid.Row="0">
+                                    <Button  x:Name="EXExportBtn" VerticalAlignment="Center" Uid="1" HorizontalAlignment="Stretch" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource Flat}"  materialDesign:RippleAssist.IsDisabled="True" Click="EXExportBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp" IsEnabled="False"/>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <Label x:Name="EXExportLbl" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Exportieren" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"/>
+                                        <materialDesign:PackIcon x:Name="EXExportPckIco" IsHitTestVisible="False" Kind="Export" Margin="5 0 0 0" Height="23" Width="23" Foreground="{StaticResource ContentButtonForeground}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Grid>
+                        </Grid>
                     </Grid>
                 </Grid>
             </Border>
