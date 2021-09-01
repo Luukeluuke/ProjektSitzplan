@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace ProjektSitzplan.Structures
 {
-    class Sitzplan
+    public class Sitzplan
     {
         public int TischAnzahl { get; private set; }
         public List<TischBlock> Tische { get; private set; }

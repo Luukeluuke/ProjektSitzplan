@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace ProjektSitzplan.Structures
 {
-    class TischBlock
+    public class TischBlock
     {
         public List<Schüler> Sitzplätze { get; private set; } = new List<Schüler>();
 
