@@ -9,6 +9,7 @@ namespace ProjektSitzplan.Structures
 {
     public class Sitzplan
     {
+        public string Name { get; private set; }
         public int TischAnzahl { get; private set; }
         public List<TischBlock> Tische { get; private set; }
 

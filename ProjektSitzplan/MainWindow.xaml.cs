@@ -70,6 +70,19 @@ namespace ProjektSitzplan
             }
         }
 
+        private Sitzplan üAusgewählterSitzplan;
+        public Sitzplan ÜAusgewählterSitzplan
+        {
+            get
+            {
+                return üAusgewählterSitzplan;
+            }
+            set
+            {
+                Set(ref üAusgewählterSitzplan, value);
+            }
+        }
+
         private SchulKlasse ausgewählteKlasse;
         SchulKlasse AusgewählteKlasse
         {
@@ -517,8 +530,11 @@ namespace ProjektSitzplan
 
             ÜSchülerDtGrd.ItemsSource = null;
             ÜSchülerDtGrd.ItemsSource = AusgewählteKlasse.SchülerListe;
-            ÜSchülerEntfernenBtn.IsEnabled = ÜSchülerDtGrd.Items.Count > 0;
+            ÜKeineSchülerVorhandenLbl.Visibility = ÜSchülerDtGrd.Items.Count > 0 ? Visibility.Hidden : Visibility.Visible;
 
+            ÜSitzpläneDtGrd.ItemsSource = null;
+            ÜSitzpläneDtGrd.ItemsSource = AusgewählteKlasse.Sitzpläne;
+            ÜKeineSitzpläneVorhandenLbl.Visibility = ÜSitzpläneDtGrd.Items.Count > 0 ? Visibility.Hidden : Visibility.Visible;
         }
         #endregion
 
@@ -550,7 +566,9 @@ namespace ProjektSitzplan
                 KEKlasseErstellenLbl,
                 null,
                 ÜSchülerEntfernenLbl,
-                ÜSchülerHinzufügenLbl
+                ÜSchülerHinzufügenLbl,
+                ÜSitzplanEntfernenLbl,
+                ÜSitzplanHinzufügenLbl
             };
             ContentPackIconsSets = new PackIconSet[]
             {
@@ -561,7 +579,9 @@ namespace ProjektSitzplan
                 new PackIconSet(KEKlasseErstellenPkIco, PackIconSet.EIconType.Content, PSColors.IconHoverGreen, PSColors.IconPreviewGreen),
                 new PackIconSet(ÜSitzplanAnzeigenPkIco, PackIconSet.EIconType.Content, PSColors.ContentButtonHoverForeground, PSColors.ContentButtonPreviewForeground),
                 new PackIconSet(ÜSchülerEntfernenPckIco, PackIconSet.EIconType.Content, PSColors.IconHoverRed, PSColors.IconPreviewRed),
-                new PackIconSet(ÜSchülerHinzufügenPckIco, PackIconSet.EIconType.Content, PSColors.IconHoverGreen, PSColors.IconPreviewGreen)
+                new PackIconSet(ÜSchülerHinzufügenPckIco, PackIconSet.EIconType.Content, PSColors.IconHoverGreen, PSColors.IconPreviewGreen),
+                new PackIconSet(ÜSitzplanEntfernenPckIco, PackIconSet.EIconType.Content, PSColors.IconHoverRed, PSColors.IconPreviewRed),
+                new PackIconSet(ÜSitzplanHinzufügenPckIco, PackIconSet.EIconType.Content, PSColors.IconHoverGreen, PSColors.IconPreviewGreen)
             };
         }
         #endregion
@@ -804,6 +824,7 @@ namespace ProjektSitzplan
 
         private void ÜSchülerDtGrd_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
+            ÜSchülerEntfernenBtn.IsEnabled = ÜSchülerDtGrd.SelectedIndex > -1;
             if (ÜSchülerDtGrd.SelectedIndex > -1)
             {
                 ÜAusgewählterSchüler = (Schüler)ÜSchülerDtGrd.SelectedItem;
@@ -822,7 +843,7 @@ namespace ProjektSitzplan
         {
             //TODO: SchülerENtfernen Zeugs
 
-            ÜSchülerEntfernenBtn.IsEnabled = ÜSchülerDtGrd.Items.Count > 0;
+            ÜKeineSchülerVorhandenLbl.Visibility = ÜSchülerDtGrd.Items.Count > 0 ? Visibility.Hidden : Visibility.Visible;
         }
         #endregion
 
@@ -831,9 +852,31 @@ namespace ProjektSitzplan
         {
             //TODO: Schüler hinzufügen zeugs
 
-            ÜSchülerEntfernenBtn.IsEnabled = ÜSchülerDtGrd.Items.Count > 0;
+            ÜKeineSchülerVorhandenLbl.Visibility = ÜSchülerDtGrd.Items.Count > 0 ? Visibility.Hidden : Visibility.Visible;
         }
         #endregion
+
+        #region ÜSitzplanEntfernenBtn
+        private void ÜSitzplanEntfernenBtn_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO: Sitzplan entfernen shit
+            ÜKeineSitzpläneVorhandenLbl.Visibility = ÜSchülerDtGrd.Items.Count > 0 ? Visibility.Hidden : Visibility.Visible;
+        }
         #endregion
+
+        #region ÜSitzplanHinzufügenBtn
+        private void ÜSitzplanHinzufügenBtn_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO: Neues Sitzplan erstellen Window
+            ÜKeineSitzpläneVorhandenLbl.Visibility = ÜSchülerDtGrd.Items.Count > 0 ? Visibility.Hidden : Visibility.Visible;
+        }
+        #endregion
+
+        #endregion
+
+        private void ÜSitzpläneDtGrd_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+
+        }
     }
 }
