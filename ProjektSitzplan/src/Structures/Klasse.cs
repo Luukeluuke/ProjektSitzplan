@@ -11,13 +11,23 @@ namespace ProjektSitzplan.Structures
     public class SchulKlasse
     {
         public string Name { get; private set; }
-        public List<Schüler> SchülerListe { get; private set; } = new List<Schüler>();
-        public List<Sitzplan> Sitzpläne { get; private set; } = new List<Sitzplan>();
+        public readonly List<Schüler> SchülerListe = new List<Schüler>();
+        public readonly List<Sitzplan> Sitzpläne = new List<Sitzplan>();
+
+        [JsonIgnore]
         public int AnzahlSchüler { get => SchülerListe.Count; }
+
+        [JsonIgnore]
         public string ToolTipÜbersicht { get => ToToolTipString(); }
 
-        private static string errorEntfernen = "Schüler konnte nicht aus der Klasse entfernt werden.";
-        private static string errorHinzufügen = "Schüler konnte der Klasse nicht hinzugefügt werden.";
+        #region error nachrichten
+        private static string errorSchülerEntfernen = "Schüler konnte nicht aus der Klasse entfernt werden.";
+        private static string errorSchülerHinzufügen = "Schüler konnte der Klasse nicht hinzugefügt werden.";
+
+        private static string errorSitzplanEntfernen = "Sitzplan konnte nicht aus der Klasse entfernt werden.";
+        private static string errorSitzplanHinzufügen = "Sitzplan konnte der Klasse nicht hinzugefügt werden.";
+        #endregion
+
 
         #region Constructors
         public SchulKlasse(string name)
@@ -33,21 +43,64 @@ namespace ProjektSitzplan.Structures
         #endregion
 
         #region Public Methods
+
+        #region Sitzpläne
         public void SitzplanHinzufügen(Sitzplan sitzplan)
         {
+            if (sitzplan == null)
+            {
+                throw new SitzplanNullException(errorSchülerHinzufügen);
+            }
+
+            if (Sitzpläne.Contains(sitzplan))
+            {
+                throw new SitzplanInListeException(sitzplan, errorSitzplanHinzufügen);
+            }
+
             Sitzpläne.Add(sitzplan);
         }
 
+        public void SitzplanEntfernen(Sitzplan sitzplan)
+        {
+            if (sitzplan == null)
+            {
+                throw new SitzplanNullException(errorSchülerEntfernen);
+            }
+
+            if (!Sitzpläne.Contains(sitzplan))
+            {
+                throw new SitzplanNichtInListeException(sitzplan, errorSitzplanEntfernen);
+            }
+
+            Sitzpläne.Remove(sitzplan);
+        }
+
+        public Sitzplan ErstelleSitzplan() { return ErstelleSitzplan(6); }
+        public Sitzplan ErstelleSitzplan(int tischAnzahl, bool letzterBlock = false, int? seed = null)
+        {
+            Sitzplan sitzplan;
+            if (seed != null)
+                sitzplan = new Sitzplan(tischAnzahl, this, seed.Value);
+            else
+                sitzplan = new Sitzplan(tischAnzahl, this);
+
+            SitzplanHinzufügen(sitzplan);
+
+            return sitzplan;
+        }
+        #endregion
+
+        #region Schüler
         public void SchülerHinzufügen(Schüler schüler)
         {
             if (schüler == null)
             {
-                throw new SchülerNullException(errorHinzufügen);
+                throw new SchülerNullException(errorSchülerHinzufügen);
             }
 
             if (SchülerListe.Contains(schüler))
             {
-                throw new SchülerInListeException(schüler, errorHinzufügen);
+                throw new SchülerInListeException(schüler, errorSchülerHinzufügen);
             }
 
             SchülerListe.Add(schüler);
@@ -57,17 +110,19 @@ namespace ProjektSitzplan.Structures
         {
             if (schüler == null)
             {
-                throw new SchülerNullException(errorEntfernen);
+                throw new SchülerNullException(errorSchülerEntfernen);
             }
 
             if (!SchülerListe.Contains(schüler))
             {
-                throw new SchülerNichtInListeException(schüler, errorEntfernen);
+                throw new SchülerNichtInListeException(schüler, errorSchülerEntfernen);
             }
 
             SchülerListe.Remove(schüler);
         }
+        #endregion
 
+        #region Import / Export
         public void AlsDateiSpeichern(string path)
         {
             Directory.CreateDirectory(Path.GetDirectoryName(path));
@@ -78,24 +133,31 @@ namespace ProjektSitzplan.Structures
         {
             if (File.Exists(path))
             {
-                return AusJsonStringLaden(File.ReadAllText(path));
+                SchulKlasse klasse = AusJsonStringLaden(File.ReadAllText(path));
+
+                if (klasse == null)
+                {
+                    ErrorHandler.ZeigeFehler(ErrorHandler.ERR_JSON_KlasseLaden, Path.GetFullPath(path), "");
+                }
+
+                return klasse;
             }
             throw new PfadNichtGefundenException(path, "Beim laden der Klasse ist ein Fehler aufgetreten!");
         }
 
         public static SchulKlasse AusJsonStringLaden(string json)
         {
-            //TODO: Fehlermeldung bei fehlerhafter json datei
-            return JsonConvert.DeserializeObject<SchulKlasse>(json);
+            try
+            {
+                return JsonConvert.DeserializeObject<SchulKlasse>(json);
+            }
+            catch (JsonReaderException) { }
+            catch (JsonSerializationException) { }
+            
+            return null;
         }
+        #endregion
 
-        public Sitzplan ErstelleSitzplan(int tischAnzahl)
-        {
-            Sitzplan sitzplan = new Sitzplan(tischAnzahl, SchülerListe);
-            Sitzpläne.Add(sitzplan);
-
-            return sitzplan;
-        }
         #endregion
 
         #region Private Methods

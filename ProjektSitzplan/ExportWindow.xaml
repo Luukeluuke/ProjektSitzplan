@@ -14,6 +14,8 @@
                 <RowDefinition Height="31"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
+
+            <!--#region Top Bar-->
             <Border Grid.Column="0" Grid.Row="0" BorderBrush="{StaticResource TransitionStart}" BorderThickness="0 0 0 1">
                 <Grid x:Name="TitleBarGrid" Background="{StaticResource TopBarBackground}" MouseDown="TitleBarGrid_MouseDown">
                     <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5 0 0 0">
@@ -36,13 +38,23 @@
                     </StackPanel>
                 </Grid>
             </Border>
+
+            <!--#endregion-->
+
+            <!--#region Main Window Part-->
             <Border Grid.Column="0" Grid.Row="1" BorderBrush="{StaticResource TransitionEnd}" BorderThickness="0 1 0 1">
                 <Grid Margin="5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
+
+
+
                     <Border Grid.Column="0" Grid.Row="0" BorderBrush="{StaticResource ContentDivider}" BorderThickness="0 0 1 0">
+
+                        <!--#region Gefundene Klassen-->
+
                         <Grid Margin="0 0 5 0">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
@@ -51,6 +63,8 @@
                             <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="15" Foreground="{StaticResource ContentTitleForeground}" Content="Gefundene Klassen"/>
                             <Border Grid.Column="0" Grid.Row="1" BorderThickness="2" BorderBrush="{StaticResource ContentControlBorder}">
 
+                                <!--#region DataGrid-->
+                                
                                 <DataGrid x:Name="EXGefundenKlassenDtGrd" DataContext="{Binding GefundeneKlassen}" BorderBrush="{StaticResource ContentControlBorder}" Background="{x:Null}" Foreground="{StaticResource ContentForeground}" FontFamily="Segoe UI Semibold" CanUserDeleteRows="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserResizeColumns="True" CanUserResizeRows="False" CanUserSortColumns="True" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding AusgewählteKlasse}" HorizontalScrollBarVisibility="Auto" SelectedCellsChanged="EXGefundenKlassenDtGrd_SelectedCellsChanged">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Header="Klasse" Binding="{Binding Name}"></DataGridTextColumn>
@@ -120,30 +134,44 @@
                                         </Style>
                                     </DataGrid.Resources>
                                 </DataGrid>
-                                
+
+                                <!--#endregion-->
+
                             </Border>
                         </Grid>
+
+                        <!--#endregion-->
+                    
                     </Border>
+
+
+                    <!--#region Exportieren Als-->
+
                     <Grid Grid.Column="1" Grid.Row="0" Margin="5 0 0 0">
+
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="15" Foreground="{StaticResource ContentTitleForeground}" Content="Exportieren als:"/>
+
+
                         <Grid Grid.Column="0" Grid.Row="1">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
+
+                            <!--#region Radio Buttons-->
                             <StackPanel Grid.Column="0" Grid.Row="0">
 
                                 <RadioButton x:Name="EXPDFRad" Content="PDF" GroupName="Group1" Checked="RadioButton_Checked"/>
                                 <RadioButton x:Name="EXJSONRad" Content="Json" GroupName="Group1" Checked="RadioButton_Checked"/>
 
                             </StackPanel>
-                            
-                            
-                            
+                            <!--#endregion-->
+
+                            <!--#region Buttons-->
                             <Grid Grid.Column="0" Grid.Row="1" VerticalAlignment="Bottom">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
@@ -166,10 +194,14 @@
                                     </StackPanel>
                                 </Grid>
                             </Grid>
+                            <!--#endregion-->
                         </Grid>
                     </Grid>
+
+                    <!--#endregion-->
                 </Grid>
             </Border>
+            <!--#endregion-->
         </Grid>
     </Border>
 </Window>

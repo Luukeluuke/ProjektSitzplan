@@ -72,6 +72,9 @@
     <Compile Include="ExportWindow.xaml.cs">
       <DependentUpon>ExportWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ExportWindowPDF.xaml.cs">
+      <DependentUpon>ExportWindowPDF.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PsMessageBox.xaml.cs">
       <DependentUpon>PsMessageBox.xaml</DependentUpon>
     </Compile>
@@ -87,7 +90,12 @@
     <Compile Include="src\Structures\Sitzplan.cs" />
     <Compile Include="src\Structures\TischBlock.cs" />
     <Compile Include="src\Utility.cs" />
+    <Compile Include="Testing.cs" />
     <Page Include="ExportWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ExportWindowPDF.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

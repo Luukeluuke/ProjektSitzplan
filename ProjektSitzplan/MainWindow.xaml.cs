@@ -139,6 +139,8 @@ namespace ProjektSitzplan
         public static RoutedCommand CommandUndo = new RoutedCommand();
         public static RoutedCommand CommandRedo = new RoutedCommand();
 
+        public static RoutedCommand CommandTest = new RoutedCommand();
+
         private void InitCommands()
         {
             CommandCreate.InputGestures.Add(new KeyGesture(Key.N, ModifierKeys.Control));
@@ -150,12 +152,24 @@ namespace ProjektSitzplan
             CommandRedo.InputGestures.Add(new KeyGesture(Key.Z, ModifierKeys.Control | ModifierKeys.Shift));
             CommandRedo.InputGestures.Add(new KeyGesture(Key.Y, ModifierKeys.Control));
 
+            //TODO: REMOVE THIS WHEN REMOVING TEST CLASS
+            CommandTest.InputGestures.Add(new KeyGesture(Key.F2));
+
             CommandBindings.Add(new CommandBinding(CommandCreate, MenuKlasseErstellenBtn_Click));
             CommandBindings.Add(new CommandBinding(CommandImport, MenuKlasseImportierenBtn_Click));
             CommandBindings.Add(new CommandBinding(CommandExport, MenuKlasseExportierenBtn_Click));
             CommandBindings.Add(new CommandBinding(CommandRefresh, KlassenAktualisieren));
+
+            CommandBindings.Add(new CommandBinding(CommandTest, TestingEvnt));
         }
         #endregion
+
+        //TODO: REMOVE THIS WHEN REMOVING TEST CLASS
+        private void TestingEvnt(object sender = null, RoutedEventArgs e = null)
+        {
+            Testing.Test();
+            KlassenAktualisieren();
+        }
 
         private Label[] ContentLabels { get; set; }
         private PackIconSet[] ContentPackIconsSets { get; set; }
@@ -602,8 +616,7 @@ namespace ProjektSitzplan
             openFileDialog.InitialDirectory = $@"{Environment.CurrentDirectory}\SchulKlassen";
             if (openFileDialog.ShowDialog() == true)
             {
-                SchulKlasse klasse = SchulKlasse.AusDateiLaden(openFileDialog.FileName);
-                DataHandler.FügeSchulKlasseHinzu(klasse);
+                DataHandler.LadeSchulKlasse(openFileDialog.FileName);
             }
 
             KlassenAktualisieren();

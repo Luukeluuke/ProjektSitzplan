@@ -54,13 +54,14 @@ namespace ProjektSitzplan
         }
         #endregion
         
+        /*
         public enum ExportWidnowResult
         {
             Yes,
             No,
             OK,
             WindowClosed
-        }
+        }*/
 
         #region Radio Button
         public enum EXType
@@ -244,7 +245,7 @@ namespace ProjektSitzplan
 
                         if (klasse == null)
                         {
-                            //TODO: ERROR
+                            ErrorHandler.ZeigeFehler(ErrorHandler.ERR_EX_KeineKlasseAusgewählt);
                             return;
                         }
 
@@ -255,22 +256,49 @@ namespace ProjektSitzplan
                         saveFileDialog.InitialDirectory = $@"{Environment.CurrentDirectory}\SchulKlassen";
 
 
-                        if (saveFileDialog.ShowDialog() == true)
-                            klasse.AlsDateiSpeichern(saveFileDialog.FileName);
+                        if (!saveFileDialog.ShowDialog().Value)
+                            return;
 
+                        klasse.AlsDateiSpeichern(saveFileDialog.FileName);
+
+                        EXErfolgreich($"Die Klasse: {klasse.Name} wurde als {saveFileDialog.FileName} exportiert!");
                         return;
                     }
                 case EXType.PDF:
                     {
                         //TODO: Implement PDF export
+
+
+                        SchulKlasse klasse = (SchulKlasse)EXGefundenKlassenDtGrd.SelectedItem;
+
+                        if (klasse == null)
+                        {
+                            ErrorHandler.ZeigeFehler(ErrorHandler.ERR_EX_KeineKlasseAusgewählt);
+                            return;
+                        }
+
+                        if (new ExportWindowPDF(klasse).ShowDialog().Value)
+                        {
+                            //todo: load text from pdf export
+                            string klassenName = ""; 
+                            string dateiName = "";
+                            string sitzplan = "";
+                            EXErfolgreich($"Der Sitzplan {sitzplan} aus der Klasse {klassenName}, wurde als {dateiName} exportiert!");
+                        }
                         return;
                     }
                 case EXType.None:
                     {
-                        //TODO: IDK this should never happen thing :D
+                        //TODO: IDK another this should never happen thing :D
                         return;
                     }
             }
+        }
+
+        private void EXErfolgreich(string text)
+        {
+            new PsMessageBox("Erfolgreich exportiert", text, PsMessageBox.EPsMessageBoxButtons.OK).ShowDialog();
+            Close();
         }
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
