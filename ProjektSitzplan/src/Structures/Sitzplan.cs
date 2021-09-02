@@ -10,26 +10,32 @@ namespace ProjektSitzplan.Structures
     public class Sitzplan
     {
         public int TischAnzahl { get; private set; }
+        public List<Schüler> Schüler { get; private set; }
         public List<TischBlock> Tische { get; private set; }
 
         public int Seed { get; private set; }
 
+        public Sitzplan(int tischAnzahl, List<Schüler> schüler) : this(tischAnzahl, schüler, Environment.TickCount) { }
         public Sitzplan(int tischAnzahl, List<Schüler> schüler, int seed)
         {
             TischAnzahl = tischAnzahl;
             Seed = seed;
 
-            GeneriereSitzplan(schüler);
+            Schüler = schüler;
+
+            GeneriereSitzplan(Schüler);
         }
 
-        public Sitzplan(int tischAnzahl, List<Schüler> schüler) : this(tischAnzahl, schüler, Environment.TickCount) { }
+        public Sitzplan(int tischAnzahl, SchulKlasse klasse, int seed) : this(tischAnzahl, klasse.SchülerListe, seed) { }
+        public Sitzplan(int tischAnzahl, SchulKlasse klasse) : this(tischAnzahl, klasse.SchülerListe, Environment.TickCount) { }
 
         [JsonConstructor]
-        public Sitzplan(int tischAnzahl, List<TischBlock> tische, int seed)
+        public Sitzplan(int tischAnzahl, List<Schüler> schüler, List<TischBlock> tische, int seed)
         {
             TischAnzahl = tischAnzahl;
-            Seed = seed;
+            Schüler = schüler;
             Tische = tische;
+            Seed = seed;
         }
 
         public List<Schüler> Mischen(List<Schüler> originalListe)
@@ -131,6 +137,8 @@ namespace ProjektSitzplan.Structures
             return punkte;
         }
 
+        /*
+        // TODO: Kann das nicht gelöscht werden? Da sitzpläne ja eigentlich nur noch unter klassen existieren??
         public void AlsDateiSpeichern(string path)
         {
             Directory.CreateDirectory(Path.GetDirectoryName(path));
@@ -144,6 +152,6 @@ namespace ProjektSitzplan.Structures
                 return JsonConvert.DeserializeObject<Sitzplan>(File.ReadAllText(path));
             }
             throw new PfadNichtGefundenException(path, "Beim laden des Sitzplans ist ein Fehler aufgetreten!");
-        }
+        }*/
     }
 }

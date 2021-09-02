@@ -1,0 +1,185 @@
+﻿<Window x:Class="ProjektSitzplan.ExportWindowPDF"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProjektSitzplan"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        WindowStyle="None" ResizeMode="NoResize" Background="{StaticResource ContentBackground}"
+        Title="Projekt Sitzplan - MessageBox" Height="350" Width="475" WindowStartupLocation="CenterScreen"
+        Loaded="Window_Loaded">
+    <Border BorderBrush="{DynamicResource WindowBorderBrush}" BorderThickness="1">
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="31"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <!--#region Top Bar-->
+
+            <Border Grid.Column="0" Grid.Row="0" BorderBrush="{StaticResource TransitionStart}" BorderThickness="0 0 0 1">
+                <Grid x:Name="TitleBarGrid" Background="{StaticResource TopBarBackground}" MouseDown="TitleBarGrid_MouseDown">
+                    <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5 0 0 0">
+                        <Image VerticalAlignment="Center" Margin="0 7 0 7" Source="/ProjektSitzplan;component/src/Design/Images/Logos/Logo878B91.png"></Image>
+                        <Label Margin="1 0 0 0" Content="Export - PDF" Foreground="{StaticResource TopBarForeground}" FontFamily="Segoe UI Semibold" FontSize="16"></Label>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+                        <Button x:Name="MinimizeBtn" Uid="0" Template="{StaticResource FlatTopBar}" Background="{x:Null}" materialDesign:RippleAssist.IsDisabled="True" IsTabStop="False" Height="30" Click="TopBarButton_Click" MouseEnter="TopBarButton_MouseEnter" MouseLeave="TopBarButton_MouseLeave" PreviewMouseDown="TopBarButton_PreviewMouseDown" PreviewMouseUp="TopBarButton_PreviewMouseUp" Width="55">
+                            <Button.ToolTip>
+                                <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12">Minimieren</ToolTip>
+                            </Button.ToolTip>
+                            <Image x:Name="MinimizeButtonImage" Source="/ProjektSitzplan;component/src/Design/Images/MinimizeB9BBBE.png" Width="22" IsHitTestVisible="False"></Image>
+                        </Button>
+                        <Button x:Name="CloseBtn" Uid="2" Template="{StaticResource FlatTopBar}" Background="{x:Null}" materialDesign:RippleAssist.IsDisabled="True" IsTabStop="False" Height="30" Click="TopBarButton_Click" MouseEnter="TopBarButton_MouseEnter" MouseLeave="TopBarButton_MouseLeave" PreviewMouseDown="TopBarButton_PreviewMouseDown" PreviewMouseUp="TopBarButton_PreviewMouseUp" Width="55">
+                            <Button.ToolTip>
+                                <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12">Schließen</ToolTip>
+                            </Button.ToolTip>
+                            <Image x:Name="CloseButtonImage" Source="/ProjektSitzplan;component/src/Design/Images/CloseB9BBBE.png" Width="22" IsHitTestVisible="False"></Image>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!--#endregion-->
+
+
+            <!--#region Main Window Part-->
+
+            <Grid Grid.Column="0" Grid.Row="1">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                    <RowDefinition Height="40"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <!--#region Gefundene Sitzpläne-->
+                <Border Grid.Column="0" Grid.Row="0" BorderBrush="{StaticResource ContentDivider}" BorderThickness="0 0 1 0">
+
+
+                    <Grid Margin="5 0 5 0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="15" Foreground="{StaticResource ContentTitleForeground}" Content="Gefundene Sitzpläne"/>
+                        <Border Grid.Column="0" Grid.Row="1" BorderThickness="2" BorderBrush="{StaticResource ContentControlBorder}">
+
+                            <!--#region DataGrid-->
+
+                            <DataGrid x:Name="EXPDFGefundenSitzpläneDtGrd" DataContext="{Binding GefundeneSitzpläne}" BorderBrush="{StaticResource ContentControlBorder}" Background="{x:Null}" Foreground="{StaticResource ContentForeground}" FontFamily="Segoe UI Semibold" CanUserDeleteRows="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserResizeColumns="True" CanUserResizeRows="False" CanUserSortColumns="True" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding AusgewählterSitzplan}" HorizontalScrollBarVisibility="Auto" SelectedCellsChanged="EXPDFGefundenSitzpläneDtGrd_SelectedCellsChanged">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Sitzpläne" Binding="{Binding Seed}"/>
+                                </DataGrid.Columns>
+                               
+                                <!--#region Style-->
+                                <DataGrid.Resources>
+                                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                                        <Setter Property="FontSize" Value="14"/>
+                                        <Setter Property="Background" Value="{StaticResource ContentBackground}"></Setter>
+                                        <Setter Property="Foreground" Value="{StaticResource ContentForeground}"></Setter>
+                                        <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type DataGridColumnHeader}">
+                                                    <Border Background="Transparent">
+                                                        <ContentPresenter Margin="5"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Style.Triggers>
+                                            <Trigger Property="DataGridColumnHeader.IsMouseOver" Value="True">
+                                                <Setter Property="Foreground" Value="{StaticResource ContentHoverForeground}"></Setter>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                    <Style TargetType="{x:Type DataGridRow}">
+                                        <Setter Property="Background" Value="{x:Null}"></Setter>
+                                        <Setter Property="Margin" Value="0"></Setter>
+                                        <Setter Property="IsHitTestVisible" Value="True"></Setter>
+                                        <Style.Triggers>
+                                            <Trigger Property="DataGridRow.IsSelected" Value="True">
+                                                <Setter Property="Background" Value="{StaticResource ContentDataGridRowBorderSelectedBackground}" />
+                                                <Setter Property="BorderBrush" Value="{StaticResource ContentDataGridRowBorderSelectedBorder}" />
+                                                <Setter Property="Foreground" Value="{StaticResource ContentDataGridRowBorderSelectedForeground}" />
+                                            </Trigger>
+                                            <MultiTrigger>
+                                                <MultiTrigger.Conditions>
+                                                    <Condition Property="DataGridRow.IsMouseOver" Value="True"></Condition>
+                                                    <Condition Property="DataGridRow.IsSelected" Value="False"></Condition>
+                                                </MultiTrigger.Conditions>
+                                                <MultiTrigger.Setters>
+                                                    <Setter Property="Background" Value="{StaticResource ContentDataGridRowHover}" />
+                                                    <Setter Property="BorderBrush" Value="{StaticResource ContentDataGridRowBorderHover}" />
+                                                    <Setter Property="Foreground" Value="{StaticResource ContentHoverForeground}" />
+                                                </MultiTrigger.Setters>
+                                            </MultiTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                    <Style TargetType="DataGridCell">
+                                        <Setter Property="BorderBrush" Value="{x:Null}"></Setter>
+                                        <Setter Property="Focusable" Value="False"></Setter>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type DataGridCell}">
+                                                    <Border Background="Transparent">
+                                                        <ContentPresenter Margin="5"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Style.Triggers>
+                                            <Trigger Property="DataGridCell.IsSelected" Value="True">
+                                                <Setter Property="Background" Value="{x:Null}"></Setter>
+                                                <Setter Property="Foreground" Value="{StaticResource ContentDataGridSelectedCellForeground}"></Setter>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGrid.Resources>
+                                <!--#endregion-->
+
+                            </DataGrid>
+                            
+                            <!--#endregion-->
+
+                        </Border>
+                    </Grid>
+
+                </Border>
+                <!--#endregion-->
+
+                <!--#region Buttons-->
+                <Grid Grid.Column="0" Grid.Row="2" VerticalAlignment="Bottom">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="5"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0" Grid.Row="0">
+                        <Button  x:Name="EXPDFAbbrechenBtn" VerticalAlignment="Center" Uid="0" HorizontalAlignment="Stretch" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}"  materialDesign:RippleAssist.IsDisabled="True" Click="EXPDFAbbrechenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Label x:Name="EXPDFAbbrechenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Abbrechen" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"/>
+                            <materialDesign:PackIcon x:Name="EXPDFExitPckIco" IsHitTestVisible="False" Kind="Close" Margin="5 0 0 0" Height="23" Width="23" Foreground="{StaticResource ContentButtonForeground}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Column="2" Grid.Row="0">
+                        <Button  x:Name="EXPDFExportBtn" VerticalAlignment="Center" Uid="1" HorizontalAlignment="Stretch" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}"  materialDesign:RippleAssist.IsDisabled="True" Click="EXPDFExportBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp" IsEnabled="False"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Label x:Name="EXPDFExportLbl" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Exportieren" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"/>
+                            <materialDesign:PackIcon x:Name="EXPDFExportPckIco" IsHitTestVisible="False" Kind="Export" Margin="5 0 0 0" Height="23" Width="23" Foreground="{StaticResource ContentButtonForeground}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Grid>
+
+                </Grid>
+                <!--#endregion-->
+
+            </Grid>
+
+            <!--#endregion-->
+        </Grid>
+    </Border>
+</Window>

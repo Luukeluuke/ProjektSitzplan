@@ -21,13 +21,13 @@
                         <Label x:Name="SitzplanLbl" Margin="1 0 0 0" Content="Sitzplan" Foreground="{StaticResource TopBarForeground}" FontFamily="Segoe UI Semibold" FontSize="16"></Label>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
-                        <Button x:Name="MinimizeBtn" Uid="0" Template="{StaticResource Flat}" Background="{x:Null}" materialDesign:RippleAssist.IsDisabled="True" IsTabStop="False" Height="30" Click="TopBarButton_Click" MouseEnter="TopBarButton_MouseEnter" MouseLeave="TopBarButton_MouseLeave" PreviewMouseDown="TopBarButton_PreviewMouseDown" PreviewMouseUp="TopBarButton_PreviewMouseUp" Width="55">
+                        <Button x:Name="MinimizeBtn" Uid="0" Template="{StaticResource FlatTopBar}" Background="{x:Null}" materialDesign:RippleAssist.IsDisabled="True" IsTabStop="False" Height="30" Click="TopBarButton_Click" MouseEnter="TopBarButton_MouseEnter" MouseLeave="TopBarButton_MouseLeave" PreviewMouseDown="TopBarButton_PreviewMouseDown" PreviewMouseUp="TopBarButton_PreviewMouseUp" Width="55">
                             <Button.ToolTip>
                                 <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12">Minimieren</ToolTip>
                             </Button.ToolTip>
                             <Image x:Name="MinimizeButtonImage" Source="/ProjektSitzplan;component/src/Design/Images/MinimizeB9BBBE.png" Width="22" IsHitTestVisible="False"></Image>
                         </Button>
-                        <Button x:Name="CloseBtn" Uid="2" Template="{StaticResource Flat}" Background="{x:Null}" materialDesign:RippleAssist.IsDisabled="True" IsTabStop="False" Height="30" Click="TopBarButton_Click" MouseEnter="TopBarButton_MouseEnter" MouseLeave="TopBarButton_MouseLeave" PreviewMouseDown="TopBarButton_PreviewMouseDown" PreviewMouseUp="TopBarButton_PreviewMouseUp" Width="55">
+                        <Button x:Name="CloseBtn" Uid="2" Template="{StaticResource FlatTopBar}" Background="{x:Null}" materialDesign:RippleAssist.IsDisabled="True" IsTabStop="False" Height="30" Click="TopBarButton_Click" MouseEnter="TopBarButton_MouseEnter" MouseLeave="TopBarButton_MouseLeave" PreviewMouseDown="TopBarButton_PreviewMouseDown" PreviewMouseUp="TopBarButton_PreviewMouseUp" Width="55">
                             <Button.ToolTip>
                                 <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12">Schließen</ToolTip>
                             </Button.ToolTip>
@@ -51,11 +51,11 @@
                                 <ColumnDefinition Width="Auto"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
                             <Grid Grid.Column="0" Grid.Row="0">
-                                <Button x:Name="YesBtn" Grid.Column="2" Grid.Row="0" Uid="0" IsTabStop="True" Background="{StaticResource ContentButtonBackground}" materialDesign:RippleAssist.IsDisabled="True" Height="Auto" Width="65" Template="{StaticResource Flat}" Click="YesBtn_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" PreviewMouseDown="Button_PreviewMouseDown" PreviewMouseUp="Button_PreviewMouseUp"></Button>
+                                <Button x:Name="YesBtn" Grid.Column="2" Grid.Row="0" Uid="0" IsTabStop="True" Background="{StaticResource ContentButtonBackground}" materialDesign:RippleAssist.IsDisabled="True" Height="Auto" Width="65" Template="{StaticResource FlatContent}" Click="YesBtn_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" PreviewMouseDown="Button_PreviewMouseDown" PreviewMouseUp="Button_PreviewMouseUp"></Button>
                                 <Label x:Name="YesLbl" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False" Content="Ja"/>
                             </Grid>
                             <Grid Grid.Column="2" Grid.Row="0">
-                                <Button x:Name="NoBtn" Grid.Column="2" Grid.Row="0" Uid="1" IsTabStop="True" Background="{StaticResource ContentButtonBackground}" materialDesign:RippleAssist.IsDisabled="True" Height="Auto" Width="65" Template="{StaticResource Flat}" Click="NoBtn_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" PreviewMouseDown="Button_PreviewMouseDown" PreviewMouseUp="Button_PreviewMouseUp"></Button>
+                                <Button x:Name="NoBtn" Grid.Column="2" Grid.Row="0" Uid="1" IsTabStop="True" Background="{StaticResource ContentButtonBackground}" materialDesign:RippleAssist.IsDisabled="True" Height="Auto" Width="65" Template="{StaticResource FlatContent}" Click="NoBtn_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" PreviewMouseDown="Button_PreviewMouseDown" PreviewMouseUp="Button_PreviewMouseUp"></Button>
                                 <Label x:Name="NoLbl" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False" Content="Nein"/>
                             </Grid>
                         </Grid>
@@ -64,7 +64,7 @@
                                 <ColumnDefinition Width="Auto"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
                             <Grid Grid.Column="0" Grid.Row="0">
-                                <Button x:Name="OKBtn" Grid.Column="2" Grid.Row="0" Uid="2" IsTabStop="True" Background="{StaticResource ContentButtonBackground}" materialDesign:RippleAssist.IsDisabled="True" Height="Auto" Width="65" Template="{StaticResource Flat}" Click="OKBtn_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" PreviewMouseDown="Button_PreviewMouseDown" PreviewMouseUp="Button_PreviewMouseUp"></Button>
+                                <Button x:Name="OKBtn" Grid.Column="2" Grid.Row="0" Uid="2" IsTabStop="True" Background="{StaticResource ContentButtonBackground}" materialDesign:RippleAssist.IsDisabled="True" Height="Auto" Width="65" Template="{StaticResource FlatContent}" Click="OKBtn_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" PreviewMouseDown="Button_PreviewMouseDown" PreviewMouseUp="Button_PreviewMouseUp"></Button>
                                 <Label x:Name="OKLbl" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False" Content="Ok"/>
                             </Grid>
                         </Grid>
