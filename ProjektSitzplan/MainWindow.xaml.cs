@@ -473,6 +473,11 @@ namespace ProjektSitzplan
             MenuKlassenDtGrd.ItemsSource = null;
             MenuKlassenDtGrd.ItemsSource = DataHandler.SchulKlassen;
 
+            if (!DataHandler.SchulKlassen.Contains(AusgewählteKlasse))
+            {
+                WindowContent = EWindowContent.Leer;
+            }
+
             if (DataHandler.HatKlassen())
             {
                 LKeineKlasseAusgewähltStkPnl.Visibility = Visibility.Visible;
@@ -630,7 +635,7 @@ namespace ProjektSitzplan
             if (!MenuKlassenDtGrd.SelectedIndex.Equals(-1))
             {
                 //TODO: Wenn eine Klassen entfernt wird muss auch Klassen aktualisieren gemacht werden
-                AusgewählteKlasse = DataHandler.SchulKlassen[MenuKlassenDtGrd.SelectedIndex];
+                AusgewählteKlasse = (SchulKlasse)MenuKlassenDtGrd.SelectedItem;
 
                 WindowContent = EWindowContent.KlasseÜbersicht;
             }
@@ -801,7 +806,7 @@ namespace ProjektSitzplan
         {
             if (ÜSchülerDtGrd.SelectedIndex > -1)
             {
-                ÜAusgewählterSchüler = AusgewählteKlasse.SchülerListe[ÜSchülerDtGrd.SelectedIndex];
+                ÜAusgewählterSchüler = (Schüler)ÜSchülerDtGrd.SelectedItem;
 
                 ZeigeSchüler();
             }

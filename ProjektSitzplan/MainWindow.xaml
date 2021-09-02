@@ -532,7 +532,7 @@
                                         </Grid>
                                     </Grid>
                                 </Grid>
-                                <Grid x:Name="KlasseÜbersichtGrd" Visibility="Visible">
+                                <Grid x:Name="KlasseÜbersichtGrd" Visibility="Hidden">
                                     <StackPanel VerticalAlignment="Bottom">
                                         <Grid Height="{Binding ElementName=KlasseÜbersichtGrd, Path=ActualHeight}" Width="{Binding ElementName=KlasseÜbersichtGrd, Path=ActualWidth}" HorizontalAlignment="Center" VerticalAlignment="Bottom">
                                             <Grid.ColumnDefinitions>
