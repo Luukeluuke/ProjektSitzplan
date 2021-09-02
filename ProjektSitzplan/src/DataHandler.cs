@@ -1,4 +1,5 @@
 ﻿using ProjektSitzplan.Structures;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -43,25 +44,41 @@ namespace ProjektSitzplan
                 SchulKlassen.Add(schulKlasse);
             }
 
-            SpeicherSchulKlassen();
+            SpeicherSchulKlasse(schulKlasse);
+        }
+
+        /// <param name="name"></param>
+        /// <returns>Gibt erste gefundene klasse mit dem entsprechenden namen zurück oder "null" wenn keine gefunden wurde</returns>
+        public static SchulKlasse HohleSchulKlasse(string name)
+        {
+            return SchulKlassen.FirstOrDefault(klasse => klasse.Name.Equals(name));
         }
 
         public static void SpeicherSchulKlassen()
         {
-            foreach (SchulKlasse sKlasse in SchulKlassen)
-            {
-                sKlasse.AlsDateiSpeichern($"SchulKlassen\\{sKlasse.Name}.json");
-            }
+            SchulKlassen.ForEach(SpeicherSchulKlasse);
+        }
+
+        public static void SpeicherSchulKlasse(SchulKlasse klasse)
+        {
+            klasse.AlsDateiSpeichern($"SchulKlassen\\{klasse.Name}.json");
         }
 
         public static void LadeSchulKlassen()
         {
             SchulKlassen.Clear();
-            foreach (string sKlasseFile in Directory.GetFiles("SchulKlassen"))
+
+            Array.ForEach(Directory.GetFiles("SchulKlassen"), LadeSchulKlasse);
+        }
+
+        public static void LadeSchulKlasse(string pfad)
+        {
+            if (pfad.EndsWith(".json"))
             {
-                if (sKlasseFile.EndsWith(".json"))
+                SchulKlasse klasse = SchulKlasse.AusDateiLaden(pfad);
+                if (klasse != null)
                 {
-                    SchulKlassen.Add(SchulKlasse.AusDateiLaden(sKlasseFile));
+                    SchulKlassen.Add(klasse);
                 }
             }
         }
