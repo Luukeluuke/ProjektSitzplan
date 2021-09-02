@@ -15,6 +15,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 
 namespace ProjektSitzplan
 {
@@ -152,7 +153,7 @@ namespace ProjektSitzplan
             CommandRedo.InputGestures.Add(new KeyGesture(Key.Z, ModifierKeys.Control | ModifierKeys.Shift));
             CommandRedo.InputGestures.Add(new KeyGesture(Key.Y, ModifierKeys.Control));
 
-            //TODO: REMOVE THIS WHEN REMOVING TEST CLASS
+            //TODO: @TESTCLASS REMOVE THIS WHEN REMOVING TEST CLASS
             CommandTest.InputGestures.Add(new KeyGesture(Key.F2));
 
             CommandBindings.Add(new CommandBinding(CommandCreate, MenuKlasseErstellenBtn_Click));
@@ -164,7 +165,7 @@ namespace ProjektSitzplan
         }
         #endregion
 
-        //TODO: REMOVE THIS WHEN REMOVING TEST CLASS
+        //TODO: @TESTCLASS REMOVE THIS WHEN REMOVING TEST CLASS
         private void TestingEvnt(object sender = null, RoutedEventArgs e = null)
         {
             Testing.Test();
@@ -198,7 +199,7 @@ namespace ProjektSitzplan
             //TODO: Wenn datein importiert die wo die klasse den selben namen hat wie eine bereits vorhandene klasse?
 
             //TODO: Design der Radio Buttons anpassen
-			//TODO: Fix data grid selection bug
+            //TODO: Fix data grid selection bug
             //TODO: In die KlasseErstellen Ansicht beim Schüler erstellen teil die mögliche verkürzung mit einbauen
             //TODO: Evtl so machen das wenn bei einem Schüler bereits eine verkürzung angebene ist, und die sitzpläne "ohne ihn" generiert wurden, wenn das dann geändert wird
             //Also das er nicht mehr verkürzt der entsprechende sitzplan sofort angepasst wird. Bzw das ein Fenster kommt Like: "Hallo, der Sitzplan Block6 ist veraltet... Der schüler xy verkürzt nicht mehr soll er neu generiert werden? Ja nein boom"
@@ -822,10 +823,37 @@ namespace ProjektSitzplan
         #endregion
 
         #region Content - Klasse Übersicht
+        private Thickness Thicc
+        {
+            get
+            {
+                return new Thickness(0 - KlasseÜbersichtGrd.ActualWidth, 0D, 0D, 0D);
+            }
+        }
+        #region KlasseÜbersichtGrd
+        private void KlasseÜbersichtGrd_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            //TODO: Slide offset lol kramk xd hnenb
+        }
+        #endregion
+
         #region ÜSitzplanAnzeigenBtn
         private void ÜSitzplanAnzeigenBtn_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: Hier animation einleiten
+            //Storyboard sb = KlasseÜbersichtStkPnl.Resources["SlideLeft"] as Storyboard;
+
+            Storyboard sb = new Storyboard();
+            var yes = new ThicknessAnimation(new Thickness(0), Thicc, new Duration(new TimeSpan(0, 0, 0, 0, 800)));
+            yes.AccelerationRatio = 0.9D;
+            Storyboard.SetTargetProperty(yes, new PropertyPath("Margin"));
+            sb.Children.Add(yes);
+            sb.Begin(KlasseÜbersichtStkPnl);
+            sb.Completed += Sb_Completed;
+        }
+
+        private void Sb_Completed(object sender, EventArgs e)
+        {
+
         }
         #endregion
 
@@ -869,6 +897,20 @@ namespace ProjektSitzplan
         }
         #endregion
 
+        #region ÜSitzpläneDtGrd
+        private void ÜSitzpläneDtGrd_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+            ÜSitzplanEntfernenBtn.IsEnabled = ÜSitzpläneDtGrd.SelectedIndex > -1;
+            if (ÜSitzpläneDtGrd.SelectedIndex > -1)
+            {
+                ÜSitzplanAnzeigenGrd.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                ÜSitzplanAnzeigenGrd.Visibility = Visibility.Hidden;
+            }
+        }
+        #endregion
         #region ÜSitzplanEntfernenBtn
         private void ÜSitzplanEntfernenBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -886,10 +928,5 @@ namespace ProjektSitzplan
         #endregion
 
         #endregion
-
-        private void ÜSitzpläneDtGrd_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
-        {
-
-        }
     }
 }

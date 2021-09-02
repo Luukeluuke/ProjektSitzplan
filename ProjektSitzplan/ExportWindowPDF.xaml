@@ -55,103 +55,98 @@
                 </Grid.RowDefinitions>
 
                 <!--#region Gefundene Sitzpläne-->
-                <Border Grid.Column="0" Grid.Row="0" BorderBrush="{StaticResource ContentDivider}" BorderThickness="0 0 1 0">
+                <Grid Margin="5 0 5 -3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="15" Foreground="{StaticResource ContentTitleForeground}" Content="Gefundene Sitzpläne"/>
+                    <Border Grid.Column="0" Grid.Row="1" BorderThickness="2" BorderBrush="{StaticResource ContentControlBorder}">
 
+                        <!--#region DataGrid-->
 
-                    <Grid Margin="5 0 5 0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="15" Foreground="{StaticResource ContentTitleForeground}" Content="Gefundene Sitzpläne"/>
-                        <Border Grid.Column="0" Grid.Row="1" BorderThickness="2" BorderBrush="{StaticResource ContentControlBorder}">
-
-                            <!--#region DataGrid-->
-
-                            <DataGrid x:Name="EXPDFGefundenSitzpläneDtGrd" DataContext="{Binding GefundeneSitzpläne}" BorderBrush="{StaticResource ContentControlBorder}" Background="{x:Null}" Foreground="{StaticResource ContentForeground}" FontFamily="Segoe UI Semibold" CanUserDeleteRows="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserResizeColumns="True" CanUserResizeRows="False" CanUserSortColumns="True" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding AusgewählterSitzplan}" HorizontalScrollBarVisibility="Auto" SelectedCellsChanged="EXPDFGefundenSitzpläneDtGrd_SelectedCellsChanged">
-                                <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Sitzpläne" Binding="{Binding Seed}"/>
-                                </DataGrid.Columns>
-                               
-                                <!--#region Style-->
-                                <DataGrid.Resources>
-                                    <Style TargetType="{x:Type DataGridColumnHeader}">
-                                        <Setter Property="FontSize" Value="14"/>
-                                        <Setter Property="Background" Value="{StaticResource ContentBackground}"></Setter>
-                                        <Setter Property="Foreground" Value="{StaticResource ContentForeground}"></Setter>
-                                        <Setter Property="HorizontalAlignment" Value="Left"></Setter>
-                                        <Setter Property="Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="{x:Type DataGridColumnHeader}">
-                                                    <Border Background="Transparent">
-                                                        <ContentPresenter Margin="5"/>
-                                                    </Border>
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                        <Style.Triggers>
-                                            <Trigger Property="DataGridColumnHeader.IsMouseOver" Value="True">
-                                                <Setter Property="Foreground" Value="{StaticResource ContentHoverForeground}"></Setter>
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                    <Style TargetType="{x:Type DataGridRow}">
-                                        <Setter Property="Background" Value="{x:Null}"></Setter>
-                                        <Setter Property="Margin" Value="0"></Setter>
-                                        <Setter Property="IsHitTestVisible" Value="True"></Setter>
-                                        <Style.Triggers>
-                                            <Trigger Property="DataGridRow.IsSelected" Value="True">
-                                                <Setter Property="Background" Value="{StaticResource ContentDataGridRowBorderSelectedBackground}" />
-                                                <Setter Property="BorderBrush" Value="{StaticResource ContentDataGridRowBorderSelectedBorder}" />
-                                                <Setter Property="Foreground" Value="{StaticResource ContentDataGridRowBorderSelectedForeground}" />
-                                            </Trigger>
-                                            <MultiTrigger>
-                                                <MultiTrigger.Conditions>
-                                                    <Condition Property="DataGridRow.IsMouseOver" Value="True"></Condition>
-                                                    <Condition Property="DataGridRow.IsSelected" Value="False"></Condition>
-                                                </MultiTrigger.Conditions>
-                                                <MultiTrigger.Setters>
-                                                    <Setter Property="Background" Value="{StaticResource ContentDataGridRowHover}" />
-                                                    <Setter Property="BorderBrush" Value="{StaticResource ContentDataGridRowBorderHover}" />
-                                                    <Setter Property="Foreground" Value="{StaticResource ContentHoverForeground}" />
-                                                </MultiTrigger.Setters>
-                                            </MultiTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                    <Style TargetType="DataGridCell">
-                                        <Setter Property="BorderBrush" Value="{x:Null}"></Setter>
-                                        <Setter Property="Focusable" Value="False"></Setter>
-                                        <Setter Property="Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="{x:Type DataGridCell}">
-                                                    <Border Background="Transparent">
-                                                        <ContentPresenter Margin="5"/>
-                                                    </Border>
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                        <Style.Triggers>
-                                            <Trigger Property="DataGridCell.IsSelected" Value="True">
-                                                <Setter Property="Background" Value="{x:Null}"></Setter>
-                                                <Setter Property="Foreground" Value="{StaticResource ContentDataGridSelectedCellForeground}"></Setter>
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </DataGrid.Resources>
-                                <!--#endregion-->
-
-                            </DataGrid>
-                            
+                        <DataGrid x:Name="EXPDFGefundenSitzpläneDtGrd" DataContext="{Binding GefundeneSitzpläne}" BorderBrush="{StaticResource ContentControlBorder}" Background="{x:Null}" Foreground="{StaticResource ContentForeground}" FontFamily="Segoe UI Semibold" CanUserDeleteRows="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserResizeColumns="True" CanUserResizeRows="False" CanUserSortColumns="True" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding AusgewählterSitzplan}" HorizontalScrollBarVisibility="Auto" SelectedCellsChanged="EXPDFGefundenSitzpläneDtGrd_SelectedCellsChanged">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Sitzpläne" Binding="{Binding Name}"/>
+                            </DataGrid.Columns>
+                           
+                            <!--#region Style-->
+                            <DataGrid.Resources>
+                                <Style TargetType="{x:Type DataGridColumnHeader}">
+                                    <Setter Property="FontSize" Value="14"/>
+                                    <Setter Property="Background" Value="{StaticResource ContentBackground}"></Setter>
+                                    <Setter Property="Foreground" Value="{StaticResource ContentForeground}"></Setter>
+                                    <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type DataGridColumnHeader}">
+                                                <Border Background="Transparent">
+                                                    <ContentPresenter Margin="5"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <Trigger Property="DataGridColumnHeader.IsMouseOver" Value="True">
+                                            <Setter Property="Foreground" Value="{StaticResource ContentHoverForeground}"></Setter>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                                <Style TargetType="{x:Type DataGridRow}">
+                                    <Setter Property="Background" Value="{x:Null}"></Setter>
+                                    <Setter Property="Margin" Value="0"></Setter>
+                                    <Setter Property="IsHitTestVisible" Value="True"></Setter>
+                                    <Style.Triggers>
+                                        <Trigger Property="DataGridRow.IsSelected" Value="True">
+                                            <Setter Property="Background" Value="{StaticResource ContentDataGridRowBorderSelectedBackground}" />
+                                            <Setter Property="BorderBrush" Value="{StaticResource ContentDataGridRowBorderSelectedBorder}" />
+                                            <Setter Property="Foreground" Value="{StaticResource ContentDataGridRowBorderSelectedForeground}" />
+                                        </Trigger>
+                                        <MultiTrigger>
+                                            <MultiTrigger.Conditions>
+                                                <Condition Property="DataGridRow.IsMouseOver" Value="True"></Condition>
+                                                <Condition Property="DataGridRow.IsSelected" Value="False"></Condition>
+                                            </MultiTrigger.Conditions>
+                                            <MultiTrigger.Setters>
+                                                <Setter Property="Background" Value="{StaticResource ContentDataGridRowHover}" />
+                                                <Setter Property="BorderBrush" Value="{StaticResource ContentDataGridRowBorderHover}" />
+                                                <Setter Property="Foreground" Value="{StaticResource ContentHoverForeground}" />
+                                            </MultiTrigger.Setters>
+                                        </MultiTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="BorderBrush" Value="{x:Null}"></Setter>
+                                    <Setter Property="Focusable" Value="False"></Setter>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type DataGridCell}">
+                                                <Border Background="Transparent">
+                                                    <ContentPresenter Margin="5"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <Trigger Property="DataGridCell.IsSelected" Value="True">
+                                            <Setter Property="Background" Value="{x:Null}"></Setter>
+                                            <Setter Property="Foreground" Value="{StaticResource ContentDataGridSelectedCellForeground}"></Setter>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </DataGrid.Resources>
                             <!--#endregion-->
 
-                        </Border>
-                    </Grid>
+                        </DataGrid>
+                        
+                        <!--#endregion-->
 
-                </Border>
+                    </Border>
+                </Grid>
                 <!--#endregion-->
 
                 <!--#region Buttons-->
-                <Grid Grid.Column="0" Grid.Row="2" VerticalAlignment="Bottom">
+                <Grid Margin="5 0 5 5" Grid.Column="0" Grid.Row="2" VerticalAlignment="Bottom">
 
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>

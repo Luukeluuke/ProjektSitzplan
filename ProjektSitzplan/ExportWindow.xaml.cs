@@ -4,12 +4,9 @@ using ProjektSitzplan.Structures;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Globalization;
-using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -25,12 +22,12 @@ namespace ProjektSitzplan
 
         public List<SchulKlasse> GefundeneKlassen { get; } = DataHandler.SchulKlassen;
         public SchulKlasse ausgewählteKlasse = null;
-        public SchulKlasse AusgewählteKlasse 
+        public SchulKlasse AusgewählteKlasse
         {
             get
             {
-                return ausgewählteKlasse; 
-            } 
+                return ausgewählteKlasse;
+            }
             set
             {
                 Set(ref ausgewählteKlasse, value);
@@ -53,15 +50,6 @@ namespace ProjektSitzplan
             return true;
         }
         #endregion
-        
-        /*
-        public enum ExportWidnowResult
-        {
-            Yes,
-            No,
-            OK,
-            WindowClosed
-        }*/
 
         #region Radio Button
         public enum EXType
@@ -72,8 +60,9 @@ namespace ProjektSitzplan
             None
         }
 
-        public EXType SelectedOption { 
-            get 
+        public EXType SelectedOption
+        {
+            get
             {
                 if (EXPDFRad.IsChecked.Value)
                     return EXType.PDF;
@@ -157,7 +146,7 @@ namespace ProjektSitzplan
                     //Passiert wenn man die rechte Maustaste drückt
                 }
             }
-            
+
         }
         #endregion
 
@@ -166,7 +155,7 @@ namespace ProjektSitzplan
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             ContentLabels = new Label[] { EXAbbrechenLbl, EXExportLbl };
-            ContentPackIconsSets = new PackIconSet[] { 
+            ContentPackIconsSets = new PackIconSet[] {
                 new PackIconSet(EXExitPckIco, PackIconSet.EIconType.Content, PSColors.IconHoverRed, PSColors.IconPreviewRed),
                 new PackIconSet(EXExportPckIco, PackIconSet.EIconType.Content, PSColors.IconHoverGreen, PSColors.IconPreviewGreen)};
         }
@@ -241,7 +230,7 @@ namespace ProjektSitzplan
             {
                 case EXType.JSON:
                     {
-                        SchulKlasse klasse = (SchulKlasse) EXGefundenKlassenDtGrd.SelectedItem;
+                        SchulKlasse klasse = (SchulKlasse)EXGefundenKlassenDtGrd.SelectedItem;
 
                         if (klasse == null)
                         {
@@ -276,14 +265,10 @@ namespace ProjektSitzplan
                             ErrorHandler.ZeigeFehler(ErrorHandler.ERR_EX_KeineKlasseAusgewählt);
                             return;
                         }
-
-                        if (new ExportWindowPDF(klasse).ShowDialog().Value)
+                        ExportWindowPDF pdfExportWindow = new ExportWindowPDF(klasse);
+                        if (pdfExportWindow.ShowDialog().Value)
                         {
-                            //todo: load text from pdf export
-                            string klassenName = ""; 
-                            string dateiName = "";
-                            string sitzplan = "";
-                            EXErfolgreich($"Der Sitzplan {sitzplan} aus der Klasse {klassenName}, wurde als {dateiName} exportiert!");
+                            EXErfolgreich($"Der Sitzplan \"{pdfExportWindow.exportPath}\" aus der Klasse\n{klasse.Name}\nWurde als \"{pdfExportWindow.exportSitzplan}\" exportiert!");
                         }
                         return;
                     }

@@ -3,18 +3,11 @@ using ProjektSitzplan.Structures;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace ProjektSitzplan
 {
@@ -25,6 +18,9 @@ namespace ProjektSitzplan
     {
         private Label[] ContentLabels;
         private PackIconSet[] ContentPackIconsSets;
+
+        public string exportPath { get; private set; } = null;
+        public string exportSitzplan { get; private set; } = null;
 
         public readonly SchulKlasse AktuelleKlasse;
 
@@ -203,6 +199,10 @@ namespace ProjektSitzplan
             Sitzplan sitzplan = (Sitzplan)EXPDFGefundenSitzpläneDtGrd.SelectedItem;
 
             // TODO: Export logic here or be called from here :D
+
+            // TODO: return export path...
+            exportPath = "/todo/path...";
+            exportSitzplan = sitzplan.Name;
 
             DialogResult = true;
             Close();

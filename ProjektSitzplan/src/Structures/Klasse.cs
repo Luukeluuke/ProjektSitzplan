@@ -75,14 +75,19 @@ namespace ProjektSitzplan.Structures
             Sitzpläne.Remove(sitzplan);
         }
 
-        public Sitzplan ErstelleSitzplan() { return ErstelleSitzplan(6); }
-        public Sitzplan ErstelleSitzplan(int tischAnzahl, bool letzterBlock = false, int? seed = null)
+
+        public Sitzplan ErstelleSitzplan()
         {
-            Sitzplan sitzplan;
-            if (seed != null)
-                sitzplan = new Sitzplan(tischAnzahl, this, seed.Value);
-            else
-                sitzplan = new Sitzplan(tischAnzahl, this);
+            return ErstelleSitzplan(new SitzplanGenerator(SchülerListe));
+        }
+        public Sitzplan ErstelleSitzplan(SitzplanGenerator sitzplanGenerator)
+        {
+            if (string.IsNullOrWhiteSpace(sitzplanGenerator.Name))
+            {
+                sitzplanGenerator.Name = $"Sitzplan-{Sitzpläne.Count + 1}";
+            }
+
+            Sitzplan sitzplan = new Sitzplan(sitzplanGenerator);
 
             SitzplanHinzufügen(sitzplan);
 
@@ -153,7 +158,7 @@ namespace ProjektSitzplan.Structures
             }
             catch (JsonReaderException) { }
             catch (JsonSerializationException) { }
-            
+
             return null;
         }
         #endregion

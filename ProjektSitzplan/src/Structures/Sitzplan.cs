@@ -1,12 +1,40 @@
 ﻿using Newtonsoft.Json;
-using ProjektSitzplan.Exceptions;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 
 namespace ProjektSitzplan.Structures
 {
+    public class SitzplanGenerator
+    {
+        public bool BerücksichtigeBeruf = true;
+        public bool BerücksichtigeBetrieb = true;
+        public bool BerücksichtigeGeschlecht = true;
+
+        public string Name;
+        public int TischAnzahl;
+        public int Seed;
+        public List<Schüler> Schüler;
+
+        public SitzplanGenerator(List<Schüler> schüler, string name = "", int tischAnzahl = 6, int? seed = null, bool berücksichtigeBeruf = true, bool berücksichtigeBetrieb = true, bool berücksichtigeGeschlecht = true)
+        {
+            if (seed == null)
+                Seed = Environment.TickCount;
+            else
+                Seed = seed.Value;
+
+            Name = name;
+            Schüler = schüler;
+            TischAnzahl = tischAnzahl;
+            BerücksichtigeBeruf = berücksichtigeBeruf;
+            BerücksichtigeBetrieb = berücksichtigeBetrieb;
+            BerücksichtigeGeschlecht = berücksichtigeGeschlecht;
+        }
+
+        public SitzplanGenerator(SchulKlasse klasse, string name, int tischAnzahl, int? seed = null, bool berücksichtigeBeruf = true, bool berücksichtigeBetrieb = true, bool berücksichtigeGeschlecht = true) : this(klasse.SchülerListe, name, tischAnzahl, seed, berücksichtigeBeruf, berücksichtigeBetrieb, berücksichtigeGeschlecht) { }
+    }
+
+
     public class Sitzplan
     {
         public string Name { get; private set; }
@@ -14,25 +42,34 @@ namespace ProjektSitzplan.Structures
         public List<Schüler> Schüler { get; private set; }
         public List<TischBlock> Tische { get; private set; }
 
+        public bool BerücksichtigeBeruf = true;
+        public bool BerücksichtigeBetrieb = true;
+        public bool BerücksichtigeGeschlecht = true;
+
         public int Seed { get; private set; }
 
-        public Sitzplan(int tischAnzahl, List<Schüler> schüler) : this(tischAnzahl, schüler, Environment.TickCount) { }
-        public Sitzplan(int tischAnzahl, List<Schüler> schüler, int seed)
+        public Sitzplan(SitzplanGenerator generator)
         {
-            TischAnzahl = tischAnzahl;
-            Seed = seed;
+            Name = generator.Name;
+            TischAnzahl = generator.TischAnzahl;
+            Schüler = generator.Schüler;
 
-            Schüler = schüler;
+            Seed = generator.Seed;
+
+            BerücksichtigeBeruf = generator.BerücksichtigeBeruf;
+            BerücksichtigeBetrieb = generator.BerücksichtigeBetrieb;
+            BerücksichtigeGeschlecht = generator.BerücksichtigeGeschlecht;
 
             GeneriereSitzplan(Schüler);
         }
 
-        public Sitzplan(int tischAnzahl, SchulKlasse klasse, int seed) : this(tischAnzahl, klasse.SchülerListe, seed) { }
-        public Sitzplan(int tischAnzahl, SchulKlasse klasse) : this(tischAnzahl, klasse.SchülerListe, Environment.TickCount) { }
-
+        /// <summary>
+        /// JSON Constructor | Dieser constructor sollte nur für das laden von json objekten genutzt werden!
+        /// </summary>
         [JsonConstructor]
-        public Sitzplan(int tischAnzahl, List<Schüler> schüler, List<TischBlock> tische, int seed)
+        public Sitzplan(string name, int tischAnzahl, List<Schüler> schüler, List<TischBlock> tische, int seed)
         {
+            Name = name;
             TischAnzahl = tischAnzahl;
             Schüler = schüler;
             Tische = tische;
@@ -131,28 +168,14 @@ namespace ProjektSitzplan.Structures
         {
             int punkte = 0;
 
-            punkte += tisch.Sitzplätze.Any(sitzplatz => sitzplatz.AusbildungsBetrieb.Name.ToLower().Equals(schüler.AusbildungsBetrieb.Name.ToLower())) ? -1 : 1;
-            punkte += tisch.Sitzplätze.Any(sitzplatz => sitzplatz.Beruf == schüler.Beruf) ? -1 : 1;
-            punkte += tisch.Sitzplätze.Any(sitzplatz => sitzplatz.Geschlecht == schüler.Geschlecht) ? -1 : 1;
+            if (BerücksichtigeBetrieb)
+                punkte += tisch.Sitzplätze.Any(sitzplatz => sitzplatz.AusbildungsBetrieb.Name.Equals(schüler.AusbildungsBetrieb.Name, StringComparison.OrdinalIgnoreCase)) ? -1 : 1;
+            if (BerücksichtigeBeruf)
+                punkte += tisch.Sitzplätze.Any(sitzplatz => sitzplatz.Beruf == schüler.Beruf) ? -1 : 1;
+            if (BerücksichtigeGeschlecht)
+                punkte += tisch.Sitzplätze.Any(sitzplatz => sitzplatz.Geschlecht == schüler.Geschlecht) ? -1 : 1;
 
             return punkte;
         }
-
-        /*
-        // TODO: Kann das nicht gelöscht werden? Da sitzpläne ja eigentlich nur noch unter klassen existieren??
-        public void AlsDateiSpeichern(string path)
-        {
-            Directory.CreateDirectory(Path.GetDirectoryName(path));
-            File.WriteAllText(path, JsonConvert.SerializeObject(this));
-        }
-
-        public static Sitzplan AusDateiLaden(string path)
-        {
-            if (File.Exists(path))
-            {
-                return JsonConvert.DeserializeObject<Sitzplan>(File.ReadAllText(path));
-            }
-            throw new PfadNichtGefundenException(path, "Beim laden des Sitzplans ist ein Fehler aufgetreten!");
-        }*/
     }
 }
