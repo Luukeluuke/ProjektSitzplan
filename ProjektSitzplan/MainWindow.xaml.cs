@@ -83,6 +83,19 @@ namespace ProjektSitzplan
             }
         }
 
+        private Schüler üAusgewählterSchüler;
+        public Schüler ÜAusgewählterSchüler
+        {
+            get
+            {
+                return üAusgewählterSchüler;
+            }
+            set
+            {
+                Set(ref üAusgewählterSchüler, value);
+            }
+        }
+
         private Schüler keAusgewählterSchüler;
         public Schüler KEAusgewählterSchüler
         {
@@ -154,12 +167,14 @@ namespace ProjektSitzplan
 
         public MainWindow()
         {
-            //TODO: In Menu typische symbole einbauen // Import export save help
             //TODO: DIe Klasse Exportieren Funktion im Datei Menü Disablen wenn keine ausgewählt ist. Und die speichern funktion auch
             //TODO: Wenn datein importiert die wo die klasse den selben namen hat wie eine bereits vorhandene klasse?
 
             //TODO: Design der Radio Buttons anpassen
 			//TODO: Fix data grid selection bug
+            //TODO: In die KlasseErstellen Ansicht beim Schüler erstellen teil die mögliche verkürzung mit einbauen
+            //TODO: Evtl so machen das wenn bei einem Schüler bereits eine verkürzung angebene ist, und die sitzpläne "ohne ihn" generiert wurden, wenn das dann geändert wird
+            //Also das er nicht mehr verkürzt der entsprechende sitzplan sofort angepasst wird. Bzw das ein Fenster kommt Like: "Hallo, der Sitzplan Block6 ist veraltet... Der schüler xy verkürzt nicht mehr soll er neu generiert werden? Ja nein boom"
 
             InitializeComponent();
 
@@ -495,6 +510,9 @@ namespace ProjektSitzplan
             ÜKlasseNameLbl.Content = AusgewählteKlasse.Name;
             ÜKlasseAnzahlSchülerLbl.Content = AusgewählteKlasse.AnzahlSchüler;
 
+            ÜSchülerDtGrd.ItemsSource = null;
+            ÜSchülerDtGrd.ItemsSource = AusgewählteKlasse.SchülerListe;
+            ÜSchülerEntfernenBtn.IsEnabled = ÜSchülerDtGrd.Items.Count > 0;
 
         }
         #endregion
@@ -525,7 +543,9 @@ namespace ProjektSitzplan
                 KESchülerEntfernenLbl,
                 KEAbbrechenLbl,
                 KEKlasseErstellenLbl,
-                null
+                null,
+                ÜSchülerEntfernenLbl,
+                ÜSchülerHinzufügenLbl
             };
             ContentPackIconsSets = new PackIconSet[]
             {
@@ -534,7 +554,9 @@ namespace ProjektSitzplan
                 new PackIconSet(KESchülerEntfernenPkIco, PackIconSet.EIconType.Content, PSColors.IconHoverRed, PSColors.IconPreviewRed),
                 new PackIconSet(KEAbbrechenPkIco, PackIconSet.EIconType.Content, PSColors.IconHoverRed, PSColors.IconPreviewRed),
                 new PackIconSet(KEKlasseErstellenPkIco, PackIconSet.EIconType.Content, PSColors.IconHoverGreen, PSColors.IconPreviewGreen),
-                new PackIconSet(ÜSitzplanAnzeigenPkIco, PackIconSet.EIconType.Content, PSColors.ContentButtonHoverForeground, PSColors.ContentButtonPreviewForeground)
+                new PackIconSet(ÜSitzplanAnzeigenPkIco, PackIconSet.EIconType.Content, PSColors.ContentButtonHoverForeground, PSColors.ContentButtonPreviewForeground),
+                new PackIconSet(ÜSchülerEntfernenPckIco, PackIconSet.EIconType.Content, PSColors.IconHoverRed, PSColors.IconPreviewRed),
+                new PackIconSet(ÜSchülerHinzufügenPckIco, PackIconSet.EIconType.Content, PSColors.IconHoverGreen, PSColors.IconPreviewGreen)
             };
         }
         #endregion
@@ -761,9 +783,52 @@ namespace ProjektSitzplan
 
         #endregion
 
+        #region Content - Klasse Übersicht
+        #region ÜSitzplanAnzeigenBtn
         private void ÜSitzplanAnzeigenBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            //TODO: Hier animation einleiten
         }
+        #endregion
+
+        #region ÜSchülerDtGrd
+        private void ZeigeSchüler()
+        {
+            //TODO: Hier das laden den schülers in das rechte panel
+        }
+
+        private void ÜSchülerDtGrd_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+            if (ÜSchülerDtGrd.SelectedIndex > -1)
+            {
+                ÜAusgewählterSchüler = AusgewählteKlasse.SchülerListe[ÜSchülerDtGrd.SelectedIndex];
+
+                ZeigeSchüler();
+            }
+            else
+            {
+                //TODO: Schüler Info Grid invisible maken
+            }
+        }
+        #endregion
+
+        #region ÜSchülerEntfernenBtn
+        private void ÜSchülerEntfernenBtn_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO: SchülerENtfernen Zeugs
+
+            ÜSchülerEntfernenBtn.IsEnabled = ÜSchülerDtGrd.Items.Count > 0;
+        }
+        #endregion
+
+        #region ÜSchülerHinzufügenBtn
+        private void ÜSchülerHinzufügenBtn_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO: Schüler hinzufügen zeugs
+
+            ÜSchülerEntfernenBtn.IsEnabled = ÜSchülerDtGrd.Items.Count > 0;
+        }
+        #endregion
+        #endregion
     }
 }
