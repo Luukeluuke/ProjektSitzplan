@@ -30,19 +30,19 @@
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="WindowMinimizeButton" Grid.Column="0" Uid="0" Template="{StaticResource Flat}" Background="{x:Null}"  materialDesign:RippleAssist.Feedback="Transparent" IsTabStop="False" Click="TopBarButton_Click" PreviewMouseDown="TopBarButton_PreviewMouseDown" PreviewMouseUp="TopBarButton_PreviewMouseUp" MouseEnter="TopBarButton_MouseEnter" MouseLeave="TopBarButton_MouseLeave">
+                    <Button x:Name="WindowMinimizeButton" Grid.Column="0" Uid="0" Template="{StaticResource FlatTopBar}" Background="{x:Null}"  materialDesign:RippleAssist.Feedback="Transparent" IsTabStop="False" Click="TopBarButton_Click" PreviewMouseDown="TopBarButton_PreviewMouseDown" PreviewMouseUp="TopBarButton_PreviewMouseUp" MouseEnter="TopBarButton_MouseEnter" MouseLeave="TopBarButton_MouseLeave">
                         <Button.ToolTip>
                             <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12">Minimieren</ToolTip>
                         </Button.ToolTip>
                         <Image Source="/ProjektSitzplan;component/src/Design/Images/MinimizeB9BBBE.png"></Image>
                     </Button>
-                    <Button x:Name="WindowRestoreButton" Grid.Column="1" Uid="1" Template="{StaticResource Flat}" Background="{x:Null}" materialDesign:RippleAssist.Feedback="Transparent" IsTabStop="False" Click="TopBarButton_Click" PreviewMouseDown="TopBarButton_PreviewMouseDown" PreviewMouseUp="TopBarButton_PreviewMouseUp" MouseEnter="TopBarButton_MouseEnter" MouseLeave="TopBarButton_MouseLeave">
+                    <Button x:Name="WindowRestoreButton" Grid.Column="1" Uid="1" Template="{StaticResource FlatTopBar}" Background="{x:Null}" materialDesign:RippleAssist.Feedback="Transparent" IsTabStop="False" Click="TopBarButton_Click" PreviewMouseDown="TopBarButton_PreviewMouseDown" PreviewMouseUp="TopBarButton_PreviewMouseUp" MouseEnter="TopBarButton_MouseEnter" MouseLeave="TopBarButton_MouseLeave">
                         <Button.ToolTip>
                             <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12">Maximieren</ToolTip>
                         </Button.ToolTip>
                         <Image Source="/ProjektSitzplan;component/src/Design/Images/Restore1B9BBBE.png"></Image>
                     </Button>
-                    <Button x:Name="WindowCloseButton" Grid.Column="2" Uid="2" Template="{StaticResource Flat}" Background="{x:Null}" materialDesign:RippleAssist.Feedback="Transparent" IsTabStop="False" Click="TopBarButton_Click" PreviewMouseDown="TopBarButton_PreviewMouseDown" PreviewMouseUp="TopBarButton_PreviewMouseUp" MouseEnter="TopBarButton_MouseEnter" MouseLeave="TopBarButton_MouseLeave">
+                    <Button x:Name="WindowCloseButton" Grid.Column="2" Uid="2" Template="{StaticResource FlatTopBar}" Background="{x:Null}" materialDesign:RippleAssist.Feedback="Transparent" IsTabStop="False" Click="TopBarButton_Click" PreviewMouseDown="TopBarButton_PreviewMouseDown" PreviewMouseUp="TopBarButton_PreviewMouseUp" MouseEnter="TopBarButton_MouseEnter" MouseLeave="TopBarButton_MouseLeave">
                         <Button.ToolTip>
                             <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12">Schließen</ToolTip>
                         </Button.ToolTip>
@@ -248,7 +248,7 @@
                                 <StackPanel x:Name="KeineKlassenGefundenStkPnl" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical" Visibility="Hidden">
                                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Es sind&#10;noch keine Klassen&#10;vorhanden" TextAlignment="Center" Foreground="{StaticResource MenuComment}" FontSize="13" FontFamily="Segoe UI Semibold"></TextBlock>
                                     <Grid Margin="0 10 0 0">
-                                        <Button x:Name="KlasseErstellenBtn" HorizontalAlignment="Center" VerticalAlignment="Center" Width="105" Template="{StaticResource Flat}" Background="{StaticResource MenuFreeButtonBackground}" Click="MenuKlasseErstellenBtn_Click"></Button>
+                                        <Button x:Name="KlasseErstellenBtn" HorizontalAlignment="Center" VerticalAlignment="Center" Width="105" Template="{StaticResource FlatContent}" Background="{StaticResource MenuFreeButtonBackground}" Click="MenuKlasseErstellenBtn_Click"></Button>
                                         <Label HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuFreeButtonForeground}" Content="Klasse erstellen" FontSize="13" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"></Label>
                                     </Grid>
                                 </StackPanel>
@@ -268,7 +268,7 @@
                     </Grid>
                     <Border Grid.Column="0" Grid.Row="1" BorderThickness="0 1 0 1" BorderBrush="{StaticResource TransitionStart}">
                         <Border BorderThickness="1" BorderBrush="{StaticResource TransitionEnd}" Background="{StaticResource ContentBackground}">
-                            <Grid Margin="4 5 4 5">
+                            <Grid Margin="4">
                                 <Grid x:Name="KlasseHinzufügenGrd" Visibility="Hidden">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="1.25*"></ColumnDefinition>
@@ -387,11 +387,11 @@
                                                             <ColumnDefinition Width="*"></ColumnDefinition>
                                                         </Grid.ColumnDefinitions>
                                                         <Grid Grid.Column="0" Grid.Row="1" Visibility="Visible">
-                                                            <Button x:Name="KEFelderLeerenBtn" Uid="0" TabIndex="106" HorizontalAlignment="Stretch" Height="Auto" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource Flat}" materialDesign:RippleAssist.IsDisabled="True" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp" Click="KEFelderLeerenBtn_Click"></Button>
+                                                            <Button x:Name="KEFelderLeerenBtn" Uid="0" TabIndex="106" HorizontalAlignment="Stretch" Height="Auto" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp" Click="KEFelderLeerenBtn_Click"></Button>
                                                             <Label x:Name="KEFelderLeerenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Felder leeren" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"></Label>
                                                         </Grid>
                                                         <Grid Grid.Column="2" Grid.Row="1">
-                                                            <Button x:Name="KESchülerHinzufügenBtn" Uid="1" TabIndex="107" HorizontalAlignment="Stretch" Height="Auto" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource Flat}" materialDesign:RippleAssist.IsDisabled="True" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp" Click="KESchülerHinzufügenBtn_Click"></Button>
+                                                            <Button x:Name="KESchülerHinzufügenBtn" Uid="1" TabIndex="107" HorizontalAlignment="Stretch" Height="Auto" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp" Click="KESchülerHinzufügenBtn_Click"></Button>
                                                             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                                                                 <Label x:Name="KEKSchülerHinzufügenLbl" Content="Schüler hinzufügen" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"></Label>
                                                                 <materialDesign:PackIcon x:Name="KESchülerHinzufügenPkIco" Margin="2 0 0 0" VerticalAlignment="Center" Kind="AddBold" Height="18" Width="18" Foreground="{StaticResource ContentButtonForeground}" IsHitTestVisible="False"></materialDesign:PackIcon>
@@ -501,7 +501,7 @@
                                             </Grid.RowDefinitions>
                                             <Border Grid.Column="0" Grid.Row="0" BorderThickness="0 0 0 1" BorderBrush="{StaticResource ContentDivider}">
                                                 <Grid Margin="0 0 0 5">
-                                                    <Button x:Name="KESchülerEntfernenBtn" Uid="2" TabIndex="108" HorizontalAlignment="Stretch" Height="Auto" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource Flat}" materialDesign:RippleAssist.IsDisabled="True" Click="KESchülerEntfernenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp" IsEnabled="False"></Button>
+                                                    <Button x:Name="KESchülerEntfernenBtn" Uid="2" TabIndex="108" HorizontalAlignment="Stretch" Height="Auto" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" Click="KESchülerEntfernenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp" IsEnabled="False"></Button>
                                                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                                                         <Label x:Name="KESchülerEntfernenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Ausgewählten Schüler entfernen" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"></Label>
                                                         <materialDesign:PackIcon x:Name="KESchülerEntfernenPkIco" Margin="2 0 0 0" VerticalAlignment="Center" Kind="Trash" Height="18" Width="18" Foreground="{StaticResource ContentButtonForeground}" IsHitTestVisible="False"></materialDesign:PackIcon>
@@ -515,14 +515,14 @@
                                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                                 </Grid.ColumnDefinitions>
                                                 <Grid Grid.Column="0" Grid.Row="1">
-                                                    <Button x:Name="KEAbbrechenBtn" Uid="3" TabIndex="109" HorizontalAlignment="Stretch" Height="Auto" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource Flat}" materialDesign:RippleAssist.IsDisabled="True" Click="KEAbbrechenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp"></Button>
+                                                    <Button x:Name="KEAbbrechenBtn" Uid="3" TabIndex="109" HorizontalAlignment="Stretch" Height="Auto" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" Click="KEAbbrechenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp"></Button>
                                                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                                                         <Label x:Name="KEAbbrechenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Abbrechen" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"></Label>
                                                         <materialDesign:PackIcon x:Name="KEAbbrechenPkIco" Margin="2 0 0 0" VerticalAlignment="Center" Kind="CloseBold" Height="18" Width="18" Foreground="{StaticResource ContentButtonForeground}" IsHitTestVisible="False"></materialDesign:PackIcon>
                                                     </StackPanel>
                                                 </Grid>
                                                 <Grid Grid.Column="2" Grid.Row="1">
-                                                    <Button x:Name="KEKlasseErstellenBtn" Uid="4" TabIndex="110" HorizontalAlignment="Stretch" Height="Auto" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource Flat}" Click="KEKlasseErstellenBtn_Click" materialDesign:RippleAssist.IsDisabled="True" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp"></Button>
+                                                    <Button x:Name="KEKlasseErstellenBtn" Uid="4" TabIndex="110" HorizontalAlignment="Stretch" Height="Auto" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}" Click="KEKlasseErstellenBtn_Click" materialDesign:RippleAssist.IsDisabled="True" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp"></Button>
                                                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                                                         <Label x:Name="KEKlasseErstellenLbl" Content="Klasse erstellen" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"></Label>
                                                         <materialDesign:PackIcon x:Name="KEKlasseErstellenPkIco" Margin="2 0 0 0" VerticalAlignment="Center" Kind="CheckBold" Height="18" Width="18" Foreground="{StaticResource ContentButtonForeground}" IsHitTestVisible="False"></materialDesign:PackIcon>
@@ -532,10 +532,147 @@
                                         </Grid>
                                     </Grid>
                                 </Grid>
-                                <Grid x:Name="KlasseÜbersichtGrd" Visibility="Hidden">
-                                    <Label Foreground="White" HorizontalAlignment="Center" Content="{Binding AusgewählteKlasse.Name}" VerticalAlignment="Center" FontSize="30"></Label>
+                                <Grid x:Name="KlasseÜbersichtGrd" Visibility="Visible">
+                                    <StackPanel VerticalAlignment="Bottom">
+                                        <Grid Height="{Binding ElementName=KlasseÜbersichtGrd, Path=ActualHeight}" Width="{Binding ElementName=KlasseÜbersichtGrd, Path=ActualWidth}" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="1.35*"></ColumnDefinition>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Border Grid.Column="0" Grid.Row="0" BorderBrush="{StaticResource ContentDivider}" BorderThickness="0 0 1 0">
+                                                <Grid Margin="0 0 5 0">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto"></RowDefinition>
+                                                        <RowDefinition Height="*"></RowDefinition>
+                                                        <RowDefinition Height="*"></RowDefinition>
+                                                    </Grid.RowDefinitions>
+                                                    <Border Grid.Column="0" Grid.Row="0" BorderBrush="{StaticResource ContentDivider}" BorderThickness="0 0 0 1">
+                                                        <Grid Margin="0 0 0 5">
+                                                            <Label x:Name="ÜKlasseNameLbl" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="15" Foreground="{StaticResource ContentTitleForeground}" Content="Name"></Label>
+                                                            <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top" Orientation="Horizontal">
+                                                                <Label FontFamily="Segoe UI Semibold" FontSize="15" Foreground="{StaticResource ContentTitleForeground}" Content="Schüler:"></Label>
+                                                                <Label x:Name="ÜKlasseAnzahlSchülerLbl" HorizontalAlignment="Right" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="15" Foreground="{StaticResource ContentTitleForeground}" Content="0"></Label>
+                                                            </StackPanel>
+                                                        </Grid>
+                                                    </Border>
+                                                    <Border Grid.Column="0" Grid.Row="1" Margin="0 5 0 0" BorderBrush="{StaticResource ContentDivider}" BorderThickness="0 0 0 1">
+                                                        <Grid Margin="0 0 0 5">
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="5"></RowDefinition>
+                                                                <RowDefinition Height="40"></RowDefinition>
+                                                            </Grid.RowDefinitions>
+                                                            <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="15" Foreground="{StaticResource ContentTitleForeground}" Content="Schüler"></Label>
+                                                            <Border Grid.Column="0" Grid.Row="1" BorderBrush="{StaticResource ContentControlBorder}" BorderThickness="2">
+                                                                <DataGrid x:Name="ÜSchülerDtGrd" DataContext="{Binding AusgewählteKlasse.SchülerListe}" BorderBrush="{StaticResource ContentControlBorder}" Background="{x:Null}" Foreground="{StaticResource ContentForeground}" FontFamily="Segoe UI Semibold" CanUserDeleteRows="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserResizeColumns="True" CanUserResizeRows="False" CanUserSortColumns="True" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding ÜAusgewählterSchüler}" HorizontalScrollBarVisibility="Auto" SelectedCellsChanged="ÜSchülerDtGrd_SelectedCellsChanged">
+                                                                    <DataGrid.Columns>
+                                                                        <DataGridTextColumn Header="Nachname" Binding="{Binding Nachname}"></DataGridTextColumn>
+                                                                        <DataGridTextColumn Header="Vorname" Binding="{Binding Vorname}"></DataGridTextColumn>
+                                                                        <DataGridTextColumn Header="Beruf" Binding="{Binding Beruf}"></DataGridTextColumn>
+                                                                        <DataGridTextColumn Header="Betrieb" Binding="{Binding AusbildungsBetrieb}"></DataGridTextColumn>
+                                                                        <DataGridTextColumn Header="Geschlecht" Binding="{Binding Geschlecht}"></DataGridTextColumn>
+                                                                    </DataGrid.Columns>
+                                                                    <DataGrid.Resources>
+                                                                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                                                                            <Setter Property="Background" Value="{StaticResource ContentBackground}"></Setter>
+                                                                            <Setter Property="Foreground" Value="{StaticResource ContentForeground}"></Setter>
+                                                                            <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+                                                                            <Setter Property="Template">
+                                                                                <Setter.Value>
+                                                                                    <ControlTemplate TargetType="{x:Type DataGridColumnHeader}">
+                                                                                        <Border Background="Transparent">
+                                                                                            <ContentPresenter Margin="5"/>
+                                                                                        </Border>
+                                                                                    </ControlTemplate>
+                                                                                </Setter.Value>
+                                                                            </Setter>
+                                                                            <Style.Triggers>
+                                                                                <Trigger Property="DataGridColumnHeader.IsMouseOver" Value="True">
+                                                                                    <Setter Property="Foreground" Value="{StaticResource ContentHoverForeground}"></Setter>
+                                                                                </Trigger>
+                                                                            </Style.Triggers>
+                                                                        </Style>
+                                                                        <Style TargetType="{x:Type DataGridRow}">
+                                                                            <Setter Property="Background" Value="{x:Null}"></Setter>
+                                                                            <Setter Property="Margin" Value="0"></Setter>
+                                                                            <Setter Property="IsHitTestVisible" Value="True"></Setter>
+                                                                            <Style.Triggers>
+                                                                                <Trigger Property="DataGridRow.IsSelected" Value="True">
+                                                                                    <Setter Property="Background" Value="{StaticResource ContentDataGridRowBorderSelectedBackground}" />
+                                                                                    <Setter Property="BorderBrush" Value="{StaticResource ContentDataGridRowBorderSelectedBorder}" />
+                                                                                    <Setter Property="Foreground" Value="{StaticResource ContentDataGridRowBorderSelectedForeground}" />
+                                                                                </Trigger>
+                                                                                <MultiTrigger>
+                                                                                    <MultiTrigger.Conditions>
+                                                                                        <Condition Property="DataGridRow.IsMouseOver" Value="True"></Condition>
+                                                                                        <Condition Property="DataGridRow.IsSelected" Value="False"></Condition>
+                                                                                    </MultiTrigger.Conditions>
+                                                                                    <MultiTrigger.Setters>
+                                                                                        <Setter Property="Background" Value="{StaticResource ContentDataGridRowHover}" />
+                                                                                        <Setter Property="BorderBrush" Value="{StaticResource ContentDataGridRowBorderHover}" />
+                                                                                        <Setter Property="Foreground" Value="{StaticResource ContentHoverForeground}" />
+                                                                                    </MultiTrigger.Setters>
+                                                                                </MultiTrigger>
+                                                                            </Style.Triggers>
+                                                                        </Style>
+                                                                        <Style TargetType="DataGridCell">
+                                                                            <Setter Property="BorderBrush" Value="{x:Null}"></Setter>
+                                                                            <Setter Property="Focusable" Value="False"></Setter>
+                                                                            <Setter Property="Template">
+                                                                                <Setter.Value>
+                                                                                    <ControlTemplate TargetType="{x:Type DataGridCell}">
+                                                                                        <Border Background="Transparent">
+                                                                                            <ContentPresenter Margin="5"/>
+                                                                                        </Border>
+                                                                                    </ControlTemplate>
+                                                                                </Setter.Value>
+                                                                            </Setter>
+                                                                            <Style.Triggers>
+                                                                                <Trigger Property="DataGridCell.IsSelected" Value="True">
+                                                                                    <Setter Property="Background" Value="{x:Null}"></Setter>
+                                                                                    <Setter Property="Foreground" Value="{StaticResource ContentDataGridSelectedCellForeground}"></Setter>
+                                                                                </Trigger>
+                                                                            </Style.Triggers>
+                                                                        </Style>
+                                                                    </DataGrid.Resources>
+                                                                </DataGrid>
+                                                            </Border>
+                                                            <Grid Grid.Column="0" Grid.Row="3">
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                                                    <ColumnDefinition Width="5"></ColumnDefinition>
+                                                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                                                </Grid.ColumnDefinitions>
+                                                                <Grid Grid.Column="0" Grid.Row="0">
+                                                                    <Button x:Name="ÜSchülerEntfernenBtn" Uid="6" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" Height="Auto" Click="ÜSchülerEntfernenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp" IsEnabled="False"></Button>
+                                                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5 0 0 0" Orientation="Horizontal">
+                                                                        <Label x:Name="ÜSchülerEntfernenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False" Content="Schüler entfernen" Foreground="{StaticResource ContentButtonForeground}" FontSize="15" FontFamily="Segoe UI Semibold"></Label>
+                                                                        <materialDesign:PackIcon x:Name="ÜSchülerEntfernenPckIco" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource ContentButtonForeground}" Kind="RemoveBold" Height="20" Width="20" IsHitTestVisible="False"></materialDesign:PackIcon>
+                                                                    </StackPanel>
+                                                                </Grid>
+                                                                <Grid Grid.Column="2" Grid.Row="0">
+                                                                    <Button x:Name="ÜSchülerHinzufügenBtn" Uid="7" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" Height="Auto" Click="ÜSchülerHinzufügenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp"></Button>
+                                                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5 0 0 0" Orientation="Horizontal">
+                                                                        <Label x:Name="ÜSchülerHinzufügenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False" Content="Schüler hinzufügen" Foreground="{StaticResource ContentButtonForeground}" FontSize="15" FontFamily="Segoe UI Semibold"></Label>
+                                                                        <materialDesign:PackIcon x:Name="ÜSchülerHinzufügenPckIco" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource ContentButtonForeground}" Kind="AddBold" Height="20" Width="20" IsHitTestVisible="False"></materialDesign:PackIcon>
+                                                                    </StackPanel>
+                                                                </Grid>
+                                                            </Grid>
+                                                        </Grid>
+                                                    </Border>
+                                                </Grid>
+                                            </Border>
+                                            <Grid Grid.Column="1" Grid.Row="0">
+                                                <Grid Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Visibility="Hidden">
+                                                    <Button x:Name="ÜSitzplanAnzeigenBtn" Uid="5" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" Background="{StaticResource ContentButtonBackground}" Click="ÜSitzplanAnzeigenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp" Width="40" Height="110"/>
+                                                    <materialDesign:PackIcon x:Name="ÜSitzplanAnzeigenPkIco" HorizontalAlignment="Center" VerticalAlignment="Center" Kind="ArrowCollapseLeft" Height="23" Width="23" Foreground="{StaticResource ContentButtonForeground}" IsHitTestVisible="False"></materialDesign:PackIcon>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                    </StackPanel>
                                 </Grid>
-                                <Grid x:Name="LeerGrd">
+                                <Grid x:Name="LeerGrd" Visibility="Visible">
                                     <StackPanel x:Name="LKeineKlasseAusgewähltStkPnl" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Vertical" Visibility="Hidden">
                                         <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="14" Foreground="{StaticResource ContentForeground}" Content="Es ist keine Klasse ausgewählt"></Label>
                                         <materialDesign:PackIcon  Margin="5 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Top" Height="25" Width="25" Kind="ArrowLeftBold" Foreground="{StaticResource ContentButtonForeground}"></materialDesign:PackIcon>

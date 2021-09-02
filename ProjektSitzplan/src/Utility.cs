@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace ProjektSitzplan
@@ -49,5 +50,12 @@ namespace ProjektSitzplan
 
             throw new NotImplementedException();
         }
+
+        #region Extension Methods
+        public static void SetForeground(this Control o, SolidColorBrush color)
+        {
+            o.Foreground = color;
+        }
+        #endregion
     }
 }

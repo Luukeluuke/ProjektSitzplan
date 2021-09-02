@@ -60,6 +60,8 @@ namespace ProjektSitzplan
 
                             LKeineKlasseAusgewähltStkPnl.Visibility = Visibility.Hidden;
 
+                            ZeigeKlasseAn();
+
                             break;
                         }
                 }
@@ -78,6 +80,19 @@ namespace ProjektSitzplan
             set
             {
                 Set(ref ausgewählteKlasse, value);
+            }
+        }
+
+        private Schüler üAusgewählterSchüler;
+        public Schüler ÜAusgewählterSchüler
+        {
+            get
+            {
+                return üAusgewählterSchüler;
+            }
+            set
+            {
+                Set(ref üAusgewählterSchüler, value);
             }
         }
 
@@ -152,11 +167,14 @@ namespace ProjektSitzplan
 
         public MainWindow()
         {
-            //TODO: In Menu typische symbole einbauen // Import export save help
             //TODO: DIe Klasse Exportieren Funktion im Datei Menü Disablen wenn keine ausgewählt ist. Und die speichern funktion auch
             //TODO: Wenn datein importiert die wo die klasse den selben namen hat wie eine bereits vorhandene klasse?
 
             //TODO: Design der Radio Buttons anpassen
+			//TODO: Fix data grid selection bug
+            //TODO: In die KlasseErstellen Ansicht beim Schüler erstellen teil die mögliche verkürzung mit einbauen
+            //TODO: Evtl so machen das wenn bei einem Schüler bereits eine verkürzung angebene ist, und die sitzpläne "ohne ihn" generiert wurden, wenn das dann geändert wird
+            //Also das er nicht mehr verkürzt der entsprechende sitzplan sofort angepasst wird. Bzw das ein Fenster kommt Like: "Hallo, der Sitzplan Block6 ist veraltet... Der schüler xy verkürzt nicht mehr soll er neu generiert werden? Ja nein boom"
 
             InitializeComponent();
 
@@ -391,8 +409,7 @@ namespace ProjektSitzplan
             Button sBtn = Utility.GetButton(sender);
 
             sBtn.Background = PSColors.ContentButtonHoverBackground;
-            ContentLabels[Utility.GetUid(sBtn)].Foreground = PSColors.ContentButtonHoverForeground;
-
+            ContentLabels[Utility.GetUid(sBtn)]?.SetForeground(PSColors.ContentButtonHoverForeground);
             ContentPackIconsSets[Utility.GetUid(sBtn)]?.HandleColor(PackIconSet.EEventType.Enter);
         }
 
@@ -401,7 +418,7 @@ namespace ProjektSitzplan
             Button sBtn = Utility.GetButton(sender);
 
             sBtn.Background = PSColors.ContentButtonBackground;
-            ContentLabels[Utility.GetUid(sBtn)].Foreground = PSColors.ContentButtonForeground;
+            ContentLabels[Utility.GetUid(sBtn)]?.SetForeground(PSColors.ContentButtonForeground);
             ContentPackIconsSets[Utility.GetUid(sBtn)]?.HandleColor(PackIconSet.EEventType.Leave);
         }
 
@@ -410,7 +427,7 @@ namespace ProjektSitzplan
             Button sBtn = Utility.GetButton(sender);
 
             sBtn.Background = PSColors.ContentButtonPreviewBackground;
-            ContentLabels[Utility.GetUid(sBtn)].Foreground = PSColors.ContentButtonPreviewForeground;
+            ContentLabels[Utility.GetUid(sBtn)]?.SetForeground(PSColors.ContentButtonPreviewForeground);
             ContentPackIconsSets[Utility.GetUid(sBtn)]?.HandleColor(PackIconSet.EEventType.PreviewDown);
         }
 
@@ -419,7 +436,7 @@ namespace ProjektSitzplan
             Button sBtn = Utility.GetButton(sender);
 
             sBtn.Background = PSColors.ContentButtonHoverBackground;
-            ContentLabels[Utility.GetUid(sBtn)].Foreground = PSColors.ContentButtonHoverForeground;
+            ContentLabels[Utility.GetUid(sBtn)]?.SetForeground(PSColors.ContentButtonHoverForeground);
             ContentPackIconsSets[Utility.GetUid(sBtn)]?.HandleColor(PackIconSet.EEventType.PreviewUp);
         }
         #endregion
@@ -487,6 +504,17 @@ namespace ProjektSitzplan
                 KEKeineSchülerVorhandenLbl.Visibility = Visibility.Visible;
             }
         }
+
+        private void ZeigeKlasseAn()
+        {
+            ÜKlasseNameLbl.Content = AusgewählteKlasse.Name;
+            ÜKlasseAnzahlSchülerLbl.Content = AusgewählteKlasse.AnzahlSchüler;
+
+            ÜSchülerDtGrd.ItemsSource = null;
+            ÜSchülerDtGrd.ItemsSource = AusgewählteKlasse.SchülerListe;
+            ÜSchülerEntfernenBtn.IsEnabled = ÜSchülerDtGrd.Items.Count > 0;
+
+        }
         #endregion
 
 
@@ -514,7 +542,10 @@ namespace ProjektSitzplan
                 KEKSchülerHinzufügenLbl,
                 KESchülerEntfernenLbl,
                 KEAbbrechenLbl,
-                KEKlasseErstellenLbl
+                KEKlasseErstellenLbl,
+                null,
+                ÜSchülerEntfernenLbl,
+                ÜSchülerHinzufügenLbl
             };
             ContentPackIconsSets = new PackIconSet[]
             {
@@ -522,7 +553,10 @@ namespace ProjektSitzplan
                 new PackIconSet(KESchülerHinzufügenPkIco, PackIconSet.EIconType.Content, PSColors.IconHoverGreen, PSColors.IconPreviewGreen),
                 new PackIconSet(KESchülerEntfernenPkIco, PackIconSet.EIconType.Content, PSColors.IconHoverRed, PSColors.IconPreviewRed),
                 new PackIconSet(KEAbbrechenPkIco, PackIconSet.EIconType.Content, PSColors.IconHoverRed, PSColors.IconPreviewRed),
-                new PackIconSet(KEKlasseErstellenPkIco, PackIconSet.EIconType.Content, PSColors.IconHoverGreen, PSColors.IconPreviewGreen)
+                new PackIconSet(KEKlasseErstellenPkIco, PackIconSet.EIconType.Content, PSColors.IconHoverGreen, PSColors.IconPreviewGreen),
+                new PackIconSet(ÜSitzplanAnzeigenPkIco, PackIconSet.EIconType.Content, PSColors.ContentButtonHoverForeground, PSColors.ContentButtonPreviewForeground),
+                new PackIconSet(ÜSchülerEntfernenPckIco, PackIconSet.EIconType.Content, PSColors.IconHoverRed, PSColors.IconPreviewRed),
+                new PackIconSet(ÜSchülerHinzufügenPckIco, PackIconSet.EIconType.Content, PSColors.IconHoverGreen, PSColors.IconPreviewGreen)
             };
         }
         #endregion
@@ -595,7 +629,8 @@ namespace ProjektSitzplan
         {
             if (!MenuKlassenDtGrd.SelectedIndex.Equals(-1))
             {
-                AusgewählteKlasse = MenuKlassenDtGrd.SelectedItem as SchulKlasse;
+                //TODO: Wenn eine Klassen entfernt wird muss auch Klassen aktualisieren gemacht werden
+                AusgewählteKlasse = DataHandler.SchulKlassen[MenuKlassenDtGrd.SelectedIndex];
 
                 WindowContent = EWindowContent.KlasseÜbersicht;
             }
@@ -743,6 +778,55 @@ namespace ProjektSitzplan
             WindowContent = EWindowContent.Leer;
 
             KlassenAktualisieren();
+        }
+        #endregion
+
+        #endregion
+
+        #region Content - Klasse Übersicht
+        #region ÜSitzplanAnzeigenBtn
+        private void ÜSitzplanAnzeigenBtn_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO: Hier animation einleiten
+        }
+        #endregion
+
+        #region ÜSchülerDtGrd
+        private void ZeigeSchüler()
+        {
+            //TODO: Hier das laden den schülers in das rechte panel
+        }
+
+        private void ÜSchülerDtGrd_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+            if (ÜSchülerDtGrd.SelectedIndex > -1)
+            {
+                ÜAusgewählterSchüler = AusgewählteKlasse.SchülerListe[ÜSchülerDtGrd.SelectedIndex];
+
+                ZeigeSchüler();
+            }
+            else
+            {
+                //TODO: Schüler Info Grid invisible maken
+            }
+        }
+        #endregion
+
+        #region ÜSchülerEntfernenBtn
+        private void ÜSchülerEntfernenBtn_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO: SchülerENtfernen Zeugs
+
+            ÜSchülerEntfernenBtn.IsEnabled = ÜSchülerDtGrd.Items.Count > 0;
+        }
+        #endregion
+
+        #region ÜSchülerHinzufügenBtn
+        private void ÜSchülerHinzufügenBtn_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO: Schüler hinzufügen zeugs
+
+            ÜSchülerEntfernenBtn.IsEnabled = ÜSchülerDtGrd.Items.Count > 0;
         }
         #endregion
         #endregion
