@@ -10,8 +10,7 @@
         Height="600" Width="1000"
         WindowStyle="None" ResizeMode="CanResize" AllowsTransparency="True"
         Loaded="Window_Loaded"
-        x:Name="MyMainWindow"
-        SizeChanged="KlasseÜbersichtGrd_SizeChanged">
+        x:Name="MyMainWindow">
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="32"></WindowChrome>
     </WindowChrome.WindowChrome>
@@ -534,16 +533,22 @@
                                         </Grid>
                                     </Grid>
                                 </Grid>
-                                
-                                
-                                
-                                <Grid x:Name="KlasseÜbersichtGrd" Visibility="Hidden" Background="Green">
+
+
+
+                                <Grid x:Name="KlasseÜbersichtGrd" Visibility="Hidden">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="1.35*"></ColumnDefinition>
                                         <ColumnDefinition Width="*"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
-                                    <Grid x:Name="test" Grid.Column="1" Grid.Row="0"></Grid>
-                                    <Grid x:Name="KlasseÜbersichtContentGrd" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Width="{Binding ElementName=KlasseÜbersichtGrd, Path=Width}" HorizontalAlignment="Left" Background="Red" VerticalAlignment="Stretch">
+                                    <Grid x:Name="container" Grid.Column="1" Grid.Row="0"></Grid>
+                                    <Grid x:Name="KlasseÜbersichtSitzplanGrd" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Background="CornflowerBlue" Visibility="Hidden">
+                                        <Grid x:Name="ÜSitzplanVersteckenGrd" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="Visible">
+                                            <Button x:Name="ÜSitzplanVersteckenBtn" Uid="10" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" Background="{StaticResource ContentButtonBackground}" Click="ÜSitzplanVersteckenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp" Width="40" Height="110"/>
+                                            <materialDesign:PackIcon x:Name="ÜSitzplanVersteckenPkIco" HorizontalAlignment="Center" VerticalAlignment="Center" Kind="ArrowCollapseRight" Height="23" Width="23" Foreground="{StaticResource ContentButtonForeground}" IsHitTestVisible="False"></materialDesign:PackIcon>
+                                        </Grid>
+                                    </Grid>
+                                    <Grid x:Name="KlasseÜbersichtContentGrd" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Width="{Binding ElementName=KlasseÜbersichtGrd, Path=Width}" HorizontalAlignment="Left" VerticalAlignment="Stretch" Background="{StaticResource ContentBackground}">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="1.35*"></ColumnDefinition>
                                             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -783,19 +788,19 @@
                                                 <ColumnDefinition Width="*"></ColumnDefinition>
                                                 <ColumnDefinition Width="Auto"></ColumnDefinition>
                                             </Grid.ColumnDefinitions>
-                                            <Grid Grid.Column="0" Grid.ColumnSpan="2" Width="{Binding ElementName=test, Path=ActualWidth}" Grid.Row="0" HorizontalAlignment="Stretch" Background="Blue">
-                                                
+                                            <Grid Grid.Column="0" Grid.ColumnSpan="2" Width="{Binding ElementName=container, Path=ActualWidth}" Grid.Row="0" HorizontalAlignment="Stretch">
+
                                             </Grid>
-                                            <Grid x:Name="ÜSitzplanAnzeigenGrd" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" Visibility="Hidden" Background="Yellow">
+                                            <Grid x:Name="ÜSitzplanAnzeigenGrd" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" Visibility="Hidden">
                                                 <Button x:Name="ÜSitzplanAnzeigenBtn" Uid="5" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" Background="{StaticResource ContentButtonBackground}" Click="ÜSitzplanAnzeigenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp" Width="40" Height="110"/>
                                                 <materialDesign:PackIcon x:Name="ÜSitzplanAnzeigenPkIco" HorizontalAlignment="Center" VerticalAlignment="Center" Kind="ArrowCollapseLeft" Height="23" Width="23" Foreground="{StaticResource ContentButtonForeground}" IsHitTestVisible="False"></materialDesign:PackIcon>
                                             </Grid>
                                         </Grid>
                                     </Grid>
                                 </Grid>
-                                
-                                
-                                
+
+
+
                                 <Grid x:Name="LeerGrd" Visibility="Visible">
                                     <StackPanel x:Name="LKeineKlasseAusgewähltStkPnl" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Vertical" Visibility="Hidden">
                                         <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="14" Foreground="{StaticResource ContentForeground}" Content="Es ist keine Klasse ausgewählt"></Label>

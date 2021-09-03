@@ -584,7 +584,8 @@ namespace ProjektSitzplan
                 ÜSchülerEntfernenLbl,
                 ÜSchülerHinzufügenLbl,
                 ÜSitzplanEntfernenLbl,
-                ÜSitzplanHinzufügenLbl
+                ÜSitzplanHinzufügenLbl,
+                null
             };
             ContentPackIconsSets = new PackIconSet[]
             {
@@ -597,7 +598,8 @@ namespace ProjektSitzplan
                 new PackIconSet(ÜSchülerEntfernenPckIco, PackIconSet.EIconType.Content, PSColors.IconHoverRed, PSColors.IconPreviewRed),
                 new PackIconSet(ÜSchülerHinzufügenPckIco, PackIconSet.EIconType.Content, PSColors.IconHoverGreen, PSColors.IconPreviewGreen),
                 new PackIconSet(ÜSitzplanEntfernenPckIco, PackIconSet.EIconType.Content, PSColors.IconHoverRed, PSColors.IconPreviewRed),
-                new PackIconSet(ÜSitzplanHinzufügenPckIco, PackIconSet.EIconType.Content, PSColors.IconHoverGreen, PSColors.IconPreviewGreen)
+                new PackIconSet(ÜSitzplanHinzufügenPckIco, PackIconSet.EIconType.Content, PSColors.IconHoverGreen, PSColors.IconPreviewGreen),
+                new PackIconSet(ÜSitzplanVersteckenPkIco, PackIconSet.EIconType.Content, PSColors.ContentButtonHoverForeground, PSColors.ContentButtonPreviewForeground)
             };
         }
         #endregion
@@ -828,36 +830,17 @@ namespace ProjektSitzplan
         #endregion
 
         #region Content - Klasse Übersicht
-        private Thickness Thicc
-        {
-            get
-            {
-                return new Thickness(0 - KlasseÜbersichtGrd.ActualWidth, 0D, 0D, 0D);
-            }
-        }
-        #region KlasseÜbersichtGrd
-        private void KlasseÜbersichtGrd_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            //Binding binding = new Binding("Width");
-            //binding.Source = KlasseÜbersichtGrd.ActualWidth;
-            //KlasseÜbersichtStkPnl.SetBinding(StackPanel.WidthProperty, binding);
-        }
-        #endregion
-
         #region ÜSitzplanAnzeigenBtn
         private void ÜSitzplanAnzeigenBtn_Click(object sender, RoutedEventArgs e)
         {
-            //Storyboard sb = KlasseÜbersichtStkPnl.Resources["SlideLeft"] as Storyboard;
-
-            Storyboard sb = new Storyboard();
-            var animation = new DoubleAnimation(KlasseÜbersichtGrd.ActualWidth, 0D, new Duration(new TimeSpan(0, 0, 0, 0, 250)), FillBehavior.Stop);
+            Storyboard storyboard = new Storyboard();
+            DoubleAnimation animation = new DoubleAnimation(KlasseÜbersichtGrd.ActualWidth, 0D, new Duration(new TimeSpan(0, 0, 0, 0, 350)), FillBehavior.HoldEnd);
             Storyboard.SetTargetProperty(animation, new PropertyPath("Width"));
-            animation.AutoReverse = true;
-            animation.DecelerationRatio = 0.6D;
-            sb.Children.Add(animation);
+            animation.DecelerationRatio = 0.4D;
+            storyboard.Children.Add(animation);
 
-            //KlasseÜbersichtContentGrd.HorizontalAlignment = HorizontalAlignment.Left;
-            sb.Begin(KlasseÜbersichtContentGrd);
+            KlasseÜbersichtSitzplanGrd.Visibility = Visibility.Visible;
+            storyboard.Begin(KlasseÜbersichtContentGrd);
         }
         #endregion
 
@@ -929,6 +912,25 @@ namespace ProjektSitzplan
         {
             //TODO: Neues Sitzplan erstellen Window
             ÜKeineSitzpläneVorhandenLbl.Visibility = ÜSchülerDtGrd.Items.Count > 0 ? Visibility.Hidden : Visibility.Visible;
+        }
+        #endregion
+
+        #region ÜSitzplanVersteckenBtn
+        private void ÜSitzplanVersteckenBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Storyboard storyboard = new Storyboard();
+            DoubleAnimation animation = new DoubleAnimation(0D, KlasseÜbersichtGrd.ActualWidth, new Duration(new TimeSpan(0, 0, 0, 0, 350)), FillBehavior.Stop);
+            Storyboard.SetTargetProperty(animation, new PropertyPath("Width"));
+            animation.DecelerationRatio = 0.4D;
+            animation.Completed += Animation_Completed;
+            storyboard.Children.Add(animation);
+
+            storyboard.Begin(KlasseÜbersichtContentGrd);
+        }
+
+        private void Animation_Completed(object sender, EventArgs e)
+        {
+            KlasseÜbersichtSitzplanGrd.Visibility = Visibility.Hidden;
         }
         #endregion
         #endregion
