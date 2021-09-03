@@ -268,7 +268,7 @@ namespace ProjektSitzplan
 
                         if (klasse.Sitzpläne.Count == 0)
                         {
-                            ErrorHandler.ZeigeFehler(ErrorHandler.ERR_EX_KeinSitzplanInKlasse);
+                            ErrorHandler.ZeigeFehler(ErrorHandler.ERR_EX_KeinSitzplanInKlasse, klasse.Name, "");
                             return;
                         }
 

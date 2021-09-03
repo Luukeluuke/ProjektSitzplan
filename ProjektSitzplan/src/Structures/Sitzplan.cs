@@ -8,16 +8,18 @@ namespace ProjektSitzplan.Structures
 {
     public class SitzplanGenerator
     {
-        public bool BerücksichtigeBeruf = true;
-        public bool BerücksichtigeBetrieb = true;
-        public bool BerücksichtigeGeschlecht = true;
+        public bool BerücksichtigeBeruf;
+        public bool BerücksichtigeBetrieb;
+        public bool BerücksichtigeGeschlecht;
 
         public string Name;
         public int TischAnzahl;
         public int Seed;
         public List<Schüler> Schüler;
 
-        public SitzplanGenerator(List<Schüler> schüler, string name = "", int tischAnzahl = 6, int? seed = null, bool berücksichtigeBeruf = true, bool berücksichtigeBetrieb = true, bool berücksichtigeGeschlecht = true)
+        public bool LetzterBlock;
+
+        public SitzplanGenerator(List<Schüler> schüler, string name = "", int tischAnzahl = 6, int? seed = null, bool berücksichtigeBeruf = true, bool berücksichtigeBetrieb = true, bool berücksichtigeGeschlecht = true, bool letzterBlock = false)
         {
             if (seed == null)
                 Seed = Environment.TickCount;
@@ -30,9 +32,10 @@ namespace ProjektSitzplan.Structures
             BerücksichtigeBeruf = berücksichtigeBeruf;
             BerücksichtigeBetrieb = berücksichtigeBetrieb;
             BerücksichtigeGeschlecht = berücksichtigeGeschlecht;
+            LetzterBlock = letzterBlock;
         }
 
-        public SitzplanGenerator(SchulKlasse klasse, string name, int tischAnzahl, int? seed = null, bool berücksichtigeBeruf = true, bool berücksichtigeBetrieb = true, bool berücksichtigeGeschlecht = true) : this(klasse.SchülerListe, name, tischAnzahl, seed, berücksichtigeBeruf, berücksichtigeBetrieb, berücksichtigeGeschlecht) { }
+        public SitzplanGenerator(SchulKlasse klasse, string name, int tischAnzahl, int? seed = null, bool berücksichtigeBeruf = true, bool berücksichtigeBetrieb = true, bool berücksichtigeGeschlecht = true, bool letzterBlock = false) : this(klasse.SchülerListe, name, tischAnzahl, seed, berücksichtigeBeruf, berücksichtigeBetrieb, berücksichtigeGeschlecht, letzterBlock) { }
     }
 
 
@@ -47,34 +50,36 @@ namespace ProjektSitzplan.Structures
         public bool BerücksichtigeBetrieb = true;
         public bool BerücksichtigeGeschlecht = true;
 
+        public bool LetzterBlock = false;
+
         public int Seed { get; private set; }
 
-        public Sitzplan(SitzplanGenerator generator)
+        private Sitzplan(string name, int tischAnzahl, List<Schüler> schüler, bool letzterBlock, bool berücksichtigeBeruf, bool berücksichtigeBetrieb, bool berücksichtigeGeschlecht, int seed)
         {
-            Name = generator.Name;
-            TischAnzahl = generator.TischAnzahl;
-            Schüler = generator.Schüler;
+            Name = name;
+            TischAnzahl = tischAnzahl;
+            Schüler = schüler;
 
-            Seed = generator.Seed;
+            BerücksichtigeBeruf = berücksichtigeBeruf;
+            BerücksichtigeBetrieb = berücksichtigeBetrieb;
+            BerücksichtigeGeschlecht = berücksichtigeGeschlecht;
 
-            BerücksichtigeBeruf = generator.BerücksichtigeBeruf;
-            BerücksichtigeBetrieb = generator.BerücksichtigeBetrieb;
-            BerücksichtigeGeschlecht = generator.BerücksichtigeGeschlecht;
+            LetzterBlock = letzterBlock;
+            Seed = seed;
+        }
 
-            GeneriereSitzplan(Schüler);
+        public Sitzplan(SitzplanGenerator generator) : this(generator.Name, generator.TischAnzahl, generator.Schüler, generator.LetzterBlock, generator.BerücksichtigeBeruf, generator.BerücksichtigeBetrieb, generator.BerücksichtigeGeschlecht, generator.Seed)
+        {
+            Generieren();
         }
 
         /// <summary>
         /// JSON Constructor | Dieser constructor sollte nur für das laden von json objekten genutzt werden!
         /// </summary>
         [JsonConstructor]
-        public Sitzplan(string name, int tischAnzahl, List<Schüler> schüler, List<TischBlock> tische, int seed)
+        public Sitzplan(string name, int tischAnzahl, List<Schüler> schüler, List<TischBlock> tische, bool letzterBlock, bool berücksichtigeBeruf, bool berücksichtigeBetrieb, bool berücksichtigeGeschlecht, int seed) : this(name, tischAnzahl,schüler,letzterBlock,berücksichtigeBeruf,berücksichtigeBetrieb, berücksichtigeGeschlecht, seed)
         {
-            Name = name;
-            TischAnzahl = tischAnzahl;
-            Schüler = schüler;
             Tische = tische;
-            Seed = seed;
         }
 
         public List<Schüler> Mischen(List<Schüler> originalListe)
@@ -94,9 +99,14 @@ namespace ProjektSitzplan.Structures
             return liste;
         }
 
-        private void GeneriereSitzplan(List<Schüler> schülerListe)
+        private void Generieren()
         {
-            List<Schüler> GemischteSchülerListe = Mischen(schülerListe);
+            if (LetzterBlock && Schüler.Any(s => s.Verkürzt))
+            {
+                //TODO: Dialog öffnen um schkürzte schüler zu handhaben :D
+            }
+
+            List<Schüler> GemischteSchülerListe = Mischen(Schüler);
 
             Tische = new List<TischBlock>();
             for (int i = 0; i < TischAnzahl; i++)
