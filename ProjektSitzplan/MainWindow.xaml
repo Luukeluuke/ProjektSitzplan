@@ -9,7 +9,9 @@
         DataContext="{Binding RelativeSource={RelativeSource self}}"
         Height="600" Width="1000"
         WindowStyle="None" ResizeMode="CanResize" AllowsTransparency="True"
-        Loaded="Window_Loaded">
+        Loaded="Window_Loaded"
+        x:Name="MyMainWindow"
+        SizeChanged="KlasseÜbersichtGrd_SizeChanged">
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="32"></WindowChrome>
     </WindowChrome.WindowChrome>
@@ -532,34 +534,12 @@
                                         </Grid>
                                     </Grid>
                                 </Grid>
-                                <Grid x:Name="KlasseÜbersichtGrd" Visibility="Hidden" SizeChanged="KlasseÜbersichtGrd_SizeChanged">
-                                    <StackPanel x:Name="KlasseÜbersichtStkPnl" VerticalAlignment="Bottom" Panel.ZIndex="-500000" Background="{StaticResource ContentBackground}" Orientation="Horizontal" Margin="0">
-                                        <!--<StackPanel.Resources>
-                                            <Storyboard x:Key="SlideLeft">
-                                                <ThicknessAnimation Storyboard.TargetProperty="Margin" From="0" To="{Binding Thicc}" Duration="0:0:0.1"></ThicknessAnimation>
-                                            </Storyboard>
-                                            <Storyboard x:Key="SlideRight">
-                                                <ThicknessAnimation Storyboard.TargetProperty="Margin" From="{Binding Thicc}" To="0" Duration="0:0:0.1"></ThicknessAnimation>
-                                            </Storyboard>
-                                        </StackPanel.Resources>-->
-                                        <!--<StackPanel.Style>
-                                            <Style TargetType="{x:Type StackPanel}">
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding ElementName=HasSlided}" Value="True">
-                                                        <DataTrigger.EnterActions>
-                                                            <BeginStoryboard Storyboard="{StaticResource SlideLeft}"></BeginStoryboard>
-                                                        </DataTrigger.EnterActions>
-                                                        <DataTrigger.ExitActions>
-                                                            <BeginStoryboard Storyboard="{StaticResource SlideRight}"></BeginStoryboard>
-                                                        </DataTrigger.ExitActions>
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </StackPanel.Style>-->
+                                <Grid x:Name="KlasseÜbersichtGrd" Visibility="Hidden">
+                                    <StackPanel x:Name="KlasseÜbersichtStkPnl" VerticalAlignment="Bottom" HorizontalAlignment="Left" Panel.ZIndex="5" Orientation="Horizontal" Margin="0">
                                         <StackPanel.RenderTransform>
                                             <TranslateTransform/>
                                         </StackPanel.RenderTransform>
-                                        <Grid Height="{Binding ElementName=KlasseÜbersichtGrd, Path=ActualHeight}" Width="{Binding ElementName=KlasseÜbersichtGrd, Path=ActualWidth}" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                                        <Grid Panel.ZIndex="10" Height="{Binding ElementName=KlasseÜbersichtGrd, Path=ActualHeight}" Width="{Binding ElementName=KlasseÜbersichtGrd, Path=ActualWidth}" HorizontalAlignment="Center" VerticalAlignment="Bottom">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="1.35*"></ColumnDefinition>
                                                 <ColumnDefinition Width="*"></ColumnDefinition>
