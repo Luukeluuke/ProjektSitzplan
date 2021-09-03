@@ -75,6 +75,13 @@ namespace ProjektSitzplan.Structures
             Sitzpläne.Remove(sitzplan);
         }
 
+        public Sitzplan ErstelleSitzplanDialog()
+        {
+            //TODO: Öffne window erstellen dialog
+            
+            return ErstelleSitzplan(new SitzplanGenerator(SchülerListe))
+        }
+
 
         public Sitzplan ErstelleSitzplan()
         {
@@ -88,9 +95,13 @@ namespace ProjektSitzplan.Structures
             }
 
             Sitzplan sitzplan = new Sitzplan(sitzplanGenerator);
+            
+            if (!sitzplan.ErfolgreichGeneriert)
+            {
+                return null;
+            }
 
             SitzplanHinzufügen(sitzplan);
-
             return sitzplan;
         }
         #endregion

@@ -78,10 +78,16 @@
     <Compile Include="PsMessageBox.xaml.cs">
       <DependentUpon>PsMessageBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SitzplanVerkürzerWindow.xaml.cs">
+      <DependentUpon>SitzplanVerkürzerWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="src\DataHandler.cs" />
     <Compile Include="src\Design\PSColors.cs" />
     <Compile Include="src\ErrorHandler.cs" />
     <Compile Include="src\PackIconSet.cs" />
+    <Compile Include="SitzplanGenerierenWindow.xaml.cs">
+      <DependentUpon>SitzplanGenerierenWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="src\Structures\Betrieb.cs" />
     <Compile Include="src\Structures\Klasse.cs" />
     <Compile Include="src\Structures\Person.cs" />
@@ -115,11 +121,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="SitzplanVerkürzerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="src\Design\Colors.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="src\Design\Templates.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SitzplanGenerierenWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

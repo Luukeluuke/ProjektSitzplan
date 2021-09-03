@@ -838,9 +838,9 @@ namespace ProjektSitzplan
         #region KlasseÜbersichtGrd
         private void KlasseÜbersichtGrd_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            Binding binding = new Binding("Width");
-            binding.Source = KlasseÜbersichtGrd.ActualWidth;
-            KlasseÜbersichtStkPnl.SetBinding(StackPanel.WidthProperty, binding);
+            //Binding binding = new Binding("Width");
+            //binding.Source = KlasseÜbersichtGrd.ActualWidth;
+            //KlasseÜbersichtStkPnl.SetBinding(StackPanel.WidthProperty, binding);
         }
         #endregion
 
@@ -850,19 +850,31 @@ namespace ProjektSitzplan
             //Storyboard sb = KlasseÜbersichtStkPnl.Resources["SlideLeft"] as Storyboard;
 
             Storyboard sb = new Storyboard();
-            var yes = new DoubleAnimation(KlasseÜbersichtGrd.ActualWidth, 0D, new Duration(new TimeSpan(0, 0, 0, 1, 0)));
-            Storyboard.SetTargetProperty(yes, new PropertyPath("Width"));
-            yes.DecelerationRatio = 0.3D;
-            yes.AutoReverse = true;
-            sb.Children.Add(yes);
-            MyMainWindow.ResizeMode = ResizeMode.NoResize;
-            sb.Begin(KlasseÜbersichtStkPnl);
-            yes.Completed += yes_Completed;
+            var animation = new DoubleAnimation(KlasseÜbersichtGrd.ActualWidth, 0D, new Duration(new TimeSpan(0, 0, 0, 1, 0)));
+            Storyboard.SetTargetProperty(animation, new PropertyPath("Width"));
+            animation.DecelerationRatio = 0.3D;
+            animation.AutoReverse = true;
+            animation.Completed += yes_Completed; 
+            sb.Children.Add(animation);
+            //MyMainWindow.ResizeMode = ResizeMode.NoResize;
+
+            //KlasseÜbersichtContentGrd.HorizontalAlignment = HorizontalAlignment.Left;
+            sb.Begin(KlasseÜbersichtContentGrd);
         }
 
         private void yes_Completed(object sender, EventArgs e)
         {
-            MyMainWindow.ResizeMode = ResizeMode.CanResize;
+            //MyMainWindow.ResizeMode = ResizeMode.CanResize;
+            //KlasseÜbersichtContentGrd.HorizontalAlignment = HorizontalAlignment.Stretch;
+
+
+            //KlasseÜbersichtContentGrd
+            //Binding myBinding = new Binding("Width");
+            //myBinding.Source = KlasseÜbersichtGrd.Width; //WTF check ich nicht wieso ist der button jetzt in der mitte
+            //BindingOperations.SetBinding(KlasseÜbersichtContentGrd, Grid.WidthProperty, myBinding);
+
+            
+
         }
         #endregion
 

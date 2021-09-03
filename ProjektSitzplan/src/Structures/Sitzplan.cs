@@ -54,6 +54,9 @@ namespace ProjektSitzplan.Structures
 
         public int Seed { get; private set; }
 
+        [JsonIgnore]
+        public bool ErfolgreichGeneriert { get; private set; }
+
         private Sitzplan(string name, int tischAnzahl, List<Schüler> schüler, bool letzterBlock, bool berücksichtigeBeruf, bool berücksichtigeBetrieb, bool berücksichtigeGeschlecht, int seed)
         {
             Name = name;
@@ -70,7 +73,7 @@ namespace ProjektSitzplan.Structures
 
         public Sitzplan(SitzplanGenerator generator) : this(generator.Name, generator.TischAnzahl, generator.Schüler, generator.LetzterBlock, generator.BerücksichtigeBeruf, generator.BerücksichtigeBetrieb, generator.BerücksichtigeGeschlecht, generator.Seed)
         {
-            Generieren();
+            ErfolgreichGeneriert = Generieren();
         }
 
         /// <summary>
@@ -80,6 +83,7 @@ namespace ProjektSitzplan.Structures
         public Sitzplan(string name, int tischAnzahl, List<Schüler> schüler, List<TischBlock> tische, bool letzterBlock, bool berücksichtigeBeruf, bool berücksichtigeBetrieb, bool berücksichtigeGeschlecht, int seed) : this(name, tischAnzahl,schüler,letzterBlock,berücksichtigeBeruf,berücksichtigeBetrieb, berücksichtigeGeschlecht, seed)
         {
             Tische = tische;
+            ErfolgreichGeneriert = true;
         }
 
         public List<Schüler> Mischen(List<Schüler> originalListe)
@@ -99,7 +103,7 @@ namespace ProjektSitzplan.Structures
             return liste;
         }
 
-        private void Generieren()
+        private bool Generieren()
         {
             if (LetzterBlock && Schüler.Any(s => s.Verkürzt))
             {
