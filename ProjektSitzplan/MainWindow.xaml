@@ -538,7 +538,12 @@
                                 
                                 
                                 <Grid x:Name="KlasseÜbersichtGrd" Visibility="Hidden" Background="Green">
-                                    <Grid x:Name="KlasseÜbersichtContentGrd" HorizontalAlignment="Left" Background="Red" VerticalAlignment="Stretch">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1.35*"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid x:Name="test" Grid.Column="1" Grid.Row="0"></Grid>
+                                    <Grid x:Name="KlasseÜbersichtContentGrd" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Width="{Binding ElementName=KlasseÜbersichtGrd, Path=Width}" HorizontalAlignment="Left" Background="Red" VerticalAlignment="Stretch">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="1.35*"></ColumnDefinition>
                                             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -773,11 +778,15 @@
                                                 </Grid>
                                             </Grid>
                                         </Border>
-                                        <Grid Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch">
-                                            <Grid Background="Blue">
+                                        <Grid Grid.Column="1" Grid.Row="0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid Grid.Column="0" Grid.ColumnSpan="2" Width="{Binding ElementName=test, Path=ActualWidth}" Grid.Row="0" HorizontalAlignment="Stretch" Background="Blue">
                                                 
                                             </Grid>
-                                            <Grid x:Name="ÜSitzplanAnzeigenGrd" HorizontalAlignment="Right" VerticalAlignment="Center" Visibility="Hidden" Background="Yellow">
+                                            <Grid x:Name="ÜSitzplanAnzeigenGrd" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" Visibility="Hidden" Background="Yellow">
                                                 <Button x:Name="ÜSitzplanAnzeigenBtn" Uid="5" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" Background="{StaticResource ContentButtonBackground}" Click="ÜSitzplanAnzeigenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp" Width="40" Height="110"/>
                                                 <materialDesign:PackIcon x:Name="ÜSitzplanAnzeigenPkIco" HorizontalAlignment="Center" VerticalAlignment="Center" Kind="ArrowCollapseLeft" Height="23" Width="23" Foreground="{StaticResource ContentButtonForeground}" IsHitTestVisible="False"></materialDesign:PackIcon>
                                             </Grid>

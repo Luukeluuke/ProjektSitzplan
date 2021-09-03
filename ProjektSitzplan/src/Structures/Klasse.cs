@@ -78,8 +78,8 @@ namespace ProjektSitzplan.Structures
         public Sitzplan ErstelleSitzplanDialog()
         {
             //TODO: Öffne window erstellen dialog
-            
-            return ErstelleSitzplan(new SitzplanGenerator(SchülerListe))
+
+            return ErstelleSitzplan(new SitzplanGenerator(SchülerListe));
         }
 
 

@@ -152,6 +152,8 @@ namespace ProjektSitzplan.Structures
             Berücksichtigung des Geschlechts (optional) 
             Verteilparameter einstellbar (optional)
             */
+
+            return true;
         }
 
         private Schüler WähleGeeignetenSchüler(TischBlock tisch, List<Schüler> gemischteSchüler)
