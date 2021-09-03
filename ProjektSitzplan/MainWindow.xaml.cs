@@ -12,6 +12,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
@@ -837,7 +838,9 @@ namespace ProjektSitzplan
         #region KlasseÜbersichtGrd
         private void KlasseÜbersichtGrd_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            //TODO: Slide offset lol kramk xd hnenb
+            Binding binding = new Binding("Width");
+            binding.Source = KlasseÜbersichtGrd.ActualWidth;
+            KlasseÜbersichtStkPnl.SetBinding(StackPanel.WidthProperty, binding);
         }
         #endregion
 
@@ -847,17 +850,19 @@ namespace ProjektSitzplan
             //Storyboard sb = KlasseÜbersichtStkPnl.Resources["SlideLeft"] as Storyboard;
 
             Storyboard sb = new Storyboard();
-            var yes = new ThicknessAnimation(new Thickness(0), Thicc, new Duration(new TimeSpan(0, 0, 0, 0, 800)));
-            yes.AccelerationRatio = 0.9D;
-            Storyboard.SetTargetProperty(yes, new PropertyPath("Margin"));
+            var yes = new DoubleAnimation(KlasseÜbersichtGrd.ActualWidth, 0D, new Duration(new TimeSpan(0, 0, 0, 1, 0)));
+            Storyboard.SetTargetProperty(yes, new PropertyPath("Width"));
+            yes.DecelerationRatio = 0.3D;
+            yes.AutoReverse = true;
             sb.Children.Add(yes);
+            MyMainWindow.ResizeMode = ResizeMode.NoResize;
             sb.Begin(KlasseÜbersichtStkPnl);
-            sb.Completed += Sb_Completed;
+            yes.Completed += yes_Completed;
         }
 
-        private void Sb_Completed(object sender, EventArgs e)
+        private void yes_Completed(object sender, EventArgs e)
         {
-
+            MyMainWindow.ResizeMode = ResizeMode.CanResize;
         }
         #endregion
 
@@ -915,6 +920,7 @@ namespace ProjektSitzplan
             }
         }
         #endregion
+        
         #region ÜSitzplanEntfernenBtn
         private void ÜSitzplanEntfernenBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -930,7 +936,6 @@ namespace ProjektSitzplan
             ÜKeineSitzpläneVorhandenLbl.Visibility = ÜSchülerDtGrd.Items.Count > 0 ? Visibility.Hidden : Visibility.Visible;
         }
         #endregion
-
         #endregion
     }
 }
