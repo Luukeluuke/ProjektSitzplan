@@ -140,6 +140,7 @@ namespace ProjektSitzplan
         public static RoutedCommand CommandRefresh = new RoutedCommand();
         public static RoutedCommand CommandUndo = new RoutedCommand();
         public static RoutedCommand CommandRedo = new RoutedCommand();
+        public static RoutedCommand CommandFullscreen = new RoutedCommand();
 
         public static RoutedCommand CommandTest = new RoutedCommand();
 
@@ -153,6 +154,7 @@ namespace ProjektSitzplan
             CommandUndo.InputGestures.Add(new KeyGesture(Key.Z, ModifierKeys.Control));
             CommandRedo.InputGestures.Add(new KeyGesture(Key.Z, ModifierKeys.Control | ModifierKeys.Shift));
             CommandRedo.InputGestures.Add(new KeyGesture(Key.Y, ModifierKeys.Control));
+            CommandFullscreen.InputGestures.Add(new KeyGesture(Key.F11));
 
             //TODO: @TESTCLASS REMOVE THIS WHEN REMOVING TEST CLASS
             CommandTest.InputGestures.Add(new KeyGesture(Key.F2));
@@ -161,6 +163,7 @@ namespace ProjektSitzplan
             CommandBindings.Add(new CommandBinding(CommandImport, MenuKlasseImportierenBtn_Click));
             CommandBindings.Add(new CommandBinding(CommandExport, MenuKlasseExportierenBtn_Click));
             CommandBindings.Add(new CommandBinding(CommandRefresh, KlassenAktualisieren));
+            CommandBindings.Add(new CommandBinding(CommandFullscreen, DoRestoreStuff));
 
             CommandBindings.Add(new CommandBinding(CommandTest, TestingEvnt));
         }
@@ -350,6 +353,34 @@ namespace ProjektSitzplan
 
         #region Allgemeine Events
         #region TopBarButtons
+        private void DoRestoreStuff(object sender = null, RoutedEventArgs e = null)
+        {
+            if (WindowState.Equals(WindowState.Normal))
+            {
+                WindowState = WindowState.Maximized;
+                WindowRestoreButton.ToolTip = new ToolTip()
+                {
+                    Content = "Verkleinern",
+                    Foreground = PSColors.ToolTipForeground,
+                    Background = PSColors.ToolTipBackground,
+                    FontFamily = new FontFamily("Segoe UI Semibold"),
+                    FontSize = 12
+                };
+            }
+            else
+            {
+                WindowState = WindowState.Normal;
+                WindowRestoreButton.ToolTip = new ToolTip()
+                {
+                    Content = "Maximieren",
+                    Foreground = PSColors.ToolTipForeground,
+                    Background = PSColors.ToolTipBackground,
+                    FontFamily = new FontFamily("Segoe UI Semibold"),
+                    FontSize = 12
+                };
+            }
+        }
+
         private void TopBarButton_Click(object sender, RoutedEventArgs e)
         {
             Button sBtn = Utility.GetButton(sender);
@@ -363,30 +394,7 @@ namespace ProjektSitzplan
                     }
                 case "1": //Restore
                     {
-                        if (WindowState.Equals(WindowState.Normal))
-                        {
-                            WindowState = WindowState.Maximized;
-                            WindowRestoreButton.ToolTip = new ToolTip()
-                            {
-                                Content = "Verkleinern",
-                                Foreground = PSColors.ToolTipForeground,
-                                Background = PSColors.ToolTipBackground,
-                                FontFamily = new FontFamily("Segoe UI Semibold"),
-                                FontSize = 12
-                            };
-                        }
-                        else
-                        {
-                            WindowState = WindowState.Normal;
-                            WindowRestoreButton.ToolTip = new ToolTip()
-                            {
-                                Content = "Maximieren",
-                                Foreground = PSColors.ToolTipForeground,
-                                Background = PSColors.ToolTipBackground,
-                                FontFamily = new FontFamily("Segoe UI Semibold"),
-                                FontSize = 12
-                            };
-                        }
+                        DoRestoreStuff();
                         return;
                     }
                 case "2": //Close
@@ -916,7 +924,7 @@ namespace ProjektSitzplan
         private void ÜSitzplanHinzufügenBtn_Click(object sender, RoutedEventArgs e)
         {
             //TODO: Neues Sitzplan erstellen Window
-            ÜKeineSitzpläneVorhandenLbl.Visibility = ÜSchülerDtGrd.Items.Count > 0 ? Visibility.Hidden : Visibility.Visible;
+            ÜKeineSitzpläneVorhandenLbl.Visibility = ÜSitzpläneDtGrd.Items.Count > 0 ? Visibility.Hidden : Visibility.Visible;
         }
         #endregion
 
@@ -938,7 +946,6 @@ namespace ProjektSitzplan
             KlasseÜbersichtSitzplanGrd.Visibility = Visibility.Hidden;
         }
         #endregion
-
         #endregion
     }
 }
