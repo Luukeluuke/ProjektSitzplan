@@ -897,8 +897,13 @@ namespace ProjektSitzplan
                 ÜSitzplanAnzeigenGrd.Visibility = Visibility.Hidden;
             }
         }
+
+        private void DataGridRow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            ÜSitzplanAnzeigenBtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+        }
         #endregion
-        
+
         #region ÜSitzplanEntfernenBtn
         private void ÜSitzplanEntfernenBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -933,6 +938,7 @@ namespace ProjektSitzplan
             KlasseÜbersichtSitzplanGrd.Visibility = Visibility.Hidden;
         }
         #endregion
+
         #endregion
     }
 }

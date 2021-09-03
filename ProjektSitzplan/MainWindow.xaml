@@ -713,6 +713,7 @@
                                                                         </Style.Triggers>
                                                                     </Style>
                                                                     <Style TargetType="{x:Type DataGridRow}">
+                                                                        <EventSetter Event="MouseDoubleClick" Handler="DataGridRow_MouseDoubleClick"></EventSetter>
                                                                         <Setter Property="Background" Value="{x:Null}"></Setter>
                                                                         <Setter Property="Margin" Value="0"></Setter>
                                                                         <Setter Property="IsHitTestVisible" Value="True"></Setter>
