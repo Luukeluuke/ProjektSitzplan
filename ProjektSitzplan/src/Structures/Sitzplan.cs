@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace ProjektSitzplan.Structures
@@ -176,6 +177,14 @@ namespace ProjektSitzplan.Structures
                 punkte += tisch.Sitzplätze.Any(sitzplatz => sitzplatz.Geschlecht == schüler.Geschlecht) ? -1 : 1;
 
             return punkte;
+        }
+
+
+        public void AlsPDFExportieren(string path)
+        {
+            Directory.CreateDirectory(Path.GetDirectoryName(path));
+            
+            // TODO: @Marco Export logic here or be called from here :D
         }
     }
 }

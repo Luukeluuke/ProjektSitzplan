@@ -265,6 +265,13 @@ namespace ProjektSitzplan
                             ErrorHandler.ZeigeFehler(ErrorHandler.ERR_EX_KeineKlasseAusgewählt);
                             return;
                         }
+
+                        if (klasse.Sitzpläne.Count == 0)
+                        {
+                            ErrorHandler.ZeigeFehler(ErrorHandler.ERR_EX_KeinSitzplanInKlasse);
+                            return;
+                        }
+
                         ExportWindowPDF pdfExportWindow = new ExportWindowPDF(klasse);
                         if (pdfExportWindow.ShowDialog().Value)
                         {

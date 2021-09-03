@@ -9,8 +9,6 @@ namespace ProjektSitzplan.Structures
         public EGeschlecht Geschlecht { get; private set; }
         public EBeruf Beruf { get; private set; }
 
-        // todo bild?
-
         public enum EGeschlecht : ushort
         {
             Männlich = 0,
@@ -27,6 +25,14 @@ namespace ProjektSitzplan.Structures
             ITSystemmanagement = 5,
             DigitalisierungsManagement = 6,
             SystemElektroniker = 7
+        }
+
+        public Person(Person person)
+        {
+            Vorname = person.Vorname;
+            Nachname = person.Nachname;
+            Geschlecht = person.Geschlecht;
+            Beruf = person.Beruf;
         }
 
         [JsonConstructor]

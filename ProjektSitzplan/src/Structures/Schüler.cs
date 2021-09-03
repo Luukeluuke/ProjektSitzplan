@@ -4,19 +4,27 @@ namespace ProjektSitzplan.Structures
 {
     public class Schüler : Person
     {
-        public Betrieb AusbildungsBetrieb { get; private set; }
+        public Betrieb AusbildungsBetrieb;
+        public bool Verkürzt;
         // todo bild
-        // todo verkürzt
 
-        [JsonConstructor]
-        public Schüler(string vorname, string nachname, EGeschlecht geschlecht, EBeruf beruf, Betrieb ausbildungsBetrieb) : base(vorname, nachname, geschlecht, beruf)
+
+        public Schüler(Person person, Betrieb ausbildungsBetrieb, bool verkürzt) : base(person)
         {
             AusbildungsBetrieb = ausbildungsBetrieb;
+            Verkürzt = verkürzt;
+        }
+
+        [JsonConstructor]
+        public Schüler(string vorname, string nachname, EGeschlecht geschlecht, EBeruf beruf, Betrieb ausbildungsBetrieb, bool verkürzt) : base(vorname, nachname, geschlecht, beruf)
+        {
+            AusbildungsBetrieb = ausbildungsBetrieb;
+            Verkürzt = verkürzt;
         }
 
         public override string ToString()
         {
-            return $"{base.ToString()}, Betrieb: {AusbildungsBetrieb.Name}";
+            return $"{base.ToString()}, Betrieb: {AusbildungsBetrieb.Name}, Verkürzt: {Verkürzt}";
         }
     }
 }
