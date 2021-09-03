@@ -10,9 +10,20 @@
         public static readonly string ERR_KE_KlasserExistiertBereits = "Es existiert bereits eine Klasse mit diesem Namen.\nBitte geben Sie einen anderen Namen ein.";
         #endregion
 
-        #region Klasse Export
+        #region Export
+        
+        #region Klasse
         // eigentlich ein should never heppen ding aber naja egal :D
         public static readonly string ERR_EX_KeineKlasseAusgewählt = "Keine Klasse zum exportieren ausgewählt.";
+        #endregion
+
+        #region Sitzplan
+        public static readonly string ERR_EX_KeinSitzplanInKlasse = "Es ist kein Sitzplan vorhanden, bitter erstellen sie zuerst welche."; //TODO bessere fehlermeldung i guess?
+
+        // eigentlich ein should never heppen ding aber naja egal :D
+        public static readonly string ERR_EX_KeinSitzplanAusgewählt = "Kein Sitzplan zum exportieren ausgewählt.";
+        #endregion
+
         #endregion
 
         #region Schüler Hinzufügen

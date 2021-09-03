@@ -725,7 +725,7 @@ namespace ProjektSitzplan
             string nachname = KESchülerNachnameTxbx.Text.Trim();
             string betrieb = KESchülerBetriebTxbx.Text.Trim();
 
-            if (vorname == "" || nachname == "" || betrieb == "")
+            if (string.IsNullOrWhiteSpace(vorname) || string.IsNullOrWhiteSpace(nachname) || string.IsNullOrWhiteSpace(betrieb))
             {
                 ErrorHandler.ZeigeFehler(ErrorHandler.ERR_SH_PflichtfelderNichtAusgefüllt);
                 return;
@@ -744,7 +744,11 @@ namespace ProjektSitzplan
                 return;
             }
 
-            Schüler neuerSchüler = new Schüler(vorname, nachname, geschlecht, beruf, new Betrieb(betrieb));
+            bool verkürzt = false;
+            // TODO: integrate verkürtzt as checkbox or something idk...
+            // TODO: sollte das auch im datagrid angezeigt werden??
+
+            Schüler neuerSchüler = new Schüler(vorname, nachname, geschlecht, beruf, new Betrieb(betrieb), verkürzt);
 
             KESchülerListe.Add(neuerSchüler);
             KESchülerDtGrd.ItemsSource = null;
@@ -754,7 +758,7 @@ namespace ProjektSitzplan
             AktualisiereKESchülerDtGrd();
 
             KESchülerFelderLeeren();
-            // TODO: schüler werden nicht richtig angezeigt!!
+            // TODO: schüler werden nicht richtig angezeigt!! is das bereits gefixt???
         }
         #endregion
 

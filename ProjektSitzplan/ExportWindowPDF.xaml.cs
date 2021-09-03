@@ -1,4 +1,5 @@
-﻿using ProjektSitzplan.Design;
+﻿using Microsoft.Win32;
+using ProjektSitzplan.Design;
 using ProjektSitzplan.Structures;
 using System;
 using System.Collections.Generic;
@@ -198,10 +199,26 @@ namespace ProjektSitzplan
 
             Sitzplan sitzplan = (Sitzplan)EXPDFGefundenSitzpläneDtGrd.SelectedItem;
 
-            // TODO: Export logic here or be called from here :D
+            if (sitzplan == null)
+            {
+                ErrorHandler.ZeigeFehler(ErrorHandler.ERR_EX_KeinSitzplanAusgewählt);
+                return;
+            }
 
-            // TODO: return export path...
-            exportPath = "/todo/path...";
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "PDF files (*.pdf)|*.pdf";
+            saveFileDialog.FileName = $"{sitzplan.Name}.pdf";
+            saveFileDialog.DefaultExt = ".pdf";
+            saveFileDialog.InitialDirectory = $@"{Environment.CurrentDirectory}\SchulKlassen";
+
+
+            if (!saveFileDialog.ShowDialog().Value)
+                return;
+
+            sitzplan.AlsPDFExportieren(saveFileDialog.FileName);
+
+            exportPath = saveFileDialog.FileName;
             exportSitzplan = sitzplan.Name;
 
             DialogResult = true;
