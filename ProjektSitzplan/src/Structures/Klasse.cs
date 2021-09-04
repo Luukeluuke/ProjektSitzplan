@@ -28,7 +28,6 @@ namespace ProjektSitzplan.Structures
         private static string errorSitzplanHinzufügen = "Sitzplan konnte der Klasse nicht hinzugefügt werden.";
         #endregion
 
-
         #region Constructors
         public SchulKlasse(string name)
         {
@@ -75,34 +74,51 @@ namespace ProjektSitzplan.Structures
             Sitzpläne.Remove(sitzplan);
         }
 
-        public Sitzplan ErstelleSitzplanDialog()
+        public void ErstelleSitzplanDialog()
         {
-            //TODO: Öffne window erstellen dialog
+            SitzplanGenerierenWindow erstellDialog = new SitzplanGenerierenWindow(this);
 
-            return ErstelleSitzplan(new SitzplanGenerator(SchülerListe));
+            erstellDialog.ShowDialog();
+
+            if (!erstellDialog.Erfolgreich)
+            {
+                return;
+            }
+
+            ErstelleSitzplan(erstellDialog.Generator);
         }
 
 
         public Sitzplan ErstelleSitzplan()
         {
-            return ErstelleSitzplan(new SitzplanGenerator(SchülerListe));
+            return ErstelleSitzplan(new SitzplanGenerator(this));
         }
+
         public Sitzplan ErstelleSitzplan(SitzplanGenerator sitzplanGenerator)
         {
-            if (string.IsNullOrWhiteSpace(sitzplanGenerator.Name))
-            {
-                sitzplanGenerator.Name = $"Sitzplan-{Sitzpläne.Count + 1}";
-            }
-
             Sitzplan sitzplan = new Sitzplan(sitzplanGenerator);
-            
+
             if (!sitzplan.ErfolgreichGeneriert)
             {
                 return null;
             }
 
             SitzplanHinzufügen(sitzplan);
+
+            Speichern();
             return sitzplan;
+        }
+
+        public SchulBlock FreierBlock()
+        {
+            SchulBlock schulBlock = SchulBlock.Current;
+            foreach (SchulBlock block in Enum.GetValues(typeof(SchulBlock)))
+            {
+                schulBlock = block;
+                if (!Sitzpläne.Any(sitzplan => sitzplan.BlockSitzplan.Equals(block))) break;
+            }
+
+            return schulBlock.Equals(SchulBlock.Current) ? SchulBlock.Custom : schulBlock;
         }
         #endregion
 
@@ -171,6 +187,11 @@ namespace ProjektSitzplan.Structures
             catch (JsonSerializationException) { }
 
             return null;
+        }
+
+        public void Speichern()
+        {
+            DataHandler.SpeicherSchulKlasse(this);
         }
         #endregion
 

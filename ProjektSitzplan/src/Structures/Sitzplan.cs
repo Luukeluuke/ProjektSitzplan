@@ -6,8 +6,22 @@ using System.Linq;
 
 namespace ProjektSitzplan.Structures
 {
+    public enum SchulBlock
+    {
+        Block1,
+        Block2,
+        Block3,
+        Block4,
+        Block5,
+        Block6,
+        Custom,
+        Current
+    }
+
     public class SitzplanGenerator
     {
+        private readonly string standardName = "Sitzplan-{0}";
+
         public bool BerücksichtigeBeruf;
         public bool BerücksichtigeBetrieb;
         public bool BerücksichtigeGeschlecht;
@@ -17,25 +31,97 @@ namespace ProjektSitzplan.Structures
         public int Seed;
         public List<Schüler> Schüler;
 
-        public bool LetzterBlock;
+        private SchulKlasse Klasse;
 
-        public SitzplanGenerator(List<Schüler> schüler, string name = "", int tischAnzahl = 6, int? seed = null, bool berücksichtigeBeruf = true, bool berücksichtigeBetrieb = true, bool berücksichtigeGeschlecht = true, bool letzterBlock = false)
+        public SchulBlock BlockType;
+
+        public SitzplanGenerator(SchulKlasse klasse, string name = "", int tischAnzahl = 6, int? seed = null, bool berücksichtigeBeruf = true, bool berücksichtigeBetrieb = true, bool berücksichtigeGeschlecht = true, SchulBlock blockSitzplan = SchulBlock.Current)
         {
+            Klasse = klasse;
+            Schüler = klasse.SchülerListe;
+            TischAnzahl = tischAnzahl;
+            BerücksichtigeBeruf = berücksichtigeBeruf;
+            BerücksichtigeBetrieb = berücksichtigeBetrieb;
+            BerücksichtigeGeschlecht = berücksichtigeGeschlecht;
+
+            BlockType = (blockSitzplan.Equals(SchulBlock.Current)) ? klasse.FreierBlock() : blockSitzplan;
+
             if (seed == null)
                 Seed = Environment.TickCount;
             else
                 Seed = seed.Value;
 
-            Name = name;
-            Schüler = schüler;
-            TischAnzahl = tischAnzahl;
-            BerücksichtigeBeruf = berücksichtigeBeruf;
-            BerücksichtigeBetrieb = berücksichtigeBetrieb;
-            BerücksichtigeGeschlecht = berücksichtigeGeschlecht;
-            LetzterBlock = letzterBlock;
+            #region Name
+            Name = string.IsNullOrWhiteSpace(name) ? GeneriereNamen() : name;
+
+            if (NameBereitsInliste(Name))
+            {
+                Name = FindeNächstenNamen(Name);
+            }
+            #endregion
         }
 
-        public SitzplanGenerator(SchulKlasse klasse, string name, int tischAnzahl, int? seed = null, bool berücksichtigeBeruf = true, bool berücksichtigeBetrieb = true, bool berücksichtigeGeschlecht = true, bool letzterBlock = false) : this(klasse.SchülerListe, name, tischAnzahl, seed, berücksichtigeBeruf, berücksichtigeBetrieb, berücksichtigeGeschlecht, letzterBlock) { }
+
+        #region Klassen Suchen
+
+        private string GeneriereNamen()
+        {
+            switch(BlockType)
+            {
+                case SchulBlock.Block1:
+                    {
+                        return "Block-1";
+                    }
+                case SchulBlock.Block2:
+                    {
+                        return "Block-2";
+                    }
+                case SchulBlock.Block3:
+                    {
+                        return "Block-3";
+                    }
+                case SchulBlock.Block4:
+                    {
+                        return "Block-4";
+                    }
+                case SchulBlock.Block5:
+                    {
+                        return "Block-5";
+                    }
+                case SchulBlock.Block6:
+                    {
+                        return "Block-6";
+                    }
+            }
+
+
+            return FindeNächstenNamen(standardName);
+        }
+
+        private string FindeNächstenNamen(string name)
+        {
+            if (!name.EndsWith("-{0}")) name += "-{0}";
+
+            int i = 0;
+            string neuerName;
+            do
+            {
+                i++;
+                neuerName = string.Format(name, i);
+            }
+            while (NameBereitsInliste(neuerName));
+
+            return neuerName;
+        }
+
+        private bool NameBereitsInliste(string name)
+        {
+            return Klasse.Sitzpläne.Any(sitzplan => sitzplan.Name.Equals(name));
+        }
+
+        #endregion
+
+
     }
 
 
@@ -46,18 +132,18 @@ namespace ProjektSitzplan.Structures
         public List<Schüler> Schüler { get; private set; }
         public List<TischBlock> Tische { get; private set; }
 
-        public bool BerücksichtigeBeruf = true;
-        public bool BerücksichtigeBetrieb = true;
-        public bool BerücksichtigeGeschlecht = true;
+        public bool BerücksichtigeBeruf { get; private set; }
+        public bool BerücksichtigeBetrieb { get; private set; }
+        public bool BerücksichtigeGeschlecht { get; private set; }
 
-        public bool LetzterBlock = false;
+        public SchulBlock BlockSitzplan;
 
         public int Seed { get; private set; }
 
         [JsonIgnore]
         public bool ErfolgreichGeneriert { get; private set; }
 
-        private Sitzplan(string name, int tischAnzahl, List<Schüler> schüler, bool letzterBlock, bool berücksichtigeBeruf, bool berücksichtigeBetrieb, bool berücksichtigeGeschlecht, int seed)
+        private Sitzplan(string name, int tischAnzahl, List<Schüler> schüler, SchulBlock blockSitzplan, bool berücksichtigeBeruf, bool berücksichtigeBetrieb, bool berücksichtigeGeschlecht, int seed)
         {
             Name = name;
             TischAnzahl = tischAnzahl;
@@ -67,11 +153,12 @@ namespace ProjektSitzplan.Structures
             BerücksichtigeBetrieb = berücksichtigeBetrieb;
             BerücksichtigeGeschlecht = berücksichtigeGeschlecht;
 
-            LetzterBlock = letzterBlock;
+            BlockSitzplan = blockSitzplan;
             Seed = seed;
         }
 
-        public Sitzplan(SitzplanGenerator generator) : this(generator.Name, generator.TischAnzahl, generator.Schüler, generator.LetzterBlock, generator.BerücksichtigeBeruf, generator.BerücksichtigeBetrieb, generator.BerücksichtigeGeschlecht, generator.Seed)
+        public Sitzplan(SitzplanGenerator generator) :
+            this(generator.Name, generator.TischAnzahl, generator.Schüler, generator.BlockType, generator.BerücksichtigeBeruf, generator.BerücksichtigeBetrieb, generator.BerücksichtigeGeschlecht, generator.Seed)
         {
             ErfolgreichGeneriert = Generieren();
         }
@@ -80,7 +167,8 @@ namespace ProjektSitzplan.Structures
         /// JSON Constructor | Dieser constructor sollte nur für das laden von json objekten genutzt werden!
         /// </summary>
         [JsonConstructor]
-        public Sitzplan(string name, int tischAnzahl, List<Schüler> schüler, List<TischBlock> tische, bool letzterBlock, bool berücksichtigeBeruf, bool berücksichtigeBetrieb, bool berücksichtigeGeschlecht, int seed) : this(name, tischAnzahl,schüler,letzterBlock,berücksichtigeBeruf,berücksichtigeBetrieb, berücksichtigeGeschlecht, seed)
+        public Sitzplan(string name, int tischAnzahl, List<Schüler> schüler, List<TischBlock> tische, SchulBlock blockSitzplan, bool berücksichtigeBeruf, bool berücksichtigeBetrieb, bool berücksichtigeGeschlecht, int seed) :
+            this(name, tischAnzahl, schüler, blockSitzplan, berücksichtigeBeruf, berücksichtigeBetrieb, berücksichtigeGeschlecht, seed)
         {
             Tische = tische;
             ErfolgreichGeneriert = true;
@@ -105,9 +193,11 @@ namespace ProjektSitzplan.Structures
 
         private bool Generieren()
         {
-            if (LetzterBlock && Schüler.Any(s => s.Verkürzt))
+            if (BlockSitzplan.Equals(SchulBlock.Block6) && Schüler.Any(s => s.Verkürzt))
             {
                 //TODO: Dialog öffnen um schkürzte schüler zu handhaben :D
+
+                //TODO: return when dialog was cancelled
             }
 
             List<Schüler> GemischteSchülerListe = Mischen(Schüler);
@@ -199,7 +289,7 @@ namespace ProjektSitzplan.Structures
         public void AlsPDFExportieren(string path)
         {
             Directory.CreateDirectory(Path.GetDirectoryName(path));
-            
+
             // TODO: @Marco Export logic here or be called from here :D
         }
     }
