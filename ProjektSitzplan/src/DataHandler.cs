@@ -1,8 +1,11 @@
 ﻿using ProjektSitzplan.Structures;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Windows;
 
 namespace ProjektSitzplan
 {
@@ -79,7 +82,7 @@ namespace ProjektSitzplan
         {
             SchulKlassen.Clear();
 
-            Array.ForEach(Directory.GetFiles("SchulKlassen"), LadeSchulKlasse);
+            Parallel.ForEach(Directory.GetFiles("SchulKlassen"), LadeSchulKlasse);
         }
 
         public static void LadeSchulKlasse(string pfad)

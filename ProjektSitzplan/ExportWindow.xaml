@@ -165,9 +165,8 @@
                             <!--#region Radio Buttons-->
                             <StackPanel Grid.Column="0" Grid.Row="0">
 
-                                <RadioButton x:Name="EXPDFRad" Content="PDF" GroupName="Group1" Checked="RadioButton_Checked"/>
-                                <RadioButton x:Name="EXJSONRad" Content="Json" GroupName="Group1" Checked="RadioButton_Checked"/>
-
+                                <RadioButton x:Name="EXPDFRad" Content="PDF" GroupName="Group1" Checked="RadioButton_Checked" Background="{StaticResource ContentButtonHoverForeground}"/>
+                                <RadioButton x:Name="EXJSONRad" Content="Json" GroupName="Group1" Checked="RadioButton_Checked" Background="{StaticResource ContentButtonHoverForeground}"/>
                             </StackPanel>
                             <!--#endregion-->
 

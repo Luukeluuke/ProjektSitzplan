@@ -210,6 +210,7 @@ namespace ProjektSitzplan
             //TODO: Evtl so machen das wenn bei einem Schüler bereits eine verkürzung angebene ist, und die sitzpläne "ohne ihn" generiert wurden, wenn das dann geändert wird
             //Also das er nicht mehr verkürzt der entsprechende sitzplan sofort angepasst wird. Bzw das ein Fenster kommt Like: "Hallo, der Sitzplan Block6 ist veraltet... Der schüler xy verkürzt nicht mehr soll er neu generiert werden? Ja nein boom"
             //TODO: Bei allen Datagrids den fix einbauen, dass man überall hinclicken kann
+            //TODO: Max schüler auf 50 einbauen
 
             InitializeComponent();
 
