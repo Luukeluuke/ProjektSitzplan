@@ -47,6 +47,17 @@ namespace ProjektSitzplan
             SpeicherSchulKlasse(schulKlasse);
         }
 
+        public static void EntferneSchulKlasse(string name) { EntferneSchulKlasse(HohleSchulKlasse(name)); }
+        public static void EntferneSchulKlasse(SchulKlasse schulKlasse)
+        {
+            if (ExistiertKlasseBereits(schulKlasse))
+            {
+                SchulKlassen.Remove(schulKlasse);
+            }
+
+            SpeicherSchulKlassen();
+        }
+
         /// <param name="name"></param>
         /// <returns>Gibt erste gefundene klasse mit dem entsprechenden namen zurück oder "null" wenn keine gefunden wurde</returns>
         public static SchulKlasse HohleSchulKlasse(string name)

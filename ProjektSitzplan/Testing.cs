@@ -24,11 +24,12 @@ namespace ProjektSitzplan
 
         private static void TestklasseGenerierenWennNichtVorhanden()
         {
-            SchulKlasse klasse = DataHandler.HohleSchulKlasse(testKlassenName);
-            if (klasse != null)
-                return;
 
-            klasse = new SchulKlasse(testKlassenName);
+            if (DataHandler.ExistiertKlasseBereits(testKlassenName)) DataHandler.EntferneSchulKlasse(testKlassenName);
+
+            SchulKlasse klasse = new SchulKlasse(testKlassenName);
+
+            klasse.SchülerListe.Clear();
 
             // AWE
             klasse.SchülerHinzufügen(new Schüler("Ember", "Salmon", Person.EGeschlecht.Weiblich, Person.EBeruf.Anwendungsentwicklung, new Betrieb("Chantelle's IT Force"), RandomVerkürzt()));
@@ -89,10 +90,10 @@ namespace ProjektSitzplan
 
             SchulKlasse klasse = DataHandler.HohleSchulKlasse(testKlassenName);
 
-            while (klasse.Sitzpläne.Count < 6)
-            {
-                klasse.ErstelleSitzplan();
-            }
+            klasse.Sitzpläne.Clear();
+
+            klasse.ErstelleSitzplan();
+            klasse.ErstelleSitzplan();
 
             DataHandler.SpeicherSchulKlasse(klasse);
         }
