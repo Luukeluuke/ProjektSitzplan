@@ -10,8 +10,7 @@
         Height="600" Width="1000"
         WindowStyle="None" ResizeMode="CanResize" AllowsTransparency="True"
         Loaded="Window_Loaded"
-        x:Name="MyMainWindow"
-        SizeChanged="KlasseÜbersichtGrd_SizeChanged">
+        x:Name="MyMainWindow">
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="32"></WindowChrome>
     </WindowChrome.WindowChrome>
@@ -24,7 +23,16 @@
             <Grid Grid.Column="0" Grid.Row="0" Background="{StaticResource TopBarBackground}">
                 <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5 0 0 0">
                     <Image VerticalAlignment="Center" Margin="0 7 0 7" Source="/ProjektSitzplan;component/src/Design/Images/Logos/Logo878B91.png"></Image>
-                    <Label x:Name="SitzplanLbl" Margin="1 0 0 0" Content="Sitzplan" Foreground="{StaticResource TopBarForeground}" FontFamily="Segoe UI Semibold" FontSize="16" MouseDoubleClick="SitzplanLbl_MouseDoubleClick" WindowChrome.IsHitTestVisibleInChrome="True"></Label>
+                    <Label x:Name="SitzplanLbl" Margin="1 0 0 0" Content="Sitzplan" Foreground="{StaticResource TopBarForeground}" FontFamily="Segoe UI Semibold" FontSize="16" MouseDoubleClick="SitzplanLbl_MouseDoubleClick" WindowChrome.IsHitTestVisibleInChrome="True">
+                        <Label.ToolTip>
+                            <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12">
+                                <StackPanel>
+                                    <TextBlock Text="Projekt Sitzplan 2021" TextAlignment="Center"></TextBlock>
+                                    <TextBlock Text="Luca Berger, Sweer Sülber, Marco Renzel" TextAlignment="Center"></TextBlock>
+                                </StackPanel>
+                            </ToolTip>
+                        </Label.ToolTip>
+                    </Label>
                 </StackPanel>
                 <Grid Grid.Column="0" Grid.Row="0"  HorizontalAlignment="Right" WindowChrome.IsHitTestVisibleInChrome="True">
                     <Grid.ColumnDefinitions>
@@ -166,7 +174,7 @@
                                                         <ColumnDefinition Width="Auto"></ColumnDefinition>
                                                     </Grid.ColumnDefinitions>
                                                     <materialDesign:PackIcon x:Name="MenuKlassenSortingPkIco" Grid.Column="1" Grid.Row="0" Margin="5 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Top" Height="22" Width="22" Kind="SortAlphabeticalAscending"></materialDesign:PackIcon>
-                                                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Klassen"></TextBlock>
+                                                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Klassen" FontSize="15"></TextBlock>
                                                 </Grid>
                                             </DataGridTextColumn.Header>
                                         </DataGridTextColumn>
@@ -534,11 +542,26 @@
                                         </Grid>
                                     </Grid>
                                 </Grid>
-                                
-                                
-                                
-                                <Grid x:Name="KlasseÜbersichtGrd" Visibility="Hidden" Background="Green">
-                                    <Grid x:Name="KlasseÜbersichtContentGrd" HorizontalAlignment="Left" Background="Red" VerticalAlignment="Stretch">
+
+
+
+                                <Grid x:Name="KlasseÜbersichtGrd" Visibility="Visible">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1.35*"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid x:Name="container" Grid.Column="1" Grid.Row="0"></Grid>
+                                    <Grid x:Name="KlasseÜbersichtSitzplanGrd" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Background="CornflowerBlue" Visibility="Hidden">
+                                        <Grid x:Name="ÜSitzplanVersteckenGrd" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="Visible">
+                                            <Button x:Name="ÜSitzplanVersteckenBtn" Uid="10" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" Background="{StaticResource ContentButtonBackground}" Click="ÜSitzplanVersteckenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp" Width="40" Height="110">
+                                                <Button.ToolTip>
+                                                    <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12">Kehre zur Klassen-Übersicht zurück</ToolTip>
+                                                </Button.ToolTip>
+                                            </Button>
+                                            <materialDesign:PackIcon x:Name="ÜSitzplanVersteckenPkIco" HorizontalAlignment="Center" VerticalAlignment="Center" Kind="ArrowCollapseRight" Height="23" Width="23" Foreground="{StaticResource ContentButtonForeground}" IsHitTestVisible="False"></materialDesign:PackIcon>
+                                        </Grid>
+                                    </Grid>
+                                    <Grid x:Name="KlasseÜbersichtContentGrd" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Width="{Binding ElementName=KlasseÜbersichtGrd, Path=Width}" HorizontalAlignment="Left" VerticalAlignment="Stretch" Background="{StaticResource ContentBackground}">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="1.35*"></ColumnDefinition>
                                             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -652,14 +675,27 @@
                                                                 <ColumnDefinition Width="*"></ColumnDefinition>
                                                             </Grid.ColumnDefinitions>
                                                             <Grid Grid.Column="0" Grid.Row="0">
-                                                                <Button x:Name="ÜSchülerEntfernenBtn" Uid="6" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" Height="Auto" Click="ÜSchülerEntfernenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp" IsEnabled="False"></Button>
+                                                                <Button x:Name="ÜSchülerEntfernenBtn" Uid="6" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" Height="Auto" Click="ÜSchülerEntfernenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp" IsEnabled="False">
+                                                                    <Button.ToolTip>
+                                                                        <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12">Entferne den aktuell ausgewählten Schüler</ToolTip>
+                                                                    </Button.ToolTip>
+                                                                </Button>
                                                                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5 0 0 0" Orientation="Horizontal">
                                                                     <Label x:Name="ÜSchülerEntfernenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False" Content="Schüler entfernen" Foreground="{StaticResource ContentButtonForeground}" FontSize="15" FontFamily="Segoe UI Semibold"></Label>
                                                                     <materialDesign:PackIcon x:Name="ÜSchülerEntfernenPckIco" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource ContentButtonForeground}" Kind="RemoveBold" Height="20" Width="20" IsHitTestVisible="False"></materialDesign:PackIcon>
                                                                 </StackPanel>
                                                             </Grid>
                                                             <Grid Grid.Column="2" Grid.Row="0">
-                                                                <Button x:Name="ÜSchülerHinzufügenBtn" Uid="7" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" Height="Auto" Click="ÜSchülerHinzufügenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp"></Button>
+                                                                <Button x:Name="ÜSchülerHinzufügenBtn" Uid="7" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" Height="Auto" Click="ÜSchülerHinzufügenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp">
+                                                                    <Button.ToolTip>
+                                                                        <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12">
+                                                                            <StackPanel Orientation="Horizontal">
+                                                                                <TextBlock Text="Füge einen neuen Schüler hinzu"></TextBlock>
+                                                                                <materialDesign:PackIcon Margin="5 0 0 0" Kind="ArrowRight"></materialDesign:PackIcon>
+                                                                            </StackPanel>
+                                                                        </ToolTip>
+                                                                    </Button.ToolTip>
+                                                                </Button>
                                                                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5 0 0 0" Orientation="Horizontal">
                                                                     <Label x:Name="ÜSchülerHinzufügenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False" Content="Schüler hinzufügen" Foreground="{StaticResource ContentButtonForeground}" FontSize="15" FontFamily="Segoe UI Semibold"></Label>
                                                                     <materialDesign:PackIcon x:Name="ÜSchülerHinzufügenPckIco" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource ContentButtonForeground}" Kind="AddBold" Height="20" Width="20" IsHitTestVisible="False"></materialDesign:PackIcon>
@@ -703,9 +739,17 @@
                                                                         </Style.Triggers>
                                                                     </Style>
                                                                     <Style TargetType="{x:Type DataGridRow}">
+                                                                        <EventSetter Event="MouseDoubleClick" Handler="DataGridRow_MouseDoubleClick"></EventSetter>
                                                                         <Setter Property="Background" Value="{x:Null}"></Setter>
                                                                         <Setter Property="Margin" Value="0"></Setter>
                                                                         <Setter Property="IsHitTestVisible" Value="True"></Setter>
+                                                                        <Setter Property="ToolTip">
+                                                                            <Setter.Value>
+                                                                                <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12">
+                                                                                    <TextBlock Text="Doppelklick zum öffnen"></TextBlock>
+                                                                                </ToolTip>
+                                                                            </Setter.Value>
+                                                                        </Setter>
                                                                         <Style.Triggers>
                                                                             <Trigger Property="DataGridRow.IsSelected" Value="True">
                                                                                 <Setter Property="Background" Value="{StaticResource ContentDataGridRowBorderSelectedBackground}" />
@@ -756,14 +800,22 @@
                                                             <ColumnDefinition Width="*"></ColumnDefinition>
                                                         </Grid.ColumnDefinitions>
                                                         <Grid Grid.Column="0" Grid.Row="0">
-                                                            <Button x:Name="ÜSitzplanEntfernenBtn" Uid="8" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" Height="Auto" Click="ÜSitzplanEntfernenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp" IsEnabled="False"></Button>
+                                                            <Button x:Name="ÜSitzplanEntfernenBtn" Uid="8" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" Height="Auto" Click="ÜSitzplanEntfernenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp" IsEnabled="False">
+                                                                <Button.ToolTip>
+                                                                    <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12">Entferne den aktuell ausgewählten Sitzplan</ToolTip>
+                                                                </Button.ToolTip>
+                                                            </Button>
                                                             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5 0 0 0" Orientation="Horizontal">
                                                                 <Label x:Name="ÜSitzplanEntfernenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False" Content="Sitzplan entfernen" Foreground="{StaticResource ContentButtonForeground}" FontSize="15" FontFamily="Segoe UI Semibold"></Label>
                                                                 <materialDesign:PackIcon x:Name="ÜSitzplanEntfernenPckIco" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource ContentButtonForeground}" Kind="RemoveBold" Height="20" Width="20" IsHitTestVisible="False"></materialDesign:PackIcon>
                                                             </StackPanel>
                                                         </Grid>
                                                         <Grid Grid.Column="2" Grid.Row="0">
-                                                            <Button x:Name="ÜSitzplanHinzufügenBtn" Uid="9" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" Height="Auto" Click="SitzplanGenerierenClick" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp"></Button>
+                                                            <Button x:Name="ÜSitzplanHinzufügenBtn" Uid="9" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" Height="Auto" Click="SitzplanGenerierenClick" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp">
+                                                                <Button.ToolTip>
+                                                                    <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12">Generiere einen neuen Sitzplan für diese Klasse</ToolTip>
+                                                                </Button.ToolTip>
+                                                            </Button>
                                                             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5 0 0 0" Orientation="Horizontal">
                                                                 <Label x:Name="ÜSitzplanHinzufügenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False" Content="Sitzplan generieren" Foreground="{StaticResource ContentButtonForeground}" FontSize="15" FontFamily="Segoe UI Semibold"></Label>
                                                                 <materialDesign:PackIcon x:Name="ÜSitzplanHinzufügenPckIco" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource ContentButtonForeground}" Kind="AddBold" Height="20" Width="20" IsHitTestVisible="False"></materialDesign:PackIcon>
@@ -773,24 +825,32 @@
                                                 </Grid>
                                             </Grid>
                                         </Border>
-                                        <Grid Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch">
-                                            <Grid Background="Blue">
-                                                
+                                        <Grid Grid.Column="1" Grid.Row="0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid Grid.Column="0" Grid.ColumnSpan="2" Width="{Binding ElementName=container, Path=ActualWidth}" Grid.Row="0" HorizontalAlignment="Stretch">
+
                                             </Grid>
-                                            <Grid x:Name="ÜSitzplanAnzeigenGrd" HorizontalAlignment="Right" VerticalAlignment="Center" Visibility="Hidden" Background="Yellow">
-                                                <Button x:Name="ÜSitzplanAnzeigenBtn" Uid="5" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" Background="{StaticResource ContentButtonBackground}" Click="ÜSitzplanAnzeigenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp" Width="40" Height="110"/>
+                                            <Grid x:Name="ÜSitzplanAnzeigenGrd" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" Visibility="Hidden">
+                                                <Button x:Name="ÜSitzplanAnzeigenBtn" Uid="5" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" Background="{StaticResource ContentButtonBackground}" Click="ÜSitzplanAnzeigenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp" Width="40" Height="110">
+                                                    <Button.ToolTip>
+                                                        <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12">Zeige den aktuell ausgewählten Sitzplan an</ToolTip>
+                                                    </Button.ToolTip>
+                                                </Button>
                                                 <materialDesign:PackIcon x:Name="ÜSitzplanAnzeigenPkIco" HorizontalAlignment="Center" VerticalAlignment="Center" Kind="ArrowCollapseLeft" Height="23" Width="23" Foreground="{StaticResource ContentButtonForeground}" IsHitTestVisible="False"></materialDesign:PackIcon>
                                             </Grid>
                                         </Grid>
                                     </Grid>
                                 </Grid>
-                                
-                                
-                                
+
+
+
                                 <Grid x:Name="LeerGrd" Visibility="Visible">
                                     <StackPanel x:Name="LKeineKlasseAusgewähltStkPnl" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Vertical" Visibility="Hidden">
-                                        <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="14" Foreground="{StaticResource ContentForeground}" Content="Es ist keine Klasse ausgewählt"></Label>
-                                        <materialDesign:PackIcon  Margin="5 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Top" Height="25" Width="25" Kind="ArrowLeftBold" Foreground="{StaticResource ContentButtonForeground}"></materialDesign:PackIcon>
+                                        <TextBlock Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="14" Foreground="{StaticResource ContentForeground}" Text="Es ist keine Klasse ausgewählt!&#x0a;Wähle eine aus" TextAlignment="Center"></TextBlock>
+                                        <materialDesign:PackIcon  Margin="0 2 0 0" HorizontalAlignment="Center" VerticalAlignment="Top" Height="25" Width="25" Kind="ArrowLeftBold" Foreground="{StaticResource ContentButtonForeground}"></materialDesign:PackIcon>
                                     </StackPanel>
                                 </Grid>
                             </Grid>

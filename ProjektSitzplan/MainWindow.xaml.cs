@@ -140,6 +140,7 @@ namespace ProjektSitzplan
         public static RoutedCommand CommandRefresh = new RoutedCommand();
         public static RoutedCommand CommandUndo = new RoutedCommand();
         public static RoutedCommand CommandRedo = new RoutedCommand();
+        public static RoutedCommand CommandFullscreen = new RoutedCommand();
 
         public static RoutedCommand CommandTest = new RoutedCommand();
 
@@ -153,6 +154,7 @@ namespace ProjektSitzplan
             CommandUndo.InputGestures.Add(new KeyGesture(Key.Z, ModifierKeys.Control));
             CommandRedo.InputGestures.Add(new KeyGesture(Key.Z, ModifierKeys.Control | ModifierKeys.Shift));
             CommandRedo.InputGestures.Add(new KeyGesture(Key.Y, ModifierKeys.Control));
+            CommandFullscreen.InputGestures.Add(new KeyGesture(Key.F11));
 
             //TODO: @TESTCLASS REMOVE THIS WHEN REMOVING TEST CLASS
             CommandTest.InputGestures.Add(new KeyGesture(Key.F2));
@@ -161,6 +163,7 @@ namespace ProjektSitzplan
             CommandBindings.Add(new CommandBinding(CommandImport, MenuKlasseImportierenBtn_Click));
             CommandBindings.Add(new CommandBinding(CommandExport, MenuKlasseExportierenBtn_Click));
             CommandBindings.Add(new CommandBinding(CommandRefresh, KlassenAktualisieren));
+            CommandBindings.Add(new CommandBinding(CommandFullscreen, DoRestoreStuff));
 
             //TODO: @TESTCLASS REMOVE THIS WHEN REMOVING TEST CLASS
 
@@ -353,6 +356,34 @@ namespace ProjektSitzplan
 
         #region Allgemeine Events
         #region TopBarButtons
+        private void DoRestoreStuff(object sender = null, RoutedEventArgs e = null)
+        {
+            if (WindowState.Equals(WindowState.Normal))
+            {
+                WindowState = WindowState.Maximized;
+                WindowRestoreButton.ToolTip = new ToolTip()
+                {
+                    Content = "Verkleinern",
+                    Foreground = PSColors.ToolTipForeground,
+                    Background = PSColors.ToolTipBackground,
+                    FontFamily = new FontFamily("Segoe UI Semibold"),
+                    FontSize = 12
+                };
+            }
+            else
+            {
+                WindowState = WindowState.Normal;
+                WindowRestoreButton.ToolTip = new ToolTip()
+                {
+                    Content = "Maximieren",
+                    Foreground = PSColors.ToolTipForeground,
+                    Background = PSColors.ToolTipBackground,
+                    FontFamily = new FontFamily("Segoe UI Semibold"),
+                    FontSize = 12
+                };
+            }
+        }
+
         private void TopBarButton_Click(object sender, RoutedEventArgs e)
         {
             Button sBtn = Utility.GetButton(sender);
@@ -366,30 +397,7 @@ namespace ProjektSitzplan
                     }
                 case "1": //Restore
                     {
-                        if (WindowState.Equals(WindowState.Normal))
-                        {
-                            WindowState = WindowState.Maximized;
-                            WindowRestoreButton.ToolTip = new ToolTip()
-                            {
-                                Content = "Verkleinern",
-                                Foreground = PSColors.ToolTipForeground,
-                                Background = PSColors.ToolTipBackground,
-                                FontFamily = new FontFamily("Segoe UI Semibold"),
-                                FontSize = 12
-                            };
-                        }
-                        else
-                        {
-                            WindowState = WindowState.Normal;
-                            WindowRestoreButton.ToolTip = new ToolTip()
-                            {
-                                Content = "Maximieren",
-                                Foreground = PSColors.ToolTipForeground,
-                                Background = PSColors.ToolTipBackground,
-                                FontFamily = new FontFamily("Segoe UI Semibold"),
-                                FontSize = 12
-                            };
-                        }
+                        DoRestoreStuff();
                         return;
                     }
                 case "2": //Close
@@ -587,7 +595,8 @@ namespace ProjektSitzplan
                 ÜSchülerEntfernenLbl,
                 ÜSchülerHinzufügenLbl,
                 ÜSitzplanEntfernenLbl,
-                ÜSitzplanHinzufügenLbl
+                ÜSitzplanHinzufügenLbl,
+                null
             };
             ContentPackIconsSets = new PackIconSet[]
             {
@@ -600,7 +609,8 @@ namespace ProjektSitzplan
                 new PackIconSet(ÜSchülerEntfernenPckIco, PackIconSet.EIconType.Content, PSColors.IconHoverRed, PSColors.IconPreviewRed),
                 new PackIconSet(ÜSchülerHinzufügenPckIco, PackIconSet.EIconType.Content, PSColors.IconHoverGreen, PSColors.IconPreviewGreen),
                 new PackIconSet(ÜSitzplanEntfernenPckIco, PackIconSet.EIconType.Content, PSColors.IconHoverRed, PSColors.IconPreviewRed),
-                new PackIconSet(ÜSitzplanHinzufügenPckIco, PackIconSet.EIconType.Content, PSColors.IconHoverGreen, PSColors.IconPreviewGreen)
+                new PackIconSet(ÜSitzplanHinzufügenPckIco, PackIconSet.EIconType.Content, PSColors.IconHoverGreen, PSColors.IconPreviewGreen),
+                new PackIconSet(ÜSitzplanVersteckenPkIco, PackIconSet.EIconType.Content, PSColors.ContentButtonHoverForeground, PSColors.ContentButtonPreviewForeground)
             };
         }
         #endregion
@@ -831,53 +841,17 @@ namespace ProjektSitzplan
         #endregion
 
         #region Content - Klasse Übersicht
-        private Thickness Thicc
-        {
-            get
-            {
-                return new Thickness(0 - KlasseÜbersichtGrd.ActualWidth, 0D, 0D, 0D);
-            }
-        }
-        #region KlasseÜbersichtGrd
-        private void KlasseÜbersichtGrd_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            //Binding binding = new Binding("Width");
-            //binding.Source = KlasseÜbersichtGrd.ActualWidth;
-            //KlasseÜbersichtStkPnl.SetBinding(StackPanel.WidthProperty, binding);
-        }
-        #endregion
-
         #region ÜSitzplanAnzeigenBtn
         private void ÜSitzplanAnzeigenBtn_Click(object sender, RoutedEventArgs e)
         {
-            //Storyboard sb = KlasseÜbersichtStkPnl.Resources["SlideLeft"] as Storyboard;
-
-            Storyboard sb = new Storyboard();
-            var animation = new DoubleAnimation(KlasseÜbersichtGrd.ActualWidth, 0D, new Duration(new TimeSpan(0, 0, 0, 1, 0)));
+            Storyboard storyboard = new Storyboard();
+            DoubleAnimation animation = new DoubleAnimation(KlasseÜbersichtGrd.ActualWidth, 0D, new Duration(new TimeSpan(0, 0, 0, 0, 350)), FillBehavior.HoldEnd);
             Storyboard.SetTargetProperty(animation, new PropertyPath("Width"));
-            animation.DecelerationRatio = 0.3D;
-            animation.AutoReverse = true;
-            animation.Completed += yes_Completed; 
-            sb.Children.Add(animation);
-            //MyMainWindow.ResizeMode = ResizeMode.NoResize;
+            animation.DecelerationRatio = 0.4D;
+            storyboard.Children.Add(animation);
 
-            //KlasseÜbersichtContentGrd.HorizontalAlignment = HorizontalAlignment.Left;
-            sb.Begin(KlasseÜbersichtContentGrd);
-        }
-
-        private void yes_Completed(object sender, EventArgs e)
-        {
-            //MyMainWindow.ResizeMode = ResizeMode.CanResize;
-            //KlasseÜbersichtContentGrd.HorizontalAlignment = HorizontalAlignment.Stretch;
-
-
-            //KlasseÜbersichtContentGrd
-            //Binding myBinding = new Binding("Width");
-            //myBinding.Source = KlasseÜbersichtGrd.Width; //WTF check ich nicht wieso ist der button jetzt in der mitte
-            //BindingOperations.SetBinding(KlasseÜbersichtContentGrd, Grid.WidthProperty, myBinding);
-
-            
-
+            KlasseÜbersichtSitzplanGrd.Visibility = Visibility.Visible;
+            storyboard.Begin(KlasseÜbersichtContentGrd);
         }
         #endregion
 
@@ -934,8 +908,13 @@ namespace ProjektSitzplan
                 ÜSitzplanAnzeigenGrd.Visibility = Visibility.Hidden;
             }
         }
+
+        private void DataGridRow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            ÜSitzplanAnzeigenBtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+        }
         #endregion
-        
+
         #region ÜSitzplanEntfernenBtn
         private void ÜSitzplanEntfernenBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -947,9 +926,26 @@ namespace ProjektSitzplan
         #region ÜSitzplanHinzufügenBtn
         private void SitzplanGenerierenClick(object sender, RoutedEventArgs e)
         {
-            AusgewählteKlasse.ErstelleSitzplanDialog();
+            ÜKeineSitzpläneVorhandenLbl.Visibility = ÜSitzpläneDtGrd.Items.Count > 0 ? Visibility.Hidden : Visibility.Visible;
+        }
+        #endregion
 
-            ÜKeineSitzpläneVorhandenLbl.Visibility = ÜSchülerDtGrd.Items.Count > 0 ? Visibility.Hidden : Visibility.Visible;
+        #region ÜSitzplanVersteckenBtn
+        private void ÜSitzplanVersteckenBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Storyboard storyboard = new Storyboard();
+            DoubleAnimation animation = new DoubleAnimation(0D, KlasseÜbersichtGrd.ActualWidth, new Duration(new TimeSpan(0, 0, 0, 0, 350)), FillBehavior.Stop);
+            Storyboard.SetTargetProperty(animation, new PropertyPath("Width"));
+            animation.DecelerationRatio = 0.4D;
+            animation.Completed += Animation_Completed;
+            storyboard.Children.Add(animation);
+
+            storyboard.Begin(KlasseÜbersichtContentGrd);
+        }
+
+        private void Animation_Completed(object sender, EventArgs e)
+        {
+            KlasseÜbersichtSitzplanGrd.Visibility = Visibility.Hidden;
         }
         #endregion
         #endregion
