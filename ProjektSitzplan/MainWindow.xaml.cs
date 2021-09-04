@@ -761,7 +761,7 @@ namespace ProjektSitzplan
             // TODO: integrate verkürtzt as checkbox or something idk...
             // TODO: sollte das auch im datagrid angezeigt werden??
 
-            Schüler neuerSchüler = new Schüler(vorname, nachname, geschlecht, beruf, new Betrieb(betrieb), verkürzt);
+            Schüler neuerSchüler = new Schüler(new Person(vorname, nachname, geschlecht, beruf), new Betrieb(betrieb), verkürzt);
 
             KESchülerListe.Add(neuerSchüler);
             KESchülerDtGrd.ItemsSource = null;

@@ -11,7 +11,7 @@ namespace ProjektSitzplan.Structures
     public class SchulKlasse
     {
         public string Name { get; private set; }
-        public readonly List<Schüler> SchülerListe = new List<Schüler>();
+        public readonly List<Schüler> SchülerListe;
         public readonly List<Sitzplan> Sitzpläne = new List<Sitzplan>();
 
         [JsonIgnore]
@@ -19,6 +19,7 @@ namespace ProjektSitzplan.Structures
 
         [JsonIgnore]
         public string ToolTipÜbersicht { get => ToToolTipString(); }
+
 
         #region error nachrichten
         private static string errorSchülerEntfernen = "Schüler konnte nicht aus der Klasse entfernt werden.";
@@ -29,15 +30,22 @@ namespace ProjektSitzplan.Structures
         #endregion
 
         #region Constructors
-        public SchulKlasse(string name)
+        public SchulKlasse(string name, List<Schüler> schülerListe = null)
         {
             Name = name;
+            SchülerListe = (schülerListe == null) ? new List<Schüler>() : schülerListe;
         }
 
         [JsonConstructor]
-        public SchulKlasse(string name, List<Schüler> schülerListe) : this(name)
+        public SchulKlasse(string name, List<Schüler> schülerListe, List<Sitzplan> sitzpläne) : this(name)
         {
             SchülerListe = schülerListe;
+            Sitzpläne = sitzpläne;
+            
+            foreach(Sitzplan sitzplan in Sitzpläne)
+            {
+                sitzplan.ConvertShüler(this);
+            }
         }
         #endregion
 
@@ -179,13 +187,14 @@ namespace ProjektSitzplan.Structures
 
         public static SchulKlasse AusJsonStringLaden(string json)
         {
+            Exception ex;
             try
             {
                 return JsonConvert.DeserializeObject<SchulKlasse>(json);
             }
-            catch (JsonReaderException) { }
-            catch (JsonSerializationException) { }
-
+            catch (JsonReaderException exc) { ex = exc; }
+            catch (JsonSerializationException exc) { ex = exc; }
+            
             return null;
         }
 

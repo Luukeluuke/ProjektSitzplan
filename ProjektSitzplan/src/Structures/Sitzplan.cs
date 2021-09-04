@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 
@@ -44,7 +45,7 @@ namespace ProjektSitzplan.Structures
             BerücksichtigeBetrieb = berücksichtigeBetrieb;
             BerücksichtigeGeschlecht = berücksichtigeGeschlecht;
 
-            BlockType = (blockSitzplan.Equals(SchulBlock.Current)) ? klasse.FreierBlock() : blockSitzplan;
+            BlockType = blockSitzplan.Equals(SchulBlock.Current) ? klasse.FreierBlock() : blockSitzplan;
 
             if (seed == null)
                 Seed = Environment.TickCount;
@@ -127,9 +128,25 @@ namespace ProjektSitzplan.Structures
 
     public class Sitzplan
     {
+
+        [JsonIgnore]
+        public List<Schüler> Schüler { get; private set; } = new List<Schüler>();
+
+        [JsonIgnore]
+        private List<string> SchülerIds = null;
+        public List<string> ShortSchüler
+        {
+            get
+            {
+                return Schüler.Select(person => person.UniqueId).ToList();
+            }
+        }
+
+
+
         public string Name { get; private set; }
         public int TischAnzahl { get; private set; }
-        public List<Schüler> Schüler { get; private set; }
+
         public List<TischBlock> Tische { get; private set; }
 
         public bool BerücksichtigeBeruf { get; private set; }
@@ -143,23 +160,19 @@ namespace ProjektSitzplan.Structures
         [JsonIgnore]
         public bool ErfolgreichGeneriert { get; private set; }
 
-        private Sitzplan(string name, int tischAnzahl, List<Schüler> schüler, SchulBlock blockSitzplan, bool berücksichtigeBeruf, bool berücksichtigeBetrieb, bool berücksichtigeGeschlecht, int seed)
+        public Sitzplan(SitzplanGenerator generator)
         {
-            Name = name;
-            TischAnzahl = tischAnzahl;
-            Schüler = schüler;
+            Name = generator.Name;
+            TischAnzahl = generator.TischAnzahl;
+            Schüler = generator.Schüler;
 
-            BerücksichtigeBeruf = berücksichtigeBeruf;
-            BerücksichtigeBetrieb = berücksichtigeBetrieb;
-            BerücksichtigeGeschlecht = berücksichtigeGeschlecht;
+            BerücksichtigeBeruf = generator.BerücksichtigeBeruf;
+            BerücksichtigeBetrieb = generator.BerücksichtigeBetrieb;
+            BerücksichtigeGeschlecht = generator.BerücksichtigeGeschlecht;
 
-            BlockSitzplan = blockSitzplan;
-            Seed = seed;
-        }
+            BlockSitzplan = generator.BlockType;
+            Seed = generator.Seed;
 
-        public Sitzplan(SitzplanGenerator generator) :
-            this(generator.Name, generator.TischAnzahl, generator.Schüler, generator.BlockType, generator.BerücksichtigeBeruf, generator.BerücksichtigeBetrieb, generator.BerücksichtigeGeschlecht, generator.Seed)
-        {
             ErfolgreichGeneriert = Generieren();
         }
 
@@ -167,12 +180,50 @@ namespace ProjektSitzplan.Structures
         /// JSON Constructor | Dieser constructor sollte nur für das laden von json objekten genutzt werden!
         /// </summary>
         [JsonConstructor]
-        public Sitzplan(string name, int tischAnzahl, List<Schüler> schüler, List<TischBlock> tische, SchulBlock blockSitzplan, bool berücksichtigeBeruf, bool berücksichtigeBetrieb, bool berücksichtigeGeschlecht, int seed) :
-            this(name, tischAnzahl, schüler, blockSitzplan, berücksichtigeBeruf, berücksichtigeBetrieb, berücksichtigeGeschlecht, seed)
+        public Sitzplan(string name, int tischAnzahl, List<string> schülerIds, List<TischBlock> tische, SchulBlock blockSitzplan, bool berücksichtigeBeruf, bool berücksichtigeBetrieb, bool berücksichtigeGeschlecht, int seed)
         {
+            Name = name;
+            TischAnzahl = tischAnzahl;
+            SchülerIds = schülerIds;
             Tische = tische;
+            BlockSitzplan = blockSitzplan;
+            BerücksichtigeBeruf = berücksichtigeBeruf;
+            BerücksichtigeBetrieb = berücksichtigeBetrieb;
+            BerücksichtigeGeschlecht = berücksichtigeGeschlecht;
+            Seed = seed;
+
             ErfolgreichGeneriert = true;
         }
+
+        public void ConvertShüler(SchulKlasse klasse)
+        {
+            if (SchülerIds == null || SchülerIds.Count == 0)
+            {
+                return;
+            }
+
+            Schüler = new List<Schüler>();
+
+            while (SchülerIds.Count > 0)
+            {
+                string id = SchülerIds[0];
+
+                Schüler schüler = SchülerHelfer.SchülerViaId(klasse.SchülerListe, id);
+                if (schüler != null)
+                {
+                    Schüler.Add(schüler);
+                }
+                SchülerIds.RemoveAt(0);
+            }
+
+            foreach(TischBlock tisch in Tische)
+            {
+                tisch.ConvertShüler(this);
+            }
+        }
+
+
+
 
         public List<Schüler> Mischen(List<Schüler> originalListe)
         {
