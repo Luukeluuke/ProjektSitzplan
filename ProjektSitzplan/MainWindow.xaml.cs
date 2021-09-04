@@ -926,6 +926,8 @@ namespace ProjektSitzplan
         #region ÜSitzplanHinzufügenBtn
         private void SitzplanGenerierenClick(object sender, RoutedEventArgs e)
         {
+            ausgewählteKlasse.ErstelleSitzplanDialog();
+
             ÜKeineSitzpläneVorhandenLbl.Visibility = ÜSitzpläneDtGrd.Items.Count > 0 ? Visibility.Hidden : Visibility.Visible;
         }
         #endregion
