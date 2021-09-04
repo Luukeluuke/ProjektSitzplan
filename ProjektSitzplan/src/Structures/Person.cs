@@ -1,9 +1,12 @@
 ﻿using Newtonsoft.Json;
+using System;
 
 namespace ProjektSitzplan.Structures
 {
     public class Person
     {
+        public string UniqueId { get; private set; }
+
         public string Vorname { get; private set; }
         public string Nachname { get; private set; }
         public EGeschlecht Geschlecht { get; private set; }
@@ -27,21 +30,18 @@ namespace ProjektSitzplan.Structures
             SystemElektroniker = 7
         }
 
-        public Person(Person person)
-        {
-            Vorname = person.Vorname;
-            Nachname = person.Nachname;
-            Geschlecht = person.Geschlecht;
-            Beruf = person.Beruf;
-        }
+        public Person(string vorname, string nachname, EGeschlecht geschlecht, EBeruf beruf) : this(vorname, nachname, geschlecht, beruf, Guid.NewGuid().ToString()) { }
+
+        public Person(Person person) : this(person.Vorname, person.Nachname, person.Geschlecht, person.Beruf, person.UniqueId) { }
 
         [JsonConstructor]
-        public Person(string vorname, string nachname, EGeschlecht geschlecht, EBeruf beruf)
+        public Person(string vorname, string nachname, EGeschlecht geschlecht, EBeruf beruf, string uniqueId)
         {
             Vorname = vorname;
             Nachname = nachname;
             Geschlecht = geschlecht;
             Beruf = beruf;
+            UniqueId = uniqueId;
         }
 
         public override string ToString()
