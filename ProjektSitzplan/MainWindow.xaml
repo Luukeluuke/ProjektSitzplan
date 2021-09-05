@@ -114,7 +114,7 @@
                                                 </StackPanel>
                                             </MenuItem.Header>
                                         </MenuItem>
-                                        <MenuItem x:Name="MenuKlasseSpeichernBtn" Click="MenuKlasseSpeichernBtn_Click" IsEnabled="False">
+                                        <MenuItem x:Name="MenuKlasseSpeichernBtn" Click="MenuKlasseSpeichernBtn_Click" IsEnabled="True">
                                             <MenuItem.Icon>
                                                 <materialDesign:PackIcon Kind="ContentSave" Foreground="{StaticResource MenuForeground}"></materialDesign:PackIcon>
                                             </MenuItem.Icon>

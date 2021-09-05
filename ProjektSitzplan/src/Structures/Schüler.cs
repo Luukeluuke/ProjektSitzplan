@@ -3,7 +3,6 @@ using Newtonsoft.Json;
 using System;
 using System.Drawing;
 using System.IO;
-using System.Diagnostics;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -71,7 +70,6 @@ namespace ProjektSitzplan.Structures
             {
                 return null;
             }
-            Stopwatch tm = new Stopwatch(); tm.Start();
             ImageConverter converter = new ImageConverter();
 
             byte[] bytes = null;
@@ -83,8 +81,6 @@ namespace ProjektSitzplan.Structures
             catch (ArgumentNullException) { }
             catch (NotSupportedException) { }
 
-            showDebugMS("ConvToBytes", bytes, bild, tm);
-
             return bytes;
         }
 
@@ -94,9 +90,10 @@ namespace ProjektSitzplan.Structures
             {
                 return null;
             }
-            Stopwatch tm = new Stopwatch(); tm.Start();
             ImageConverter converter = new ImageConverter();
+            
             Image bild = null;
+
             try
             {
                 bild = (Image)converter.ConvertTo(bytes, typeof(Image));
@@ -104,15 +101,7 @@ namespace ProjektSitzplan.Structures
             catch (ArgumentNullException) { }
             catch (NotSupportedException) { }
 
-            showDebugMS("ConvToImg", bytes, bild, tm);
-
             return bild;
-        }
-
-        private static void showDebugMS(string title, byte[] bytes, Image img, Stopwatch tm)
-        {
-            tm.Stop();
-            //new PsMessageBox(title, $"Dauer: {tm.ElapsedMilliseconds} arrayGröße: {bytes.Length}", PsMessageBox.EPsMessageBoxButtons.OK).Show();
         }
 
         [JsonConstructor]

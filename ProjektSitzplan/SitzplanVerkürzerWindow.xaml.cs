@@ -26,27 +26,10 @@ namespace ProjektSitzplan
         public Label[] ContentLabels { get; private set; }
         internal PackIconSet[] ContentPackIconsSets { get; private set; }
 
-        private List<Schüler> Verkürzen;
+        public bool Canceled = true;
 
-        public List<Schüler> NichtVerkürzen;
-
-
-        #region INotifyPropertyChanged
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void NotifyPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-
-        protected bool Set<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
-        {
-            if (EqualityComparer<T>.Default.Equals(field, value))
-            {
-                return false;
-            }
-            field = value;
-            NotifyPropertyChanged(propertyName);
-            return true;
-        }
-        #endregion
+        public List<Schüler> Verkürzer;
+        public List<Schüler> NichtVerkürzer;
 
 
         #region Constructor
@@ -54,7 +37,13 @@ namespace ProjektSitzplan
         {
             InitializeComponent();
 
-            Verkürzen = schüler;
+            Verkürzer = schüler;
+            NichtVerkürzer = new List<Schüler>();
+
+            SVVerkürzerDtGrd.ItemsSource = Verkürzer;
+            SVNichtVerkürzerDtGrd.ItemsSource = NichtVerkürzer;
+
+            new PsMessageBox("Achtung", $"Für den letzten Block wurden {Verkürzer.Count} Schüler gefunden die verkürzen.\nBitte überprüfen Korrektheit überprüfen.\nBeim Generieren des Sitzplans werden nicht berücksichtigt.\nLinks sind die Verkürzer, rechts die Nicht Verkürzer.", PsMessageBox.EPsMessageBoxButtons.OK).ShowDialog();
         }
         #endregion
 
@@ -123,12 +112,10 @@ namespace ProjektSitzplan
         #region Window
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            /*
-            ContentLabels = new Label[] { SGAbbrechenLbl, SGErstellenLbl };
+            ContentLabels = new Label[] { SVAbbrechenLbl, SVErstellenLbl };
             ContentPackIconsSets = new PackIconSet[] {
-                new PackIconSet(SGAbbrechenPckIco, PackIconSet.EIconType.Content, PSColors.IconHoverRed, PSColors.IconPreviewRed),
-                new PackIconSet(SGErstellenPckIco, PackIconSet.EIconType.Content, PSColors.IconHoverGreen, PSColors.IconPreviewGreen)};
-            */
+                new PackIconSet(SVAbbrechenPckIco, PackIconSet.EIconType.Content, PSColors.IconHoverRed, PSColors.IconPreviewRed),
+                new PackIconSet(SVErstellenPckIco, PackIconSet.EIconType.Content, PSColors.IconHoverGreen, PSColors.IconPreviewGreen)};
         }
         #endregion
 
@@ -170,5 +157,55 @@ namespace ProjektSitzplan
             ContentPackIconsSets[Utility.GetUid(sBtn)]?.HandleColor(PackIconSet.EEventType.PreviewUp);
         }
         #endregion
+        
+        private void SVVerkürzerDtGrd_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+            Schüler selected = (Schüler)((DataGrid)sender).SelectedItem;
+            if (selected != null)
+            {
+                Verkürzer.Remove(selected);
+                NichtVerkürzer.Add(selected);
+
+                AuswahlZurücksetzten();
+                return;
+            }
+        }
+
+        private void SVNichtVerkürzerDtGrd_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+            Schüler selected = (Schüler)((DataGrid)sender).SelectedItem;
+            if (selected != null)
+            {
+                NichtVerkürzer.Remove(selected);
+                Verkürzer.Add(selected);
+
+                AuswahlZurücksetzten();
+                return;
+            }
+        }
+
+        private void AuswahlZurücksetzten()
+        {
+            SVVerkürzerDtGrd.SelectedIndex = -1;
+            SVNichtVerkürzerDtGrd.SelectedIndex = -1;
+
+            SVVerkürzerDtGrd.ItemsSource = null;
+            SVVerkürzerDtGrd.ItemsSource = Verkürzer;
+
+            SVNichtVerkürzerDtGrd.ItemsSource = null;
+            SVNichtVerkürzerDtGrd.ItemsSource = NichtVerkürzer;
+        }
+
+        private void SVAbbrechenBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void SVErstellenBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Canceled = false;
+            Close();
+        }
+
     }
 }
