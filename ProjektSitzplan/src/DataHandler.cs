@@ -85,22 +85,31 @@ namespace ProjektSitzplan
             Parallel.ForEach(Directory.GetFiles("SchulKlassen"), LadeSchulKlasse);
         }
 
-        public static void LadeSchulKlasse(string pfad)
-        {
-            if (pfad.EndsWith(".json"))
-            {
-                SchulKlasse klasse = SchulKlasse.AusDateiLaden(pfad);
-                if (klasse != null)
-                {
-                    if (ExistiertKlasseBereits(klasse))
-                    {
-                        ErrorHandler.ZeigeFehler(ErrorHandler.ERR_IM_KlasseExistiertBereits, klasse.Name, "");
 
-                        return;
-                    }
-                    SchulKlassen.Add(klasse);
-                }
+
+        public static void LadeSchulKlasse(string pfad) { LadeSchulKlasse(pfad, false); }
+        public static void LadeSchulKlasse(string pfad, bool speichern)
+        {
+            if (!pfad.EndsWith(".json"))
+            {
+                return;
             }
+
+            SchulKlasse klasse = SchulKlasse.AusDateiLaden(pfad);
+            if (klasse == null)
+            {
+                return;
+            }
+
+            if (ExistiertKlasseBereits(klasse))
+            {
+                ErrorHandler.ZeigeFehler(ErrorHandler.ERR_IM_KlasseExistiertBereits, klasse.Name, "");
+
+                return;
+            }
+
+            if (speichern) SpeicherSchulKlasse(klasse);
+            SchulKlassen.Add(klasse);
         }
         #endregion
     }
