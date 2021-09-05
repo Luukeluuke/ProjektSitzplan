@@ -9,6 +9,8 @@
 
         public static readonly string ERR_IM_KlasseExistiertBereits = "Import der Klasse \"{0}\" ist fehlgeschlagen.\nEs existiert bereits eine Klasse mit diesem Namen.";
 
+        public static readonly string ERR_MaxSchüler = "Diese Klasse hat bereits das Limit von 50 Schülern erreicht.";
+
         #region Klasse Erstellen
         // der fehler tritt auf wenn eine klasse erstellt wird aber Uri.IsWellFormedUriString() der name nicht passt
         public static readonly string ERR_KE_UriUngültig = "Der Name der Klasse enthält ungültige Symbole.\nWie zum Beispiel: (\\ / : * ? \" < > |).\nBitte überprüfen.";

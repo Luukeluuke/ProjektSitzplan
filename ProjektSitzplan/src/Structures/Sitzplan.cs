@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 
@@ -128,7 +127,6 @@ namespace ProjektSitzplan.Structures
 
     public class Sitzplan
     {
-
         [JsonIgnore]
         public List<Schüler> Schüler { get; private set; } = new List<Schüler>();
 
