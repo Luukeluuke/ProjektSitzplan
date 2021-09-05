@@ -68,6 +68,8 @@ namespace ProjektSitzplan
 
         public static void SpeicherSchulKlassen()
         {
+            Array.ForEach(Directory.GetFiles("SchulKlassen"), File.Delete);
+
             SchulKlassen.ForEach(SpeicherSchulKlasse);
         }
 
