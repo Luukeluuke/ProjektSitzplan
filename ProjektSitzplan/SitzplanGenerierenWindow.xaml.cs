@@ -216,7 +216,7 @@ namespace ProjektSitzplan
         {
             TextBox tb = (TextBox)sender;
             string text = tb.Text + e.Text;
-            bool hand = !(int.TryParse(text, out int i) && i <= 6);
+            bool hand = !(int.TryParse(text, out int i) && i <= 6 && i != 0);
             e.Handled = hand;
         }
 
