@@ -548,7 +548,7 @@
                                     </Grid.ColumnDefinitions>
                                     <Grid x:Name="container" Grid.Column="1" Grid.Row="0"></Grid>
                                     <Grid x:Name="KlasseÜbersichtSitzplanGrd" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Background="CornflowerBlue" Visibility="Hidden">
-                                        <Grid x:Name="ÜSitzplanVersteckenGrd" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="Visible">
+                                        <Grid x:Name="ÜSitzplanVersteckenGrd" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="Visible" Margin="0 0 0 209">
                                             <Button x:Name="ÜSitzplanVersteckenBtn" Uid="10" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" Background="{StaticResource ContentButtonBackground}" Click="ÜSitzplanVersteckenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp" Width="40" Height="110">
                                                 <Button.ToolTip>
                                                     <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12">Kehre zur Klassen-Übersicht zurück</ToolTip>
@@ -621,6 +621,28 @@
                                                                             <Setter Property="Background" Value="{x:Null}"></Setter>
                                                                             <Setter Property="Margin" Value="0"></Setter>
                                                                             <Setter Property="IsHitTestVisible" Value="True"></Setter>
+                                                                            <!--<Setter Property="ToolTip">
+                                                                                <Setter.Value>
+                                                                                    <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12">
+                                                                                        <ToolTip.Resources>
+                                                                                            <Style TargetType="{x:Type ToolTip}">
+                                                                                                <Setter Property="Width" Value="Auto"></Setter>
+                                                                                                <Setter Property="Height" Value="Auto"></Setter>
+                                                                                                <Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+                                                                                                <Setter Property="Template">
+                                                                                                    <Setter.Value>
+                                                                                                        <ControlTemplate TargetType="{x:Type ToolTip}">
+                                                                                                            <Border CornerRadius="4" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" Background="{StaticResource ToolTipBackground}">
+                                                                                                                <Image Margin="4 4 4 0" Source="{Binding Bild}"/>
+                                                                                                            </Border>
+                                                                                                        </ControlTemplate>
+                                                                                                    </Setter.Value>
+                                                                                                </Setter>
+                                                                                            </Style>
+                                                                                        </ToolTip.Resources>
+                                                                                    </ToolTip>
+                                                                                </Setter.Value>
+                                                                            </Setter>-->
                                                                             <Style.Triggers>
                                                                                 <Trigger Property="DataGridRow.IsSelected" Value="True">
                                                                                     <Setter Property="Background" Value="{StaticResource ContentDataGridRowBorderSelectedBackground}" />
@@ -878,7 +900,7 @@
                                                             <ColumnDefinition Width="0.5*"></ColumnDefinition>
                                                         </Grid.ColumnDefinitions>
                                                         <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="14" Foreground="{StaticResource ContentForeground}" Content="Geschlecht*:&#x09;"></Label>
-                                                        <ComboBox x:Name="ÜSchülerGeschlechtCb" Grid.Column="1" Grid.Row="0" TabIndex="104" HorizontalAlignment="Stretch" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" Foreground="{StaticResource ContentForeground}" BorderBrush="{StaticResource ContentForeground}" FontSize="14" materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource ContentComboBoxSelectedBorder}" GotKeyboardFocus="ContentComboBox_GotKeyboardFocus" LostKeyboardFocus="ContentComboBox_LostKeyboardFocus">
+                                                        <ComboBox x:Name="ÜSchülerGeschlechtCb" Grid.Column="1" Margin="-20 0 0 0" Grid.Row="0" TabIndex="104" HorizontalAlignment="Stretch" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" Foreground="{StaticResource ContentForeground}" BorderBrush="{StaticResource ContentForeground}" FontSize="14" materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource ContentComboBoxSelectedBorder}" GotKeyboardFocus="ContentComboBox_GotKeyboardFocus" LostKeyboardFocus="ContentComboBox_LostKeyboardFocus">
                                                             <ComboBox.Resources>
                                                                 <SolidColorBrush x:Key="MaterialDesignPaper" Color="#32353B"/>
                                                                 <SolidColorBrush x:Key="MaterialDesignTextFieldBoxHoverBackground" Color="Red"/>
@@ -894,7 +916,7 @@
                                                             <ColumnDefinition Width="0.5*"></ColumnDefinition>
                                                         </Grid.ColumnDefinitions>
                                                         <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="14" Foreground="{StaticResource ContentForeground}" Content="Beruf*:&#x09;&#x09;"></Label>
-                                                        <ComboBox x:Name="ÜSchülerBerufCb" Grid.Column="1" Grid.Row="0" TabIndex="104" HorizontalAlignment="Stretch" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" Foreground="{StaticResource ContentForeground}" BorderBrush="{StaticResource ContentForeground}" FontSize="14" materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource ContentComboBoxSelectedBorder}" GotKeyboardFocus="ContentComboBox_GotKeyboardFocus" LostKeyboardFocus="ContentComboBox_LostKeyboardFocus">
+                                                        <ComboBox x:Name="ÜSchülerBerufCb" Grid.Column="1" Grid.Row="0" Margin="-20 0 0 0" TabIndex="104" HorizontalAlignment="Stretch" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" Foreground="{StaticResource ContentForeground}" BorderBrush="{StaticResource ContentForeground}" FontSize="14" materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource ContentComboBoxSelectedBorder}" GotKeyboardFocus="ContentComboBox_GotKeyboardFocus" LostKeyboardFocus="ContentComboBox_LostKeyboardFocus">
                                                             <ComboBox.Resources>
                                                                 <SolidColorBrush x:Key="MaterialDesignPaper" Color="#32353B"/>
                                                                 <SolidColorBrush x:Key="MaterialDesignTextFieldBoxHoverBackground" Color="Red"/>
@@ -924,48 +946,79 @@
                                                     <Grid Grid.Column="0" Grid.Row="6">
                                                         <Grid.RowDefinitions>
                                                             <RowDefinition Height="*"></RowDefinition>
-                                                            <RowDefinition Height="40"></RowDefinition>
+                                                            <RowDefinition Height="45"></RowDefinition>
                                                         </Grid.RowDefinitions>
-                                                        <Grid Grid.Column="0" Grid.Row="1">
-                                                            <Grid.ColumnDefinitions>
-                                                                <ColumnDefinition Width="*"></ColumnDefinition>
-                                                                <ColumnDefinition Width="5"></ColumnDefinition>
-                                                                <ColumnDefinition Width="*"></ColumnDefinition>
-                                                            </Grid.ColumnDefinitions>
-                                                            <Grid Grid.Column="0" Grid.Row="0">
-                                                                <Button x:Name="ÜSchülerBearbeitenAbbrechenBtn" Uid="11" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" Height="Auto" Click="ÜSchülerBearbeitenAbbrechenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp">
-                                                                    <Button.ToolTip>
-                                                                        <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12">Breche den Bearbeitungsvorgang ab</ToolTip>
-                                                                    </Button.ToolTip>
-                                                                </Button>
-                                                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5 0 0 0" Orientation="Horizontal">
-                                                                    <Label x:Name="ÜSchülerBearbeitenAbbrechenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False" Content="Abbrechen" Foreground="{StaticResource ContentButtonForeground}" FontSize="15" FontFamily="Segoe UI Semibold"></Label>
-                                                                    <materialDesign:PackIcon x:Name="ÜSchülerBearbeitenAbbrechenPckIco" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource ContentButtonForeground}" Kind="CloseBold" Height="20" Width="20" IsHitTestVisible="False"></materialDesign:PackIcon>
-                                                                </StackPanel>
-                                                            </Grid>
-                                                            <Grid Grid.Column="2" Grid.Row="0">
-                                                                <Button x:Name="ÜSchülerBearbeitenÜbernehmenBtn" Uid="12" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" Height="Auto" Click="ÜSchülerBearbeitenÜbernehmenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp">
-                                                                    <Button.ToolTip>
-                                                                        <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12">Übernehme deine Änderungen</ToolTip>
-                                                                    </Button.ToolTip>
-                                                                </Button>
-                                                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5 0 0 0" Orientation="Horizontal">
-                                                                    <Label x:Name="ÜSchülerBearbeitenÜbernehmenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False" Content="Übernehmen" Foreground="{StaticResource ContentButtonForeground}" FontSize="15" FontFamily="Segoe UI Semibold"></Label>
-                                                                    <materialDesign:PackIcon x:Name="ÜSchülerBearbeitenÜbernehmenPckIco" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource ContentButtonForeground}" Kind="ContentSave" Height="20" Width="20" IsHitTestVisible="False"></materialDesign:PackIcon>
-                                                                </StackPanel>
+                                                        <Grid Grid.Column="0" Grid.Row="0" Margin="0 8 0 5">
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="5"></RowDefinition>
+                                                                <RowDefinition Height="40"></RowDefinition>
+                                                            </Grid.RowDefinitions>
+                                                            <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="14" Foreground="{StaticResource ContentForeground}" Content="Bild:&#x09;&#x09;"></Label>
+                                                            <Border Grid.Column="0" Grid.Row="1" BorderBrush="{StaticResource ContentControlBorder}" BorderThickness="2" Margin="0 0 5 0">
+                                                                <Grid>
+                                                                    <Label x:Name="ÜSchülerKeinBildVorhandenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe UI Semibold" FontSize="13" Foreground="{StaticResource ContentForeground}" Content="Es gibt kein Bild" Visibility="Hidden"></Label>
+                                                                    <Image x:Name="ÜSchülerBildImg"></Image>
+                                                                </Grid>
+                                                            </Border>
+                                                            <Grid Grid.Column="0" Grid.Row="4">
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                                                    <ColumnDefinition Width="5"></ColumnDefinition>
+                                                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                                                </Grid.ColumnDefinitions>
+                                                                <Grid Grid.Column="0" Grid.Row="0">
+                                                                    <Button x:Name="ÜSchülerBildLöschenBtn" Uid="13" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" Height="Auto" Click="ÜSchülerBildLöschenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp"></Button>
+                                                                    <Label x:Name="ÜSchülerBildLöschenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False" Content="Bild löschen" Foreground="{StaticResource ContentButtonForeground}" FontSize="15" FontFamily="Segoe UI Semibold"></Label>
+                                                                </Grid>
+                                                                <Grid Grid.Column="2" Grid.Row="0">
+                                                                    <Button x:Name="ÜSchülerBildÄndernBtn" Uid="14" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" Height="Auto" Click="ÜSchülerBildÄndernBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp"></Button>
+                                                                    <Label x:Name="ÜSchülerBildÄndernLbl" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False" Content="Bild ändern" Foreground="{StaticResource ContentButtonForeground}" FontSize="15" FontFamily="Segoe UI Semibold"></Label>
+                                                                </Grid>
                                                             </Grid>
                                                         </Grid>
+                                                        <Border Grid.Column="0" Grid.Row="1" BorderBrush="{StaticResource ContentDivider}" BorderThickness="0 1 0 0">
+                                                            <Grid Margin="0 5 0 0">
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                                                    <ColumnDefinition Width="5"></ColumnDefinition>
+                                                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                                                </Grid.ColumnDefinitions>
+                                                                <Grid Grid.Column="0" Grid.Row="0">
+                                                                    <Button x:Name="ÜSchülerBearbeitenAbbrechenBtn" Uid="11" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" Height="Auto" Click="ÜSchülerBearbeitenAbbrechenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp">
+                                                                        <Button.ToolTip>
+                                                                            <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12">Breche den Bearbeitungsvorgang ab</ToolTip>
+                                                                        </Button.ToolTip>
+                                                                    </Button>
+                                                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5 0 0 0" Orientation="Horizontal">
+                                                                        <Label x:Name="ÜSchülerBearbeitenAbbrechenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False" Content="Abbrechen" Foreground="{StaticResource ContentButtonForeground}" FontSize="15" FontFamily="Segoe UI Semibold"></Label>
+                                                                        <materialDesign:PackIcon x:Name="ÜSchülerBearbeitenAbbrechenPckIco" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource ContentButtonForeground}" Kind="CloseBold" Height="20" Width="20" IsHitTestVisible="False"></materialDesign:PackIcon>
+                                                                    </StackPanel>
+                                                                </Grid>
+                                                                <Grid Grid.Column="2" Grid.Row="0">
+                                                                    <Button x:Name="ÜSchülerBearbeitenÜbernehmenBtn" Uid="12" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" Height="Auto" Click="ÜSchülerBearbeitenÜbernehmenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp">
+                                                                        <Button.ToolTip>
+                                                                            <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12">Übernehme deine Änderungen</ToolTip>
+                                                                        </Button.ToolTip>
+                                                                    </Button>
+                                                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5 0 0 0" Orientation="Horizontal">
+                                                                        <Label x:Name="ÜSchülerBearbeitenÜbernehmenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False" Content="Übernehmen" Foreground="{StaticResource ContentButtonForeground}" FontSize="15" FontFamily="Segoe UI Semibold"></Label>
+                                                                        <materialDesign:PackIcon x:Name="ÜSchülerBearbeitenÜbernehmenPckIco" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource ContentButtonForeground}" Kind="ContentSave" Height="20" Width="20" IsHitTestVisible="False"></materialDesign:PackIcon>
+                                                                    </StackPanel>
+                                                                </Grid>
+                                                            </Grid>
+                                                        </Border>
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
-                                            <Grid x:Name="ÜSitzplanAnzeigenGrd" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" Visibility="Hidden">
+                                            <Grid x:Name="ÜSitzplanAnzeigenGrd" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" Visibility="Visible" Margin="0 0 0 209">
                                                 <Button x:Name="ÜSitzplanAnzeigenBtn" Uid="5" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" Background="{StaticResource ContentButtonBackground}" Click="ÜSitzplanAnzeigenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp" Width="40" Height="110">
                                                     <Button.ToolTip>
                                                         <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12">Zeige den aktuell ausgewählten Sitzplan an</ToolTip>
                                                     </Button.ToolTip>
                                                 </Button>
-                                                <materialDesign:PackIcon x:Name="ÜSitzplanAnzeigenPkIco" HorizontalAlignment="Center" VerticalAlignment="Center" Kind="ArrowCollapseLeft" Height="23" Width="23" Foreground="{StaticResource ContentButtonForeground}" IsHitTestVisible="False">
-                                                </materialDesign:PackIcon>
+                                                <materialDesign:PackIcon x:Name="ÜSitzplanAnzeigenPkIco" HorizontalAlignment="Center" VerticalAlignment="Center" Kind="ArrowCollapseLeft" Height="23" Width="23" Foreground="{StaticResource ContentButtonForeground}" IsHitTestVisible="False"></materialDesign:PackIcon>
                                             </Grid>
                                         </Grid>
                                     </Grid>

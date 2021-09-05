@@ -34,7 +34,6 @@ namespace ProjektSitzplan.Structures
         public Person(Person person) : this(person.Vorname, person.Nachname, person.Geschlecht, person.Beruf, person.UniqueId) { }
         public static string[] BerufStrings = 
         { 
-            "",
             "Anwendungsentwicklung", 
             "Systemintegration",
             "Daten und Prozessanalyse",

@@ -124,7 +124,6 @@ namespace ProjektSitzplan.Structures
             Bild = (bildBytes != null && bildBytes.Length > 0) ? BytesZuBild(bildBytes) : null;
         }
 
-
         public override string ToString()
         {
             return $"{base.ToString()}, Betrieb: {AusbildungsBetrieb.Name}, Verkürzt: {Verkürzt}";
