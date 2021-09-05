@@ -21,7 +21,7 @@
         #endregion
 
         #region Sitzplan
-        public static readonly string ERR_EX_KeinSitzplanInKlasse = "Der PDF Export benötigt Sitzpläne. \"{0}\" hat noch keine Sitzpläne, bitte erstellen Sie zuerst welche."; //TODO bessere fehlermeldung i guess?
+        public static readonly string ERR_EX_KeinSitzplanInKlasse = "Der PDF Export benötigt Sitzpläne. \"{0}\" hat noch keine Sitzpläne, bitte erstellen Sie zuerst welche.";
 
         // eigentlich ein should never heppen ding aber naja egal :D
         public static readonly string ERR_EX_KeinSitzplanAusgewählt = "Kein Sitzplan zum exportieren ausgewählt.";

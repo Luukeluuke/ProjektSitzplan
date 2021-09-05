@@ -255,9 +255,6 @@ namespace ProjektSitzplan
                     }
                 case EXType.PDF:
                     {
-                        //TODO: Implement PDF export
-
-
                         SchulKlasse klasse = (SchulKlasse)EXGefundenKlassenDtGrd.SelectedItem;
 
                         if (klasse == null)
@@ -281,7 +278,6 @@ namespace ProjektSitzplan
                     }
                 case EXType.None:
                     {
-                        //TODO: IDK another this should never happen thing :D
                         return;
                     }
             }

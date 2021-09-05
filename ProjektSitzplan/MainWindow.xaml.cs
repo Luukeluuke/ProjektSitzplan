@@ -41,7 +41,6 @@ namespace ProjektSitzplan
                 {
                     case EWindowContent.Leer:
                         {
-                            //TODO: Make this with a schnieke method
                             KlasseHinzufügenGrd.Visibility = Visibility.Hidden;
                             KlasseÜbersichtGrd.Visibility = Visibility.Hidden;
 
@@ -132,7 +131,6 @@ namespace ProjektSitzplan
             Leer, //Default
             KlasseErstellen,
             KlasseÜbersicht
-            //TODO: Weitere hier hinzufügen
         }
 
         #region Commands
@@ -543,7 +541,6 @@ namespace ProjektSitzplan
             }
         }
 
-        //TODO: Diese MEthode in den AusgewähltenSchülerEntfernenbtn einbauen. AM ende einfach yeyeyeokyeofsj
         private void AktualisiereKESchülerDtGrd()
         {
             KESchülerDtGrd.ItemsSource = null;
@@ -705,7 +702,6 @@ namespace ProjektSitzplan
 
             if (!MenuKlassenDtGrd.SelectedIndex.Equals(-1))
             {
-                //TODO: Wenn eine Klassen entfernt wird muss auch Klassen aktualisieren gemacht werden
                 AusgewählteKlasse = (SchulKlasse)MenuKlassenDtGrd.SelectedItem;
 
                 WindowContent = EWindowContent.KlasseÜbersicht;
@@ -814,8 +810,6 @@ namespace ProjektSitzplan
 
             Schüler neuerSchüler = new Schüler(new Person(vorname, nachname, geschlecht, beruf), new Betrieb(betrieb), verkürzt);
 
-            //TODO: Bild zu Schüler hinzufügen
-
             if (KESchülerListe.Count >= 50)
             {
                 ErrorHandler.ZeigeFehler(ErrorHandler.ERR_MaxSchüler);
@@ -920,7 +914,7 @@ namespace ProjektSitzplan
 
             using (var memory = new MemoryStream())
             {
-                img.Save(memory, ImageFormat.Png); //TODO Sweer
+                img.Save(memory, ImageFormat.Png); //TODO: Verify this shit
 
                 memory.Position = 0;
 
@@ -946,8 +940,6 @@ namespace ProjektSitzplan
             ÜSchülerBerufCb.SelectedIndex = (int)ÜAusgewählterSchüler.Beruf;
             ÜSchülerVerkürztCBx.IsChecked = ÜAusgewählterSchüler.Verkürzt;
 
-            
-            //TODO: Wieso ist das hier null
             if (ÜAusgewählterSchüler.Bild is null)
             {
                 ÜSchülerKeinBildVorhandenLbl.Visibility = Visibility.Visible;
