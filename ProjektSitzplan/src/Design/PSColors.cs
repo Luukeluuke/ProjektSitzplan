@@ -48,6 +48,7 @@ namespace ProjektSitzplan.Design
         public static readonly SolidColorBrush MenuComment = GetColor("878B91");
         public static readonly SolidColorBrush MenuFreeButtonBackground = GetColor("36393F");
         public static readonly SolidColorBrush MenuFreeButtonForeground = GetColor("D7D8D9");
+        public static readonly SolidColorBrush SubMenuButtonHover = GetColor("292B2F");
 
         public static readonly SolidColorBrush ToolTipBackground = GetColor("18191C");
         public static readonly SolidColorBrush ToolTipForeground = GetColor("D7D8D9");
