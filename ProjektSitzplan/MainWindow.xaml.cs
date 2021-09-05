@@ -210,6 +210,7 @@ namespace ProjektSitzplan
             //TODO: Evtl so machen das wenn bei einem Schüler bereits eine verkürzung angebene ist, und die sitzpläne "ohne ihn" generiert wurden, wenn das dann geändert wird
             //Also das er nicht mehr verkürzt der entsprechende sitzplan sofort angepasst wird. Bzw das ein Fenster kommt Like: "Hallo, der Sitzplan Block6 ist veraltet... Der schüler xy verkürzt nicht mehr soll er neu generiert werden? Ja nein boom"
             //TODO: Bei allen Datagrids den fix einbauen, dass man überall hinclicken kann
+            //TODO: Max schüler auf 50 einbauen
             //TODO: Wenn ein Sitzplan generiert wurde, eine messagebox das er erfolgreich unter dem und dem namen erstellt wurde
             //TODO: der Betrieb wird aus irgeneinemGrund nicht mehr richtig in Datagrids angezeigt
 
@@ -767,7 +768,7 @@ namespace ProjektSitzplan
             bool verkürzt = false;
             // TODO: integrate verkürtzt as checkbox or something idk...
 
-            Schüler neuerSchüler = new Schüler(vorname, nachname, geschlecht, beruf, new Betrieb(betrieb), verkürzt);
+            Schüler neuerSchüler = new Schüler(new Person(vorname, nachname, geschlecht, beruf), new Betrieb(betrieb), verkürzt);
 
             KESchülerListe.Add(neuerSchüler);
             KESchülerDtGrd.ItemsSource = null;
