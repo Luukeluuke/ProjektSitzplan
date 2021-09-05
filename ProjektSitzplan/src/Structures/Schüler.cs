@@ -15,6 +15,25 @@ namespace ProjektSitzplan.Structures
         {
             return schülerList.FirstOrDefault(schüler => schüler.UniqueId == id);
         }
+
+        public static Image SchülerBildDialog()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            const string bmp = "Bitmap Files (*.bmp)|*.bmp";
+            const string tiff = "TIFF Files (*.tif, *.tiff)|*.tif;*.tiff";
+            const string jpeg = "JPEG Files (*.jpg, *.jpeg)|*.jpg;*.jpeg";
+            const string png = "PNG Files (*.png)|*.png";
+
+            openFileDialog.Filter = $"{jpeg}|{png}|{bmp}|{tiff}";
+            openFileDialog.InitialDirectory = $@"{Environment.CurrentDirectory}\SchulKlassen";
+            if (openFileDialog.ShowDialog() == true)
+            {
+                return Schüler.LadeBildAusPfad(openFileDialog.FileName);
+            }
+
+            return null;
+        }
     }
 
     public class Schüler : Person
@@ -45,26 +64,7 @@ namespace ProjektSitzplan.Structures
             Verkürzt = schüler.Verkürzt;
             Bild = schüler.Bild;
         }
-
-
-        public static Image GetImageDialog()
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-
-            const string bmp = "Bitmap Files (*.bmp)|*.bmp";
-            const string tiff = "TIFF Files (*.tif, *.tiff)|*.tif;*.tiff";
-            const string jpeg = "JPEG Files (*.jpg, *.jpeg)|*.jpg;*.jpeg";
-            const string png = "PNG Files (*.png)|*.png";
-
-            openFileDialog.Filter = $"{jpeg}|{png}|{bmp}|{tiff}";
-            openFileDialog.InitialDirectory = $@"{Environment.CurrentDirectory}\SchulKlassen";
-            if (openFileDialog.ShowDialog() == true)
-            {
-                return LadeBildAusPfad(openFileDialog.FileName);
-            }
-
-            return null;
-        }
+        
 
         public static Image LadeBildAusPfad(string pfad)
         {
@@ -104,18 +104,24 @@ namespace ProjektSitzplan.Structures
             {
                 return null;
             }
-            ImageConverter converter = new ImageConverter();
-            
-            Image bild = null;
 
-            try
+            using (var ms = new MemoryStream(bytes))
             {
-                bild = (Image)converter.ConvertTo(bytes, typeof(Image));
+                return Image.FromStream(ms);
             }
-            catch (ArgumentNullException) { }
-            catch (NotSupportedException) { }
 
-            return bild;
+            //ImageConverter converter = new ImageConverter();
+            //
+            //Image bild = null;
+            //
+            //try
+            //{
+            //    bild = (Image)converter.ConvertTo(bytes, typeof(Image));
+            //}
+            //catch (ArgumentNullException) { }
+            //catch (NotSupportedException) { }
+            //
+            //return bild;
         }
 
         [JsonConstructor]

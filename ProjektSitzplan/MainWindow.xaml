@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:ProjektSitzplan" xmlns:System="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         DataContext="{Binding RelativeSource={RelativeSource self}}"
-        Height="600" Width="1000"
+        Height="650" Width="1000"
         WindowStyle="None" ResizeMode="CanResize" AllowsTransparency="True"
         Loaded="Window_Loaded"
         x:Name="MyMainWindow">
@@ -383,31 +383,78 @@
                                                         <ComboBoxItem Content="Digitalisierungsmanagement"/>
                                                         <ComboBoxItem Content="System Elektroniker"/>
                                                     </ComboBox>
-                                                    <Label Grid.Column="1" Grid.Row="0" Margin="0 30 0 0" HorizontalAlignment="Right" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="13" Foreground="{StaticResource ContentForeground}" Content="(*) Pflichtpfeld"></Label>
+                                                    <Label Grid.Column="2" Grid.Row="0" Margin="0 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="13" Foreground="{StaticResource ContentForeground}" Content="(*) Pflichtpfeld"></Label>
+                                                </Grid>
+                                                <Grid Grid.Column="0" Grid.Row="6" Margin="0 8 0 0">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                                        <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                                                    </Grid.ColumnDefinitions>
+                                                    <CheckBox x:Name="KESchülerVerkürztCBx" Content="Verkürzt" IsChecked="False" Margin="0 5 0 0" FontFamily="Segoe UI Semibold" FontSize="13" Foreground="{StaticResource ContentForeground}">
+                                                        <CheckBox.Resources>
+                                                            <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="#D1DDDE"></SolidColorBrush>
+                                                            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#D1DDDE"/>
+                                                        </CheckBox.Resources>
+                                                    </CheckBox>
                                                 </Grid>
                                                 <Grid Grid.Column="0" Grid.Row="7">
                                                     <Grid.RowDefinitions>
                                                         <RowDefinition Height="*"></RowDefinition>
-                                                        <RowDefinition Height="40"></RowDefinition>
+                                                        <RowDefinition Height="46"></RowDefinition>
                                                     </Grid.RowDefinitions>
-                                                    <Grid Grid.Column="0" Grid.Row="1" Margin="0 5 0 0">
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition Width="*"></ColumnDefinition>
-                                                            <ColumnDefinition Width="5"></ColumnDefinition>
-                                                            <ColumnDefinition Width="*"></ColumnDefinition>
-                                                        </Grid.ColumnDefinitions>
-                                                        <Grid Grid.Column="0" Grid.Row="1" Visibility="Visible">
-                                                            <Button x:Name="KEFelderLeerenBtn" Uid="0" TabIndex="106" HorizontalAlignment="Stretch" Height="Auto" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp" Click="KEFelderLeerenBtn_Click"></Button>
-                                                            <Label x:Name="KEFelderLeerenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Felder leeren" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"></Label>
-                                                        </Grid>
-                                                        <Grid Grid.Column="2" Grid.Row="1">
-                                                            <Button x:Name="KESchülerHinzufügenBtn" Uid="1" TabIndex="107" HorizontalAlignment="Stretch" Height="Auto" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp" Click="KESchülerHinzufügenBtn_Click"></Button>
-                                                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
-                                                                <Label x:Name="KEKSchülerHinzufügenLbl" Content="Schüler hinzufügen" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"></Label>
-                                                                <materialDesign:PackIcon x:Name="KESchülerHinzufügenPkIco" Margin="2 0 0 0" VerticalAlignment="Center" Kind="AddBold" Height="18" Width="18" Foreground="{StaticResource ContentButtonForeground}" IsHitTestVisible="False"></materialDesign:PackIcon>
-                                                            </StackPanel>
+                                                    <Grid Grid.Column="0" Grid.Row="0" Margin="0 8 0 0">
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="Auto"></RowDefinition>
+                                                            <RowDefinition Height="*"></RowDefinition>
+                                                            <RowDefinition Height="5"></RowDefinition>
+                                                            <RowDefinition Height="40"></RowDefinition>
+                                                        </Grid.RowDefinitions>
+                                                        <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="14" Foreground="{StaticResource ContentForeground}" Content="Bild:&#x09;&#x09;"></Label>
+                                                        <Border Grid.Column="0" Grid.Row="1" BorderBrush="{StaticResource ContentControlBorder}" BorderThickness="2" Margin="0 0 0 0">
+                                                            <Grid>
+                                                                <Label x:Name="KESchülerKeinBildVorhandenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe UI Semibold" FontSize="13" Foreground="{StaticResource ContentForeground}" Content="Es gibt kein Bild" Visibility="Hidden"></Label>
+                                                                <Image x:Name="KESchülerBildImg"></Image>
+                                                            </Grid>
+                                                        </Border>
+                                                        <Grid Grid.Column="0" Grid.Row="4">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                                            </Grid.ColumnDefinitions>
+                                                            <Grid Grid.Column="0" Grid.Row="0">
+                                                                <Button x:Name="KESchülerBildLöschenBtn" Uid="13" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" Height="Auto" Click="ÜSchülerBildLöschenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp"></Button>
+                                                                <Label x:Name="KESchülerBildLöschenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False" Content="Bild löschen" Foreground="{StaticResource ContentButtonForeground}" FontSize="15" FontFamily="Segoe UI Semibold"></Label>
+                                                            </Grid>
+                                                            <Grid Grid.Column="2" Grid.Row="0">
+                                                                <Button x:Name="KESchülerBildÄndernBtn" Uid="14" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" Height="Auto" Click="ÜSchülerBildÄndernBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp"></Button>
+                                                                <Label x:Name="KESchülerBildÄndernLbl" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False" Content="Bild ändern" Foreground="{StaticResource ContentButtonForeground}" FontSize="15" FontFamily="Segoe UI Semibold"></Label>
+                                                            </Grid>
                                                         </Grid>
                                                     </Grid>
+                                                    <Border Grid.Column="0" Grid.Row="1" BorderBrush="{StaticResource ContentDivider}" BorderThickness="0 1 0 0" VerticalAlignment="Stretch" Margin="0 5 0 0">
+                                                        <Grid>
+                                                            <Grid Grid.Column="0" Grid.Row="1" Margin="0 5 0 0">
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                                                    <ColumnDefinition Width="5"></ColumnDefinition>
+                                                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                                                </Grid.ColumnDefinitions>
+                                                                <Grid Grid.Column="0" Grid.Row="1" Visibility="Visible">
+                                                                    <Button x:Name="KEFelderLeerenBtn" Uid="0" TabIndex="106" HorizontalAlignment="Stretch" Height="Auto" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp" Click="KEFelderLeerenBtn_Click"></Button>
+                                                                    <Label x:Name="KEFelderLeerenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Felder leeren" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"></Label>
+                                                                </Grid>
+                                                                <Grid Grid.Column="2" Grid.Row="1">
+                                                                    <Button x:Name="KESchülerHinzufügenBtn" Uid="1" TabIndex="107" HorizontalAlignment="Stretch" Height="Auto" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp" Click="KESchülerHinzufügenBtn_Click"></Button>
+                                                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                                                                        <Label x:Name="KEKSchülerHinzufügenLbl" Content="Schüler hinzufügen" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"></Label>
+                                                                        <materialDesign:PackIcon x:Name="KESchülerHinzufügenPkIco" Margin="2 0 0 0" VerticalAlignment="Center" Kind="AddBold" Height="18" Width="18" Foreground="{StaticResource ContentButtonForeground}" IsHitTestVisible="False"></materialDesign:PackIcon>
+                                                                    </StackPanel>
+                                                                </Grid>
+                                                            </Grid>
+                                                        </Grid>
+                                                    </Border>
                                                 </Grid>
                                             </Grid>
                                         </Grid>
@@ -542,14 +589,14 @@
                                         </Grid>
                                     </Grid>
                                 </Grid>
-                                <Grid x:Name="KlasseÜbersichtGrd" Visibility="Visible">
+                                <Grid x:Name="KlasseÜbersichtGrd" Visibility="Hidden">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="1.35*"></ColumnDefinition>
                                         <ColumnDefinition Width="*"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
                                     <Grid x:Name="container" Grid.Column="1" Grid.Row="0"></Grid>
                                     <Grid x:Name="KlasseÜbersichtSitzplanGrd" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Background="CornflowerBlue" Visibility="Hidden">
-                                        <Grid x:Name="ÜSitzplanVersteckenGrd" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="Visible" Margin="0 0 0 209">
+                                        <Grid x:Name="ÜSitzplanVersteckenGrd" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="Visible">
                                             <Button x:Name="ÜSitzplanVersteckenBtn" Uid="10" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" Background="{StaticResource ContentButtonBackground}" Click="ÜSitzplanVersteckenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp" Width="40" Height="110">
                                                 <Button.ToolTip>
                                                     <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12">Kehre zur Klassen-Übersicht zurück</ToolTip>
@@ -1013,7 +1060,7 @@
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
-                                            <Grid x:Name="ÜSitzplanAnzeigenGrd" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" Visibility="Visible" Margin="0 0 0 209">
+                                            <Grid x:Name="ÜSitzplanAnzeigenGrd" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" Visibility="Hidden">
                                                 <Button x:Name="ÜSitzplanAnzeigenBtn" Uid="5" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" Background="{StaticResource ContentButtonBackground}" Click="ÜSitzplanAnzeigenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp" Width="40" Height="110">
                                                     <Button.ToolTip>
                                                         <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12">Zeige den aktuell ausgewählten Sitzplan an</ToolTip>

@@ -200,7 +200,7 @@ namespace ProjektSitzplan
             NotifyPropertyChanged(propertyName);
             return true;
         }
-        #endregion
+        #endregion  
 
 
         public MainWindow()
@@ -877,7 +877,8 @@ namespace ProjektSitzplan
         {
             using (var memory = new MemoryStream())
             {
-                img.Save(memory, ImageFormat.Jpeg);
+                img.Save(memory, ImageFormat.Png); //TODO Sweer
+
                 memory.Position = 0;
 
                 var bitmapImage = new BitmapImage();
@@ -1017,14 +1018,26 @@ namespace ProjektSitzplan
         #region ÜSchülerBildLöschenBtn
         private void ÜSchülerBildLöschenBtn_Click(object sender, RoutedEventArgs e)
         {
+            Schüler schüler = new Schüler((Schüler)ÜSchülerDtGrd.SelectedItem);
 
+            schüler.Bild = null;
+            ÜSchülerBildImg.Source = null;
+
+            AusgewählteKlasse.SchülerAktuallisieren(schüler);
+            DataHandler.SpeicherSchulKlasse(AusgewählteKlasse);
         }
         #endregion
 
         #region ÜSchülerBldÄndernBtn
         private void ÜSchülerBildÄndernBtn_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: Sweeer hier ein FileBrowserDIalog für die Bilder für den Schüler
+            Schüler schüler = new Schüler((Schüler)ÜSchülerDtGrd.SelectedItem);
+
+            schüler.Bild = SchülerHelfer.SchülerBildDialog();
+            ÜSchülerBildImg.Source = Convert(schüler.Bild);
+
+            AusgewählteKlasse.SchülerAktuallisieren(schüler);
+            DataHandler.SpeicherSchulKlasse(AusgewählteKlasse);
         }
         #endregion
 
@@ -1044,7 +1057,7 @@ namespace ProjektSitzplan
 
         private void ÜSchülerBearbeitenÜbernehmenBtn_Click(object sender, RoutedEventArgs e)
         {
-            Schüler schüler = (Schüler)ÜSchülerDtGrd.SelectedItem;
+            Schüler schüler = new Schüler((Schüler)ÜSchülerDtGrd.SelectedItem);
 
             string vorname = ÜSchülerVornameTxbx.Text.Trim();
             string nachname = ÜSchülerNachnameTxbx.Text.Trim();
@@ -1107,7 +1120,6 @@ namespace ProjektSitzplan
             KlasseÜbersichtSitzplanGrd.Visibility = Visibility.Hidden;
         }
         #endregion
-
         #endregion
     }
 }

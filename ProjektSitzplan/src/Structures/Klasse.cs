@@ -173,7 +173,14 @@ namespace ProjektSitzplan.Structures
 
         public void SchülerAktuallisieren(Schüler schüler)
         {
-            if (!SchülerListe.Contains(schüler))
+            if (schüler == null)
+            {
+                return;
+            }
+
+            Schüler original = SchülerListe.FirstOrDefault(s => s.UniqueId.Equals(schüler));
+
+            if (original == null)
             {
                 return;
             }
@@ -185,7 +192,7 @@ namespace ProjektSitzplan.Structures
                 return;
             }
 
-
+            original = new Schüler(schüler);
         }
         #endregion
 
