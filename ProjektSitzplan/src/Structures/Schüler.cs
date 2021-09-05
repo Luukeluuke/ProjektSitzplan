@@ -5,6 +5,7 @@ using System.Drawing;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Media.Imaging;
 
 namespace ProjektSitzplan.Structures
 {
@@ -19,6 +20,11 @@ namespace ProjektSitzplan.Structures
     public class Schüler : Person
     {
         public Betrieb AusbildungsBetrieb;
+
+        [JsonIgnore]
+        public string Betrieb => AusbildungsBetrieb.Name;
+
+
         public bool Verkürzt;
 
         public byte[] bildBytes => BildZuBytes(Bild);
@@ -32,6 +38,14 @@ namespace ProjektSitzplan.Structures
             Verkürzt = verkürzt;
             Bild = bild;
         }
+
+        public Schüler(Schüler schüler) : base(schüler)
+        {
+            AusbildungsBetrieb = schüler.AusbildungsBetrieb;
+            Verkürzt = schüler.Verkürzt;
+            Bild = schüler.Bild;
+        }
+
 
         public static Image GetImageDialog()
         {

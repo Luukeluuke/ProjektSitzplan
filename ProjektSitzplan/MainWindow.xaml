@@ -435,6 +435,7 @@
                                                         <DataGridTextColumn Header="Nachname" Binding="{Binding Nachname}"></DataGridTextColumn>
                                                         <DataGridTextColumn Header="Vorname" Binding="{Binding Vorname}"></DataGridTextColumn>
                                                         <DataGridTextColumn Header="Beruf" Binding="{Binding Beruf}"></DataGridTextColumn>
+                                                        <DataGridTextColumn Header="Betrieb" Binding="{Binding Betrieb}"></DataGridTextColumn>
                                                         <DataGridTextColumn Header="Geschlecht" Binding="{Binding Geschlecht}"></DataGridTextColumn>
                                                     </DataGrid.Columns>
                                                     <DataGrid.Resources>
@@ -594,7 +595,7 @@
                                                                         <DataGridTextColumn Header="Nachname" Binding="{Binding Nachname}"></DataGridTextColumn>
                                                                         <DataGridTextColumn Header="Vorname" Binding="{Binding Vorname}"></DataGridTextColumn>
                                                                         <DataGridTextColumn Header="Beruf" Binding="{Binding Beruf}"></DataGridTextColumn>
-                                                                        <DataGridTextColumn Header="Betrieb" Binding="{Binding AusbildungsBetrieb}"></DataGridTextColumn>
+                                                                        <DataGridTextColumn Header="Betrieb" Binding="{Binding Betrieb}"></DataGridTextColumn>
                                                                         <DataGridTextColumn Header="Geschlecht" Binding="{Binding Geschlecht}" Width="*"></DataGridTextColumn>
                                                                     </DataGrid.Columns>
                                                                     <DataGrid.Resources>

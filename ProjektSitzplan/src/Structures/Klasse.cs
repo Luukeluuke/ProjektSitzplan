@@ -170,6 +170,23 @@ namespace ProjektSitzplan.Structures
 
             SchülerListe.Remove(schüler);
         }
+
+        public void SchülerAktuallisieren(Schüler schüler)
+        {
+            if (!SchülerListe.Contains(schüler))
+            {
+                return;
+            }
+
+            Sitzplan sitzplan = Sitzpläne.FirstOrDefault(s => s.BlockSitzplan.Equals(SchulBlock.Block6));
+
+            if (sitzplan == null)
+            {
+                return;
+            }
+
+
+        }
         #endregion
 
         #region Import / Export
