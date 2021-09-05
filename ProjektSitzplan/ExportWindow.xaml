@@ -60,8 +60,10 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="15" Foreground="{StaticResource ContentTitleForeground}" Content="Gefundene Klassen"/>
-                            <Border Grid.Column="0" Grid.Row="1" BorderThickness="2" BorderBrush="{StaticResource ContentControlBorder}">
+                            <Border Grid.Column="0" Grid.Row="0" BorderBrush="{StaticResource ContentDivider}" BorderThickness="0 0 0 1">
+                                <Label HorizontalAlignment="Left" Margin="0 0 0 5" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="15" Foreground="{StaticResource ContentTitleForeground}" Content="Gefundene Klassen"/>
+                            </Border>
+                            <Border Grid.Column="0" Grid.Row="1" BorderThickness="2" BorderBrush="{StaticResource ContentControlBorder}" Margin="0 5 0 0">
 
                                 <!--#region DataGrid-->
                                 
@@ -153,46 +155,50 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="15" Foreground="{StaticResource ContentTitleForeground}" Content="Exportieren als:"/>
+                        <Border Grid.Column="0" Grid.Row="0" BorderBrush="{StaticResource ContentDivider}" BorderThickness="0 0 0 1">
+                            <Label HorizontalAlignment="Left" Margin="0 0 0 5" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="15" Foreground="{StaticResource ContentTitleForeground}" Content="Exportieren als:"/>
+                        </Border>
 
-
-                        <Grid Grid.Column="0" Grid.Row="1">
+                        <Grid Grid.Column="0" Grid.Row="1" Margin="0 5 0 0">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
 
                             <!--#region Radio Buttons-->
-                            <StackPanel Grid.Column="0" Grid.Row="0">
+                            <StackPanel Grid.Column="0" Grid.Row="0" Margin="5 5 0 0">
 
-                                <RadioButton x:Name="EXPDFRad" Content="PDF" GroupName="Group1" Checked="RadioButton_Checked" Background="{StaticResource ContentButtonHoverForeground}"/>
-                                <RadioButton x:Name="EXJSONRad" Content="Json" GroupName="Group1" Checked="RadioButton_Checked" Background="{StaticResource ContentButtonHoverForeground}"/>
+                                <RadioButton x:Name="EXPDFRad" Content="PDF" GroupName="Group1" Checked="RadioButton_Checked" FontFamily="Segoe UI Semibold" FontSize="13" Foreground="{StaticResource ContentForeground}" Background="{StaticResource ContentButtonHoverForeground}"/>
+                                <RadioButton x:Name="EXJSONRad" Content="Json" GroupName="Group1" Checked="RadioButton_Checked" FontFamily="Segoe UI Semibold" FontSize="13" Foreground="{StaticResource ContentForeground}" Background="{StaticResource ContentButtonHoverForeground}" Margin="0 5 0 0"/>
+
                             </StackPanel>
                             <!--#endregion-->
 
                             <!--#region Buttons-->
-                            <Grid Grid.Column="0" Grid.Row="1" VerticalAlignment="Bottom">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="5"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
+                            <Border Grid.Column="0" Grid.Row="1" BorderBrush="{StaticResource ContentDivider}" BorderThickness="0 1 0 0" VerticalAlignment="Bottom">
+                                <Grid Margin="0 5 0 0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="5"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
 
-                                <Grid Grid.Column="0" Grid.Row="0">
-                                    <Button  x:Name="EXAbbrechenBtn" VerticalAlignment="Center" Uid="0" HorizontalAlignment="Stretch" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}"  materialDesign:RippleAssist.IsDisabled="True" Click="EXAbbrechenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp"/>
-                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                        <Label x:Name="EXAbbrechenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Abbrechen" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"/>
-                                        <materialDesign:PackIcon x:Name="EXExitPckIco" IsHitTestVisible="False" Kind="Close" Margin="5 0 0 0" Height="23" Width="23" Foreground="{StaticResource ContentButtonForeground}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                    </StackPanel>
+                                    <Grid Grid.Column="0" Grid.Row="0">
+                                        <Button  x:Name="EXAbbrechenBtn" VerticalAlignment="Center" Uid="0" HorizontalAlignment="Stretch" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}"  materialDesign:RippleAssist.IsDisabled="True" Click="EXAbbrechenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp"/>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                            <Label x:Name="EXAbbrechenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Abbrechen" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"/>
+                                            <materialDesign:PackIcon x:Name="EXExitPckIco" IsHitTestVisible="False" Kind="Close" Margin="5 0 0 0" Height="23" Width="23" Foreground="{StaticResource ContentButtonForeground}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Grid>
+                                    <Grid Grid.Column="2" Grid.Row="0">
+                                        <Button  x:Name="EXExportBtn" VerticalAlignment="Center" Uid="1" HorizontalAlignment="Stretch" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}"  materialDesign:RippleAssist.IsDisabled="True" Click="EXExportBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp" IsEnabled="False"/>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                            <Label x:Name="EXExportLbl" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Exportieren" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"/>
+                                            <materialDesign:PackIcon x:Name="EXExportPckIco" IsHitTestVisible="False" Kind="Export" Margin="5 0 0 0" Height="23" Width="23" Foreground="{StaticResource ContentButtonForeground}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Grid>
                                 </Grid>
-                                <Grid Grid.Column="2" Grid.Row="0">
-                                    <Button  x:Name="EXExportBtn" VerticalAlignment="Center" Uid="1" HorizontalAlignment="Stretch" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}"  materialDesign:RippleAssist.IsDisabled="True" Click="EXExportBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp" IsEnabled="False"/>
-                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                        <Label x:Name="EXExportLbl" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Exportieren" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"/>
-                                        <materialDesign:PackIcon x:Name="EXExportPckIco" IsHitTestVisible="False" Kind="Export" Margin="5 0 0 0" Height="23" Width="23" Foreground="{StaticResource ContentButtonForeground}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                    </StackPanel>
-                                </Grid>
-                            </Grid>
+                            </Border>
                             <!--#endregion-->
                         </Grid>
                     </Grid>

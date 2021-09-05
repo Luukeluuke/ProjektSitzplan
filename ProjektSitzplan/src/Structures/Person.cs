@@ -5,12 +5,10 @@ namespace ProjektSitzplan.Structures
 {
     public class Person
     {
-        public string UniqueId { get; private set; }
-
-        public string Vorname { get; private set; }
-        public string Nachname { get; private set; }
-        public EGeschlecht Geschlecht { get; private set; }
-        public EBeruf Beruf { get; private set; }
+        public string Vorname { get; set; }
+        public string Nachname { get; set; }
+        public EGeschlecht Geschlecht { get; set; }
+        public EBeruf Beruf { get; set; }
 
         public enum EGeschlecht : ushort
         {
@@ -20,19 +18,29 @@ namespace ProjektSitzplan.Structures
 
         public enum EBeruf : ushort
         {
-            Lehrer = 0,
-            Anwendungsentwicklung = 1,
-            Systemintegration = 2,
-            DatenundProzessanalyse = 3,
-            DigitaleVernetzung = 4,
-            ITSystemmanagement = 5,
-            DigitalisierungsManagement = 6,
-            SystemElektroniker = 7
+            Anwendungsentwicklung = 0,
+            Systemintegration = 1,
+            DatenundProzessanalyse = 2,
+            DigitaleVernetzung = 3,
+            ITSystemmanagement = 4,
+            DigitalisierungsManagement = 5,
+            SystemElektroniker = 6
         }
 
         public Person(string vorname, string nachname, EGeschlecht geschlecht, EBeruf beruf) : this(vorname, nachname, geschlecht, beruf, Guid.NewGuid().ToString()) { }
 
         public Person(Person person) : this(person.Vorname, person.Nachname, person.Geschlecht, person.Beruf, person.UniqueId) { }
+        public static string[] BerufStrings = 
+        { 
+            "",
+            "Anwendungsentwicklung", 
+            "Systemintegration",
+            "Daten und Prozessanalyse",
+            "Digitale Vernetzung", 
+            "IT-Systemmanagement", 
+            "Digitalisierungsmanagement", 
+            "System Elektroniker" 
+        };
 
         [JsonConstructor]
         public Person(string vorname, string nachname, EGeschlecht geschlecht, EBeruf beruf, string uniqueId)

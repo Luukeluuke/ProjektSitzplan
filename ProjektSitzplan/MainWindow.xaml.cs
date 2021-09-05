@@ -208,6 +208,8 @@ namespace ProjektSitzplan
             //Also das er nicht mehr verkürzt der entsprechende sitzplan sofort angepasst wird. Bzw das ein Fenster kommt Like: "Hallo, der Sitzplan Block6 ist veraltet... Der schüler xy verkürzt nicht mehr soll er neu generiert werden? Ja nein boom"
             //TODO: Bei allen Datagrids den fix einbauen, dass man überall hinclicken kann
             //TODO: Max schüler auf 50 einbauen
+            //TODO: Wenn ein Sitzplan generiert wurde, eine messagebox das er erfolgreich unter dem und dem namen erstellt wurde
+            //TODO: der Betrieb wird aus irgeneinemGrund nicht mehr richtig in Datagrids angezeigt
 
             InitializeComponent();
 
@@ -550,13 +552,14 @@ namespace ProjektSitzplan
 
         private void ZeigeKlasseAn()
         {
-            ÜKlasseNameLbl.Content = AusgewählteKlasse.Name;
+            ÜKlasseNameLbl.Content = $"Übersicht - {AusgewählteKlasse.Name}";
             ÜKlasseAnzahlSchülerLbl.Content = AusgewählteKlasse.AnzahlSchüler;
 
             ÜSchülerDtGrd.ItemsSource = null;
             ÜSchülerDtGrd.ItemsSource = AusgewählteKlasse.SchülerListe;
             ÜKeineSchülerVorhandenLbl.Visibility = ÜSchülerDtGrd.Items.Count > 0 ? Visibility.Hidden : Visibility.Visible;
 
+            ÜSitzplanHinzufügenBtn.IsEnabled = AusgewählteKlasse.SchülerListe.Count > 0 ? true : false;
             ÜSitzpläneDtGrd.ItemsSource = null;
             ÜSitzpläneDtGrd.ItemsSource = AusgewählteKlasse.Sitzpläne;
             ÜKeineSitzpläneVorhandenLbl.Visibility = ÜSitzpläneDtGrd.Items.Count > 0 ? Visibility.Hidden : Visibility.Visible;
@@ -594,7 +597,9 @@ namespace ProjektSitzplan
                 ÜSchülerHinzufügenLbl,
                 ÜSitzplanEntfernenLbl,
                 ÜSitzplanHinzufügenLbl,
-                null
+                null,
+                ÜSchülerBearbeitenAbbrechenLbl,
+                ÜSchülerBearbeitenÜbernehmenLbl
             };
             ContentPackIconsSets = new PackIconSet[]
             {
@@ -608,7 +613,9 @@ namespace ProjektSitzplan
                 new PackIconSet(ÜSchülerHinzufügenPckIco, PackIconSet.EIconType.Content, PSColors.IconHoverGreen, PSColors.IconPreviewGreen),
                 new PackIconSet(ÜSitzplanEntfernenPckIco, PackIconSet.EIconType.Content, PSColors.IconHoverRed, PSColors.IconPreviewRed),
                 new PackIconSet(ÜSitzplanHinzufügenPckIco, PackIconSet.EIconType.Content, PSColors.IconHoverGreen, PSColors.IconPreviewGreen),
-                new PackIconSet(ÜSitzplanVersteckenPkIco, PackIconSet.EIconType.Content, PSColors.ContentButtonHoverForeground, PSColors.ContentButtonPreviewForeground)
+                new PackIconSet(ÜSitzplanVersteckenPkIco, PackIconSet.EIconType.Content, PSColors.ContentButtonHoverForeground, PSColors.ContentButtonPreviewForeground),
+                new PackIconSet(ÜSchülerBearbeitenAbbrechenPckIco, PackIconSet.EIconType.Content, PSColors.IconHoverRed, PSColors.IconPreviewRed),
+                new PackIconSet(ÜSchülerBearbeitenÜbernehmenPckIco, PackIconSet.EIconType.Content, PSColors.IconHoverGreen, PSColors.IconPreviewGreen)
             };
         }
         #endregion
@@ -757,7 +764,6 @@ namespace ProjektSitzplan
 
             bool verkürzt = false;
             // TODO: integrate verkürtzt as checkbox or something idk...
-            // TODO: sollte das auch im datagrid angezeigt werden??
 
             Schüler neuerSchüler = new Schüler(new Person(vorname, nachname, geschlecht, beruf), new Betrieb(betrieb), verkürzt);
 
@@ -769,7 +775,6 @@ namespace ProjektSitzplan
             AktualisiereKESchülerDtGrd();
 
             KESchülerFelderLeeren();
-            // TODO: schüler werden nicht richtig angezeigt!! is das bereits gefixt???
         }
         #endregion
 
@@ -835,7 +840,6 @@ namespace ProjektSitzplan
             KlassenAktualisieren();
         }
         #endregion
-
         #endregion
 
         #region Content - Klasse Übersicht
@@ -856,7 +860,17 @@ namespace ProjektSitzplan
         #region ÜSchülerDtGrd
         private void ZeigeSchüler()
         {
-            //TODO: Hier das laden den schülers in das rechte panel
+            ÜSchülerÜbersichtGrd.Visibility = Visibility.Visible;
+
+            ÜSchülerNameLbl.Content = $"Bearbeite - {ÜAusgewählterSchüler.Vorname} {ÜAusgewählterSchüler.Nachname}";
+            ÜSchülerVornameTxbx.Text = ÜAusgewählterSchüler.Vorname;
+            ÜSchülerNachnameTxbx.Text = ÜAusgewählterSchüler.Nachname;
+            ÜSchülerBetriebTxbx.Text = ÜAusgewählterSchüler.AusbildungsBetrieb.Name;
+            ÜSchülerGeschlechtCb.SelectedIndex = (int)ÜAusgewählterSchüler.Geschlecht;
+            ÜSchülerBerufCb.SelectedIndex = (int)ÜAusgewählterSchüler.Beruf;
+            ÜSchülerVerkürztCBx.IsChecked = ÜAusgewählterSchüler.Verkürzt;
+
+            //TODO: Bild
         }
 
         private void ÜSchülerDtGrd_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
@@ -870,16 +884,25 @@ namespace ProjektSitzplan
             }
             else
             {
-                //TODO: Schüler Info Grid invisible maken
+                ÜSchülerÜbersichtGrd.Visibility = Visibility.Hidden;
             }
         }
         #endregion
 
         #region ÜSchülerEntfernenBtn
+        private void AktualisiereSchüler()
+        {
+            ÜSchülerDtGrd.ItemsSource = null;
+            ÜSchülerDtGrd.ItemsSource = AusgewählteKlasse.SchülerListe;
+            ÜKlasseAnzahlSchülerLbl.Content = AusgewählteKlasse.SchülerListe.Count;
+        }
+
         private void ÜSchülerEntfernenBtn_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: SchülerENtfernen Zeugs
+            AusgewählteKlasse.SchülerListe.Remove((Schüler)ÜSchülerDtGrd.SelectedItem);
+            AktualisiereSchüler();
 
+            ÜSitzplanHinzufügenBtn.IsEnabled = AusgewählteKlasse.SchülerListe.Count > 0 ? true : false;
             ÜKeineSchülerVorhandenLbl.Visibility = ÜSchülerDtGrd.Items.Count > 0 ? Visibility.Hidden : Visibility.Visible;
         }
         #endregion
@@ -889,6 +912,9 @@ namespace ProjektSitzplan
         {
             //TODO: Schüler hinzufügen zeugs
 
+            AktualisiereSchüler();
+
+            ÜSitzplanHinzufügenBtn.IsEnabled = AusgewählteKlasse.SchülerListe.Count > 0 ? true : false;
             ÜKeineSchülerVorhandenLbl.Visibility = ÜSchülerDtGrd.Items.Count > 0 ? Visibility.Hidden : Visibility.Visible;
         }
         #endregion
@@ -914,9 +940,18 @@ namespace ProjektSitzplan
         #endregion
 
         #region ÜSitzplanEntfernenBtn
+        private void AktualisiereSitzpläne()
+        {
+            ÜSitzpläneDtGrd.ItemsSource = null;
+            ÜSitzpläneDtGrd.ItemsSource = AusgewählteKlasse.Sitzpläne;
+        }
+
         private void ÜSitzplanEntfernenBtn_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: Sitzplan entfernen shit
+            AusgewählteKlasse.Sitzpläne.Remove((Sitzplan)ÜSitzpläneDtGrd.SelectedItem);
+
+            AktualisiereSitzpläne();
+
             ÜKeineSitzpläneVorhandenLbl.Visibility = ÜSchülerDtGrd.Items.Count > 0 ? Visibility.Hidden : Visibility.Visible;
         }
         #endregion
@@ -924,9 +959,67 @@ namespace ProjektSitzplan
         #region ÜSitzplanHinzufügenBtn
         private void SitzplanGenerierenClick(object sender, RoutedEventArgs e)
         {
-            ausgewählteKlasse.ErstelleSitzplanDialog();
+            Sitzplan neuerSitzplan = ausgewählteKlasse.ErstelleSitzplanDialog();
 
-            ÜKeineSitzpläneVorhandenLbl.Visibility = ÜSitzpläneDtGrd.Items.Count > 0 ? Visibility.Hidden : Visibility.Visible;
+            if (!(neuerSitzplan is null))
+            {
+                AktualisiereSitzpläne();
+
+                ÜKeineSitzpläneVorhandenLbl.Visibility = ÜSitzpläneDtGrd.Items.Count > 0 ? Visibility.Hidden : Visibility.Visible;
+            }
+
+        }
+        #endregion
+
+        #region ÜSchülerBearbeitenAbbrechenBtn
+        private void ÜSchülerBearbeitenAbbrechenBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ÜSchülerDtGrd.SelectedIndex = -1;
+        }
+        #endregion
+
+        #region ÜSchülerBearbeitenÜbernehmenBtn
+        private void ÜSchülerBearbeitenÜbernehmenBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Schüler schüler = (Schüler)ÜSchülerDtGrd.SelectedItem;
+
+            string vorname = ÜSchülerVornameTxbx.Text.Trim();
+            string nachname = ÜSchülerNachnameTxbx.Text.Trim();
+            string betrieb = ÜSchülerBetriebTxbx.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(vorname) || string.IsNullOrWhiteSpace(nachname) || string.IsNullOrWhiteSpace(betrieb))
+            {
+                ErrorHandler.ZeigeFehler(ErrorHandler.ERR_SH_PflichtfelderNichtAusgefüllt);
+                return;
+            }
+
+            Person.EGeschlecht geschlecht;
+            Person.EBeruf beruf;
+            try
+            {
+                geschlecht = (Person.EGeschlecht)Enum.Parse(typeof(Person.EGeschlecht), ÜSchülerGeschlechtCb.Text, true);
+                beruf = (Person.EBeruf)Enum.Parse(typeof(Person.EBeruf), ÜSchülerBerufCb.Text.Replace(" ", ""), true);
+            }
+            catch (ArgumentException)
+            {
+                ErrorHandler.ZeigeFehler(ErrorHandler.ERR_SH_PflichtfelderNichtAusgefüllt);
+                return;
+            }
+
+            bool verkürzt = ÜSchülerVerkürztCBx.IsChecked.Value;
+
+            schüler.Vorname = vorname;
+            schüler.Nachname = nachname;
+            schüler.AusbildungsBetrieb.Name = betrieb;
+            schüler.Geschlecht = geschlecht;
+            schüler.Beruf = beruf;
+            schüler.Verkürzt = verkürzt;
+
+            ÜSchülerDtGrd.ItemsSource = null;
+            ÜSchülerDtGrd.ItemsSource = AusgewählteKlasse.SchülerListe;
+            DataHandler.SpeicherSchulKlasse(AusgewählteKlasse);
+
+            ÜSchülerÜbersichtGrd.Visibility = Visibility.Hidden;
         }
         #endregion
 
