@@ -74,7 +74,7 @@ namespace ProjektSitzplan.Structures
             Sitzpläne.Remove(sitzplan);
         }
 
-        public void ErstelleSitzplanDialog()
+        public Sitzplan ErstelleSitzplanDialog()
         {
             SitzplanGenerierenWindow erstellDialog = new SitzplanGenerierenWindow(this);
 
@@ -82,10 +82,11 @@ namespace ProjektSitzplan.Structures
 
             if (!erstellDialog.Erfolgreich)
             {
-                return;
+                return null;
             }
 
-            ErstelleSitzplan(erstellDialog.Generator);
+            Sitzplan neuerSitzplan = ErstelleSitzplan(erstellDialog.Generator);
+            return neuerSitzplan;
         }
 
 
@@ -213,7 +214,7 @@ namespace ProjektSitzplan.Structures
                 int cnt = SchülerListe.Count(s => s.Beruf.Equals(beruf));
                 if (cnt > 0)
                 {
-                    builder.Append($"\n{beruf}: {cnt}");
+                    builder.Append($"\n{Person.BerufStrings[(int)beruf]}: {cnt}");
                 }
             }
 

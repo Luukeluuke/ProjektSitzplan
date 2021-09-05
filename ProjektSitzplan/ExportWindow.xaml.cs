@@ -250,7 +250,7 @@ namespace ProjektSitzplan
 
                         klasse.AlsDateiSpeichern(saveFileDialog.FileName);
 
-                        EXErfolgreich($"Die Klasse: {klasse.Name} wurde als {saveFileDialog.FileName} exportiert!");
+                        EXErfolgreich($"Die Klasse \"{klasse.Name}\" wurde unter\n{saveFileDialog.FileName}\nabgelegt!");
                         return;
                     }
                 case EXType.PDF:

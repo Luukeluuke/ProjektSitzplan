@@ -32,7 +32,7 @@ namespace ProjektSitzplan
 
         public SchulKlasse Klasse { get; private set; }
 
-        
+        //TODO: Beim aktivieren der erweiterten einstellungen sollte eine meldung ausgegeben werden was das genau heißt
 
 
         #region Constructor

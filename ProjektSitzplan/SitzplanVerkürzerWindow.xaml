@@ -20,7 +20,7 @@
                 <Grid x:Name="TitleBarGrid" Background="{StaticResource TopBarBackground}" MouseDown="TitleBarGrid_MouseDown">
                     <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5 0 0 0">
                         <Image VerticalAlignment="Center" Margin="0 7 0 7" Source="/ProjektSitzplan;component/src/Design/Images/Logos/Logo878B91.png"></Image>
-                        <Label Margin="1 0 0 0" Content="Sitzplan Generieren" Foreground="{StaticResource TopBarForeground}" FontFamily="Segoe UI Semibold" FontSize="16"></Label>
+                        <Label Margin="1 0 0 0" Content="Verkürzer" Foreground="{StaticResource TopBarForeground}" FontFamily="Segoe UI Semibold" FontSize="16"></Label>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
                         <Button x:Name="MinimizeBtn" Uid="0" Template="{StaticResource FlatTopBar}" Background="{x:Null}" materialDesign:RippleAssist.IsDisabled="True" IsTabStop="False" Height="30" Click="TopBarButton_Click" MouseEnter="TopBarButton_MouseEnter" MouseLeave="TopBarButton_MouseLeave" PreviewMouseDown="TopBarButton_PreviewMouseDown" PreviewMouseUp="TopBarButton_PreviewMouseUp" Width="55">

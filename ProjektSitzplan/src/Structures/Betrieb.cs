@@ -4,7 +4,7 @@ namespace ProjektSitzplan.Structures
 {
     public class Betrieb
     {
-        public string Name { get; private set; }
+        public string Name { get; set; }
 
         [JsonConstructor]
         public Betrieb(string name)
