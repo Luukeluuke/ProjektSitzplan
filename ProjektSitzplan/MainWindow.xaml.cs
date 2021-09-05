@@ -205,15 +205,14 @@ namespace ProjektSitzplan
 
         public MainWindow()
         {
-            //TODO: Design der Radio Buttons und CheckBoxen anpassen (die export dialoge und sitzplan generieren dialoge)
             //TODO: Fix data grid selection bug
-            //TODO: In die KlasseErstellen Ansicht beim Schüler erstellen teil die mögliche verkürzung mit einbauen
-            //Also das er nicht mehr verkürzt der entsprechende sitzplan sofort angepasst wird. Bzw das ein Fenster kommt Like: "Hallo, der Sitzplan Block6 ist veraltet... Der schüler xy verkürzt nicht mehr soll er neu generiert werden? Ja nein boom"
             //TODO: Bei allen Datagrids den fix einbauen, dass man überall hinclicken kann
-            //TODO: Max schüler auf 50 einbauen
-            //TODO: Wenn ein Sitzplan generiert wurde, eine messagebox das er erfolgreich unter dem und dem namen erstellt wurde
-            //TODO: der Betrieb wird aus irgeneinemGrund nicht mehr richtig in Datagrids angezeigt
-            //TODO: Animation Acceleraton iwos
+
+            //TODO: In die KlasseErstellen Ansicht beim Schüler erstellen teil die mögliche verkürzung mit einbauen
+
+
+            //Also das er nicht mehr verkürzt der entsprechende sitzplan sofort angepasst wird. Bzw das ein Fenster kommt Like:
+            //"Hallo, der Sitzplan Block6 ist veraltet... Der schüler xy verkürzt nicht mehr soll er neu generiert werden? Ja nein boom"
 
             InitializeComponent();
 
@@ -776,6 +775,13 @@ namespace ProjektSitzplan
 
             Schüler neuerSchüler = new Schüler(new Person(vorname, nachname, geschlecht, beruf), new Betrieb(betrieb), verkürzt);
 
+            if (KESchülerListe.Count >= 50)
+            {
+                ErrorHandler.ZeigeFehler(ErrorHandler.ERR_MaxSchüler);
+
+                return;
+            }
+
             KESchülerListe.Add(neuerSchüler);
             KESchülerDtGrd.ItemsSource = null;
             KESchülerDtGrd.ItemsSource = KESchülerListe;
@@ -1072,7 +1078,11 @@ namespace ProjektSitzplan
             schüler.Beruf = beruf;
             schüler.Verkürzt = verkürzt;
 
-            AktualisiereÜSchülerDtGrd();
+            ÜSchülerDtGrd.ItemsSource = null;
+            ÜSchülerDtGrd.ItemsSource = AusgewählteKlasse.SchülerListe;
+
+            AusgewählteKlasse.SchülerAktuallisieren(schüler);
+
             DataHandler.SpeicherSchulKlasse(AusgewählteKlasse);
 
             ÜSchülerÜbersichtGrd.Visibility = Visibility.Hidden;

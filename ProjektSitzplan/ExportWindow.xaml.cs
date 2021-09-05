@@ -163,7 +163,7 @@ namespace ProjektSitzplan
 
 
         #region ContentButtons
-        private void ContentButton_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        private void ContentButton_MouseEnter(object sender, MouseEventArgs e)
         {
             Button sBtn = Utility.GetButton(sender);
 
@@ -173,7 +173,7 @@ namespace ProjektSitzplan
             ContentPackIconsSets[Utility.GetUid(sBtn)]?.HandleColor(PackIconSet.EEventType.Enter);
         }
 
-        private void ContentButton_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        private void ContentButton_MouseLeave(object sender, MouseEventArgs e)
         {
             Button sBtn = Utility.GetButton(sender);
 
@@ -182,7 +182,7 @@ namespace ProjektSitzplan
             ContentPackIconsSets[Utility.GetUid(sBtn)]?.HandleColor(PackIconSet.EEventType.Leave);
         }
 
-        private void ContentButton_PreviewMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void ContentButton_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             Button sBtn = Utility.GetButton(sender);
 
@@ -191,7 +191,7 @@ namespace ProjektSitzplan
             ContentPackIconsSets[Utility.GetUid(sBtn)]?.HandleColor(PackIconSet.EEventType.PreviewDown);
         }
 
-        private void ContentButton_PreviewMouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void ContentButton_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
             Button sBtn = Utility.GetButton(sender);
 

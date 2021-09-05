@@ -3,9 +3,9 @@ using Newtonsoft.Json;
 using System;
 using System.Drawing;
 using System.IO;
-using System.Diagnostics;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Media.Imaging;
 
 namespace ProjektSitzplan.Structures
 {
@@ -20,6 +20,11 @@ namespace ProjektSitzplan.Structures
     public class Schüler : Person
     {
         public Betrieb AusbildungsBetrieb;
+
+        [JsonIgnore]
+        public string Betrieb => AusbildungsBetrieb.Name;
+
+
         public bool Verkürzt;
 
         public byte[] bildBytes => BildZuBytes(Bild);
@@ -33,6 +38,14 @@ namespace ProjektSitzplan.Structures
             Verkürzt = verkürzt;
             Bild = bild;
         }
+
+        public Schüler(Schüler schüler) : base(schüler)
+        {
+            AusbildungsBetrieb = schüler.AusbildungsBetrieb;
+            Verkürzt = schüler.Verkürzt;
+            Bild = schüler.Bild;
+        }
+
 
         public static Image GetImageDialog()
         {
@@ -71,7 +84,6 @@ namespace ProjektSitzplan.Structures
             {
                 return null;
             }
-            Stopwatch tm = new Stopwatch(); tm.Start();
             ImageConverter converter = new ImageConverter();
 
             byte[] bytes = null;
@@ -83,8 +95,6 @@ namespace ProjektSitzplan.Structures
             catch (ArgumentNullException) { }
             catch (NotSupportedException) { }
 
-            showDebugMS("ConvToBytes", bytes, bild, tm);
-
             return bytes;
         }
 
@@ -94,9 +104,10 @@ namespace ProjektSitzplan.Structures
             {
                 return null;
             }
-            Stopwatch tm = new Stopwatch(); tm.Start();
             ImageConverter converter = new ImageConverter();
+            
             Image bild = null;
+
             try
             {
                 bild = (Image)converter.ConvertTo(bytes, typeof(Image));
@@ -104,15 +115,7 @@ namespace ProjektSitzplan.Structures
             catch (ArgumentNullException) { }
             catch (NotSupportedException) { }
 
-            showDebugMS("ConvToImg", bytes, bild, tm);
-
             return bild;
-        }
-
-        private static void showDebugMS(string title, byte[] bytes, Image img, Stopwatch tm)
-        {
-            tm.Stop();
-            //new PsMessageBox(title, $"Dauer: {tm.ElapsedMilliseconds} arrayGröße: {bytes.Length}", PsMessageBox.EPsMessageBoxButtons.OK).Show();
         }
 
         [JsonConstructor]

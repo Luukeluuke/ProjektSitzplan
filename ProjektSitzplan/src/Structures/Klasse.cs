@@ -109,8 +109,12 @@ namespace ProjektSitzplan.Structures
 
             if (!sitzplan.ErfolgreichGeneriert)
             {
+                new PsMessageBox("Sitzplan", "Der Sitzplan konnte nicht generiert werden.", PsMessageBox.EPsMessageBoxButtons.OK).ShowDialog();
+
                 return null;
             }
+
+            new PsMessageBox("Sitzplan", $"Der Sitzplan \"{sitzplan.Name}\" wurde erfolgreich generiert.", PsMessageBox.EPsMessageBoxButtons.OK).ShowDialog();
 
             SitzplanHinzufügen(sitzplan);
 
@@ -134,6 +138,11 @@ namespace ProjektSitzplan.Structures
         #region Schüler
         public void SchülerHinzufügen(Schüler schüler)
         {
+            if (SchülerListe.Count >= 50)
+            {
+                ErrorHandler.ZeigeFehler(ErrorHandler.ERR_MaxSchüler);
+            }
+
             if (schüler == null)
             {
                 throw new SchülerNullException(errorSchülerHinzufügen);
@@ -160,6 +169,23 @@ namespace ProjektSitzplan.Structures
             }
 
             SchülerListe.Remove(schüler);
+        }
+
+        public void SchülerAktuallisieren(Schüler schüler)
+        {
+            if (!SchülerListe.Contains(schüler))
+            {
+                return;
+            }
+
+            Sitzplan sitzplan = Sitzpläne.FirstOrDefault(s => s.BlockSitzplan.Equals(SchulBlock.Block6));
+
+            if (sitzplan == null)
+            {
+                return;
+            }
+
+
         }
         #endregion
 

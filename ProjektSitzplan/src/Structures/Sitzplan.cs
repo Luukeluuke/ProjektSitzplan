@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 
@@ -128,7 +127,6 @@ namespace ProjektSitzplan.Structures
 
     public class Sitzplan
     {
-
         [JsonIgnore]
         public List<Schüler> Schüler { get; private set; } = new List<Schüler>();
 
@@ -245,11 +243,12 @@ namespace ProjektSitzplan.Structures
 
                 verkürzerWindow.ShowDialog();
 
+                if (verkürzerWindow.Canceled)
+                {
+                    return false;
+                }
 
-
-                //TODO: Dialog öffnen um schkürzte schüler zu handhaben :D
-
-                //TODO: return when dialog was cancelled
+                Schüler = Schüler.Except(verkürzerWindow.Verkürzer).ToList();
             }
 
             List<Schüler> GemischteSchülerListe = Mischen(Schüler);

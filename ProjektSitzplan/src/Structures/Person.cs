@@ -32,6 +32,7 @@ namespace ProjektSitzplan.Structures
         public Person(string vorname, string nachname, EGeschlecht geschlecht, EBeruf beruf) : this(vorname, nachname, geschlecht, beruf, Guid.NewGuid().ToString()) { }
 
         public Person(Person person) : this(person.Vorname, person.Nachname, person.Geschlecht, person.Beruf, person.UniqueId) { }
+        
         public static string[] BerufStrings = 
         { 
             "Anwendungsentwicklung", 
