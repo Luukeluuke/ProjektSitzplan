@@ -88,9 +88,11 @@ namespace ProjektSitzplan.Structures
 
             byte[] bytes = null;
 
+            Image bild2 = new Bitmap(bild);
+
             try
             {
-                bytes = (byte[])converter.ConvertTo(bild, typeof(byte[]));
+                bytes = (byte[])converter.ConvertTo(bild2, typeof(byte[]));
             }
             catch (ArgumentNullException) { }
             catch (NotSupportedException) { }
@@ -109,19 +111,6 @@ namespace ProjektSitzplan.Structures
             {
                 return Image.FromStream(ms);
             }
-
-            //ImageConverter converter = new ImageConverter();
-            //
-            //Image bild = null;
-            //
-            //try
-            //{
-            //    bild = (Image)converter.ConvertTo(bytes, typeof(Image));
-            //}
-            //catch (ArgumentNullException) { }
-            //catch (NotSupportedException) { }
-            //
-            //return bild;
         }
 
         [JsonConstructor]

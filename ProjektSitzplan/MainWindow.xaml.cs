@@ -644,7 +644,7 @@ namespace ProjektSitzplan
             openFileDialog.InitialDirectory = $@"{Environment.CurrentDirectory}\SchulKlassen";
             if (openFileDialog.ShowDialog() == true)
             {
-                DataHandler.LadeSchulKlasse(openFileDialog.FileName);
+                DataHandler.LadeSchulKlasse(openFileDialog.FileName, true);
             }
 
             KlassenAktualisieren();
