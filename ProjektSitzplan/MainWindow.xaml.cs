@@ -208,6 +208,8 @@ namespace ProjektSitzplan
             //TODO: Fix data grid selection bug
             //TODO: Bei allen Datagrids den fix einbauen, dass man überall hinclicken kann
 
+            //TODO: Aktualisieren splitten? also so dass man im normal fall so die sachen intern einmal neu läd aber nicht immer unbedingt die datein komplett neu laden muss nur bei F5 vielleicht?
+
             InitializeComponent();
 
             InitCommands();

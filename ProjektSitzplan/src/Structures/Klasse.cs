@@ -190,7 +190,7 @@ namespace ProjektSitzplan.Structures
 
             if (sitzplan != null && original.Verkürzt != schüler.Verkürzt)
             {
-                PsMessageBox mbox = new PsMessageBox("Achtung", "TODO...", EPsMessageBoxButtons.YesNo);
+                PsMessageBox mbox = new PsMessageBox("Achtung", "Der Sitzplan für Block 6 wurde bereits generiert.\nBei einem Schüler hat sich der Verkürzungszustand geändert,\nsoll der Sitzplan neu generiert werden?", EPsMessageBoxButtons.YesNo);
                 mbox.ShowDialog();
 
                 if (mbox.Result.Equals(EPsMessageBoxResult.Yes))
