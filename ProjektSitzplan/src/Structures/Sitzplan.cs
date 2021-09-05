@@ -239,6 +239,14 @@ namespace ProjektSitzplan.Structures
         {
             if (BlockSitzplan.Equals(SchulBlock.Block6) && Schüler.Any(s => s.Verkürzt))
             {
+                List<Schüler> verkürzer = Schüler.FindAll(s => s.Verkürzt);
+
+                SitzplanVerkürzerWindow verkürzerWindow = new SitzplanVerkürzerWindow(verkürzer);
+
+                verkürzerWindow.ShowDialog();
+
+
+
                 //TODO: Dialog öffnen um schkürzte schüler zu handhaben :D
 
                 //TODO: return when dialog was cancelled

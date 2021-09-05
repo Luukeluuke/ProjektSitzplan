@@ -162,6 +162,7 @@ namespace ProjektSitzplan
             CommandBindings.Add(new CommandBinding(CommandCreate, MenuKlasseErstellenBtn_Click));
             CommandBindings.Add(new CommandBinding(CommandImport, MenuKlasseImportierenBtn_Click));
             CommandBindings.Add(new CommandBinding(CommandExport, MenuKlasseExportierenBtn_Click));
+            CommandBindings.Add(new CommandBinding(CommandSave, MenuKlasseSpeichernBtn_Click));
             CommandBindings.Add(new CommandBinding(CommandRefresh, KlassenAktualisieren));
             CommandBindings.Add(new CommandBinding(CommandFullscreen, DoRestoreStuff));
 
@@ -201,13 +202,9 @@ namespace ProjektSitzplan
 
         public MainWindow()
         {
-            //TODO: DIe Klasse Exportieren Funktion im Datei Menü Disablen wenn keine ausgewählt ist. Und die speichern funktion auch
-            //TODO: Wenn datein importiert die wo die klasse den selben namen hat wie eine bereits vorhandene klasse?
-
             //TODO: Design der Radio Buttons und CheckBoxen anpassen (die export dialoge und sitzplan generieren dialoge)
             //TODO: Fix data grid selection bug
             //TODO: In die KlasseErstellen Ansicht beim Schüler erstellen teil die mögliche verkürzung mit einbauen
-            //TODO: Evtl so machen das wenn bei einem Schüler bereits eine verkürzung angebene ist, und die sitzpläne "ohne ihn" generiert wurden, wenn das dann geändert wird
             //Also das er nicht mehr verkürzt der entsprechende sitzplan sofort angepasst wird. Bzw das ein Fenster kommt Like: "Hallo, der Sitzplan Block6 ist veraltet... Der schüler xy verkürzt nicht mehr soll er neu generiert werden? Ja nein boom"
             //TODO: Bei allen Datagrids den fix einbauen, dass man überall hinclicken kann
             //TODO: Max schüler auf 50 einbauen
@@ -652,7 +649,7 @@ namespace ProjektSitzplan
         #region MenuKlasseSpeichernBtn
         private void MenuKlasseSpeichernBtn_Click(object sender, RoutedEventArgs e)
         {
-            //TODO:
+            DataHandler.SpeicherSchulKlassen();
         }
         #endregion
 

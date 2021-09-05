@@ -1,4 +1,5 @@
 ﻿using ProjektSitzplan.Design;
+using ProjektSitzplan.Structures;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,6 +26,10 @@ namespace ProjektSitzplan
         public Label[] ContentLabels { get; private set; }
         internal PackIconSet[] ContentPackIconsSets { get; private set; }
 
+        private List<Schüler> Verkürzen;
+
+        public List<Schüler> NichtVerkürzen;
+
 
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
@@ -45,9 +50,11 @@ namespace ProjektSitzplan
 
 
         #region Constructor
-        public SitzplanVerkürzerWindow()
+        public SitzplanVerkürzerWindow(List<Schüler> schüler)
         {
             InitializeComponent();
+
+            Verkürzen = schüler;
         }
         #endregion
 

@@ -92,6 +92,12 @@ namespace ProjektSitzplan
                 SchulKlasse klasse = SchulKlasse.AusDateiLaden(pfad);
                 if (klasse != null)
                 {
+                    if (ExistiertKlasseBereits(klasse))
+                    {
+                        ErrorHandler.ZeigeFehler(ErrorHandler.ERR_IM_KlasseExistiertBereits, klasse.Name, "");
+
+                        return;
+                    }
                     SchulKlassen.Add(klasse);
                 }
             }

@@ -2,6 +2,13 @@
 {
     static class ErrorHandler
     {
+
+        #region Klasse
+        // eigentlich ein should never heppen ding aber naja egal :D
+        public static readonly string ERR_EX_KeineKlasseAusgewählt = "Keine Klasse zum exportieren ausgewählt.";
+
+        public static readonly string ERR_IM_KlasseExistiertBereits = "Import der Klasse \"{0}\" ist fehlgeschlagen.\nEs existiert bereits eine Klasse mit diesem Namen.";
+
         #region Klasse Erstellen
         // der fehler tritt auf wenn eine klasse erstellt wird aber Uri.IsWellFormedUriString() der name nicht passt
         public static readonly string ERR_KE_UriUngültig = "Der Name der Klasse enthält ungültige Symbole.\nWie zum Beispiel: (\\ / : * ? \" < > |).\nBitte überprüfen.";
@@ -9,12 +16,6 @@
 
         public static readonly string ERR_KE_KlasserExistiertBereits = "Es existiert bereits eine Klasse mit diesem Namen.\nBitte geben Sie einen anderen Namen ein.";
         #endregion
-
-        #region Export
-        
-        #region Klasse
-        // eigentlich ein should never heppen ding aber naja egal :D
-        public static readonly string ERR_EX_KeineKlasseAusgewählt = "Keine Klasse zum exportieren ausgewählt.";
         #endregion
 
         #region Sitzplan
@@ -24,7 +25,6 @@
         public static readonly string ERR_EX_KeinSitzplanAusgewählt = "Kein Sitzplan zum exportieren ausgewählt.";
         #endregion
 
-        #endregion
 
         #region Schüler Hinzufügen
         public static readonly string ERR_SH_PflichtfelderNichtAusgefüllt = "Der Schüler konnte nicht erstellt werden.\nEs sind nicht alle Pflichtfelder ausgefüllt.";
