@@ -208,12 +208,6 @@ namespace ProjektSitzplan
             //TODO: Fix data grid selection bug
             //TODO: Bei allen Datagrids den fix einbauen, dass man überall hinclicken kann
 
-            //TODO: In die KlasseErstellen Ansicht beim Schüler erstellen teil die mögliche verkürzung mit einbauen
-
-
-            //Also das er nicht mehr verkürzt der entsprechende sitzplan sofort angepasst wird. Bzw das ein Fenster kommt Like:
-            //"Hallo, der Sitzplan Block6 ist veraltet... Der schüler xy verkürzt nicht mehr soll er neu generiert werden? Ja nein boom"
-
             InitializeComponent();
 
             InitCommands();
@@ -1092,7 +1086,7 @@ namespace ProjektSitzplan
             schüler.Verkürzt = verkürzt;
 
             ÜSchülerDtGrd.ItemsSource = null;
-            ÜSchülerDtGrd.ItemsSource = AusgewählteKlasse.SchülerListe;
+             ÜSchülerDtGrd.ItemsSource = AusgewählteKlasse.SchülerListe;
 
             AusgewählteKlasse.SchülerAktuallisieren(schüler);
 
