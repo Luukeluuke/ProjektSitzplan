@@ -245,11 +245,12 @@ namespace ProjektSitzplan.Structures
 
                 verkürzerWindow.ShowDialog();
 
+                if (verkürzerWindow.Canceled)
+                {
+                    return false;
+                }
 
-
-                //TODO: Dialog öffnen um schkürzte schüler zu handhaben :D
-
-                //TODO: return when dialog was cancelled
+                Schüler = Schüler.Except(verkürzerWindow.Verkürzer).ToList();
             }
 
             List<Schüler> GemischteSchülerListe = Mischen(Schüler);

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ProjektSitzplan"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         WindowStyle="None" ResizeMode="NoResize" Background="{StaticResource ContentBackground}"
-        Title="Projekt Sitzplan - MessageBox" Height="180" Width="340" WindowStartupLocation="CenterScreen"
+        Title="Projekt Sitzplan - MessageBox" Height="200" Width="400" WindowStartupLocation="CenterScreen"
         Loaded="Window_Loaded">
     <Border BorderBrush="{DynamicResource WindowBorderBrush}" BorderThickness="1">
         <Grid>

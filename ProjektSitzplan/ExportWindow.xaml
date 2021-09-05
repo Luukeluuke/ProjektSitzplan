@@ -51,9 +51,9 @@
 
 
 
+                    <!--#region Gefundene Klassen-->
                     <Border Grid.Column="0" Grid.Row="0" BorderBrush="{StaticResource ContentDivider}" BorderThickness="0 0 1 0">
 
-                        <!--#region Gefundene Klassen-->
 
                         <Grid Margin="0 0 5 0">
                             <Grid.RowDefinitions>
@@ -66,7 +66,6 @@
                             <Border Grid.Column="0" Grid.Row="1" BorderThickness="2" BorderBrush="{StaticResource ContentControlBorder}" Margin="0 5 0 0">
 
                                 <!--#region DataGrid-->
-                                
                                 <DataGrid x:Name="EXGefundenKlassenDtGrd" DataContext="{Binding GefundeneKlassen}" BorderBrush="{StaticResource ContentControlBorder}" Background="{x:Null}" Foreground="{StaticResource ContentForeground}" FontFamily="Segoe UI Semibold" CanUserDeleteRows="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserResizeColumns="True" CanUserResizeRows="False" CanUserSortColumns="True" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding AusgewählteKlasse}" HorizontalScrollBarVisibility="Auto" SelectedCellsChanged="EXGefundenKlassenDtGrd_SelectedCellsChanged">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Header="Klasse" Binding="{Binding Name}"></DataGridTextColumn>
@@ -136,15 +135,14 @@
                                         </Style>
                                     </DataGrid.Resources>
                                 </DataGrid>
-
                                 <!--#endregion-->
 
                             </Border>
                         </Grid>
 
-                        <!--#endregion-->
-                    
+
                     </Border>
+                    <!--#endregion-->
 
 
                     <!--#region Exportieren Als-->
