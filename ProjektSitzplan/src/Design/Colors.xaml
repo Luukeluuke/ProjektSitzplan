@@ -54,6 +54,7 @@
     <SolidColorBrush x:Key="MenuDataGridRowBorderSelected" Color="#2B2E33"></SolidColorBrush>
     <SolidColorBrush x:Key="MenuDataGridRowSelectedForeground" Color="#FFFFFF"></SolidColorBrush>
     <SolidColorBrush x:Key="MenuDataGriCellSelectedForeground" Color="#FFFFFF"></SolidColorBrush>
+    <SolidColorBrush x:Key="SubMenuButtonHover" Color="#292B2F"></SolidColorBrush>
     
     <SolidColorBrush x:Key="ToolTipBackground" Color="#18191C"></SolidColorBrush>
     <SolidColorBrush x:Key="ToolTipForeground" Color="#D7D8D9"></SolidColorBrush>

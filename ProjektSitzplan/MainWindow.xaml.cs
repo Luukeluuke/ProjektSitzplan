@@ -446,6 +446,18 @@ namespace ProjektSitzplan
         }
         #endregion
 
+        #region MMenuButtons
+        private void MMenuBtn_MouseEnter(object sender, MouseEventArgs e)
+        {
+            Utility.GetButton(sender).Background = PSColors.SubMenuButtonHover;
+        }
+
+        private void MMenuBtn_MouseLeave(object sender, MouseEventArgs e)
+        {
+            Utility.GetButton(sender).Background = PSColors.MenuBackground;
+        }
+        #endregion
+
         #region ContentButtons
         private void ContentButton_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
@@ -668,7 +680,6 @@ namespace ProjektSitzplan
         }
         #endregion
 
-
         #region MenuHilfeBtn
         private void MenuHilfeBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -693,6 +704,9 @@ namespace ProjektSitzplan
         #region MenuKlassenDtGrd
         private void MenuKlassenDtGrd_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
+            MMenuKlasseLöschenBtn.IsEnabled = MenuKlassenDtGrd.SelectedIndex > -1;
+            MMenuKlasseLöschenLbl.IsEnabled = MenuKlassenDtGrd.SelectedIndex > -1;
+
             if (!MenuKlassenDtGrd.SelectedIndex.Equals(-1))
             {
                 //TODO: Wenn eine Klassen entfernt wird muss auch Klassen aktualisieren gemacht werden
@@ -715,6 +729,16 @@ namespace ProjektSitzplan
         }
         #endregion
 
+        #region MMenuKlasseLöschenBtn
+        private void MMenuKlasseLöschenBtn_Click(object sender, RoutedEventArgs e)
+        {
+            DataHandler.SchulKlassen.Remove(AusgewählteKlasse);
+            DataHandler.SpeicherSchulKlassen();
+
+            KlassenAktualisieren();
+        }
+        #endregion
+
         #region KeineKlassenVorhandenKlasseErstellen
         private void MenuKlasseErstellenBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -728,6 +752,24 @@ namespace ProjektSitzplan
         #endregion
 
         #region Content - Klasse erstellen
+        #region KESchülerBildLöschenBtn
+        private System.Drawing.Image keSchülerBild = null;
+
+        private void KESchülerBildLöschenBtn_Click(object sender, RoutedEventArgs e)
+        {
+            keSchülerBild = null;
+            KESchülerBildImg.Source = null;
+        }
+        #endregion
+
+        #region KESchülerBildÄndernBtn
+        private void KESchülerBildÄndernBtn_Click(object sender, RoutedEventArgs e)
+        {
+            keSchülerBild = SchülerHelfer.SchülerBildDialog();
+            KESchülerBildImg.Source = Convert(keSchülerBild);
+        }
+        #endregion
+
         #region KEFelderLeerenBtn
         private void KEFelderLeerenBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -741,6 +783,8 @@ namespace ProjektSitzplan
             KESchülerBetriebTxbx.Text = "";
             KESchülerGeschlechtCb.SelectedIndex = -1;
             KESchülerBerufCb.SelectedIndex = -1;
+            KESchülerBildImg.Source = null;
+            KESchülerVerkürztCBx.IsChecked = false;
         }
         #endregion
 
@@ -770,10 +814,11 @@ namespace ProjektSitzplan
                 return;
             }
 
-            bool verkürzt = false;
-            // TODO: integrate verkürtzt as checkbox or something idk...
+            bool verkürzt = KESchülerVerkürztCBx.IsChecked.Value;
 
             Schüler neuerSchüler = new Schüler(new Person(vorname, nachname, geschlecht, beruf), new Betrieb(betrieb), verkürzt);
+
+            //TODO: Bild zu Schüler hinzufügen
 
             if (KESchülerListe.Count >= 50)
             {
@@ -875,6 +920,8 @@ namespace ProjektSitzplan
         #region ÜSchülerDtGrd
         public BitmapImage Convert(System.Drawing.Image img)
         {
+            if (img is null) return null;
+
             using (var memory = new MemoryStream())
             {
                 img.Save(memory, ImageFormat.Png); //TODO Sweer
@@ -1120,6 +1167,7 @@ namespace ProjektSitzplan
             KlasseÜbersichtSitzplanGrd.Visibility = Visibility.Hidden;
         }
         #endregion
+
         #endregion
     }
 }
