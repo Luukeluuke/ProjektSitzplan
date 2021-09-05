@@ -25,6 +25,8 @@ namespace ProjektSitzplan
     {
         public event PsMessageBoxButtonPressedEventHandler OnPsMessageBoxButtonPressed;
 
+        public EPsMessageBoxResult Result { get; private set; }
+
         public enum EPsMessageBoxResult
         {
             Yes,
@@ -87,6 +89,7 @@ namespace ProjektSitzplan
                         if (!(OnPsMessageBoxButtonPressed is null))
                         {
                             OnPsMessageBoxButtonPressed(sender, new PsMessagBoxEventArgs(EPsMessageBoxResult.WindowClosed));
+                            Result = EPsMessageBoxResult.WindowClosed;
                         }
                         Close();
 
@@ -170,6 +173,7 @@ namespace ProjektSitzplan
             {
                 OnPsMessageBoxButtonPressed(sender, new PsMessagBoxEventArgs(EPsMessageBoxResult.Yes));
             }
+            Result = EPsMessageBoxResult.Yes;
             Close();
         }
         #endregion
@@ -181,6 +185,7 @@ namespace ProjektSitzplan
             {
                 OnPsMessageBoxButtonPressed(sender, new PsMessagBoxEventArgs(EPsMessageBoxResult.No));
             }
+            Result = EPsMessageBoxResult.No;
             Close();
         }
         #endregion
@@ -192,6 +197,7 @@ namespace ProjektSitzplan
             {
                 OnPsMessageBoxButtonPressed(sender, new PsMessagBoxEventArgs(EPsMessageBoxResult.OK));
             }
+            Result = EPsMessageBoxResult.OK;
             Close();
         }
         #endregion

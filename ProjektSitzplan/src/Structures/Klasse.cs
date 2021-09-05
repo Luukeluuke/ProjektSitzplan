@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using static ProjektSitzplan.PsMessageBox;
 
 namespace ProjektSitzplan.Structures
 {
@@ -59,7 +60,7 @@ namespace ProjektSitzplan.Structures
                 throw new SitzplanNullException(errorSchülerHinzufügen);
             }
 
-            if (Sitzpläne.Contains(sitzplan))
+            if (Sitzpläne.Any(s => s.Name.Equals(sitzplan.Name)))
             {
                 throw new SitzplanInListeException(sitzplan, errorSitzplanHinzufügen);
             }
@@ -93,8 +94,7 @@ namespace ProjektSitzplan.Structures
                 return null;
             }
 
-            Sitzplan neuerSitzplan = ErstelleSitzplan(erstellDialog.Generator);
-            return neuerSitzplan;
+            return ErstelleSitzplan(erstellDialog.Generator);
         }
 
 
@@ -178,21 +178,33 @@ namespace ProjektSitzplan.Structures
                 return;
             }
 
-            Schüler original = SchülerListe.FirstOrDefault(s => s.UniqueId.Equals(schüler));
+            Schüler original = SchülerListe.FirstOrDefault(s => s.UniqueId.Equals(schüler.UniqueId));
 
             if (original == null)
             {
+                // Der schüler ist nicht in der klasse
                 return;
             }
 
             Sitzplan sitzplan = Sitzpläne.FirstOrDefault(s => s.BlockSitzplan.Equals(SchulBlock.Block6));
 
-            if (sitzplan == null)
+            if (sitzplan != null && original.Verkürzt != schüler.Verkürzt)
             {
-                return;
+                PsMessageBox mbox = new PsMessageBox("Achtung", "Der Sitzplan für Block 6 wurde bereits generiert.\nBei einem Schüler hat sich der Verkürzungszustand geändert,\nsoll der Sitzplan neu generiert werden?", EPsMessageBoxButtons.YesNo);
+                mbox.ShowDialog();
+
+                if (mbox.Result.Equals(EPsMessageBoxResult.Yes))
+                {
+                    SitzplanEntfernen(sitzplan);
+                    Sitzplan neuerSitzplan = ErstelleSitzplanDialog();
+                    if (neuerSitzplan == null)
+                    {
+                        SitzplanHinzufügen(sitzplan);
+                    }
+                }
             }
 
-            original = new Schüler(schüler);
+            SchülerListe[SchülerListe.IndexOf(original)] = schüler;
         }
         #endregion
 
