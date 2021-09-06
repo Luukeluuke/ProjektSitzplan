@@ -1,0 +1,46 @@
+
+.header {
+    text-align: center;
+    background: cornsilk;
+    color: #000;
+    width: 100%;
+    top: 0;
+  }
+
+.demo {
+    border:1px solid #000000;
+    border-collapse:separate;
+    border-spacing:50px;
+    padding:5px;
+  }
+  .demo caption {
+    text-align:left;
+    caption-side:bottom;
+}
+  .demo th {
+    border:1px solid #000000;
+    padding:5px;
+  }
+
+  .demo td {
+    background:	#c0bfbf;
+    border:1px solid #000000;
+    padding:5px;
+  }
+
+  .tisch {
+    border:0px inset #ffffff;
+    border-collapse:separate;
+    border-spacing:15px;
+    padding:10px;
+  }
+  .tisch th {
+    border:1px inset #4e4e4e;
+    padding:5px;
+    background:#F0F0F0;
+  }
+  .tisch td {
+    border:1px inset #4e4e4e;
+    padding:5px;
+    text-align:right;
+  }
