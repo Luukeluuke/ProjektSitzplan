@@ -6,15 +6,12 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
@@ -177,7 +174,7 @@ namespace ProjektSitzplan
         private void TestingEvnt(object sender = null, RoutedEventArgs e = null)
         {
             Testing.Test();
-            KlassenAktualisieren();
+            KlassenAktualisieren(false);
         }
 
         private Label[] ContentLabels { get; set; }
@@ -211,6 +208,9 @@ namespace ProjektSitzplan
             //TODO: Wenn klasse löschen sollte eine message box kommen ja nein löschen
             //TODO: wenn sitzplan angezeigt wird, und dann die klasse geändert wird, sollte die animation mit einer durotation von 0 sek zurückgesetzt werden, und die klassen übersicht resettet werden yk
             //TODO: Der Klasse löschen button sollte lieber den Text haben. Aktuell ausgewählte Klasse löschen
+
+            //TODO: Schüler bilder richtig anzeigen also dass man das ganz sieht
+            //TODO: Namen der ausbildungsbetriebe richtig darstellen
 
             InitializeComponent();
 
@@ -520,11 +520,23 @@ namespace ProjektSitzplan
         #endregion
 
         #region Private Methods
-        private void KlassenAktualisieren(object sender = null, RoutedEventArgs e = null) //Die parameter einach nur für den compiler damit das hier als command klappt
+
+
+        private void KlassenAktualisieren(object sender, RoutedEventArgs e) //Die parameter einach nur für den compiler damit das hier als command klappt
         {
-            DataHandler.LadeSchulKlassen();
+            KlassenAktualisieren(true);
+        }
+          
+        private void KlassenAktualisieren(bool voll = false)
+        {
+            if (voll)
+            {
+                DataHandler.LadeSchulKlassen();
+            }
+
             MenuKlassenDtGrd.ItemsSource = null;
             MenuKlassenDtGrd.ItemsSource = DataHandler.SchulKlassen;
+
 
             if (!DataHandler.SchulKlassen.Contains(AusgewählteKlasse))
             {
@@ -656,7 +668,7 @@ namespace ProjektSitzplan
                 DataHandler.LadeSchulKlasse(openFileDialog.FileName, true);
             }
 
-            KlassenAktualisieren();
+            KlassenAktualisieren(false);
         }
         #endregion
 
@@ -687,7 +699,7 @@ namespace ProjektSitzplan
         #region MenuAktualisierenBtn
         private void MenuAktualisierenBtn_Click(object sender, RoutedEventArgs e)
         {
-            KlassenAktualisieren();
+            KlassenAktualisieren(false);
         }
         #endregion
 
@@ -731,7 +743,7 @@ namespace ProjektSitzplan
             DataHandler.SchulKlassen.Remove(AusgewählteKlasse);
             DataHandler.SpeicherSchulKlassen();
 
-            KlassenAktualisieren();
+            KlassenAktualisieren(false);
         }
         #endregion
 
@@ -891,7 +903,7 @@ namespace ProjektSitzplan
 
             WindowContent = EWindowContent.Leer;
 
-            KlassenAktualisieren();
+            KlassenAktualisieren(false);
         }
         #endregion
         #endregion
@@ -918,7 +930,8 @@ namespace ProjektSitzplan
 
             using (var memory = new MemoryStream())
             {
-                img.Save(memory, ImageFormat.Png); //TODO: Verify this shit
+                System.Drawing.Image bildKopie = new System.Drawing.Bitmap(img);
+                bildKopie.Save(memory, System.Drawing.Imaging.ImageFormat.Bmp); //TODO: Verify this shit
 
                 memory.Position = 0;
 
