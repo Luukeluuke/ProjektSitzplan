@@ -208,6 +208,9 @@ namespace ProjektSitzplan
 
             //TODO: Aktualisieren splitten? also so dass man im normal fall so die sachen intern einmal neu läd aber nicht immer unbedingt die datein komplett neu laden muss nur bei F5 vielleicht?
             //TODO: Wenn ich im klassen übersichts modus ein bild von einem schüler entferne und übenehme. wird die änderung des bildes nicht übernommen luluululuflululu
+            //TODO: Wenn klasse löschen sollte eine message box kommen ja nein löschen
+            //TODO: wenn sitzplan angezeigt wird, und dann die klasse geändert wird, sollte die animation mit einer durotation von 0 sek zurückgesetzt werden, und die klassen übersicht resettet werden yk
+            //TODO: Der Klasse löschen button sollte lieber den Text haben. Aktuell ausgewählte Klasse löschen
 
             InitializeComponent();
 
