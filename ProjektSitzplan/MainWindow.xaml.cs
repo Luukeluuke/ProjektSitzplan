@@ -207,6 +207,7 @@ namespace ProjektSitzplan
             //TODO: Bei allen Datagrids den fix einbauen, dass man überall hinclicken kann
 
             //TODO: Aktualisieren splitten? also so dass man im normal fall so die sachen intern einmal neu läd aber nicht immer unbedingt die datein komplett neu laden muss nur bei F5 vielleicht?
+            //TODO: Wenn ich im klassen übersichts modus ein bild von einem schüler entferne und übenehme. wird die änderung des bildes nicht übernommen luluululuflululu
 
             InitializeComponent();
 
