@@ -122,7 +122,7 @@ namespace ProjektSitzplan
 
         private static Person.EBeruf RandomBeruf()
         {
-            return (Person.EBeruf)random.Next(1, 7);
+            return (Person.EBeruf)random.Next(7);
         }
 
         public static void Print(string s)
