@@ -275,19 +275,23 @@
                     </Grid.RowDefinitions>
                     <Grid Grid.Column="0" Grid.Row="0" Background="{StaticResource MenuBackground}">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="150"></ColumnDefinition>
-                            <ColumnDefinition Width="150"></ColumnDefinition>
+                            <ColumnDefinition Width="180"></ColumnDefinition>
+                            <ColumnDefinition Width="200"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <Border Grid.Column="0" Grid.Row="0" BorderBrush="{StaticResource TransitionStart}" BorderThickness="0 0 1 0">
                             <Grid>
-                                <Button x:Name="MMenuKlasseErstellenBtn" Background="{StaticResource MenuBackground}" FontFamily="Segoe UI Semibold" FontSize="14" materialDesign:RippleAssist.IsDisabled="True" Template="{StaticResource FlatTopBar}" Click="MenuKlasseErstellenBtn_Click" MouseEnter="MMenuBtn_MouseEnter" MouseLeave="MMenuBtn_MouseLeave"></Button>
-                                <Label x:Name="MMenuKlasseErstellenLbl" Content="Klasse erstellen" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="14" IsHitTestVisible="False"></Label>
+                                <Button x:Name="MMenuKlasseErstellenBtn" Background="{StaticResource MenuBackground}" FontFamily="Segoe UI Semibold" FontSize="14" materialDesign:RippleAssist.IsDisabled="True" Template="{StaticResource FlatTopBar}" Click="MenuKlasseErstellenBtn_Click" MouseEnter="MMenuBtn_MouseEnter" MouseLeave="MMenuBtn_MouseLeave">
+                                    <Button.ToolTip>
+                                        <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12">Erstelle eine neue Klasse</ToolTip>
+                                    </Button.ToolTip>
+                                </Button>
+                                <Label x:Name="MMenuKlasseErstellenLbl" Content="Neue Klasse erstellen" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="14" IsHitTestVisible="False"></Label>
                             </Grid>
                         </Border>
                         <Border Grid.Column="1" Grid.Row="0" BorderBrush="{StaticResource TransitionStart}" BorderThickness="0 0 1 0">
                             <Grid>
                                 <Button x:Name="MMenuKlasseLöschenBtn" Background="{StaticResource MenuBackground}" FontFamily="Segoe UI Semibold" FontSize="14" materialDesign:RippleAssist.IsDisabled="True" Template="{StaticResource FlatTopBar}" Click="MMenuKlasseLöschenBtn_Click" IsEnabled="False" MouseEnter="MMenuBtn_MouseEnter" MouseLeave="MMenuBtn_MouseLeave"></Button>
-                                <Label x:Name="MMenuKlasseLöschenLbl" Content="Klasse löschen" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="14" IsHitTestVisible="False" IsEnabled="False"></Label>
+                                <Label x:Name="MMenuKlasseLöschenLbl" Content="Ausgewählte Klasse löschen" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="14" IsHitTestVisible="False" IsEnabled="False"></Label>
                             </Grid>
                         </Border>
                     </Grid>
@@ -643,7 +647,6 @@
                                                         <ColumnDefinition Width="3"></ColumnDefinition>
                                                         <ColumnDefinition Width="*"></ColumnDefinition>
                                                     </Grid.ColumnDefinitions>
-                                                    <Grid Grid.Column="1" Grid.Row="0" Grid.RowSpan="8" Background="{StaticResource ContentControlBorder}"></Grid>
                                                     <Grid.RowDefinitions>
                                                         <RowDefinition Height="*"></RowDefinition>
                                                         <RowDefinition Height="3"></RowDefinition>
@@ -653,6 +656,7 @@
                                                         <RowDefinition Height="3"></RowDefinition>
                                                         <RowDefinition Height="*"></RowDefinition>
                                                     </Grid.RowDefinitions>
+                                                    <Grid Grid.Column="1" Grid.Row="0" Grid.RowSpan="8" Background="{StaticResource ContentControlBorder}"></Grid>
                                                     <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Background="{StaticResource ContentControlBorder}"></Grid>
                                                     <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3" Background="{StaticResource ContentControlBorder}"></Grid>
                                                     <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="5" Background="{StaticResource ContentControlBorder}"></Grid>
@@ -674,7 +678,6 @@
                                                         <ColumnDefinition Width="3"></ColumnDefinition>
                                                         <ColumnDefinition Width="*"></ColumnDefinition>
                                                     </Grid.ColumnDefinitions>
-                                                    <Grid Grid.Column="1" Grid.Row="0" Grid.RowSpan="8" Background="{StaticResource ContentControlBorder}"></Grid>
                                                     <Grid.RowDefinitions>
                                                         <RowDefinition Height="*"></RowDefinition>
                                                         <RowDefinition Height="3"></RowDefinition>
@@ -684,6 +687,7 @@
                                                         <RowDefinition Height="3"></RowDefinition>
                                                         <RowDefinition Height="*"></RowDefinition>
                                                     </Grid.RowDefinitions>
+                                                    <Grid Grid.Column="1" Grid.Row="0" Grid.RowSpan="8" Background="{StaticResource ContentControlBorder}"></Grid>
                                                     <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Background="{StaticResource ContentControlBorder}"></Grid>
                                                     <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3" Background="{StaticResource ContentControlBorder}"></Grid>
                                                     <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="5" Background="{StaticResource ContentControlBorder}"></Grid>
@@ -705,7 +709,6 @@
                                                         <ColumnDefinition Width="3"></ColumnDefinition>
                                                         <ColumnDefinition Width="*"></ColumnDefinition>
                                                     </Grid.ColumnDefinitions>
-                                                    <Grid Grid.Column="1" Grid.Row="0" Grid.RowSpan="8" Background="{StaticResource ContentControlBorder}"></Grid>
                                                     <Grid.RowDefinitions>
                                                         <RowDefinition Height="*"></RowDefinition>
                                                         <RowDefinition Height="3"></RowDefinition>
@@ -715,6 +718,7 @@
                                                         <RowDefinition Height="3"></RowDefinition>
                                                         <RowDefinition Height="*"></RowDefinition>
                                                     </Grid.RowDefinitions>
+                                                    <Grid Grid.Column="1" Grid.Row="0" Grid.RowSpan="8" Background="{StaticResource ContentControlBorder}"></Grid>
                                                     <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Background="{StaticResource ContentControlBorder}">
                                                         
                                                     </Grid>
@@ -742,7 +746,6 @@
                                                         <ColumnDefinition Width="3"></ColumnDefinition>
                                                         <ColumnDefinition Width="*"></ColumnDefinition>
                                                     </Grid.ColumnDefinitions>
-                                                    <Grid Grid.Column="1" Grid.Row="0" Grid.RowSpan="8" Background="{StaticResource ContentControlBorder}"></Grid>
                                                     <Grid.RowDefinitions>
                                                         <RowDefinition Height="*"></RowDefinition>
                                                         <RowDefinition Height="3"></RowDefinition>
@@ -752,6 +755,7 @@
                                                         <RowDefinition Height="3"></RowDefinition>
                                                         <RowDefinition Height="*"></RowDefinition>
                                                     </Grid.RowDefinitions>
+                                                    <Grid Grid.Column="1" Grid.Row="0" Grid.RowSpan="8" Background="{StaticResource ContentControlBorder}"></Grid>
                                                     <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Background="{StaticResource ContentControlBorder}"></Grid>
                                                     <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3" Background="{StaticResource ContentControlBorder}"></Grid>
                                                     <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="5" Background="{StaticResource ContentControlBorder}"></Grid>
@@ -773,7 +777,6 @@
                                                         <ColumnDefinition Width="3"></ColumnDefinition>
                                                         <ColumnDefinition Width="*"></ColumnDefinition>
                                                     </Grid.ColumnDefinitions>
-                                                    <Grid Grid.Column="1" Grid.Row="0" Grid.RowSpan="8" Background="{StaticResource ContentControlBorder}"></Grid>
                                                     <Grid.RowDefinitions>
                                                         <RowDefinition Height="*"></RowDefinition>
                                                         <RowDefinition Height="3"></RowDefinition>
@@ -783,6 +786,7 @@
                                                         <RowDefinition Height="3"></RowDefinition>
                                                         <RowDefinition Height="*"></RowDefinition>
                                                     </Grid.RowDefinitions>
+                                                    <Grid Grid.Column="1" Grid.Row="0" Grid.RowSpan="8" Background="{StaticResource ContentControlBorder}"></Grid>
                                                     <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Background="{StaticResource ContentControlBorder}"></Grid>
                                                     <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3" Background="{StaticResource ContentControlBorder}"></Grid>
                                                     <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="5" Background="{StaticResource ContentControlBorder}"></Grid>
@@ -804,7 +808,6 @@
                                                         <ColumnDefinition Width="3"></ColumnDefinition>
                                                         <ColumnDefinition Width="*"></ColumnDefinition>
                                                     </Grid.ColumnDefinitions>
-                                                    <Grid Grid.Column="1" Grid.Row="0" Grid.RowSpan="8" Background="{StaticResource ContentControlBorder}"></Grid>
                                                     <Grid.RowDefinitions>
                                                         <RowDefinition Height="*"></RowDefinition>
                                                         <RowDefinition Height="3"></RowDefinition>
@@ -814,6 +817,7 @@
                                                         <RowDefinition Height="3"></RowDefinition>
                                                         <RowDefinition Height="*"></RowDefinition>
                                                     </Grid.RowDefinitions>
+                                                    <Grid Grid.Column="1" Grid.Row="0" Grid.RowSpan="8" Background="{StaticResource ContentControlBorder}"></Grid>
                                                     <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Background="{StaticResource ContentControlBorder}"></Grid>
                                                     <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3" Background="{StaticResource ContentControlBorder}"></Grid>
                                                     <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="5" Background="{StaticResource ContentControlBorder}"></Grid>

@@ -207,10 +207,9 @@ namespace ProjektSitzplan
             //TODO: Wenn ich im klassen übersichts modus ein bild von einem schüler entferne und übenehme. wird die änderung des bildes nicht übernommen luluululuflululu
             //TODO: Wenn klasse löschen sollte eine message box kommen ja nein löschen
             //TODO: wenn sitzplan angezeigt wird, und dann die klasse geändert wird, sollte die animation mit einer durotation von 0 sek zurückgesetzt werden, und die klassen übersicht resettet werden yk
-            //TODO: Der Klasse löschen button sollte lieber den Text haben. Aktuell ausgewählte Klasse löschen
 
             //TODO: Schüler bilder richtig anzeigen also dass man das ganz sieht
-            //TODO: Namen der ausbildungsbetriebe richtig darstellen
+            //TODO: Namen der ausbildungsbetriebe (oder breufe idk da fehlen manchmal leerzeichen in den datagrids. evtl mit diesesm person.berufsstrings oder so) richtig darstellen
 
             InitializeComponent();
 
@@ -713,15 +712,23 @@ namespace ProjektSitzplan
         #region MenuKlassenDtGrd
         private void MenuKlassenDtGrd_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
-            MMenuKlasseLöschenBtn.IsEnabled = MenuKlassenDtGrd.SelectedIndex > -1;
-            MMenuKlasseLöschenLbl.IsEnabled = MenuKlassenDtGrd.SelectedIndex > -1;
-
             if (!MenuKlassenDtGrd.SelectedIndex.Equals(-1))
             {
                 AusgewählteKlasse = (SchulKlasse)MenuKlassenDtGrd.SelectedItem;
 
                 WindowContent = EWindowContent.KlasseÜbersicht;
             }
+
+            MMenuKlasseLöschenBtn.IsEnabled = MenuKlassenDtGrd.SelectedIndex > -1;
+            MMenuKlasseLöschenLbl.IsEnabled = MenuKlassenDtGrd.SelectedIndex > -1;
+            MMenuKlasseLöschenBtn.ToolTip = new ToolTip()
+            {
+                Content = $"Lösche die \"{AusgewählteKlasse.Name}\" Klasse",
+                Foreground = PSColors.ToolTipForeground,
+                Background = PSColors.ToolTipBackground,
+                FontFamily = new FontFamily("Segoe UI Semibold"),
+                FontSize = 12
+            };
         }
 
         private void MenuKlassenDtGrd_Sorting(object sender, DataGridSortingEventArgs e)
