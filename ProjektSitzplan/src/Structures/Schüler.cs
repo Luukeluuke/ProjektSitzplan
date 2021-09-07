@@ -1,11 +1,10 @@
 ﻿using Microsoft.Win32;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Media.Imaging;
 
 namespace ProjektSitzplan.Structures
 {
@@ -64,7 +63,7 @@ namespace ProjektSitzplan.Structures
             Verkürzt = schüler.Verkürzt;
             Bild = schüler.Bild;
         }
-        
+
 
         public static Image LadeBildAusPfad(string pfad)
         {

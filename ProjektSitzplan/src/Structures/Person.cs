@@ -9,6 +9,7 @@ namespace ProjektSitzplan.Structures
         public string Nachname { get; set; }
         public EGeschlecht Geschlecht { get; set; }
         public EBeruf Beruf { get; set; }
+        public string BerufString { get => BerufStrings[(int)Beruf]; }
 
         public string UniqueId { get; set; }
 
@@ -32,16 +33,16 @@ namespace ProjektSitzplan.Structures
         public Person(string vorname, string nachname, EGeschlecht geschlecht, EBeruf beruf) : this(vorname, nachname, geschlecht, beruf, Guid.NewGuid().ToString()) { }
 
         public Person(Person person) : this(person.Vorname, person.Nachname, person.Geschlecht, person.Beruf, person.UniqueId) { }
-        
-        public static string[] BerufStrings = 
-        { 
-            "Anwendungsentwicklung", 
+
+        public static string[] BerufStrings =
+        {
+            "Anwendungsentwicklung",
             "Systemintegration",
             "Daten und Prozessanalyse",
-            "Digitale Vernetzung", 
-            "IT-Systemmanagement", 
-            "Digitalisierungsmanagement", 
-            "System Elektroniker" 
+            "Digitale Vernetzung",
+            "IT-Systemmanagement",
+            "Digitalisierungsmanagement",
+            "System Elektroniker"
         };
 
         [JsonConstructor]

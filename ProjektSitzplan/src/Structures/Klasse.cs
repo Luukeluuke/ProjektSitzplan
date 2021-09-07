@@ -44,8 +44,8 @@ namespace ProjektSitzplan.Structures
         {
             SchülerListe = schülerListe;
             Sitzpläne = sitzpläne;
-            
-            foreach(Sitzplan sitzplan in Sitzpläne)
+
+            foreach (Sitzplan sitzplan in Sitzpläne)
             {
                 sitzplan.ConvertShüler(this);
             }
@@ -116,7 +116,7 @@ namespace ProjektSitzplan.Structures
                 return null;
             }
 
-            new PsMessageBox("Sitzplan", $"Der Sitzplan \"{sitzplan.Name}\" wurde erfolgreich generiert.", PsMessageBox.EPsMessageBoxButtons.OK).ShowDialog();
+            new PsMessageBox("Sitzplan", $"Der Sitzplan \"{sitzplan.Name}\" wurde erfolgreich für \"{Name}\" generiert.", PsMessageBox.EPsMessageBoxButtons.OK).ShowDialog();
 
             SitzplanHinzufügen(sitzplan);
 
@@ -242,7 +242,7 @@ namespace ProjektSitzplan.Structures
             }
             catch (JsonReaderException exc) { ex = exc; }
             catch (JsonSerializationException exc) { ex = exc; }
-            
+
             return null;
         }
 

@@ -204,12 +204,13 @@ namespace ProjektSitzplan
             //TODO: Bei allen Datagrids den fix einbauen, dass man überall hinclicken kann
 
             //TODO: Aktualisieren splitten? also so dass man im normal fall so die sachen intern einmal neu läd aber nicht immer unbedingt die datein komplett neu laden muss nur bei F5 vielleicht?
+
             //TODO: Wenn ich im klassen übersichts modus ein bild von einem schüler entferne und übenehme. wird die änderung des bildes nicht übernommen luluululuflululu
-            //TODO: Wenn klasse löschen sollte eine message box kommen ja nein löschen
+            //TODO: Beim Aktualisieren der Klassen werden änderungen iwie immernoch nicht übernommen (nur bilder) also wenn man in der Klassenübersicht was ändert im nachhinein lol das mit dem hier drüber ist gleich egal
+
             //TODO: wenn sitzplan angezeigt wird, und dann die klasse geändert wird, sollte die animation mit einer durotation von 0 sek zurückgesetzt werden, und die klassen übersicht resettet werden yk
 
-            //TODO: Schüler bilder richtig anzeigen also dass man das ganz sieht
-            //TODO: Namen der ausbildungsbetriebe (oder breufe idk da fehlen manchmal leerzeichen in den datagrids. evtl mit diesesm person.berufsstrings oder so) richtig darstellen
+            //TODO: Iwie wenn man eine neue Klasse erstellt dort dann einen Schüler hinzufügt wird der hinterher nicht mehr angezeigt lul
 
             InitializeComponent();
 
@@ -519,13 +520,11 @@ namespace ProjektSitzplan
         #endregion
 
         #region Private Methods
-
-
         private void KlassenAktualisieren(object sender, RoutedEventArgs e) //Die parameter einach nur für den compiler damit das hier als command klappt
         {
             KlassenAktualisieren(true);
         }
-          
+
         private void KlassenAktualisieren(bool voll = false)
         {
             if (voll)
@@ -586,11 +585,8 @@ namespace ProjektSitzplan
             ÜSitzpläneDtGrd.ItemsSource = null;
             ÜSitzpläneDtGrd.ItemsSource = AusgewählteKlasse.Sitzpläne;
             ÜKeineSitzpläneVorhandenLbl.Visibility = ÜSitzpläneDtGrd.Items.Count > 0 ? Visibility.Hidden : Visibility.Visible;
-
-             
         }
         #endregion
-
 
         #region Window
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -625,7 +621,8 @@ namespace ProjektSitzplan
                 ÜSchülerBearbeitenAbbrechenLbl,
                 ÜSchülerBearbeitenÜbernehmenLbl,
                 ÜSchülerBildLöschenLbl,
-                ÜSchülerBildÄndernLbl
+                ÜSchülerBildÄndernLbl,
+                ÜSitzplanAnzeigen1Lbl
             };
             ContentPackIconsSets = new PackIconSet[]
             {
@@ -643,7 +640,8 @@ namespace ProjektSitzplan
                 new PackIconSet(ÜSchülerBearbeitenAbbrechenPckIco, PackIconSet.EIconType.Content, PSColors.IconHoverRed, PSColors.IconPreviewRed),
                 new PackIconSet(ÜSchülerBearbeitenÜbernehmenPckIco, PackIconSet.EIconType.Content, PSColors.IconHoverGreen, PSColors.IconPreviewGreen),
                 null,
-                null
+                null,
+                new PackIconSet(ÜSitzplanAnzeigen1PckIco, PackIconSet.EIconType.Content, PSColors.ContentHoverForeground, PSColors.ContentButtonPreviewForeground)
             };
         }
         #endregion
@@ -695,13 +693,6 @@ namespace ProjektSitzplan
         }
         #endregion
 
-        #region MenuAktualisierenBtn
-        private void MenuAktualisierenBtn_Click(object sender, RoutedEventArgs e)
-        {
-            KlassenAktualisieren(false);
-        }
-        #endregion
-
         #region Beenden
         private void MenuBeendenBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -747,10 +738,20 @@ namespace ProjektSitzplan
         #region MMenuKlasseLöschenBtn
         private void MMenuKlasseLöschenBtn_Click(object sender, RoutedEventArgs e)
         {
-            DataHandler.SchulKlassen.Remove(AusgewählteKlasse);
-            DataHandler.SpeicherSchulKlassen();
+            PsMessageBox msg = new PsMessageBox("Achtung", $"Möchtest du wirklich \"{AusgewählteKlasse.Name}\" löschen?", PsMessageBox.EPsMessageBoxButtons.YesNo);
+            msg.OnPsMessageBoxButtonPressed += Msg_OnPsMessageBoxButtonPressed;
+            msg.ShowDialog();
+        }
 
-            KlassenAktualisieren(false);
+        private void Msg_OnPsMessageBoxButtonPressed(object source, PsMessagBoxEventArgs e)
+        {
+            if (e.PsMessageBoxButtonResult == PsMessageBox.EPsMessageBoxResult.Yes)
+            {
+                DataHandler.SchulKlassen.Remove(AusgewählteKlasse);
+                DataHandler.SpeicherSchulKlassen();
+
+                KlassenAktualisieren(false);
+            }
         }
         #endregion
 
@@ -973,7 +974,7 @@ namespace ProjektSitzplan
                 ÜSchülerKeinBildVorhandenLbl.Visibility = Visibility.Hidden;
 
                 ÜSchülerBildImg.Source = Convert(ÜAusgewählterSchüler.Bild);
-                ÜSchülerBildImg.Stretch = Stretch.UniformToFill;
+                ÜSchülerBildImg.Stretch = Stretch.Uniform;
             }
         }
 
@@ -1026,6 +1027,8 @@ namespace ProjektSitzplan
         private void ÜSitzpläneDtGrd_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
             ÜSitzplanEntfernenBtn.IsEnabled = ÜSitzpläneDtGrd.SelectedIndex > -1;
+            ÜSitzplanAnzeigen1Btn.IsEnabled = ÜSitzpläneDtGrd.SelectedIndex > -1;
+
             if (ÜSitzpläneDtGrd.SelectedIndex > -1)
             {
                 ÜSitzplanAnzeigenGrd.Visibility = Visibility.Visible;
@@ -1052,9 +1055,7 @@ namespace ProjektSitzplan
         private void ÜSitzplanEntfernenBtn_Click(object sender, RoutedEventArgs e)
         {
             AusgewählteKlasse.Sitzpläne.Remove((Sitzplan)ÜSitzpläneDtGrd.SelectedItem);
-
             AktualisiereSitzpläne();
-
             ÜKeineSitzpläneVorhandenLbl.Visibility = ÜSchülerDtGrd.Items.Count > 0 ? Visibility.Hidden : Visibility.Visible;
         }
         #endregion
@@ -1151,7 +1152,7 @@ namespace ProjektSitzplan
             schüler.Verkürzt = verkürzt;
 
             ÜSchülerDtGrd.ItemsSource = null;
-             ÜSchülerDtGrd.ItemsSource = AusgewählteKlasse.SchülerListe;
+            ÜSchülerDtGrd.ItemsSource = AusgewählteKlasse.SchülerListe;
 
             AusgewählteKlasse.SchülerAktuallisieren(schüler);
 
