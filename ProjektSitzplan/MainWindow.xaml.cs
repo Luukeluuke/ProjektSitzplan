@@ -62,20 +62,22 @@ namespace ProjektSitzplan
         {
             for (int i = 0; i < ÜAusgewählterSitzplan.Tische.Count; i++)
             {
-                Label[] t = Tischblöcke[i];
+                TischBlock tisch = ÜAusgewählterSitzplan.Tische[i];
 
-                for (int i2 = 0; i < 6; i++)
+                Label[] tischLabel = Tischblöcke[i];
+
+                for (int y = 0; y < tisch.Sitzplätze.Count; y++)
                 {
-                    Schüler s = ÜAusgewählterSitzplan.Tische[i].Sitzplätze[i2];
+                    Schüler schüler = tisch.Sitzplätze[y];
 
                     string name = "";
 
-                    if (!(s is null))
+                    if (schüler != null)
                     {
-                        name = $"{s.Vorname} {s.Nachname}";
+                        name = $"{schüler.Vorname} {schüler.Nachname}";
                     }
 
-                    t[i2].Content = name;
+                    tischLabel[y].Content = name;
                 }
 
             }
