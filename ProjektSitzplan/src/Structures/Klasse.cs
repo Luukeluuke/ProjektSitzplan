@@ -114,7 +114,7 @@ namespace ProjektSitzplan.Structures
                 return null;
             }
 
-            new PsMessageBox("Sitzplan", $"Der Sitzplan \"{sitzplan.Name}\" wurde erfolgreich generiert.", PsMessageBox.EPsMessageBoxButtons.OK).ShowDialog();
+            new PsMessageBox("Sitzplan", $"Der Sitzplan \"{sitzplan.Name}\" wurde erfolgreich für \"{Name}\" generiert.", PsMessageBox.EPsMessageBoxButtons.OK).ShowDialog();
 
             SitzplanHinzufügen(sitzplan);
 

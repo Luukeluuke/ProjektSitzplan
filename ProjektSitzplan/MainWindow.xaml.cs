@@ -208,7 +208,8 @@ namespace ProjektSitzplan
             //TODO: Wenn klasse löschen sollte eine message box kommen ja nein löschen
             //TODO: wenn sitzplan angezeigt wird, und dann die klasse geändert wird, sollte die animation mit einer durotation von 0 sek zurückgesetzt werden, und die klassen übersicht resettet werden yk
 
-            //TODO: Schüler bilder richtig anzeigen also dass man das ganz sieht
+            //TODO: Beim Aktualisieren wird iwie die klasse nicht meht entwählt (gegenteil ausgewählt) nur über den aktualisieren button wtf
+            //TODO: Beim Aktualisieren der Klassen werden änderungen iwie immernoch nicht übernommen (nur bilder)
             //TODO: Namen der ausbildungsbetriebe (oder breufe idk da fehlen manchmal leerzeichen in den datagrids. evtl mit diesesm person.berufsstrings oder so) richtig darstellen
 
             InitializeComponent();
@@ -749,10 +750,20 @@ namespace ProjektSitzplan
         #region MMenuKlasseLöschenBtn
         private void MMenuKlasseLöschenBtn_Click(object sender, RoutedEventArgs e)
         {
-            DataHandler.SchulKlassen.Remove(AusgewählteKlasse);
-            DataHandler.SpeicherSchulKlassen();
+            PsMessageBox msg = new PsMessageBox("Achtung", $"Möchtest du wirklich \"{AusgewählteKlasse.Name}\" löschen?", PsMessageBox.EPsMessageBoxButtons.YesNo);
+            msg.OnPsMessageBoxButtonPressed += Msg_OnPsMessageBoxButtonPressed;
+            msg.ShowDialog();
+        }
 
-            KlassenAktualisieren(false);
+        private void Msg_OnPsMessageBoxButtonPressed(object source, PsMessagBoxEventArgs e)
+        {
+            if (e.PsMessageBoxButtonResult == PsMessageBox.EPsMessageBoxResult.Yes)
+            {
+                DataHandler.SchulKlassen.Remove(AusgewählteKlasse);
+                DataHandler.SpeicherSchulKlassen();
+
+                KlassenAktualisieren(false);
+            }
         }
         #endregion
 
@@ -975,7 +986,7 @@ namespace ProjektSitzplan
                 ÜSchülerKeinBildVorhandenLbl.Visibility = Visibility.Hidden;
 
                 ÜSchülerBildImg.Source = Convert(ÜAusgewählterSchüler.Bild);
-                ÜSchülerBildImg.Stretch = Stretch.UniformToFill;
+                ÜSchülerBildImg.Stretch = Stretch.Uniform;
             }
         }
 
@@ -1056,9 +1067,7 @@ namespace ProjektSitzplan
         private void ÜSitzplanEntfernenBtn_Click(object sender, RoutedEventArgs e)
         {
             AusgewählteKlasse.Sitzpläne.Remove((Sitzplan)ÜSitzpläneDtGrd.SelectedItem);
-
             AktualisiereSitzpläne();
-
             ÜKeineSitzpläneVorhandenLbl.Visibility = ÜSchülerDtGrd.Items.Count > 0 ? Visibility.Hidden : Visibility.Visible;
         }
         #endregion
