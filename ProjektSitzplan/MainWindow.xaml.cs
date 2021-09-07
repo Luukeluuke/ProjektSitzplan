@@ -25,6 +25,7 @@ namespace ProjektSitzplan
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
+        private bool ZeigtSitzplanAn { get; set; } = false;
         private EWindowContent windowContent = EWindowContent.Leer;
         private EWindowContent WindowContent
         {
@@ -211,6 +212,8 @@ namespace ProjektSitzplan
             //TODO: wenn sitzplan angezeigt wird, und dann die klasse geändert wird, sollte die animation mit einer durotation von 0 sek zurückgesetzt werden, und die klassen übersicht resettet werden yk
 
             //TODO: Iwie wenn man eine neue Klasse erstellt dort dann einen Schüler hinzufügt wird der hinterher nicht mehr angezeigt lul
+
+            //TODO: Wenn man einfach random neue klassen erstellt können die nicht geladen werden
 
             InitializeComponent();
 
@@ -705,6 +708,11 @@ namespace ProjektSitzplan
         {
             if (!MenuKlassenDtGrd.SelectedIndex.Equals(-1))
             {
+                if (ZeigtSitzplanAn)
+                {
+                    VersteckeSitzplanAnimation(new TimeSpan(10000));
+                }
+
                 AusgewählteKlasse = (SchulKlasse)MenuKlassenDtGrd.SelectedItem;
 
                 WindowContent = EWindowContent.KlasseÜbersicht;
@@ -925,6 +933,7 @@ namespace ProjektSitzplan
             Storyboard.SetTargetProperty(animation, new PropertyPath("Width"));
             animation.DecelerationRatio = 0.4D;
             storyboard.Children.Add(animation);
+            ZeigtSitzplanAn = true;
 
             KlasseÜbersichtSitzplanGrd.Visibility = Visibility.Visible;
             storyboard.Begin(KlasseÜbersichtContentGrd);
@@ -1165,12 +1174,19 @@ namespace ProjektSitzplan
         #region ÜSitzplanVersteckenBtn
         private void ÜSitzplanVersteckenBtn_Click(object sender, RoutedEventArgs e)
         {
+            VersteckeSitzplanAnimation(new TimeSpan(0, 0, 0, 0, 350));
+        }
+
+        private void VersteckeSitzplanAnimation(TimeSpan duotation)
+        {
             Storyboard storyboard = new Storyboard();
-            DoubleAnimation animation = new DoubleAnimation(0D, KlasseÜbersichtGrd.ActualWidth, new Duration(new TimeSpan(0, 0, 0, 0, 350)), FillBehavior.Stop);
+            DoubleAnimation animation = new DoubleAnimation(0D, KlasseÜbersichtGrd.ActualWidth, new Duration(duotation), FillBehavior.Stop);
             Storyboard.SetTargetProperty(animation, new PropertyPath("Width"));
+            animation.AccelerationRatio = 0.4D;
             animation.DecelerationRatio = 0.4D;
             animation.Completed += Animation_Completed;
             storyboard.Children.Add(animation);
+            ZeigtSitzplanAn = false;
 
             storyboard.Begin(KlasseÜbersichtContentGrd);
         }
@@ -1180,7 +1196,6 @@ namespace ProjektSitzplan
             KlasseÜbersichtSitzplanGrd.Visibility = Visibility.Hidden;
         }
         #endregion
-
         #endregion
     }
 }
