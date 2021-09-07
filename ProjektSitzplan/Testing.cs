@@ -25,7 +25,7 @@ namespace ProjektSitzplan
 
         private static void TestKlasseGenerieren()
         {
-            if (DataHandler.ExistiertKlasseBereits(testKlassenName)) DataHandler.EntferneSchulKlasse(testKlassenName);
+            if (DataHandler.ExistiertKlasseBereits(testKlassenName)) DataHandler.LöscheSchulKlasse(testKlassenName);
 
             SchulKlasse klasse = new SchulKlasse(testKlassenName);
             TestFolderDialog();

@@ -36,7 +36,7 @@ namespace ProjektSitzplan.Structures
         }
 
 
-        public void ConvertShüler(Sitzplan sitzplan)
+        public void HohleSchülerPerId(Sitzplan sitzplan)
         {
             if (SchülerIds == null || SchülerIds.Count == 0)
             {
@@ -55,6 +55,8 @@ namespace ProjektSitzplan.Structures
                     Sitzplätze[eintrag.Key] = schüler;
                 }
             }
+
+            SchülerIds.Clear();
         }
 
         public Schüler HohleSchülerVonIndex(int index)

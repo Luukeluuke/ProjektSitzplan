@@ -186,7 +186,7 @@ namespace ProjektSitzplan.Structures
             ErfolgreichGeneriert = true;
         }
 
-        public void ConvertShüler(SchulKlasse klasse)
+        public void HohleSchülerPerId(SchulKlasse klasse)
         {
             if (SchülerIds == null || SchülerIds.Count == 0)
             {
@@ -195,21 +195,20 @@ namespace ProjektSitzplan.Structures
 
             Schüler = new List<Schüler>();
 
-            while (SchülerIds.Count > 0)
+            foreach (string id in SchülerIds)
             {
-                string id = SchülerIds[0];
-
                 Schüler schüler = SchülerHelfer.SchülerViaId(klasse.SchülerListe, id);
                 if (schüler != null)
                 {
                     Schüler.Add(schüler);
                 }
-                SchülerIds.RemoveAt(0);
             }
+
+            SchülerIds.Clear();
 
             foreach (TischBlock tisch in Tische)
             {
-                tisch.ConvertShüler(this);
+                tisch.HohleSchülerPerId(this);
             }
         }
 
