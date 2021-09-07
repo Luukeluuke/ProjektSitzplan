@@ -36,6 +36,8 @@ namespace ProjektSitzplan
 
                 if (zeigtSitzplanAn)
                 {
+                    SKlasseTxbk.Text = $"{AusgewählteKlasse.Name} - {ÜAusgewählterSitzplan.Name}";
+
                     SetzeSchüler();
                 }
             }
