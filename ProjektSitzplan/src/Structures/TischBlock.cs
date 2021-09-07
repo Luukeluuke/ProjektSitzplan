@@ -7,13 +7,15 @@ namespace ProjektSitzplan.Structures
 {
     public class TischBlock
     {
+        public static readonly int MaxSchüler = 8;
+
         [JsonIgnore]
         public Dictionary<int, Schüler> Sitzplätze { get; private set; } = new Dictionary<int, Schüler>();
 
         [JsonIgnore]
         Dictionary<int, string> SchülerIds = null;
 
-        public Dictionary<int, string> ShortSchüler => Sitzplätze.ToDictionary(k=>k.Key, k => k.Value.UniqueId);
+        public Dictionary<int, string> ShortSchüler => Sitzplätze.ToDictionary(k=>k.Key, k => (k.Value != null) ? k.Value.UniqueId : null);
 
         private static string errorEntfernen = "Schüler konnte nicht von dem TischBlock entfernt werden.";
         private static string errorHinzufügen = "Schüler konnte dem TischBlock nicht hinzugefügt werden.";
@@ -25,7 +27,13 @@ namespace ProjektSitzplan.Structures
             SchülerIds = shortSchüler;
         }
 
-        public TischBlock() { }
+        public TischBlock() 
+        {
+            for (int i = 0; i < MaxSchüler; i++)
+            {
+                Sitzplätze[i] = null;
+            }
+        }
 
 
         public void ConvertShüler(Sitzplan sitzplan)
@@ -44,7 +52,7 @@ namespace ProjektSitzplan.Structures
                 Schüler schüler = SchülerHelfer.SchülerViaId(sitzplan.Schüler, id);
                 if (schüler != null)
                 {
-                    Sitzplätze.Add(eintrag.Key, schüler);
+                    Sitzplätze[eintrag.Key] = schüler;
                 }
             }
         }
@@ -73,7 +81,7 @@ namespace ProjektSitzplan.Structures
             {
                 throw new SchülerInListeException(schüler, errorHinzufügen);
             }
-            Sitzplätze.Add(index, schüler);
+            Sitzplätze[index] = schüler;
         }
         public void SchülerHinzufügen(Schüler schüler)
         {
@@ -88,16 +96,16 @@ namespace ProjektSitzplan.Structures
             }
 
             int i = 0;
-            while(Sitzplätze.ContainsKey(i))
+            while(Sitzplätze[i] != null)
             {
                 i++;
             }
-            Sitzplätze.Add(i, schüler);
+            Sitzplätze[i] = schüler;
         }
 
         public void SchülerEntfernen(int index)
         {
-            Sitzplätze.Remove(index);
+            Sitzplätze[index] = null;
         }
         public void SchülerEntfernen(Schüler schüler)
         {
@@ -112,7 +120,7 @@ namespace ProjektSitzplan.Structures
             }
 
             int key = HohleIndexVonSchüler(schüler);
-            Sitzplätze.Remove(key);
+            Sitzplätze[key] = null;
         }
     }
 }
