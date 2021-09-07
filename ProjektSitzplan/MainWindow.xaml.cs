@@ -833,7 +833,7 @@ namespace ProjektSitzplan
 
             Schüler neuerSchüler = new Schüler(new Person(vorname, nachname, geschlecht, beruf), new Betrieb(betrieb), verkürzt);
 
-            if (KESchülerListe.Count >= 50)
+            if (KESchülerListe.Count >= SchulKlasse.MaxSchüler)
             {
                 ErrorHandler.ZeigeFehler(ErrorHandler.ERR_MaxSchüler);
 
