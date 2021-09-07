@@ -1425,7 +1425,7 @@
                                                                     </StackPanel>
                                                                 </Grid>
                                                                 <Grid x:Name="ÜSchülerÜbersichtErstellenGrd" Grid.Column="2" Grid.Row="0" Visibility="Hidden">
-                                                                    <Button x:Name="ÜSchülerBearbeitenErstellenBtn" Uid="sdf" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" Height="Auto" Click="ÜSchülerBearbeitenErstellenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp">
+                                                                    <Button x:Name="ÜSchülerBearbeitenErstellenBtn" Uid="16" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" Height="Auto" Click="ÜSchülerBearbeitenErstellenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp">
                                                                         <Button.ToolTip>
                                                                             <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12">Füge diesen Schüler der Klasse hinzu</ToolTip>
                                                                         </Button.ToolTip>

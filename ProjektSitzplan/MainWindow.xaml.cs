@@ -68,20 +68,22 @@ namespace ProjektSitzplan
         {
             for (int i = 0; i < ÜAusgewählterSitzplan.Tische.Count; i++)
             {
-                Label[] t = Tischblöcke[i];
+                TischBlock tisch = ÜAusgewählterSitzplan.Tische[i];
 
-                for (int i2 = 0; i < 6; i++)
+                Label[] tischLabel = Tischblöcke[i];
+
+                for (int y = 0; y < tisch.Sitzplätze.Count; y++)
                 {
-                    Schüler s = ÜAusgewählterSitzplan.Tische[i].Sitzplätze[i2];
+                    Schüler schüler = tisch.Sitzplätze[y];
 
                     string name = "";
 
-                    if (!(s is null))
+                    if (schüler != null)
                     {
-                        name = $"{s.Vorname} {s.Nachname}";
+                        name = $"{schüler.Vorname} {schüler.Nachname}";
                     }
 
-                    t[i2].Content = name;
+                    tischLabel[y].Content = name;
                 }
 
             }
@@ -267,12 +269,10 @@ namespace ProjektSitzplan
 
             //TODO: Aktualisieren splitten? also so dass man im normal fall so die sachen intern einmal neu läd aber nicht immer unbedingt die datein komplett neu laden muss nur bei F5 vielleicht?
 
-            //TODO: Wenn ich im klassen übersichts modus ein bild von einem schüler entferne und übenehme. wird die änderung des bildes nicht übernommen luluululuflululu
-            //TODO: Beim Aktualisieren der Klassen werden änderungen iwie immernoch nicht übernommen (nur bilder) also wenn man in der Klassenübersicht was ändert im nachhinein lol das mit dem hier drüber ist gleich egal
-
-            //TODO: Iwie wenn man eine neue Klasse erstellt dort dann einen Schüler hinzufügt wird der hinterher nicht mehr angezeigt lul
-            //TODO: Mindestlaufzeit von 3 sek einbauen
+            //TODO: Mindestlaufzeit von 3 sek einbauen... random bug idk f
             //TODO: Was machen wir eig wenn Sitzpläne erstellt wurden und dann ein Schüler gelöscht wird? xD
+
+            //TODO: WFT reload bug... klasse löschen -> und F5 geht ned mehr bis man neu eintabt...?
 
 
             InitializeComponent();
@@ -583,12 +583,12 @@ namespace ProjektSitzplan
         #endregion
 
         #region Private Methods
-        private void KlassenAktualisieren(object sender, RoutedEventArgs e) //Die parameter einach nur für den compiler damit das hier als command klappt
+        private void KlassenAktualisieren(object sender = null, RoutedEventArgs e = null) //Die parameter einach nur für den compiler damit das hier als command klappt
         {
             KlassenAktualisieren(true);
         }
 
-        private void KlassenAktualisieren(bool voll = false)
+        private void KlassenAktualisieren(bool voll = true)
         {
             if (voll)
             {
@@ -813,18 +813,15 @@ namespace ProjektSitzplan
         private void MMenuKlasseLöschenBtn_Click(object sender, RoutedEventArgs e)
         {
             PsMessageBox msg = new PsMessageBox("Achtung", $"Möchtest du wirklich \"{AusgewählteKlasse.Name}\" löschen?", PsMessageBox.EPsMessageBoxButtons.YesNo);
-            msg.OnPsMessageBoxButtonPressed += Msg_OnPsMessageBoxButtonPressed;
-            msg.ShowDialog();
-        }
 
-        private void Msg_OnPsMessageBoxButtonPressed(object source, PsMessagBoxEventArgs e)
-        {
-            if (e.PsMessageBoxButtonResult == PsMessageBox.EPsMessageBoxResult.Yes)
+            msg.ShowDialog();
+
+            if (msg.Result.Equals(PsMessageBox.EPsMessageBoxResult.Yes))
             {
-                DataHandler.SchulKlassen.Remove(AusgewählteKlasse);
-                DataHandler.SpeicherSchulKlassen();
+                DataHandler.LöscheSchulKlasse(AusgewählteKlasse);
 
                 KlassenAktualisieren(false);
+                new PsMessageBox("Achtung", $"Die Klasse \"{AusgewählteKlasse.Name}\" wurde gelöscht.", PsMessageBox.EPsMessageBoxButtons.OK).ShowDialog();
             }
         }
         #endregion
@@ -906,8 +903,7 @@ namespace ProjektSitzplan
 
             bool verkürzt = KESchülerVerkürztCBx.IsChecked.Value;
 
-            //TODO: Hier noch das bild einbauen aus KESchülerBildImg Control. Deshalb werden auch die bilder hinterher nicht angezeigt uff
-            Schüler neuerSchüler = new Schüler(new Person(vorname, nachname, geschlecht, beruf), new Betrieb(betrieb), verkürzt);
+            Schüler neuerSchüler = new Schüler(new Person(vorname, nachname, geschlecht, beruf), new Betrieb(betrieb), verkürzt, keSchülerBild);
 
             if (KESchülerListe.Count >= SchulKlasse.MaxSchüler)
             {
@@ -951,7 +947,7 @@ namespace ProjektSitzplan
         #endregion
 
         #region KEKlasseErstellenBtn
-        private List<Schüler> KESchülerListe = new List<Schüler>();
+        private readonly List<Schüler> KESchülerListe = new List<Schüler>();
         private void KEKlasseErstellenBtn_Click(object sender, RoutedEventArgs e)
         {
             string klassenName = KEKlassenNameTxbx.Text.Trim();
@@ -974,10 +970,9 @@ namespace ProjektSitzplan
                 return;
             }
 
-            SchulKlasse neueKlasse = new SchulKlasse(klassenName, KESchülerListe);
+            SchulKlasse neueKlasse = new SchulKlasse(klassenName, new List<Schüler>(KESchülerListe));
             DataHandler.FügeSchulKlasseHinzu(neueKlasse);
 
-            AusgewählteKlasse = neueKlasse;
             KESchülerListe.Clear();
 
             KESchülerFelderLeeren();
@@ -1015,7 +1010,7 @@ namespace ProjektSitzplan
             using (var memory = new MemoryStream())
             {
                 System.Drawing.Image bildKopie = new System.Drawing.Bitmap(img);
-                bildKopie.Save(memory, System.Drawing.Imaging.ImageFormat.Bmp); //TODO: Verify this shit
+                bildKopie.Save(memory, System.Drawing.Imaging.ImageFormat.Bmp);
 
                 memory.Position = 0;
 
@@ -1111,6 +1106,11 @@ namespace ProjektSitzplan
             {
                 ÜAusgewählterSchüler = (Schüler)ÜSchülerDtGrd.SelectedItem;
 
+                if (ÜAusgewählterSchüler != null)
+                {
+                    schülerImg = ÜAusgewählterSchüler.Bild;
+                }
+
                 ÜbersichtMode = EÜbersichtMode.Bearbeiten;
             }
             else
@@ -1129,7 +1129,7 @@ namespace ProjektSitzplan
 
         private void ÜSchülerEntfernenBtn_Click(object sender, RoutedEventArgs e)
         {
-            AusgewählteKlasse.SchülerListe.Remove((Schüler)ÜSchülerDtGrd.SelectedItem);
+            AusgewählteKlasse.SchülerEntfernen((Schüler)ÜSchülerDtGrd.SelectedItem);
             AktualisiereSchüler();
 
             ÜSitzplanHinzufügenBtn.IsEnabled = AusgewählteKlasse.SchülerListe.Count > 0 ? true : false;
@@ -1228,22 +1228,8 @@ namespace ProjektSitzplan
         private System.Drawing.Image schülerImg = null;
         private void ÜSchülerBildÄndernBtn_Click(object sender, RoutedEventArgs e)
         {
-            switch (ÜbersichtMode)
-            {
-                case EÜbersichtMode.Bearbeiten:
-                    {
-                        ((Schüler)ÜSchülerDtGrd.SelectedItem).Bild = SchülerHelfer.SchülerBildDialog();
-                        ÜSchülerBildImg.Source = Convert(((Schüler)ÜSchülerDtGrd.SelectedItem).Bild);
-                        break;
-                    }
-                case EÜbersichtMode.Erstellen:
-                    {
-                        schülerImg = SchülerHelfer.SchülerBildDialog();
-                        ÜSchülerBildImg.Source = Convert(schülerImg);
-
-                        break;
-                    }
-            }
+            schülerImg = SchülerHelfer.SchülerBildDialog();
+            ÜSchülerBildImg.Source = Convert(schülerImg);
         }
         #endregion
 
@@ -1354,8 +1340,6 @@ namespace ProjektSitzplan
 
             bool verkürzt = ÜSchülerVerkürztCBx.IsChecked.Value;
 
-
-            //TODO: Hier noch das bild einbauen aus ÜSchülerBildImg Control. Deshalb werden auch die bilder hinterher nicht angezeigt uff
             Schüler neuerSchüler = new Schüler(new Person(vorname, nachname, geschlecht, beruf), new Betrieb(betrieb), verkürzt);
             neuerSchüler.Bild = schülerImg;
             schülerImg = null;

@@ -130,9 +130,10 @@ namespace ProjektSitzplan.Structures
         [JsonIgnore]
         public List<Schüler> Schüler { get; private set; } = new List<Schüler>();
 
+
+        public List<string> ShortSchüler => Schüler.Select(person => person.UniqueId).ToList();
         [JsonIgnore]
         private List<string> SchülerIds = null;
-        public List<string> ShortSchüler => Schüler.Select(person => person.UniqueId).ToList();
 
 
         public string Name { get; private set; }
@@ -171,11 +172,11 @@ namespace ProjektSitzplan.Structures
         /// JSON Constructor | Dieser constructor sollte nur für das laden von json objekten genutzt werden!
         /// </summary>
         [JsonConstructor]
-        public Sitzplan(string name, int tischAnzahl, List<string> schülerIds, List<TischBlock> tische, SchulBlock blockSitzplan, bool berücksichtigeBeruf, bool berücksichtigeBetrieb, bool berücksichtigeGeschlecht, int seed)
+        public Sitzplan(string name, int tischAnzahl, List<string> shortSchüler, List<TischBlock> tische, SchulBlock blockSitzplan, bool berücksichtigeBeruf, bool berücksichtigeBetrieb, bool berücksichtigeGeschlecht, int seed)
         {
             Name = name;
             TischAnzahl = tischAnzahl;
-            SchülerIds = schülerIds;
+            SchülerIds = shortSchüler;
             Tische = tische;
             BlockSitzplan = blockSitzplan;
             BerücksichtigeBeruf = berücksichtigeBeruf;
@@ -186,7 +187,7 @@ namespace ProjektSitzplan.Structures
             ErfolgreichGeneriert = true;
         }
 
-        public void ConvertShüler(SchulKlasse klasse)
+        public void HohleSchülerPerId(SchulKlasse klasse)
         {
             if (SchülerIds == null || SchülerIds.Count == 0)
             {
@@ -195,21 +196,20 @@ namespace ProjektSitzplan.Structures
 
             Schüler = new List<Schüler>();
 
-            while (SchülerIds.Count > 0)
+            foreach (string id in SchülerIds)
             {
-                string id = SchülerIds[0];
-
                 Schüler schüler = SchülerHelfer.SchülerViaId(klasse.SchülerListe, id);
                 if (schüler != null)
                 {
                     Schüler.Add(schüler);
                 }
-                SchülerIds.RemoveAt(0);
             }
+
+            SchülerIds.Clear();
 
             foreach (TischBlock tisch in Tische)
             {
-                tisch.ConvertShüler(this);
+                tisch.HohleSchülerPerId(this);
             }
         }
 

@@ -30,7 +30,6 @@ namespace ProjektSitzplan
         {
             if (klassenName != null)
             {
-                //return SchulKlassen.Where(k => k.Name.Equals(klassenName)).Count() > 0;
                 lock (SchulKlassen)
                 {
                     return SchulKlassen.Any(k => k.Name.Equals(klassenName));
@@ -49,15 +48,14 @@ namespace ProjektSitzplan
             SpeicherSchulKlasse(schulKlasse);
         }
 
-        public static void EntferneSchulKlasse(string name) { EntferneSchulKlasse(HohleSchulKlasse(name)); }
-        public static void EntferneSchulKlasse(SchulKlasse schulKlasse)
+        public static void LöscheSchulKlasse(string name) { LöscheSchulKlasse(HohleSchulKlasse(name)); }
+        public static void LöscheSchulKlasse(SchulKlasse schulKlasse)
         {
             if (ExistiertKlasseBereits(schulKlasse))
             {
+                //TODO: Delete json file....
                 SchulKlassen.Remove(schulKlasse);
             }
-
-            SpeicherSchulKlassen();
         }
 
         /// <param name="name"></param>
@@ -112,6 +110,8 @@ namespace ProjektSitzplan
             if (speichern) SpeicherSchulKlasse(klasse);
             SchulKlassen.Add(klasse);
         }
+
+        
         #endregion
     }
 }

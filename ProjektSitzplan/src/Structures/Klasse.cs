@@ -47,7 +47,7 @@ namespace ProjektSitzplan.Structures
 
             foreach (Sitzplan sitzplan in Sitzpläne)
             {
-                sitzplan.ConvertShüler(this);
+                sitzplan.HohleSchülerPerId(this);
             }
         }
         #endregion
@@ -156,6 +156,8 @@ namespace ProjektSitzplan.Structures
             }
 
             SchülerListe.Add(schüler);
+
+            DataHandler.SpeicherSchulKlasse(this);
         }
 
         public void SchülerEntfernen(Schüler schüler)
@@ -171,6 +173,8 @@ namespace ProjektSitzplan.Structures
             }
 
             SchülerListe.Remove(schüler);
+
+            DataHandler.SpeicherSchulKlasse(this);
         }
 
         public void SchülerAktuallisieren(Schüler schüler)
