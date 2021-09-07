@@ -42,11 +42,16 @@ namespace ProjektSitzplan
                 }
                 else
                 {
-                    foreach (Label[] labelArrys in Tischblöcke)
-                        foreach (Label label in labelArrys)
-                            label.Content = "";
+                    ClearSitzplätze();
                 }
             }
+        }
+
+        private void ClearSitzplätze()
+        {
+            foreach (Label[] labelArrys in Tischblöcke)
+                foreach (Label label in labelArrys)
+                    label.Content = "";
         }
 
         private List<Label[]> Tischblöcke;
@@ -273,6 +278,7 @@ namespace ProjektSitzplan
             //TODO: Was machen wir eig wenn Sitzpläne erstellt wurden und dann ein Schüler gelöscht wird? xD
 
             //TODO: WFT reload bug... klasse löschen -> und F5 geht ned mehr bis man neu eintabt...?
+            //TODO: bilder tooltips...?
 
 
             InitializeComponent();
