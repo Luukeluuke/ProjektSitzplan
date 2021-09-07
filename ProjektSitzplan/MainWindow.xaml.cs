@@ -213,8 +213,6 @@ namespace ProjektSitzplan
 
             //TODO: Iwie wenn man eine neue Klasse erstellt dort dann einen Schüler hinzufügt wird der hinterher nicht mehr angezeigt lul
 
-            //TODO: Wenn man einfach random neue klassen erstellt können die nicht geladen werden
-
             InitializeComponent();
 
             InitCommands();
