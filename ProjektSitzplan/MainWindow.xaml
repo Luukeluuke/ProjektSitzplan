@@ -433,7 +433,7 @@
                                                         <Border Grid.Column="0" Grid.Row="1" BorderBrush="{StaticResource ContentControlBorder}" BorderThickness="2" Margin="0 0 0 0">
                                                             <Grid>
                                                                 <Label x:Name="KESchülerKeinBildVorhandenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe UI Semibold" FontSize="13" Foreground="{StaticResource ContentForeground}" Content="Es gibt kein Bild" Visibility="Hidden"></Label>
-                                                                <Image x:Name="KESchülerBildImg"></Image>
+                                                                <Image x:Name="KESchülerBildImg" Stretch="Uniform"></Image>
                                                             </Grid>
                                                         </Border>
                                                         <Grid Grid.Column="0" Grid.Row="4">
@@ -608,7 +608,7 @@
                                         </Grid>
                                     </Grid>
                                 </Grid>
-                                <Grid x:Name="KlasseÜbersichtGrd" Visibility="Hidden">
+                                <Grid x:Name="KlasseÜbersichtGrd" Visibility="Visible">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="1.35*"></ColumnDefinition>
                                         <ColumnDefinition Width="*"></ColumnDefinition>
@@ -1137,13 +1137,13 @@
                                                 <ColumnDefinition Width="*"></ColumnDefinition>
                                                 <ColumnDefinition Width="Auto"></ColumnDefinition>
                                             </Grid.ColumnDefinitions>
-                                            <Grid x:Name="ÜSchülerÜbersichtGrd" Grid.Column="0" Grid.ColumnSpan="2" Width="{Binding ElementName=container, Path=ActualWidth}" Grid.Row="0" HorizontalAlignment="Stretch" Visibility="Hidden">
+                                            <Grid x:Name="ÜSchülerÜbersichtGrd" Grid.Column="0" Grid.ColumnSpan="2" Width="{Binding ElementName=container, Path=ActualWidth}" Grid.Row="0" HorizontalAlignment="Stretch" Visibility="Visible">
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="Auto"></RowDefinition>
                                                     <RowDefinition Height="*"></RowDefinition>
                                                 </Grid.RowDefinitions>
                                                 <Border Grid.Column="0" Grid.Row="0" BorderBrush="{StaticResource ContentDivider}" BorderThickness="0 0 0 1">
-                                                    <Label x:Name="ÜSchülerNameLbl" Margin="0 0 0 5" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="15" Foreground="{StaticResource ContentTitleForeground}" Content="Vorname Nachname"></Label>
+                                                    <Label x:Name="ÜSchülerNameLbl" Margin="0 0 0 5" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="15" Foreground="{StaticResource ContentTitleForeground}" Content="Modi"></Label>
                                                 </Border>
                                                 <Grid Grid.Column="0" Grid.Row="1" Margin="0 5 0 0">
                                                     <Grid.RowDefinitions>
@@ -1248,7 +1248,7 @@
                                                             <Border Grid.Column="0" Grid.Row="1" BorderBrush="{StaticResource ContentControlBorder}" BorderThickness="2" Margin="0 0 5 0">
                                                                 <Grid>
                                                                     <Label x:Name="ÜSchülerKeinBildVorhandenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe UI Semibold" FontSize="13" Foreground="{StaticResource ContentForeground}" Content="Es gibt kein Bild" Visibility="Hidden"></Label>
-                                                                    <Image x:Name="ÜSchülerBildImg"></Image>
+                                                                    <Image x:Name="ÜSchülerBildImg" Stretch="Uniform"></Image>
                                                                 </Grid>
                                                             </Border>
                                                             <Grid Grid.Column="0" Grid.Row="4">
@@ -1285,7 +1285,7 @@
                                                                         <materialDesign:PackIcon x:Name="ÜSchülerBearbeitenAbbrechenPckIco" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource ContentButtonForeground}" Kind="CloseBold" Height="20" Width="20" IsHitTestVisible="False"></materialDesign:PackIcon>
                                                                     </StackPanel>
                                                                 </Grid>
-                                                                <Grid Grid.Column="2" Grid.Row="0">
+                                                                <Grid x:Name="ÜSchülerÜbersichtÜbernehmenGrd" Grid.Column="2" Grid.Row="0" Visibility="Hidden">
                                                                     <Button x:Name="ÜSchülerBearbeitenÜbernehmenBtn" Uid="12" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" Height="Auto" Click="ÜSchülerBearbeitenÜbernehmenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp">
                                                                         <Button.ToolTip>
                                                                             <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12">Übernehme deine Änderungen</ToolTip>
@@ -1294,6 +1294,17 @@
                                                                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5 0 0 0" Orientation="Horizontal">
                                                                         <Label x:Name="ÜSchülerBearbeitenÜbernehmenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False" Content="Übernehmen" Foreground="{StaticResource ContentButtonForeground}" FontSize="15" FontFamily="Segoe UI Semibold"></Label>
                                                                         <materialDesign:PackIcon x:Name="ÜSchülerBearbeitenÜbernehmenPckIco" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource ContentButtonForeground}" Kind="ContentSave" Height="20" Width="20" IsHitTestVisible="False"></materialDesign:PackIcon>
+                                                                    </StackPanel>
+                                                                </Grid>
+                                                                <Grid x:Name="ÜSchülerÜbersichtErstellenGrd" Grid.Column="2" Grid.Row="0" Visibility="Visible">
+                                                                    <Button x:Name="ÜSchülerBearbeitenErstellenBtn" Uid="12" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" Height="Auto" Click="ÜSchülerBearbeitenErstellenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp">
+                                                                        <Button.ToolTip>
+                                                                            <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12">Übernehme deine Änderungen</ToolTip>
+                                                                        </Button.ToolTip>
+                                                                    </Button>
+                                                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5 0 0 0" Orientation="Horizontal">
+                                                                        <Label x:Name="ÜSchülerBearbeitenErstellenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False" Content="Schüler erstellen" Foreground="{StaticResource ContentButtonForeground}" FontSize="15" FontFamily="Segoe UI Semibold"></Label>
+                                                                        <materialDesign:PackIcon x:Name="ÜSchülerBearbeitenErstellenPckIco" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource ContentButtonForeground}" Kind="AddBold" Height="20" Width="20" IsHitTestVisible="False"></materialDesign:PackIcon>
                                                                     </StackPanel>
                                                                 </Grid>
                                                             </Grid>

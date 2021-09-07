@@ -210,6 +210,8 @@ namespace ProjektSitzplan
             //TODO: Beim Aktualisieren der Klassen werden änderungen iwie immernoch nicht übernommen (nur bilder) also wenn man in der Klassenübersicht was ändert im nachhinein lol das mit dem hier drüber ist gleich egal
 
             //TODO: Iwie wenn man eine neue Klasse erstellt dort dann einen Schüler hinzufügt wird der hinterher nicht mehr angezeigt lul
+            //TODO: Mindestlaufzeit von 3 sek einbauen
+
 
             InitializeComponent();
 
@@ -958,31 +960,75 @@ namespace ProjektSitzplan
             }
         }
 
-        private void ZeigeSchüler()
+        private enum EÜbersichtMode
         {
-            ÜSchülerÜbersichtGrd.Visibility = Visibility.Visible;
-
-            ÜSchülerNameLbl.Content = $"Bearbeite - {ÜAusgewählterSchüler.Vorname} {ÜAusgewählterSchüler.Nachname}";
-            ÜSchülerVornameTxbx.Text = ÜAusgewählterSchüler.Vorname;
-            ÜSchülerNachnameTxbx.Text = ÜAusgewählterSchüler.Nachname;
-            ÜSchülerBetriebTxbx.Text = ÜAusgewählterSchüler.AusbildungsBetrieb.Name;
-            ÜSchülerGeschlechtCb.SelectedIndex = (int)ÜAusgewählterSchüler.Geschlecht;
-            ÜSchülerBerufCb.SelectedIndex = (int)ÜAusgewählterSchüler.Beruf;
-            ÜSchülerVerkürztCBx.IsChecked = ÜAusgewählterSchüler.Verkürzt;
-
-            if (ÜAusgewählterSchüler.Bild is null)
+            Leer,
+            Bearbeiten,
+            Erstellen
+        }
+        private EÜbersichtMode übersichtMode = EÜbersichtMode.Leer;
+        private EÜbersichtMode ÜbersichtMode
+        {
+            get => übersichtMode;
+            set
             {
-                ÜSchülerKeinBildVorhandenLbl.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                ÜSchülerKeinBildVorhandenLbl.Visibility = Visibility.Hidden;
+                switch (value)
+                {
+                    case EÜbersichtMode.Leer:
+                        {
+                            ÜSchülerÜbersichtGrd.Visibility = Visibility.Hidden;
+                            break;
+                        }
+                    case EÜbersichtMode.Bearbeiten:
+                        {
+                            ÜSchülerÜbersichtGrd.Visibility = Visibility.Visible;
 
-                ÜSchülerBildImg.Source = Convert(ÜAusgewählterSchüler.Bild);
-                ÜSchülerBildImg.Stretch = Stretch.Uniform;
+                            ÜSchülerÜbersichtÜbernehmenGrd.Visibility = Visibility.Visible;
+
+                            ÜSchülerNameLbl.Content = $"Bearbeite - {ÜAusgewählterSchüler.Vorname} {ÜAusgewählterSchüler.Nachname}";
+                            ÜSchülerVornameTxbx.Text = ÜAusgewählterSchüler.Vorname;
+                            ÜSchülerNachnameTxbx.Text = ÜAusgewählterSchüler.Nachname;
+                            ÜSchülerBetriebTxbx.Text = ÜAusgewählterSchüler.AusbildungsBetrieb.Name;
+                            ÜSchülerGeschlechtCb.SelectedIndex = (int)ÜAusgewählterSchüler.Geschlecht;
+                            ÜSchülerBerufCb.SelectedIndex = (int)ÜAusgewählterSchüler.Beruf;
+                            ÜSchülerVerkürztCBx.IsChecked = ÜAusgewählterSchüler.Verkürzt;
+
+                            if (ÜAusgewählterSchüler.Bild is null)
+                            {
+                                ÜSchülerKeinBildVorhandenLbl.Visibility = Visibility.Visible;
+                            }
+                            else
+                            {
+                                ÜSchülerKeinBildVorhandenLbl.Visibility = Visibility.Hidden;
+
+                                ÜSchülerBildImg.Source = Convert(ÜAusgewählterSchüler.Bild);
+                            }
+
+                            break;
+                        }
+                    case EÜbersichtMode.Erstellen:
+                        {
+                            ÜSchülerÜbersichtGrd.Visibility = Visibility.Visible;
+
+                            ÜSchülerÜbersichtErstellenGrd.Visibility = Visibility.Visible;
+
+                            ÜSchülerNameLbl.Content = $"Erstelle neuen Schüler";
+                            ÜSchülerVornameTxbx.Text = "";
+                            ÜSchülerNachnameTxbx.Text = "";
+                            ÜSchülerBetriebTxbx.Text = "";
+                            ÜSchülerGeschlechtCb.SelectedIndex = -1;
+                            ÜSchülerBerufCb.SelectedIndex = -1;
+                            ÜSchülerVerkürztCBx.IsChecked = false;
+
+                            //TODO der restliche shit kommt da noch hin
+
+                            break;
+                        }
+                }
+
+                übersichtMode = value;
             }
         }
-
         private void ÜSchülerDtGrd_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
             ÜSchülerEntfernenBtn.IsEnabled = ÜSchülerDtGrd.SelectedIndex > -1;
@@ -990,11 +1036,11 @@ namespace ProjektSitzplan
             {
                 ÜAusgewählterSchüler = (Schüler)ÜSchülerDtGrd.SelectedItem;
 
-                ZeigeSchüler();
+                ÜbersichtMode = EÜbersichtMode.Bearbeiten;
             }
             else
             {
-                ÜSchülerÜbersichtGrd.Visibility = Visibility.Hidden;
+                ÜbersichtMode = EÜbersichtMode.Leer;
             }
         }
         #endregion
@@ -1019,7 +1065,7 @@ namespace ProjektSitzplan
         #region ÜSchülerHinzufügenBtn
         private void ÜSchülerHinzufügenBtn_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: Schüler hinzufügen zeugs
+            ÜbersichtMode = EÜbersichtMode.Erstellen;
 
             AktualisiereSchüler();
 
@@ -1080,29 +1126,59 @@ namespace ProjektSitzplan
         }
         #endregion
 
+        //TODO: Hier für die unten liegenden Events sollten jeweils eine if abfrage eingebaut werden damit die funktionsweise auf den Übersicht mode angepasst wird akoidjuefghbnoiauer
+
         #region ÜSchülerBildLöschenBtn
         private void ÜSchülerBildLöschenBtn_Click(object sender, RoutedEventArgs e)
         {
-            Schüler schüler = new Schüler((Schüler)ÜSchülerDtGrd.SelectedItem);
+            switch (ÜbersichtMode)
+            {
+                case EÜbersichtMode.Bearbeiten:
+                    {
+                        Schüler schüler = new Schüler((Schüler)ÜSchülerDtGrd.SelectedItem);
 
-            schüler.Bild = null;
-            ÜSchülerBildImg.Source = null;
+                        schüler.Bild = null;
+                        ÜSchülerBildImg.Source = null;
 
-            AusgewählteKlasse.SchülerAktuallisieren(schüler);
-            DataHandler.SpeicherSchulKlasse(AusgewählteKlasse);
+                        AusgewählteKlasse.SchülerAktuallisieren(schüler);
+                        DataHandler.SpeicherSchulKlasse(AusgewählteKlasse);
+
+                        break;
+                    }
+                case EÜbersichtMode.Erstellen:
+                    {
+
+
+                        break;
+                    }
+            }
         }
         #endregion
 
         #region ÜSchülerBldÄndernBtn
         private void ÜSchülerBildÄndernBtn_Click(object sender, RoutedEventArgs e)
         {
-            Schüler schüler = new Schüler((Schüler)ÜSchülerDtGrd.SelectedItem);
+            switch (ÜbersichtMode)
+            {
+                case EÜbersichtMode.Bearbeiten:
+                    {
+                        Schüler schüler = new Schüler((Schüler)ÜSchülerDtGrd.SelectedItem);
 
-            schüler.Bild = SchülerHelfer.SchülerBildDialog();
-            ÜSchülerBildImg.Source = Convert(schüler.Bild);
+                        schüler.Bild = SchülerHelfer.SchülerBildDialog();
+                        ÜSchülerBildImg.Source = Convert(schüler.Bild);
 
-            AusgewählteKlasse.SchülerAktuallisieren(schüler);
-            DataHandler.SpeicherSchulKlasse(AusgewählteKlasse);
+                        AusgewählteKlasse.SchülerAktuallisieren(schüler);
+                        DataHandler.SpeicherSchulKlasse(AusgewählteKlasse);
+
+                        break;
+                    }
+                case EÜbersichtMode.Erstellen:
+                    {
+
+
+                        break;
+                    }
+            }
         }
         #endregion
 
@@ -1163,7 +1239,17 @@ namespace ProjektSitzplan
 
             DataHandler.SpeicherSchulKlasse(AusgewählteKlasse);
 
-            ÜSchülerÜbersichtGrd.Visibility = Visibility.Hidden;
+            ÜbersichtMode = EÜbersichtMode.Leer;
+        }
+        #endregion
+
+        #region ÜSchülerÜbersichtErstellenBtn
+        private void ÜSchülerBearbeitenErstellenBtn_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO: erstellen zeugs
+
+
+            ÜbersichtMode = EÜbersichtMode.Leer;
         }
         #endregion
 
@@ -1192,6 +1278,7 @@ namespace ProjektSitzplan
             KlasseÜbersichtSitzplanGrd.Visibility = Visibility.Hidden;
         }
         #endregion
+
         #endregion
     }
 }
