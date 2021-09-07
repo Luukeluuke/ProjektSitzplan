@@ -1166,9 +1166,8 @@ namespace ProjektSitzplan
             {
                 case EÜbersichtMode.Bearbeiten:
                     {
-                        Schüler schüler = new Schüler((Schüler)ÜSchülerDtGrd.SelectedItem);
-
-                        schüler.Bild = null;
+                        ÜSchülerBildImg.Source = null;
+                        
                         break;
                     }
                 case EÜbersichtMode.Erstellen:
@@ -1275,8 +1274,6 @@ namespace ProjektSitzplan
             ÜSchülerBildImg.Source = null;
 
             AusgewählteKlasse.SchülerAktuallisieren(schüler);
-
-            DataHandler.SpeicherSchulKlasse(AusgewählteKlasse);
 
             ÜbersichtMode = EÜbersichtMode.Leer;
         }

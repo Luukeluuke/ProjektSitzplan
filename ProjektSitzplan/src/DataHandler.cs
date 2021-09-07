@@ -9,7 +9,7 @@ namespace ProjektSitzplan
 {
     static class DataHandler
     {
-        public static List<SchulKlasse> SchulKlassen { get; private set; } = new List<SchulKlasse>();
+        public static readonly List<SchulKlasse> SchulKlassen = new List<SchulKlasse>();
 
         #region Public Methods
         public static bool HatKlassen()
@@ -33,7 +33,7 @@ namespace ProjektSitzplan
                 //return SchulKlassen.Where(k => k.Name.Equals(klassenName)).Count() > 0;
                 lock (SchulKlassen)
                 {
-                    return SchulKlassen.Any(k => k.Name.Equals(klassenName));   
+                    return SchulKlassen.Any(k => k.Name.Equals(klassenName));
                 }
             }
             return false;

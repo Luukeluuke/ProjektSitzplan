@@ -353,11 +353,11 @@ namespace ProjektSitzplan.Structures
             int punkte = 0;
 
             if (BerücksichtigeBetrieb)
-                punkte += tisch.Sitzplätze.Any(sitzplatz => sitzplatz.Value.AusbildungsBetrieb.Name.Equals(schüler.AusbildungsBetrieb.Name, StringComparison.OrdinalIgnoreCase)) ? -1 : 1;
+                punkte += tisch.Sitzplätze.Any(sitzplatz => sitzplatz.Value != null && sitzplatz.Value.AusbildungsBetrieb.Name.Equals(schüler.AusbildungsBetrieb.Name, StringComparison.OrdinalIgnoreCase)) ? -1 : 1;
             if (BerücksichtigeBeruf)
-                punkte += tisch.Sitzplätze.Any(sitzplatz => sitzplatz.Value.Beruf == schüler.Beruf) ? -1 : 1;
+                punkte += tisch.Sitzplätze.Any(sitzplatz => sitzplatz.Value != null && sitzplatz.Value.Beruf == schüler.Beruf) ? -1 : 1;
             if (BerücksichtigeGeschlecht)
-                punkte += tisch.Sitzplätze.Any(sitzplatz => sitzplatz.Value.Geschlecht == schüler.Geschlecht) ? -1 : 1;
+                punkte += tisch.Sitzplätze.Any(sitzplatz => sitzplatz.Value != null && sitzplatz.Value.Geschlecht == schüler.Geschlecht) ? -1 : 1;
 
             return punkte;
         }

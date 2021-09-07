@@ -207,6 +207,7 @@ namespace ProjektSitzplan.Structures
             }
 
             SchülerListe[SchülerListe.IndexOf(original)] = schüler;
+            DataHandler.SpeicherSchulKlasse(this);
         }
         #endregion
 
