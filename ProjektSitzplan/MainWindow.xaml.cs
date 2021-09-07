@@ -43,9 +43,42 @@ namespace ProjektSitzplan
             }
         }
 
+        private List<Label[]> Tischblöcke;
+
+        private void SetzteTischblöcke()
+        {
+            Tischblöcke = new List<Label[]>
+            {
+                new Label[] { S_T1_P1, S_T1_P2, S_T1_P3, S_T1_P4, S_T1_P5, S_T1_P6, S_T1_P7, S_T1_P8 },
+                new Label[] { S_T2_P1, S_T2_P2, S_T2_P3, S_T2_P4, S_T2_P5, S_T2_P6, S_T2_P7, S_T2_P8 },
+                new Label[] { S_T3_P1, S_T3_P2, S_T3_P3, S_T3_P4, S_T3_P5, S_T3_P6, S_T3_P7, S_T3_P8 },
+                new Label[] { S_T4_P1, S_T4_P2, S_T4_P3, S_T4_P4, S_T4_P5, S_T4_P6, S_T4_P7, S_T4_P8 },
+                new Label[] { S_T5_P1, S_T5_P2, S_T5_P3, S_T5_P4, S_T5_P5, S_T5_P6, S_T5_P7, S_T5_P8 },
+                new Label[] { S_T6_P1, S_T6_P2, S_T6_P3, S_T6_P4, S_T6_P5, S_T6_P6, S_T6_P7, S_T6_P8 }
+            };
+        }
+
         private void SetzeSchüler()
         {
+            for (int i = 0; i < ÜAusgewählterSitzplan.Tische.Count; i++)
+            {
+                Label[] t = Tischblöcke[i];
 
+                for (int i2 = 0; i < 6; i++)
+                {
+                    Schüler s = ÜAusgewählterSitzplan.Tische[i].Sitzplätze[i2];
+
+                    string name = "";
+
+                    if (!(s is null))
+                    {
+                        name = $"{s.Vorname} {s.Nachname}";
+                    }
+
+                    t[i2].Content = name;
+                }
+
+            }
         }
         #endregion
 
@@ -627,6 +660,8 @@ namespace ProjektSitzplan
 
             MenuKlassenDtGrd.ItemsSource = DataHandler.SchulKlassen;
 
+            SetzteTischblöcke();
+
             ContentLabels = new Label[]
             {
                 KEFelderLeerenLbl,
@@ -1114,6 +1149,8 @@ namespace ProjektSitzplan
             if (ÜSitzpläneDtGrd.SelectedIndex > -1)
             {
                 ÜSitzplanAnzeigenGrd.Visibility = Visibility.Visible;
+
+                ÜAusgewählterSitzplan = (Sitzplan)ÜSitzpläneDtGrd.SelectedItem;
             }
             else
             {
