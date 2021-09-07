@@ -66,7 +66,7 @@ namespace ProjektSitzplan.Structures
 
         private string GeneriereNamen()
         {
-            switch(BlockType)
+            switch (BlockType)
             {
                 case SchulBlock.Block1:
                     {
@@ -207,7 +207,7 @@ namespace ProjektSitzplan.Structures
                 SchülerIds.RemoveAt(0);
             }
 
-            foreach(TischBlock tisch in Tische)
+            foreach (TischBlock tisch in Tische)
             {
                 tisch.ConvertShüler(this);
             }

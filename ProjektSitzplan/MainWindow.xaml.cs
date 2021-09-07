@@ -204,11 +204,12 @@ namespace ProjektSitzplan
             //TODO: Bei allen Datagrids den fix einbauen, dass man überall hinclicken kann
 
             //TODO: Aktualisieren splitten? also so dass man im normal fall so die sachen intern einmal neu läd aber nicht immer unbedingt die datein komplett neu laden muss nur bei F5 vielleicht?
+
             //TODO: Wenn ich im klassen übersichts modus ein bild von einem schüler entferne und übenehme. wird die änderung des bildes nicht übernommen luluululuflululu
-            //TODO: Wenn klasse löschen sollte eine message box kommen ja nein löschen
+            //TODO: Beim Aktualisieren der Klassen werden änderungen iwie immernoch nicht übernommen (nur bilder) also wenn man in der Klassenübersicht was ändert im nachhinein lol das mit dem hier drüber ist gleich egal
+
             //TODO: wenn sitzplan angezeigt wird, und dann die klasse geändert wird, sollte die animation mit einer durotation von 0 sek zurückgesetzt werden, und die klassen übersicht resettet werden yk
 
-            //TODO: Beim Aktualisieren der Klassen werden änderungen iwie immernoch nicht übernommen (nur bilder) also wenn man in der Klassenübersicht was ändert im nachhinein
             //TODO: Iwie wenn man eine neue Klasse erstellt dort dann einen Schüler hinzufügt wird der hinterher nicht mehr angezeigt lul
 
             InitializeComponent();
@@ -519,13 +520,11 @@ namespace ProjektSitzplan
         #endregion
 
         #region Private Methods
-
-
         private void KlassenAktualisieren(object sender, RoutedEventArgs e) //Die parameter einach nur für den compiler damit das hier als command klappt
         {
             KlassenAktualisieren(true);
         }
-          
+
         private void KlassenAktualisieren(bool voll = false)
         {
             if (voll)
@@ -588,7 +587,6 @@ namespace ProjektSitzplan
             ÜKeineSitzpläneVorhandenLbl.Visibility = ÜSitzpläneDtGrd.Items.Count > 0 ? Visibility.Hidden : Visibility.Visible;
         }
         #endregion
-
 
         #region Window
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -1154,7 +1152,7 @@ namespace ProjektSitzplan
             schüler.Verkürzt = verkürzt;
 
             ÜSchülerDtGrd.ItemsSource = null;
-             ÜSchülerDtGrd.ItemsSource = AusgewählteKlasse.SchülerListe;
+            ÜSchülerDtGrd.ItemsSource = AusgewählteKlasse.SchülerListe;
 
             AusgewählteKlasse.SchülerAktuallisieren(schüler);
 

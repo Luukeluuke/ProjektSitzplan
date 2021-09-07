@@ -1,21 +1,10 @@
 ﻿using ProjektSitzplan.Design;
 using ProjektSitzplan.Structures;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace ProjektSitzplan
 {
@@ -187,13 +176,13 @@ namespace ProjektSitzplan
         private void SGErstellenBtn_Click(object sender, RoutedEventArgs e)
         {
             string name = SGNameTxbx.Text.Trim();
-            
+
             int tischAnzahl = int.TryParse(SGTischZahlTxbx.Text, out int tryTischAnzahl) ? tryTischAnzahl : 6;
-            
+
             int? seed = null;
             if (int.TryParse(SGSeedTxbx.Text, out int trySeed)) seed = trySeed;
-            
-            SchulBlock blockType = IsImErweitertenModus() ? SchulBlock.Custom : SchulBlock.Current; 
+
+            SchulBlock blockType = IsImErweitertenModus() ? SchulBlock.Custom : SchulBlock.Current;
 
             Generator = new SitzplanGenerator(Klasse, name, tischAnzahl, seed, SGBerufCBx.IsChecked.Value, SGBetriebCBx.IsChecked.Value, SGGeschlechtCBx.IsChecked.Value, blockType);
 

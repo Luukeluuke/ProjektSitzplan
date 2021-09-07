@@ -29,7 +29,7 @@ namespace ProjektSitzplan
 
             SchulKlasse klasse = new SchulKlasse(testKlassenName);
             TestFolderDialog();
-            
+
 
             // AWE
             klasse.SchülerHinzufügen(new Schüler(new Person("Ember", "Salmon", Person.EGeschlecht.Weiblich, Person.EBeruf.Anwendungsentwicklung), new Betrieb("Chantelle's IT Force"), RandomVerkürzt(), RandomImage()));

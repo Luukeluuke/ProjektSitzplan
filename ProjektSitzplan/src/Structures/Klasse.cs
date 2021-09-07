@@ -42,8 +42,8 @@ namespace ProjektSitzplan.Structures
         {
             SchülerListe = schülerListe;
             Sitzpläne = sitzpläne;
-            
-            foreach(Sitzplan sitzplan in Sitzpläne)
+
+            foreach (Sitzplan sitzplan in Sitzpläne)
             {
                 sitzplan.ConvertShüler(this);
             }
@@ -240,7 +240,7 @@ namespace ProjektSitzplan.Structures
             }
             catch (JsonReaderException exc) { ex = exc; }
             catch (JsonSerializationException exc) { ex = exc; }
-            
+
             return null;
         }
 
