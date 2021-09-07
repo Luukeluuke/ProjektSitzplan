@@ -209,8 +209,6 @@ namespace ProjektSitzplan
             //TODO: Wenn ich im klassen übersichts modus ein bild von einem schüler entferne und übenehme. wird die änderung des bildes nicht übernommen luluululuflululu
             //TODO: Beim Aktualisieren der Klassen werden änderungen iwie immernoch nicht übernommen (nur bilder) also wenn man in der Klassenübersicht was ändert im nachhinein lol das mit dem hier drüber ist gleich egal
 
-            //TODO: wenn sitzplan angezeigt wird, und dann die klasse geändert wird, sollte die animation mit einer durotation von 0 sek zurückgesetzt werden, und die klassen übersicht resettet werden yk
-
             //TODO: Iwie wenn man eine neue Klasse erstellt dort dann einen Schüler hinzufügt wird der hinterher nicht mehr angezeigt lul
 
             InitializeComponent();
