@@ -8,28 +8,24 @@ namespace ProjektSitzplan.Structures
     public class TischBlock
     {
         [JsonIgnore]
-        public List<Schüler> Sitzplätze { get; private set; } = new List<Schüler>();
+        public Dictionary<int, Schüler> Sitzplätze { get; private set; } = new Dictionary<int, Schüler>();
 
         [JsonIgnore]
-        private List<string> SchülerIds = null;
+        Dictionary<int, string> SchülerIds = null;
 
-        public List<string> ShortSchüler => Sitzplätze.Select(person => person.UniqueId).ToList();
+        public Dictionary<int, string> ShortSchüler => Sitzplätze.ToDictionary(k=>k.Key, k => k.Value.UniqueId);
 
         private static string errorEntfernen = "Schüler konnte nicht von dem TischBlock entfernt werden.";
         private static string errorHinzufügen = "Schüler konnte dem TischBlock nicht hinzugefügt werden.";
 
 
         [JsonConstructor]
-        public TischBlock(List<string> shortSchüler)
+        public TischBlock(Dictionary<int, string> shortSchüler)
         {
             SchülerIds = shortSchüler;
         }
 
         public TischBlock() { }
-        public TischBlock(List<Schüler> sitzplätze)
-        {
-            Sitzplätze = sitzplätze;
-        }
 
 
         public void ConvertShüler(Sitzplan sitzplan)
@@ -39,22 +35,46 @@ namespace ProjektSitzplan.Structures
                 return;
             }
 
-            Sitzplätze = new List<Schüler>();
+            Sitzplätze = new Dictionary<int, Schüler>();
 
-            while (SchülerIds.Count > 0)
+            foreach (KeyValuePair<int, string> eintrag in SchülerIds)
             {
-                string id = SchülerIds[0];
+                string id = eintrag.Value;
 
                 Schüler schüler = SchülerHelfer.SchülerViaId(sitzplan.Schüler, id);
                 if (schüler != null)
                 {
-                    Sitzplätze.Add(schüler);
+                    Sitzplätze.Add(eintrag.Key, schüler);
                 }
-                SchülerIds.RemoveAt(0);
             }
         }
 
+        public Schüler HohleSchülerVonIndex(int index)
+        {
+            Sitzplätze.TryGetValue(index, out Schüler rückgabe);
+            return rückgabe;
+        }
+        public int HohleIndexVonSchüler(Schüler schüler)
+        {
+            if (Sitzplätze.ContainsValue(schüler))
+            {
+                return Sitzplätze.First(map => map.Value.Equals(schüler)).Key;
+            } return -1;
+        }
 
+        public void SchülerHinzufügen(Schüler schüler, int index)
+        {
+            if (schüler == null)
+            {
+                throw new SchülerNullException(errorHinzufügen);
+            }
+
+            if (Sitzplätze.ContainsValue(schüler))
+            {
+                throw new SchülerInListeException(schüler, errorHinzufügen);
+            }
+            Sitzplätze.Add(index, schüler);
+        }
         public void SchülerHinzufügen(Schüler schüler)
         {
             if (schüler == null)
@@ -62,14 +82,23 @@ namespace ProjektSitzplan.Structures
                 throw new SchülerNullException(errorHinzufügen);
             }
 
-            if (Sitzplätze.Contains(schüler))
+            if (Sitzplätze.ContainsValue(schüler))
             {
                 throw new SchülerInListeException(schüler, errorHinzufügen);
             }
 
-            Sitzplätze.Add(schüler);
+            int i = 0;
+            while(Sitzplätze.ContainsKey(i))
+            {
+                i++;
+            }
+            Sitzplätze.Add(i, schüler);
         }
 
+        public void SchülerEntfernen(int index)
+        {
+            Sitzplätze.Remove(index);
+        }
         public void SchülerEntfernen(Schüler schüler)
         {
             if (schüler == null)
@@ -77,12 +106,13 @@ namespace ProjektSitzplan.Structures
                 throw new SchülerNullException(errorEntfernen);
             }
 
-            if (!Sitzplätze.Contains(schüler))
+            if (!Sitzplätze.ContainsValue(schüler))
             {
                 throw new SchülerNichtInListeException(schüler, errorEntfernen);
             }
 
-            Sitzplätze.Remove(schüler);
+            int key = HohleIndexVonSchüler(schüler);
+            Sitzplätze.Remove(key);
         }
     }
 }

@@ -30,7 +30,6 @@ namespace ProjektSitzplan
         {
             if (klassenName != null)
             {
-                //return SchulKlassen.Where(k => k.Name.Equals(klassenName)).Count() > 0;
                 return SchulKlassen.Any(k => k.Name.Equals(klassenName));
             }
             return false;
