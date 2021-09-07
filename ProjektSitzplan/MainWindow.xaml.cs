@@ -40,6 +40,12 @@ namespace ProjektSitzplan
 
                     SetzeSchüler();
                 }
+                else
+                {
+                    foreach (Label[] labelArrys in Tischblöcke)
+                        foreach (Label label in labelArrys)
+                            label.Content = "";
+                }
             }
         }
 
