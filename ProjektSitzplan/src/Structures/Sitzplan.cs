@@ -214,6 +214,32 @@ namespace ProjektSitzplan.Structures
         }
 
 
+        public bool SchülerTauschen(int tischIndex1, int sitzplatzIndex1, int tischIndex2, int sitzplatzIndex2)
+        {
+            if (tischIndex1 >= TischAnzahl || tischIndex2 >= TischAnzahl)
+            {
+                return false;
+            }
+
+            TischBlock tisch1 = Tische[tischIndex1];
+            TischBlock tisch2 = Tische[tischIndex2];
+            if (tisch1 == null || tisch2 == null)
+            {
+                return false;
+            }
+
+            
+            Schüler schüler1 = tisch1.HohleSchülerVonIndex(sitzplatzIndex1);
+            Schüler schüler2 = tisch2.HohleSchülerVonIndex(sitzplatzIndex2);
+
+            tisch1.SchülerEntfernen(sitzplatzIndex1);
+            tisch2.SchülerEntfernen(sitzplatzIndex2);
+
+            tisch1.SchülerHinzufügen(schüler2, sitzplatzIndex2);
+            tisch2.SchülerHinzufügen(schüler1, sitzplatzIndex1);
+
+            return true;
+        }
 
 
         public List<Schüler> Mischen(List<Schüler> originalListe)
@@ -327,11 +353,11 @@ namespace ProjektSitzplan.Structures
             int punkte = 0;
 
             if (BerücksichtigeBetrieb)
-                punkte += tisch.Sitzplätze.Any(sitzplatz => sitzplatz.AusbildungsBetrieb.Name.Equals(schüler.AusbildungsBetrieb.Name, StringComparison.OrdinalIgnoreCase)) ? -1 : 1;
+                punkte += tisch.Sitzplätze.Any(sitzplatz => sitzplatz.Value.AusbildungsBetrieb.Name.Equals(schüler.AusbildungsBetrieb.Name, StringComparison.OrdinalIgnoreCase)) ? -1 : 1;
             if (BerücksichtigeBeruf)
-                punkte += tisch.Sitzplätze.Any(sitzplatz => sitzplatz.Beruf == schüler.Beruf) ? -1 : 1;
+                punkte += tisch.Sitzplätze.Any(sitzplatz => sitzplatz.Value.Beruf == schüler.Beruf) ? -1 : 1;
             if (BerücksichtigeGeschlecht)
-                punkte += tisch.Sitzplätze.Any(sitzplatz => sitzplatz.Geschlecht == schüler.Geschlecht) ? -1 : 1;
+                punkte += tisch.Sitzplätze.Any(sitzplatz => sitzplatz.Value.Geschlecht == schüler.Geschlecht) ? -1 : 1;
 
             return punkte;
         }

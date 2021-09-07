@@ -30,7 +30,7 @@ namespace ProjektSitzplan
             SchulKlasse klasse = new SchulKlasse(testKlassenName);
             TestFolderDialog();
 
-
+            /*
             // AWE
             klasse.SchülerHinzufügen(new Schüler(new Person("Ember", "Salmon", Person.EGeschlecht.Weiblich, Person.EBeruf.Anwendungsentwicklung), new Betrieb("Chantelle's IT Force"), RandomVerkürzt(), RandomImage()));
             klasse.SchülerHinzufügen(new Schüler(new Person("Freddy", "Curd", Person.EGeschlecht.Männlich, Person.EBeruf.Anwendungsentwicklung), new Betrieb("Ender Tech"), RandomVerkürzt(), RandomImage()));
@@ -80,6 +80,57 @@ namespace ProjektSitzplan
             klasse.SchülerHinzufügen(new Schüler(new Person("Scott", "Orlandi", Person.EGeschlecht.Männlich, Person.EBeruf.Systemintegration), new Betrieb("BuildieTech"), RandomVerkürzt(), RandomImage()));
             klasse.SchülerHinzufügen(new Schüler(new Person("Christopher", "Palumbo", Person.EGeschlecht.Männlich, Person.EBeruf.Systemintegration), new Betrieb("Network24 GmbH"), RandomVerkürzt(), RandomImage()));
             klasse.SchülerHinzufügen(new Schüler(new Person("Erick", "Kühl", Person.EGeschlecht.Männlich, Person.EBeruf.Systemintegration), new Betrieb("Chantelle's IT Force"), RandomVerkürzt(), RandomImage()));
+            */
+
+            // AWE
+            klasse.SchülerHinzufügen(new Schüler(new Person("Ember", "Salmon", Person.EGeschlecht.Weiblich, RandomBeruf()), new Betrieb("Chantelle's IT Force"), RandomVerkürzt(), RandomImage()));
+            klasse.SchülerHinzufügen(new Schüler(new Person("Freddy", "Curd", Person.EGeschlecht.Männlich, RandomBeruf()), new Betrieb("Ender Tech"), RandomVerkürzt(), RandomImage()));
+            klasse.SchülerHinzufügen(new Schüler(new Person("Danyel", "Tang", Person.EGeschlecht.Männlich, RandomBeruf()), new Betrieb("Network24 GmbH"), RandomVerkürzt(), RandomImage()));
+            klasse.SchülerHinzufügen(new Schüler(new Person("Jerimy", "Duvall", Person.EGeschlecht.Männlich, RandomBeruf()), new Betrieb("Crytonix Software"), RandomVerkürzt(), RandomImage()));
+            klasse.SchülerHinzufügen(new Schüler(new Person("Martin", "Blanks", Person.EGeschlecht.Männlich, RandomBeruf()), new Betrieb("BuildieTech"), RandomVerkürzt(), RandomImage()));
+            klasse.SchülerHinzufügen(new Schüler(new Person("Light", "Yagami", Person.EGeschlecht.Männlich, RandomBeruf()), new Betrieb("Crytonix Software"), RandomVerkürzt(), RandomImage()));
+            klasse.SchülerHinzufügen(new Schüler(new Person("Eren", "Jäger", Person.EGeschlecht.Männlich, RandomBeruf()), new Betrieb("Aurora Apps"), RandomVerkürzt(), RandomImage()));
+            klasse.SchülerHinzufügen(new Schüler(new Person("Levi", "Ackerman", Person.EGeschlecht.Männlich, RandomBeruf()), new Betrieb("Chantelle's IT Force"), RandomVerkürzt(), RandomImage()));
+            klasse.SchülerHinzufügen(new Schüler(new Person("Erwin", "Smith", Person.EGeschlecht.Männlich, RandomBeruf()), new Betrieb("Aurora Apps"), RandomVerkürzt(), RandomImage()));
+            klasse.SchülerHinzufügen(new Schüler(new Person("Minato", "Namikaze", Person.EGeschlecht.Männlich, RandomBeruf()), new Betrieb("IT Tiara"), RandomVerkürzt(), RandomImage()));
+
+            // SEL
+            klasse.SchülerHinzufügen(new Schüler(new Person("Logan", "Buckland", Person.EGeschlecht.Männlich, RandomBeruf()), new Betrieb("Sim Tech"), RandomVerkürzt(), RandomImage()));
+            klasse.SchülerHinzufügen(new Schüler(new Person("Danny", "Winkelman", Person.EGeschlecht.Männlich, RandomBeruf()), new Betrieb("Network24 GmbH"), RandomVerkürzt(), RandomImage()));
+            klasse.SchülerHinzufügen(new Schüler(new Person("Denis", "Khang", Person.EGeschlecht.Männlich, RandomBeruf()), new Betrieb("Fusion Tech"), RandomVerkürzt(), RandomImage()));
+
+            // SIN
+            klasse.SchülerHinzufügen(new Schüler(new Person("Staci", "Mote", Person.EGeschlecht.Weiblich, RandomBeruf()), new Betrieb("BuildieTech"), RandomVerkürzt(), RandomImage()));
+            klasse.SchülerHinzufügen(new Schüler(new Person("Burk", "Balcon", Person.EGeschlecht.Männlich, RandomBeruf()), new Betrieb("Alpha Codehouse 31"), RandomVerkürzt(), RandomImage()));
+            klasse.SchülerHinzufügen(new Schüler(new Person("Alex", "Noland", Person.EGeschlecht.Männlich, RandomBeruf()), new Betrieb("Ender Tech"), RandomVerkürzt(), RandomImage()));
+            klasse.SchülerHinzufügen(new Schüler(new Person("Junior", "McDole", Person.EGeschlecht.Männlich, RandomBeruf()), new Betrieb("Sub Zero Apps"), RandomVerkürzt(), RandomImage()));
+            klasse.SchülerHinzufügen(new Schüler(new Person("Benjamin", "Vega", Person.EGeschlecht.Männlich, RandomBeruf()), new Betrieb("IT Tiara"), RandomVerkürzt(), RandomImage()));
+            klasse.SchülerHinzufügen(new Schüler(new Person("Philippe", "Sabol", Person.EGeschlecht.Männlich, RandomBeruf()), new Betrieb("Ender Tech"), RandomVerkürzt(), RandomImage()));
+            klasse.SchülerHinzufügen(new Schüler(new Person("Jeremy", "Hosley", Person.EGeschlecht.Männlich, RandomBeruf()), new Betrieb("IT Tiara"), RandomVerkürzt(), RandomImage()));
+            klasse.SchülerHinzufügen(new Schüler(new Person("Carl", "Römer", Person.EGeschlecht.Männlich, RandomBeruf()), new Betrieb("Crytonix Software"), RandomVerkürzt(), RandomImage()));
+            klasse.SchülerHinzufügen(new Schüler(new Person("Garrick", "Clary", Person.EGeschlecht.Männlich, RandomBeruf()), new Betrieb("Network24 GmbH"), RandomVerkürzt(), RandomImage()));
+            klasse.SchülerHinzufügen(new Schüler(new Person("Kipp", "True", Person.EGeschlecht.Männlich, RandomBeruf()), new Betrieb("TopHat Software"), RandomVerkürzt(), RandomImage()));
+            klasse.SchülerHinzufügen(new Schüler(new Person("Julisa", "Well", Person.EGeschlecht.Weiblich, RandomBeruf()), new Betrieb("Metric Systems Corporation"), RandomVerkürzt(), RandomImage()));
+            klasse.SchülerHinzufügen(new Schüler(new Person("Jackson", "Hartzog", Person.EGeschlecht.Männlich, RandomBeruf()), new Betrieb("Alpha Codehouse 31"), RandomVerkürzt(), RandomImage()));
+            klasse.SchülerHinzufügen(new Schüler(new Person("Rick", "Creed", Person.EGeschlecht.Männlich, RandomBeruf()), new Betrieb("Alpha Codehouse 31"), RandomVerkürzt(), RandomImage()));
+            klasse.SchülerHinzufügen(new Schüler(new Person("Nico", "Westerman", Person.EGeschlecht.Männlich, RandomBeruf()), new Betrieb("Metric Systems Corporation"), RandomVerkürzt(), RandomImage()));
+            klasse.SchülerHinzufügen(new Schüler(new Person("Kevin", "Langenfeld", Person.EGeschlecht.Männlich, RandomBeruf()), new Betrieb("Crytonix Software"), RandomVerkürzt(), RandomImage()));
+            klasse.SchülerHinzufügen(new Schüler(new Person("Matt", "Lanz", Person.EGeschlecht.Männlich, RandomBeruf()), new Betrieb("Fusion Tech"), RandomVerkürzt(), RandomImage()));
+            klasse.SchülerHinzufügen(new Schüler(new Person("Igor", "Solar", Person.EGeschlecht.Männlich, RandomBeruf()), new Betrieb("Chantelle's IT Force"), RandomVerkürzt(), RandomImage()));
+            klasse.SchülerHinzufügen(new Schüler(new Person("Edward", "Hysell", Person.EGeschlecht.Männlich, RandomBeruf()), new Betrieb("Aurora Apps"), RandomVerkürzt(), RandomImage()));
+            klasse.SchülerHinzufügen(new Schüler(new Person("Eden", "Douthitt", Person.EGeschlecht.Männlich, RandomBeruf()), new Betrieb("Blue Nebula"), RandomVerkürzt(), RandomImage()));
+            klasse.SchülerHinzufügen(new Schüler(new Person("Nat", "Defrancisco", Person.EGeschlecht.Männlich, RandomBeruf()), new Betrieb("Sub Zero Apps"), RandomVerkürzt(), RandomImage()));
+            klasse.SchülerHinzufügen(new Schüler(new Person("Norris", "Vargas", Person.EGeschlecht.Männlich, RandomBeruf()), new Betrieb("Chantelle's IT Force"), RandomVerkürzt(), RandomImage()));
+            klasse.SchülerHinzufügen(new Schüler(new Person("Jonas", "Chacko", Person.EGeschlecht.Männlich, RandomBeruf()), new Betrieb("Ender Tech"), RandomVerkürzt(), RandomImage()));
+            klasse.SchülerHinzufügen(new Schüler(new Person("Benny", "Warnock", Person.EGeschlecht.Männlich, RandomBeruf()), new Betrieb("Genius Tech"), RandomVerkürzt(), RandomImage()));
+            klasse.SchülerHinzufügen(new Schüler(new Person("Patrick", "Demaria", Person.EGeschlecht.Männlich, RandomBeruf()), new Betrieb("IT Tiara"), RandomVerkürzt(), RandomImage()));
+            klasse.SchülerHinzufügen(new Schüler(new Person("Hans", "Cowley", Person.EGeschlecht.Männlich, RandomBeruf()), new Betrieb("Alpha Codehouse 31"), RandomVerkürzt(), RandomImage()));
+            klasse.SchülerHinzufügen(new Schüler(new Person("Gerry", "Herzog", Person.EGeschlecht.Männlich, RandomBeruf()), new Betrieb("Aurora Apps"), RandomVerkürzt(), RandomImage()));
+            klasse.SchülerHinzufügen(new Schüler(new Person("Oscar", "Wahl", Person.EGeschlecht.Männlich, RandomBeruf()), new Betrieb("Crytonix Software"), RandomVerkürzt(), RandomImage()));
+            klasse.SchülerHinzufügen(new Schüler(new Person("Simon", "Shatley", Person.EGeschlecht.Männlich, RandomBeruf()), new Betrieb("Network24 GmbH"), RandomVerkürzt(), RandomImage()));
+            klasse.SchülerHinzufügen(new Schüler(new Person("Scott", "Orlandi", Person.EGeschlecht.Männlich, RandomBeruf()), new Betrieb("BuildieTech"), RandomVerkürzt(), RandomImage()));
+            klasse.SchülerHinzufügen(new Schüler(new Person("Christopher", "Palumbo", Person.EGeschlecht.Männlich, RandomBeruf()), new Betrieb("Network24 GmbH"), RandomVerkürzt(), RandomImage()));
+            klasse.SchülerHinzufügen(new Schüler(new Person("Erick", "Kühl", Person.EGeschlecht.Männlich, RandomBeruf()), new Betrieb("Chantelle's IT Force"), RandomVerkürzt(), RandomImage()));
 
             klasse.ErstelleSitzplan();
             klasse.ErstelleSitzplan();
