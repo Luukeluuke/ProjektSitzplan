@@ -1268,10 +1268,12 @@ namespace ProjektSitzplan
             schüler.Geschlecht = geschlecht;
             schüler.Beruf = beruf;
             schüler.Verkürzt = verkürzt;
+            schüler.Bild = schülerImg;
 
             ÜSchülerDtGrd.ItemsSource = null;
             ÜSchülerDtGrd.ItemsSource = AusgewählteKlasse.SchülerListe;
             ÜSchülerBildImg.Source = null;
+            schülerImg = null;
 
             AusgewählteKlasse.SchülerAktuallisieren(schüler);
 
