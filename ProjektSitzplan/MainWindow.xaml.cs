@@ -25,7 +25,28 @@ namespace ProjektSitzplan
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
-        private bool ZeigtSitzplanAn { get; set; } = false;
+        #region Sitzplan Anzeigen / Schüler auf Sitzplätze setzen. 1. Time
+        private bool zeigtSitzplanAn = false;
+        private bool ZeigtSitzplanAn
+        {
+            get => zeigtSitzplanAn;
+            set
+            {
+                zeigtSitzplanAn = value;
+
+                if (zeigtSitzplanAn)
+                {
+                    SetzeSchüler();
+                }
+            }
+        }
+
+        private void SetzeSchüler()
+        {
+
+        }
+        #endregion
+
         private EWindowContent windowContent = EWindowContent.Leer;
         private EWindowContent WindowContent
         {
@@ -197,7 +218,6 @@ namespace ProjektSitzplan
             return true;
         }
         #endregion  
-
 
         public MainWindow()
         {
@@ -624,7 +644,8 @@ namespace ProjektSitzplan
                 ÜSchülerBearbeitenÜbernehmenLbl,
                 ÜSchülerBildLöschenLbl,
                 ÜSchülerBildÄndernLbl,
-                ÜSitzplanAnzeigen1Lbl
+                ÜSitzplanAnzeigen1Lbl,
+                ÜSchülerBearbeitenErstellenLbl
             };
             ContentPackIconsSets = new PackIconSet[]
             {
@@ -643,7 +664,8 @@ namespace ProjektSitzplan
                 new PackIconSet(ÜSchülerBearbeitenÜbernehmenPckIco, PackIconSet.EIconType.Content, PSColors.IconHoverGreen, PSColors.IconPreviewGreen),
                 null,
                 null,
-                new PackIconSet(ÜSitzplanAnzeigen1PckIco, PackIconSet.EIconType.Content, PSColors.ContentHoverForeground, PSColors.ContentButtonPreviewForeground)
+                new PackIconSet(ÜSitzplanAnzeigen1PckIco, PackIconSet.EIconType.Content, PSColors.ContentHoverForeground, PSColors.ContentButtonPreviewForeground),
+                new PackIconSet(ÜSchülerBearbeitenErstellenPckIco, PackIconSet.EIconType.Content, PSColors.IconHoverGreen, PSColors.IconPreviewGreen)
             };
         }
         #endregion
@@ -1134,8 +1156,6 @@ namespace ProjektSitzplan
 
         }
         #endregion
-
-        //TODO: Hier für die unten liegenden Events sollten jeweils eine if abfrage eingebaut werden damit die funktionsweise auf den Übersicht mode angepasst wird akoidjuefghbnoiauer
 
         #region ÜSchülerBildLöschenBtn
         private void ÜSchülerBildLöschenBtn_Click(object sender, RoutedEventArgs e)

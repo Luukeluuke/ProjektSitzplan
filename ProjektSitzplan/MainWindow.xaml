@@ -608,13 +608,13 @@
                                         </Grid>
                                     </Grid>
                                 </Grid>
-                                <Grid x:Name="KlasseÜbersichtGrd" Visibility="Hidden">
+                                <Grid x:Name="KlasseÜbersichtGrd" Visibility="Visible">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="1.35*"></ColumnDefinition>
                                         <ColumnDefinition Width="*"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
                                     <Grid x:Name="container" Grid.Column="1" Grid.Row="0"></Grid>
-                                    <Grid x:Name="KlasseÜbersichtSitzplanGrd" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Background="{StaticResource ContentBackground}" Visibility="Hidden">
+                                    <Grid x:Name="KlasseÜbersichtSitzplanGrd" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Background="{StaticResource ContentBackground}" Visibility="Visible">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="0.22*"></ColumnDefinition>
                                             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -660,6 +660,17 @@
                                                     <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Background="{StaticResource ContentControlBorder}"></Grid>
                                                     <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3" Background="{StaticResource ContentControlBorder}"></Grid>
                                                     <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="5" Background="{StaticResource ContentControlBorder}"></Grid>
+                                                    
+                                                    <Grid Grid.Column="0" Grid.Row="0">
+                                                        
+                                                    </Grid>
+                                                    <Grid Grid.Column="2" Grid.Row="0">
+
+                                                    </Grid>
+                                                    <Grid Grid.Column="0" Grid.Row="2">
+
+                                                    </Grid>
+                                                    
                                                 </Grid>
                                             </Grid>
                                         </Border>
@@ -833,7 +844,7 @@
                                             <materialDesign:PackIcon x:Name="ÜSitzplanVersteckenPkIco" HorizontalAlignment="Center" VerticalAlignment="Center" Kind="ArrowCollapseRight" Height="23" Width="23" Foreground="{StaticResource ContentButtonForeground}" IsHitTestVisible="False"></materialDesign:PackIcon>
                                         </Grid>
                                     </Grid>
-                                    <Grid x:Name="KlasseÜbersichtContentGrd" Visibility="Visible" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Width="{Binding ElementName=KlasseÜbersichtGrd, Path=Width}" HorizontalAlignment="Left" VerticalAlignment="Stretch" Background="{StaticResource ContentBackground}">
+                                    <Grid x:Name="KlasseÜbersichtContentGrd" Visibility="Hidden" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Width="{Binding ElementName=KlasseÜbersichtGrd, Path=Width}" HorizontalAlignment="Left" VerticalAlignment="Stretch" Background="{StaticResource ContentBackground}">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="1.35*"></ColumnDefinition>
                                             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -897,28 +908,6 @@
                                                                             <Setter Property="Background" Value="{x:Null}"></Setter>
                                                                             <Setter Property="Margin" Value="0"></Setter>
                                                                             <Setter Property="IsHitTestVisible" Value="True"></Setter>
-                                                                            <!--<Setter Property="ToolTip">
-                                                                                <Setter.Value>
-                                                                                    <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12">
-                                                                                        <ToolTip.Resources>
-                                                                                            <Style TargetType="{x:Type ToolTip}">
-                                                                                                <Setter Property="Width" Value="Auto"></Setter>
-                                                                                                <Setter Property="Height" Value="Auto"></Setter>
-                                                                                                <Setter Property="OverridesDefaultStyle" Value="True"></Setter>
-                                                                                                <Setter Property="Template">
-                                                                                                    <Setter.Value>
-                                                                                                        <ControlTemplate TargetType="{x:Type ToolTip}">
-                                                                                                            <Border CornerRadius="4" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" Background="{StaticResource ToolTipBackground}">
-                                                                                                                <Image Margin="4 4 4 0" Source="{Binding Bild}"/>
-                                                                                                            </Border>
-                                                                                                        </ControlTemplate>
-                                                                                                    </Setter.Value>
-                                                                                                </Setter>
-                                                                                            </Style>
-                                                                                        </ToolTip.Resources>
-                                                                                    </ToolTip>
-                                                                                </Setter.Value>
-                                                                            </Setter>-->
                                                                             <Style.Triggers>
                                                                                 <Trigger Property="DataGridRow.IsSelected" Value="True">
                                                                                     <Setter Property="Background" Value="{StaticResource ContentDataGridRowBorderSelectedBackground}" />
@@ -1297,7 +1286,7 @@
                                                                     </StackPanel>
                                                                 </Grid>
                                                                 <Grid x:Name="ÜSchülerÜbersichtErstellenGrd" Grid.Column="2" Grid.Row="0" Visibility="Hidden">
-                                                                    <Button x:Name="ÜSchülerBearbeitenErstellenBtn" Uid="12" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" Height="Auto" Click="ÜSchülerBearbeitenErstellenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp">
+                                                                    <Button x:Name="ÜSchülerBearbeitenErstellenBtn" Uid="sdf" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" Height="Auto" Click="ÜSchülerBearbeitenErstellenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp">
                                                                         <Button.ToolTip>
                                                                             <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12">Füge diesen Schüler der Klasse hinzu</ToolTip>
                                                                         </Button.ToolTip>
