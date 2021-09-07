@@ -625,7 +625,8 @@ namespace ProjektSitzplan
                 ÜSchülerBearbeitenAbbrechenLbl,
                 ÜSchülerBearbeitenÜbernehmenLbl,
                 ÜSchülerBildLöschenLbl,
-                ÜSchülerBildÄndernLbl
+                ÜSchülerBildÄndernLbl,
+                ÜSitzplanAnzeigen1Lbl
             };
             ContentPackIconsSets = new PackIconSet[]
             {
@@ -643,7 +644,8 @@ namespace ProjektSitzplan
                 new PackIconSet(ÜSchülerBearbeitenAbbrechenPckIco, PackIconSet.EIconType.Content, PSColors.IconHoverRed, PSColors.IconPreviewRed),
                 new PackIconSet(ÜSchülerBearbeitenÜbernehmenPckIco, PackIconSet.EIconType.Content, PSColors.IconHoverGreen, PSColors.IconPreviewGreen),
                 null,
-                null
+                null,
+                new PackIconSet(ÜSitzplanAnzeigen1PckIco, PackIconSet.EIconType.Content, PSColors.ContentHoverForeground, PSColors.ContentButtonPreviewForeground)
             };
         }
         #endregion
@@ -1026,6 +1028,8 @@ namespace ProjektSitzplan
         private void ÜSitzpläneDtGrd_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
             ÜSitzplanEntfernenBtn.IsEnabled = ÜSitzpläneDtGrd.SelectedIndex > -1;
+            ÜSitzplanAnzeigen1Btn.IsEnabled = ÜSitzpläneDtGrd.SelectedIndex > -1;
+
             if (ÜSitzpläneDtGrd.SelectedIndex > -1)
             {
                 ÜSitzplanAnzeigenGrd.Visibility = Visibility.Visible;

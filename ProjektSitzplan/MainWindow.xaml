@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:ProjektSitzplan" xmlns:System="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         DataContext="{Binding RelativeSource={RelativeSource self}}"
-        Height="650" Width="1000"
+        Height="650" Width="1080"
         WindowStyle="None" ResizeMode="CanResize" AllowsTransparency="True"
         Loaded="Window_Loaded"
         x:Name="MyMainWindow">
@@ -1092,8 +1092,21 @@
                                                             <ColumnDefinition Width="*"></ColumnDefinition>
                                                             <ColumnDefinition Width="5"></ColumnDefinition>
                                                             <ColumnDefinition Width="*"></ColumnDefinition>
+                                                            <ColumnDefinition Width="5"></ColumnDefinition>
+                                                            <ColumnDefinition Width="*"></ColumnDefinition>
                                                         </Grid.ColumnDefinitions>
                                                         <Grid Grid.Column="0" Grid.Row="0">
+                                                            <Button x:Name="ÜSitzplanAnzeigen1Btn" Uid="15" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" Height="Auto" Click="ÜSitzplanAnzeigenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp" IsEnabled="False">
+                                                                <Button.ToolTip>
+                                                                    <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12">Zeige den aktuell ausgewählten Sitzplan an</ToolTip>
+                                                                </Button.ToolTip>
+                                                            </Button>
+                                                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5 0 0 0" Orientation="Horizontal">
+                                                                <Label x:Name="ÜSitzplanAnzeigen1Lbl" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False" Content="Sitzplan anzeigen" Foreground="{StaticResource ContentButtonForeground}" FontSize="15" FontFamily="Segoe UI Semibold"></Label>
+                                                                <materialDesign:PackIcon x:Name="ÜSitzplanAnzeigen1PckIco" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource ContentButtonForeground}" Kind="Show" Height="20" Width="20" IsHitTestVisible="False"></materialDesign:PackIcon>
+                                                            </StackPanel>
+                                                        </Grid>
+                                                        <Grid Grid.Column="2" Grid.Row="0">
                                                             <Button x:Name="ÜSitzplanEntfernenBtn" Uid="8" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" Height="Auto" Click="ÜSitzplanEntfernenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp" IsEnabled="False">
                                                                 <Button.ToolTip>
                                                                     <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12">Entferne den aktuell ausgewählten Sitzplan</ToolTip>
@@ -1101,10 +1114,10 @@
                                                             </Button>
                                                             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5 0 0 0" Orientation="Horizontal">
                                                                 <Label x:Name="ÜSitzplanEntfernenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False" Content="Sitzplan entfernen" Foreground="{StaticResource ContentButtonForeground}" FontSize="15" FontFamily="Segoe UI Semibold"></Label>
-                                                                <materialDesign:PackIcon x:Name="ÜSitzplanEntfernenPckIco" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource ContentButtonForeground}" Kind="RemoveBold" Height="20" Width="20" IsHitTestVisible="False"></materialDesign:PackIcon>
+                                                                <materialDesign:PackIcon x:Name="ÜSitzplanEntfernenPckIco" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource ContentButtonForeground}" Kind="Trash" Height="20" Width="20" IsHitTestVisible="False"></materialDesign:PackIcon>
                                                             </StackPanel>
                                                         </Grid>
-                                                        <Grid Grid.Column="2" Grid.Row="0">
+                                                        <Grid Grid.Column="4" Grid.Row="0">
                                                             <Button x:Name="ÜSitzplanHinzufügenBtn" Uid="9" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" Height="Auto" Click="SitzplanGenerierenClick" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp" IsEnabled="False">
                                                                 <Button.ToolTip>
                                                                     <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12">Generiere einen neuen Sitzplan für diese Klasse</ToolTip>
