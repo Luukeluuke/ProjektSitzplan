@@ -211,6 +211,7 @@ namespace ProjektSitzplan
 
             //TODO: Iwie wenn man eine neue Klasse erstellt dort dann einen Schüler hinzufügt wird der hinterher nicht mehr angezeigt lul
             //TODO: Mindestlaufzeit von 3 sek einbauen
+            //TODO: Was machen wir eig wenn Sitzpläne erstellt wurden und dann ein Schüler gelöscht wird? xD
 
 
             InitializeComponent();
@@ -704,6 +705,8 @@ namespace ProjektSitzplan
         #region MenuKlassenDtGrd
         private void MenuKlassenDtGrd_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
+            ÜbersichtMode = EÜbersichtMode.Leer;
+
             if (!MenuKlassenDtGrd.SelectedIndex.Equals(-1))
             {
                 if (ZeigtSitzplanAn)
@@ -838,6 +841,7 @@ namespace ProjektSitzplan
 
             bool verkürzt = KESchülerVerkürztCBx.IsChecked.Value;
 
+            //TODO: Hier noch das bild einbauen aus KESchülerBildImg Control. Deshalb werden auch die bilder hinterher nicht angezeigt uff
             Schüler neuerSchüler = new Schüler(new Person(vorname, nachname, geschlecht, beruf), new Betrieb(betrieb), verkürzt);
 
             if (KESchülerListe.Count >= SchulKlasse.MaxSchüler)
@@ -977,12 +981,16 @@ namespace ProjektSitzplan
                     case EÜbersichtMode.Leer:
                         {
                             ÜSchülerÜbersichtGrd.Visibility = Visibility.Hidden;
+                            ÜSchülerÜbersichtÜbernehmenGrd.Visibility = Visibility.Hidden;
+                            ÜSchülerÜbersichtErstellenGrd.Visibility = Visibility.Hidden;
+
                             break;
                         }
                     case EÜbersichtMode.Bearbeiten:
                         {
                             ÜSchülerÜbersichtGrd.Visibility = Visibility.Visible;
 
+                            ÜSchülerÜbersichtErstellenGrd.Visibility = Visibility.Hidden;
                             ÜSchülerÜbersichtÜbernehmenGrd.Visibility = Visibility.Visible;
 
                             ÜSchülerNameLbl.Content = $"Bearbeite - {ÜAusgewählterSchüler.Vorname} {ÜAusgewählterSchüler.Nachname}";
@@ -992,6 +1000,7 @@ namespace ProjektSitzplan
                             ÜSchülerGeschlechtCb.SelectedIndex = (int)ÜAusgewählterSchüler.Geschlecht;
                             ÜSchülerBerufCb.SelectedIndex = (int)ÜAusgewählterSchüler.Beruf;
                             ÜSchülerVerkürztCBx.IsChecked = ÜAusgewählterSchüler.Verkürzt;
+                            ÜSchülerBildImg.Source = Convert(ÜAusgewählterSchüler.Bild);
 
                             if (ÜAusgewählterSchüler.Bild is null)
                             {
@@ -1010,6 +1019,7 @@ namespace ProjektSitzplan
                         {
                             ÜSchülerÜbersichtGrd.Visibility = Visibility.Visible;
 
+                            ÜSchülerÜbersichtÜbernehmenGrd.Visibility = Visibility.Hidden;
                             ÜSchülerÜbersichtErstellenGrd.Visibility = Visibility.Visible;
 
                             ÜSchülerNameLbl.Content = $"Erstelle neuen Schüler";
@@ -1019,8 +1029,8 @@ namespace ProjektSitzplan
                             ÜSchülerGeschlechtCb.SelectedIndex = -1;
                             ÜSchülerBerufCb.SelectedIndex = -1;
                             ÜSchülerVerkürztCBx.IsChecked = false;
-
-                            //TODO der restliche shit kommt da noch hin
+                            ÜSchülerBildImg.Source = null;
+                            ÜSchülerKeinBildVorhandenLbl.Visibility = Visibility.Visible;
 
                             break;
                         }
@@ -1065,12 +1075,11 @@ namespace ProjektSitzplan
         #region ÜSchülerHinzufügenBtn
         private void ÜSchülerHinzufügenBtn_Click(object sender, RoutedEventArgs e)
         {
-            ÜbersichtMode = EÜbersichtMode.Erstellen;
-
             AktualisiereSchüler();
 
             ÜSitzplanHinzufügenBtn.IsEnabled = AusgewählteKlasse.SchülerListe.Count > 0 ? true : false;
-            ÜKeineSchülerVorhandenLbl.Visibility = ÜSchülerDtGrd.Items.Count > 0 ? Visibility.Hidden : Visibility.Visible;
+
+            ÜbersichtMode = EÜbersichtMode.Erstellen;
         }
         #endregion
 
@@ -1131,6 +1140,8 @@ namespace ProjektSitzplan
         #region ÜSchülerBildLöschenBtn
         private void ÜSchülerBildLöschenBtn_Click(object sender, RoutedEventArgs e)
         {
+            ÜSchülerBildImg.Source = null;
+
             switch (ÜbersichtMode)
             {
                 case EÜbersichtMode.Bearbeiten:
@@ -1138,17 +1149,11 @@ namespace ProjektSitzplan
                         Schüler schüler = new Schüler((Schüler)ÜSchülerDtGrd.SelectedItem);
 
                         schüler.Bild = null;
-                        ÜSchülerBildImg.Source = null;
-
-                        AusgewählteKlasse.SchülerAktuallisieren(schüler);
-                        DataHandler.SpeicherSchulKlasse(AusgewählteKlasse);
-
                         break;
                     }
                 case EÜbersichtMode.Erstellen:
                     {
-
-
+                        ÜSchülerKeinBildVorhandenLbl.Visibility = Visibility.Visible;
                         break;
                     }
             }
@@ -1156,25 +1161,21 @@ namespace ProjektSitzplan
         #endregion
 
         #region ÜSchülerBldÄndernBtn
+        private System.Drawing.Image schülerImg = null;
         private void ÜSchülerBildÄndernBtn_Click(object sender, RoutedEventArgs e)
         {
             switch (ÜbersichtMode)
             {
                 case EÜbersichtMode.Bearbeiten:
                     {
-                        Schüler schüler = new Schüler((Schüler)ÜSchülerDtGrd.SelectedItem);
-
-                        schüler.Bild = SchülerHelfer.SchülerBildDialog();
-                        ÜSchülerBildImg.Source = Convert(schüler.Bild);
-
-                        AusgewählteKlasse.SchülerAktuallisieren(schüler);
-                        DataHandler.SpeicherSchulKlasse(AusgewählteKlasse);
-
+                        ((Schüler)ÜSchülerDtGrd.SelectedItem).Bild = SchülerHelfer.SchülerBildDialog();
+                        ÜSchülerBildImg.Source = Convert(((Schüler)ÜSchülerDtGrd.SelectedItem).Bild);
                         break;
                     }
                 case EÜbersichtMode.Erstellen:
                     {
-
+                        schülerImg = SchülerHelfer.SchülerBildDialog();
+                        ÜSchülerBildImg.Source = Convert(schülerImg);
 
                         break;
                     }
@@ -1185,7 +1186,23 @@ namespace ProjektSitzplan
         #region ÜSchülerBearbeitenAbbrechenBtn
         private void ÜSchülerBearbeitenAbbrechenBtn_Click(object sender, RoutedEventArgs e)
         {
-            ÜSchülerDtGrd.SelectedIndex = -1;
+            switch (ÜbersichtMode)
+            {
+                case EÜbersichtMode.Bearbeiten:
+                    {
+                        ÜSchülerDtGrd.SelectedIndex = -1;
+                        break;
+                    }
+                case EÜbersichtMode.Erstellen:
+                    {
+                        schülerImg = null;
+                        ÜSchülerBildImg.Source = null;
+
+                        ÜbersichtMode = EÜbersichtMode.Leer;
+                        break;
+                    }
+            }
+
         }
         #endregion
 
@@ -1223,6 +1240,7 @@ namespace ProjektSitzplan
                 return;
             }
 
+
             bool verkürzt = ÜSchülerVerkürztCBx.IsChecked.Value;
 
             schüler.Vorname = vorname;
@@ -1234,6 +1252,7 @@ namespace ProjektSitzplan
 
             ÜSchülerDtGrd.ItemsSource = null;
             ÜSchülerDtGrd.ItemsSource = AusgewählteKlasse.SchülerListe;
+            ÜSchülerBildImg.Source = null;
 
             AusgewählteKlasse.SchülerAktuallisieren(schüler);
 
@@ -1246,9 +1265,47 @@ namespace ProjektSitzplan
         #region ÜSchülerÜbersichtErstellenBtn
         private void ÜSchülerBearbeitenErstellenBtn_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: erstellen zeugs
+            string vorname = ÜSchülerVornameTxbx.Text.Trim();
+            string nachname = ÜSchülerNachnameTxbx.Text.Trim();
+            string betrieb = ÜSchülerBetriebTxbx.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(vorname) || string.IsNullOrWhiteSpace(nachname) || string.IsNullOrWhiteSpace(betrieb))
+            {
+                ErrorHandler.ZeigeFehler(ErrorHandler.ERR_SH_PflichtfelderNichtAusgefüllt);
+                return;
+            }
+
+            Person.EGeschlecht geschlecht;
+            Person.EBeruf beruf;
+            try
+            {
+                geschlecht = (Person.EGeschlecht)Enum.Parse(typeof(Person.EGeschlecht), ÜSchülerGeschlechtCb.Text, true);
+                beruf = (Person.EBeruf)Enum.Parse(typeof(Person.EBeruf), ÜSchülerBerufCb.Text.Replace(" ", ""), true);
+            }
+            catch (ArgumentException)
+            {
+                ErrorHandler.ZeigeFehler(ErrorHandler.ERR_SH_PflichtfelderNichtAusgefüllt);
+                return;
+            }
+
+            bool verkürzt = ÜSchülerVerkürztCBx.IsChecked.Value;
 
 
+            //TODO: Hier noch das bild einbauen aus ÜSchülerBildImg Control. Deshalb werden auch die bilder hinterher nicht angezeigt uff
+            Schüler neuerSchüler = new Schüler(new Person(vorname, nachname, geschlecht, beruf), new Betrieb(betrieb), verkürzt);
+            neuerSchüler.Bild = schülerImg;
+            schülerImg = null;
+            ÜSchülerBildImg.Source = null;
+
+            ÜSchülerDtGrd.ItemsSource = null;
+            AusgewählteKlasse.SchülerHinzufügen(neuerSchüler);
+            ÜSchülerDtGrd.ItemsSource = AusgewählteKlasse.SchülerListe;
+
+            DataHandler.SpeicherSchulKlasse(AusgewählteKlasse);
+
+            ÜKlasseAnzahlSchülerLbl.Content = AusgewählteKlasse.AnzahlSchüler;
+
+            ÜKeineSchülerVorhandenLbl.Visibility = Visibility.Hidden;
             ÜbersichtMode = EÜbersichtMode.Leer;
         }
         #endregion
@@ -1278,7 +1335,6 @@ namespace ProjektSitzplan
             KlasseÜbersichtSitzplanGrd.Visibility = Visibility.Hidden;
         }
         #endregion
-
         #endregion
     }
 }
