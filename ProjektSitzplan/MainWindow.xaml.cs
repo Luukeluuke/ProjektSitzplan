@@ -60,15 +60,15 @@ namespace ProjektSitzplan
 
         private void SetzeSchüler()
         {
-            for (int i = 0; i < ÜAusgewählterSitzplan.Tische.Count; i++)
+            for (int tischIndex = 0; tischIndex < ÜAusgewählterSitzplan.Tische.Count; tischIndex++)
             {
-                TischBlock tisch = ÜAusgewählterSitzplan.Tische[i];
+                TischBlock tisch = ÜAusgewählterSitzplan.Tische[tischIndex];
 
-                Label[] tischLabel = Tischblöcke[i];
+                Label[] tischLabel = Tischblöcke[tischIndex];
 
-                for (int y = 0; y < tisch.Sitzplätze.Count; y++)
+                for (int sitzplatzIndex = 0; sitzplatzIndex < tisch.Sitzplätze.Count; sitzplatzIndex++)
                 {
-                    Schüler schüler = tisch.Sitzplätze[y];
+                    Schüler schüler = tisch.Sitzplätze[sitzplatzIndex];
 
                     string name = "";
 
@@ -77,7 +77,7 @@ namespace ProjektSitzplan
                         name = $"{schüler.Vorname} {schüler.Nachname}";
                     }
 
-                    tischLabel[y].Content = name;
+                    tischLabel[sitzplatzIndex].Content = name;
                 }
 
             }
