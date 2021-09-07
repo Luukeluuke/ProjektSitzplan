@@ -9,6 +9,7 @@ namespace ProjektSitzplan.Structures
         public string Nachname { get; set; }
         public EGeschlecht Geschlecht { get; set; }
         public EBeruf Beruf { get; set; }
+        public string BerufString { get => BerufStrings[(int)Beruf]; }
 
         public string UniqueId { get; set; }
 

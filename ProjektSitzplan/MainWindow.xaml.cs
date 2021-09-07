@@ -208,9 +208,8 @@ namespace ProjektSitzplan
             //TODO: Wenn klasse löschen sollte eine message box kommen ja nein löschen
             //TODO: wenn sitzplan angezeigt wird, und dann die klasse geändert wird, sollte die animation mit einer durotation von 0 sek zurückgesetzt werden, und die klassen übersicht resettet werden yk
 
-            //TODO: Beim Aktualisieren wird iwie die klasse nicht meht entwählt (gegenteil ausgewählt) nur über den aktualisieren button wtf
-            //TODO: Beim Aktualisieren der Klassen werden änderungen iwie immernoch nicht übernommen (nur bilder)
-            //TODO: Namen der ausbildungsbetriebe (oder breufe idk da fehlen manchmal leerzeichen in den datagrids. evtl mit diesesm person.berufsstrings oder so) richtig darstellen
+            //TODO: Beim Aktualisieren der Klassen werden änderungen iwie immernoch nicht übernommen (nur bilder) also wenn man in der Klassenübersicht was ändert im nachhinein
+            //TODO: Iwie wenn man eine neue Klasse erstellt dort dann einen Schüler hinzufügt wird der hinterher nicht mehr angezeigt lul
 
             InitializeComponent();
 
@@ -587,8 +586,6 @@ namespace ProjektSitzplan
             ÜSitzpläneDtGrd.ItemsSource = null;
             ÜSitzpläneDtGrd.ItemsSource = AusgewählteKlasse.Sitzpläne;
             ÜKeineSitzpläneVorhandenLbl.Visibility = ÜSitzpläneDtGrd.Items.Count > 0 ? Visibility.Hidden : Visibility.Visible;
-
-             
         }
         #endregion
 
@@ -695,13 +692,6 @@ namespace ProjektSitzplan
         private void MenuHilfeBtn_Click(object sender, RoutedEventArgs e)
         {
             //TODO: Hinterher die Anleitungs Pdf einfach aufrufen oder so.
-        }
-        #endregion
-
-        #region MenuAktualisierenBtn
-        private void MenuAktualisierenBtn_Click(object sender, RoutedEventArgs e)
-        {
-            KlassenAktualisieren(false);
         }
         #endregion
 
