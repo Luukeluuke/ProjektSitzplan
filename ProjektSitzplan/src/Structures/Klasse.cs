@@ -11,6 +11,8 @@ namespace ProjektSitzplan.Structures
 {
     public class SchulKlasse
     {
+        public static readonly int MaxSchüler = 48;
+
         public string Name { get; private set; }
         public readonly List<Schüler> SchülerListe;
         public readonly List<Sitzplan> Sitzpläne = new List<Sitzplan>();
@@ -138,7 +140,7 @@ namespace ProjektSitzplan.Structures
         #region Schüler
         public void SchülerHinzufügen(Schüler schüler)
         {
-            if (SchülerListe.Count >= 50)
+            if (SchülerListe.Count >= MaxSchüler)
             {
                 ErrorHandler.ZeigeFehler(ErrorHandler.ERR_MaxSchüler);
             }
