@@ -26,6 +26,7 @@ namespace ProjektSitzplan
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
         #region Sitzplan Anzeigen / Schüler auf Sitzplätze setzen. 1. Time
+        private bool isLoading = true;
         private bool zeigtSitzplanAn = false;
         private bool ZeigtSitzplanAn
         {
@@ -38,7 +39,8 @@ namespace ProjektSitzplan
                 {
                     SKlasseTxbk.Text = $"{AusgewählteKlasse.Name} - {ÜAusgewählterSitzplan.Name}";
 
-                    SetzeSchüler();
+
+                    SetzeSchüler(true, false, false);
                 }
                 else
                 {
@@ -69,8 +71,12 @@ namespace ProjektSitzplan
             };
         }
 
-        private void SetzeSchüler()
+        private void SetzeSchüler(bool beruf, bool betrieb, bool geschlecht)
         {
+            SBerufCBx.IsChecked = beruf;
+            SBetriebCBx.IsChecked = betrieb;
+            SGeschlechtCBx.IsChecked = geschlecht;
+
             for (int tischIndex = 0; tischIndex < ÜAusgewählterSitzplan.Tische.Count; tischIndex++)
             {
                 TischBlock tisch = ÜAusgewählterSitzplan.Tische[tischIndex];
@@ -85,7 +91,11 @@ namespace ProjektSitzplan
 
                     if (schüler != null)
                     {
-                        name = $"{schüler.Vorname} {schüler.Nachname}\n{schüler.BerufString}\n{schüler.Betrieb}";
+                        name = $"{schüler.Vorname} {schüler.Nachname}";
+
+                        name += beruf ? $"\n{schüler.BerufString}" : "";
+                        name += betrieb ? $"\n{schüler.Betrieb}" : "";
+                        name += geschlecht ? $"\n{schüler.Geschlecht}" : "";
                     }
 
                     tischLabel[sitzplatzIndex].Text = name;
@@ -423,6 +433,15 @@ namespace ProjektSitzplan
         #endregion
 
         #region Allgemeine Events
+        #region SitzplanAnzeigenCbxses
+        private void SAnzeigenCBx_Checked(object sender, RoutedEventArgs e)
+        {
+            if (isLoading) return;
+
+            SetzeSchüler(SBerufCBx.IsChecked.Value, SBetriebCBx.IsChecked.Value, SGeschlechtCBx.IsChecked.Value);
+        }
+        #endregion
+
         #region TopBarButtons
         private void DoRestoreStuff(object sender = null, RoutedEventArgs e = null)
         {
@@ -692,7 +711,8 @@ namespace ProjektSitzplan
                 ÜSchülerBildLöschenLbl,
                 ÜSchülerBildÄndernLbl,
                 ÜSitzplanAnzeigen1Lbl,
-                ÜSchülerBearbeitenErstellenLbl
+                ÜSchülerBearbeitenErstellenLbl,
+                SZurückLbl
             };
             ContentPackIconsSets = new PackIconSet[]
             {
@@ -712,8 +732,11 @@ namespace ProjektSitzplan
                 null,
                 null,
                 new PackIconSet(ÜSitzplanAnzeigen1PckIco, PackIconSet.EIconType.Content, PSColors.ContentHoverForeground, PSColors.ContentButtonPreviewForeground),
-                new PackIconSet(ÜSchülerBearbeitenErstellenPckIco, PackIconSet.EIconType.Content, PSColors.IconHoverGreen, PSColors.IconPreviewGreen)
+                new PackIconSet(ÜSchülerBearbeitenErstellenPckIco, PackIconSet.EIconType.Content, PSColors.IconHoverGreen, PSColors.IconPreviewGreen),
+                null //17
             };
+
+            isLoading = false;
         }
         #endregion
 
@@ -1387,6 +1410,7 @@ namespace ProjektSitzplan
             ZeigtSitzplanAn = false;
         }
         #endregion
+
         #endregion
     }
 }
