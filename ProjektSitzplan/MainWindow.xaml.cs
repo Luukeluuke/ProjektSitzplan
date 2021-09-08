@@ -279,7 +279,7 @@ namespace ProjektSitzplan
 
             //TODO: WFT reload bug... klasse löschen -> und F5 geht ned mehr bis man neu eintabt...?
             //TODO: bilder tooltips...?
-
+            //TODO: Fancy check um sitzplan mit anderen zu vergleichen dinsgs...
 
             InitializeComponent();
 
@@ -299,7 +299,7 @@ namespace ProjektSitzplan
             };
             SourceInitialized += (s, e) =>
             {
-                IntPtr handle = (new WindowInteropHelper(this)).Handle;
+                IntPtr handle = new WindowInteropHelper(this).Handle;
                 HwndSource.FromHwnd(handle).AddHook(new HwndSourceHook(WindowProc));
             };
 
