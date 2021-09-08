@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
+using System.Windows.Forms;
 
 namespace ProjektSitzplan.Structures
 {
@@ -363,11 +365,157 @@ namespace ProjektSitzplan.Structures
         }
 
 
-        public void AlsPDFExportieren(string path)
+        public string AlsPDFExportieren()
         {
-            Directory.CreateDirectory(Path.GetDirectoryName(path));
+            //Speicher dialog für pfad
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "PDF files (*.pdf)|*.pdf";
+            saveFileDialog.FileName = $"{Name}.pdf";
+            saveFileDialog.DefaultExt = ".pdf";
+            saveFileDialog.InitialDirectory = $@"{Environment.CurrentDirectory}\SchulKlassen";
 
-            // TODO: @Marco Export logic here or be called from here :D
+            if (!saveFileDialog.ShowDialog().Equals(DialogResult.OK))
+                return null;
+
+            string pfad = saveFileDialog.FileName;
+            Directory.CreateDirectory(Path.GetDirectoryName(pfad));
+
+
+            // erstellen der html
+            StringBuilder builder = new StringBuilder();
+
+            #region style/css
+            string style2 = "<link rel='stylesheet' href='styles.css'>";
+
+            string style = "  <style type='text/css'>\n" +
+
+                "  * {\n" +
+                "    margin: 0px;\n" +
+                "    padding: 0px;\n" +
+                "    font-family: 'Segoe UI'\n" +
+                "  }\n" +
+
+                "  .mainWrapper\n" +
+                "  {\n" +
+                "    display: grid;\n" +
+                /* Anzahl der Zeilen */
+                "    grid-template-columns: repeat(3, 1fr);\n" +
+                "    grid-template-rows: auto;\n" +
+                "    margin: 0 auto;\n" +
+                "    width: fit-content;\n" +
+                "    position: absolute;\n" +
+                "    left: 50%;\n" +
+                "    top: 50%;\n" +
+                "    transform: translate(-50%, -50%);\n" +
+                "  }\n" +
+
+                "  .table \n" +
+                "  {\n" +
+                "    height: 350px;\n" +
+                "    width: 350px;\n" +
+                "    display: grid;\n" +
+                "    grid-gap: 0.5rem;\n" +
+                "    grid-template-columns: repeat(2, 1fr);\n" +
+                "    background-color: rgba(225, 225, 225, 0.52);\n" +
+                "    margin: 1rem;\n" +
+                "    padding: 1rem;\n" +
+                "    border-radius: 1rem;\n" +
+                "    border: 1px solid rgba(0, 0, 0, 0.25);\n" +
+                "    box-shadow: 0px 0.0675rem 0.25rem 0.125rem rgba(0, 0, 0, 0.2);\n" +
+                "  }\n" +
+
+                "  .table .table_headline\n" +
+                "  {\n" +
+                "    font-size: 20px;\n" +
+                "    font-weight: bold;\n" +
+                "    grid-column: 1 / 3;\n" +
+                "    align-self: center;\n" +
+                "    justify-self: center;\n" +
+                "    width: -webkit-fill-available;\n" +
+                "    text-align: center;\n" +
+                "  }\n" +
+
+                "  .table .place\n" +
+                "  {\n" +
+                "    text-align: center; \n" +
+                "    background-color: rgba(225, 225, 225, 0.92);\n" +
+                "    border-radius: 1rem;\n" +
+                "    border: 1px solid rgba(0, 0, 0, 0.125);\n" +
+                "    box-shadow: 0px 0.0675rem 0.125rem 0.0125rem rgba(0, 0, 0, 0.2);\n" +
+                "  }\n" +
+
+                "  .table .place .student_name\n" +
+                "  {\n" +
+                "    font-size: 16px;\n" +
+                "    display: block;\n" +
+                "    position: relative;\n" +
+                "    justify-self: center;\n" +
+                "    align-self: center;\n" +
+                "    left: 50%;\n" +
+                "    top: 50%;\n" +
+                "    transform: translate(-50%, -50%);\n" +
+                "  }\n" +
+                "  </style>\n";
+            #endregion
+
+            builder.Append("<!DOCTYPE html>\n");
+            builder.Append("<head>\n");
+
+            builder.Append(style2);
+
+            builder.Append("  <title>Sitzplan</title>\n");
+            builder.Append("  <html lang = 'de'>\n");
+            builder.Append("  <meta charset = 'UTF-8'>\n");
+            builder.Append("</head>\n<body>\n");
+            builder.Append("  <div class='mainWrapper'>\n");
+
+            for (int i = 0; i < Tische.Count; i++)
+            {
+                TischBlock tisch = Tische[i];
+                builder.Append($"    <div class='table'>\n");
+                builder.Append($"      <p class='table_headline'> Tisch-{i + 1} </p>\n");
+                foreach (KeyValuePair<int, Schüler> sitzPlatz in tisch.Sitzplätze)
+                {
+                    string name = "";
+                    if (sitzPlatz.Value != null)
+                    {
+                        name = $"{ sitzPlatz.Value.Nachname }, { sitzPlatz.Value.Vorname}";
+                    }
+
+                    builder.Append("      <div class='place'>\n");
+                    builder.Append($"        <span class='student_name'>{name}</span>\n");
+                    builder.Append("      </div>\n");
+                }
+                builder.Append("    </div>\n");
+            }
+
+            builder.Append("  </div>\n");
+            builder.Append("</body>\n");
+
+            string html = builder.ToString();
+
+            //erstellen der pdf
+
+            //TODO: put this as PDF...
+            File.WriteAllText(pfad.Replace(".pdf", ".html"), html);
+
+            // TODO: @Marco convert html to pdf...
+            /*
+            HtmlToPdfConverter converter = new HtmlToPdfConverter(HtmlRenderingEngine.WebKit);
+
+            WebKitConverterSettings webKitSettings = new WebKitConverterSettings();
+            webKitSettings.WebKitPath = @"D:\Projects\github\ProjektSitzplan\packages\Syncfusion.HtmlToPdfConverter.QtWebKit.Wpf.19.2.0.55\lib\QtBinaries";
+            webKitSettings.EnableForm = true;
+            converter.ConverterSettings = webKitSettings;
+
+            PdfDocument doc = converter.Convert(html, @"D:\Projects\github\ProjektSitzplan\ProjektSitzplan\bin\Debug\SchulKlassen");
+            doc.Save(pfad);
+            doc.Close(true);
+            */
+
+
+            return pfad;
+
         }
     }
 }

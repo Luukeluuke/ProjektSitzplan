@@ -297,7 +297,7 @@ namespace ProjektSitzplan.Structures
         #endregion
 
         #region private static
-        private static void WarteBisDateiFreiIst(string pfad)
+        public static void WarteBisDateiFreiIst(string pfad)
         {
             WarteBisDateiFreiIst(new FileInfo(pfad));
         }
