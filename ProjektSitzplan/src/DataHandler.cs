@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 
 namespace ProjektSitzplan
 {
@@ -81,20 +82,20 @@ namespace ProjektSitzplan
         {
             SchulKlassen.Clear();
 
-            Parallel.ForEach(Directory.GetFiles("SchulKlassen"), LadeSchulKlasse);
+            Array.ForEach(Directory.GetFiles("SchulKlassen"), LadeSchulKlasse);
         }
 
-
-
-        public static void LadeSchulKlasse(string pfad) { LadeSchulKlasse(pfad, false); }
-        public static void LadeSchulKlasse(string pfad, bool speichern)
+        public static void LadeSchulKlasse(string pfad) { LadeSchulKlasse(new FileInfo(pfad)); }
+        public static void LadeSchulKlasse(string pfad, bool importieren) { LadeSchulKlasse(new FileInfo(pfad), importieren); }
+        public static void LadeSchulKlasse(FileInfo datei) { LadeSchulKlasse(datei, false); }
+        public static void LadeSchulKlasse(FileInfo datei, bool importieren)
         {
-            if (!pfad.EndsWith(".json"))
+            if (!datei.Extension.Equals(".json"))
             {
                 return;
             }
 
-            SchulKlasse klasse = SchulKlasse.AusDateiLaden(pfad);
+            SchulKlasse klasse = SchulKlasse.AusDateiLaden(datei);
             if (klasse == null)
             {
                 return;
@@ -107,7 +108,7 @@ namespace ProjektSitzplan
                 return;
             }
 
-            if (speichern) SpeicherSchulKlasse(klasse);
+            if (importieren) klasse.SpeichernAsync();
             SchulKlassen.Add(klasse);
         }
 

@@ -1,4 +1,6 @@
-﻿namespace ProjektSitzplan
+﻿using System.Windows.Threading;
+
+namespace ProjektSitzplan
 {
     static class ErrorHandler
     {

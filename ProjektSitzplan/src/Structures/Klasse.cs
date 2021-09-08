@@ -227,31 +227,33 @@ namespace ProjektSitzplan.Structures
 
         public static SchulKlasse AusDateiLaden(string pfad)
         {
-            if (File.Exists(pfad))
+            return AusDateiLaden(new FileInfo(pfad));
+        }
+        public static SchulKlasse AusDateiLaden(FileInfo pfad)
+        {
+            if (pfad.Exists)
             {
                 WarteBisDateiFreiIst(pfad);
-                SchulKlasse klasse = AusJsonStringLaden(File.ReadAllText(pfad));
+                
+                SchulKlasse klasse = AusJsonStringLaden(File.ReadAllText(pfad.FullName));
 
                 if (klasse == null)
                 {
-                    ErrorHandler.ZeigeFehler(ErrorHandler.ERR_JSON_KlasseLaden, Path.GetFullPath(pfad), "");
+                    ErrorHandler.ZeigeFehler(ErrorHandler.ERR_JSON_KlasseLaden, pfad.FullName, "");
                 }
 
                 return klasse;
-
             }
-            throw new PfadNichtGefundenException(pfad, "Beim laden der Klasse ist ein Fehler aufgetreten!");
+            throw new PfadNichtGefundenException(pfad.FullName, "Beim laden der Klasse ist ein Fehler aufgetreten!");
         }
 
         public static SchulKlasse AusJsonStringLaden(string json)
         {
-            Exception ex;
             try
             {
                 return JsonConvert.DeserializeObject<SchulKlasse>(json);
             }
-            catch (JsonReaderException exc) { ex = exc; }
-            catch (JsonSerializationException exc) { ex = exc; }
+            catch (Exception) { }
 
             return null;
         }
@@ -297,7 +299,10 @@ namespace ProjektSitzplan.Structures
         #region private static
         private static void WarteBisDateiFreiIst(string pfad)
         {
-            FileInfo datei = new FileInfo(pfad);
+            WarteBisDateiFreiIst(new FileInfo(pfad));
+        }
+        private static void WarteBisDateiFreiIst(FileInfo datei)
+        {
 
             while (IstDateiBlockiert(datei))
             {
