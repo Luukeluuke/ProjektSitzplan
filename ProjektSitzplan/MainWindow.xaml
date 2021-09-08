@@ -662,28 +662,28 @@
                                                     <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="5" Background="{StaticResource ContentControlBorder}"></Grid>
                                                     
                                                     <Grid Grid.Column="0" Grid.Row="0">
-                                                        <Label x:Name="S_T1_P1" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></Label>
+                                                        <TextBlock x:Name="S_T1_P1" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="2" Grid.Row="0">
-                                                        <Label x:Name="S_T1_P2" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></Label>
+                                                        <TextBlock x:Name="S_T1_P2" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="0" Grid.Row="2">
-                                                        <Label x:Name="S_T1_P3" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></Label>
+                                                        <TextBlock x:Name="S_T1_P3" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="2" Grid.Row="2">
-                                                        <Label x:Name="S_T1_P4" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></Label>
+                                                        <TextBlock x:Name="S_T1_P4" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="0" Grid.Row="4">
-                                                        <Label x:Name="S_T1_P5" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></Label>
+                                                        <TextBlock x:Name="S_T1_P5" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="2" Grid.Row="4">
-                                                        <Label x:Name="S_T1_P6" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></Label>
+                                                        <TextBlock x:Name="S_T1_P6" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="0" Grid.Row="6">
-                                                        <Label x:Name="S_T1_P7" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></Label>
+                                                        <TextBlock x:Name="S_T1_P7" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="2" Grid.Row="6">
-                                                        <Label x:Name="S_T1_P8" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></Label>
+                                                        <TextBlock x:Name="S_T1_P8" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
                                                     </Grid>
                                                     
                                                 </Grid>
@@ -719,28 +719,28 @@
                                                     <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="5" Background="{StaticResource ContentControlBorder}"></Grid>
 
                                                     <Grid Grid.Column="0" Grid.Row="0">
-                                                        <Label x:Name="S_T2_P1" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></Label>
+                                                        <TextBlock x:Name="S_T2_P1" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="2" Grid.Row="0">
-                                                        <Label x:Name="S_T2_P2" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></Label>
+                                                        <TextBlock x:Name="S_T2_P2" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="0" Grid.Row="2">
-                                                        <Label x:Name="S_T2_P3" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></Label>
+                                                        <TextBlock x:Name="S_T2_P3" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="2" Grid.Row="2">
-                                                        <Label x:Name="S_T2_P4" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></Label>
+                                                        <TextBlock x:Name="S_T2_P4" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="0" Grid.Row="4">
-                                                        <Label x:Name="S_T2_P5" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></Label>
+                                                        <TextBlock x:Name="S_T2_P5" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="2" Grid.Row="4">
-                                                        <Label x:Name="S_T2_P6" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></Label>
+                                                        <TextBlock x:Name="S_T2_P6" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="0" Grid.Row="6">
-                                                        <Label x:Name="S_T2_P7" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></Label>
+                                                        <TextBlock x:Name="S_T2_P7" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="2" Grid.Row="6">
-                                                        <Label x:Name="S_T2_P8" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></Label>
+                                                        <TextBlock x:Name="S_T2_P8" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
                                                     </Grid>
 
                                                 </Grid>
@@ -776,28 +776,28 @@
                                                     <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="5" Background="{StaticResource ContentControlBorder}"></Grid>
 
                                                     <Grid Grid.Column="0" Grid.Row="0">
-                                                        <Label x:Name="S_T3_P1" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></Label>
+                                                        <TextBlock x:Name="S_T3_P1" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="2" Grid.Row="0">
-                                                        <Label x:Name="S_T3_P2" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></Label>
+                                                        <TextBlock x:Name="S_T3_P2" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="0" Grid.Row="2">
-                                                        <Label x:Name="S_T3_P3" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></Label>
+                                                        <TextBlock x:Name="S_T3_P3" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="2" Grid.Row="2">
-                                                        <Label x:Name="S_T3_P4" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></Label>
+                                                        <TextBlock x:Name="S_T3_P4" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="0" Grid.Row="4">
-                                                        <Label x:Name="S_T3_P5" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></Label>
+                                                        <TextBlock x:Name="S_T3_P5" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="2" Grid.Row="4">
-                                                        <Label x:Name="S_T3_P6" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></Label>
+                                                        <TextBlock x:Name="S_T3_P6" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="0" Grid.Row="6">
-                                                        <Label x:Name="S_T3_P7" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></Label>
+                                                        <TextBlock x:Name="S_T3_P7" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="2" Grid.Row="6">
-                                                        <Label x:Name="S_T3_P8" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></Label>
+                                                        <TextBlock x:Name="S_T3_P8" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
                                                     </Grid>
 
                                                 </Grid>
@@ -833,28 +833,28 @@
                                                     <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="5" Background="{StaticResource ContentControlBorder}"></Grid>
 
                                                     <Grid Grid.Column="0" Grid.Row="0">
-                                                        <Label x:Name="S_T4_P1" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></Label>
+                                                        <TextBlock x:Name="S_T4_P1" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="2" Grid.Row="0">
-                                                        <Label x:Name="S_T4_P2" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></Label>
+                                                        <TextBlock x:Name="S_T4_P2" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="0" Grid.Row="2">
-                                                        <Label x:Name="S_T4_P3" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></Label>
+                                                        <TextBlock x:Name="S_T4_P3" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="2" Grid.Row="2">
-                                                        <Label x:Name="S_T4_P4" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></Label>
+                                                        <TextBlock x:Name="S_T4_P4" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="0" Grid.Row="4">
-                                                        <Label x:Name="S_T4_P5" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></Label>
+                                                        <TextBlock x:Name="S_T4_P5" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="2" Grid.Row="4">
-                                                        <Label x:Name="S_T4_P6" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></Label>
+                                                        <TextBlock x:Name="S_T4_P6" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="0" Grid.Row="6">
-                                                        <Label x:Name="S_T4_P7" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></Label>
+                                                        <TextBlock x:Name="S_T4_P7" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="2" Grid.Row="6">
-                                                        <Label x:Name="S_T4_P8" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></Label>
+                                                        <TextBlock x:Name="S_T4_P8" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
                                                     </Grid>
                                                     
                                                 </Grid>
@@ -890,28 +890,28 @@
                                                     <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="5" Background="{StaticResource ContentControlBorder}"></Grid>
 
                                                     <Grid Grid.Column="0" Grid.Row="0">
-                                                        <Label x:Name="S_T5_P1" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></Label>
+                                                        <TextBlock x:Name="S_T5_P1" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="2" Grid.Row="0">
-                                                        <Label x:Name="S_T5_P2" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></Label>
+                                                        <TextBlock x:Name="S_T5_P2" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="0" Grid.Row="2">
-                                                        <Label x:Name="S_T5_P3" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></Label>
+                                                        <TextBlock x:Name="S_T5_P3" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="2" Grid.Row="2">
-                                                        <Label x:Name="S_T5_P4" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></Label>
+                                                        <TextBlock x:Name="S_T5_P4" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="0" Grid.Row="4">
-                                                        <Label x:Name="S_T5_P5" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></Label>
+                                                        <TextBlock x:Name="S_T5_P5" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="2" Grid.Row="4">
-                                                        <Label x:Name="S_T5_P6" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></Label>
+                                                        <TextBlock x:Name="S_T5_P6" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="0" Grid.Row="6">
-                                                        <Label x:Name="S_T5_P7" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></Label>
+                                                        <TextBlock x:Name="S_T5_P7" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="2" Grid.Row="6">
-                                                        <Label x:Name="S_T5_P8" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></Label>
+                                                        <TextBlock x:Name="S_T5_P8" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
                                                     </Grid>
 
                                                 </Grid>
@@ -947,28 +947,28 @@
                                                     <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="5" Background="{StaticResource ContentControlBorder}"></Grid>
 
                                                     <Grid Grid.Column="0" Grid.Row="0">
-                                                        <Label x:Name="S_T6_P1" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></Label>
+                                                        <TextBlock x:Name="S_T6_P1" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="2" Grid.Row="0">
-                                                        <Label x:Name="S_T6_P2" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></Label>
+                                                        <TextBlock x:Name="S_T6_P2" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="0" Grid.Row="2">
-                                                        <Label x:Name="S_T6_P3" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></Label>
+                                                        <TextBlock x:Name="S_T6_P3" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="2" Grid.Row="2">
-                                                        <Label x:Name="S_T6_P4" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></Label>
+                                                        <TextBlock x:Name="S_T6_P4" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="0" Grid.Row="4">
-                                                        <Label x:Name="S_T6_P5" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></Label>
+                                                        <TextBlock x:Name="S_T6_P5" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="2" Grid.Row="4">
-                                                        <Label x:Name="S_T6_P6" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></Label>
+                                                        <TextBlock x:Name="S_T6_P6" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="0" Grid.Row="6">
-                                                        <Label x:Name="S_T6_P7" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></Label>
+                                                        <TextBlock x:Name="S_T6_P7" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="2" Grid.Row="6">
-                                                        <Label x:Name="S_T6_P8" Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></Label>
+                                                        <TextBlock x:Name="S_T6_P8" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
                                                     </Grid>
 
                                                 </Grid>

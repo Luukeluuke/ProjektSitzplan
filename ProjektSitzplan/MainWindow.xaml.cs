@@ -49,23 +49,23 @@ namespace ProjektSitzplan
 
         private void ClearSitzplätze()
         {
-            foreach (Label[] labelArrys in Tischblöcke)
-                foreach (Label label in labelArrys)
-                    label.Content = "";
+            foreach (TextBlock[] labelArrys in Tischblöcke)
+                foreach (TextBlock label in labelArrys)
+                    label.Text = "";
         }
 
-        private List<Label[]> Tischblöcke;
+        private List<TextBlock[]> Tischblöcke;
 
         private void SetzteTischblöcke()
         {
-            Tischblöcke = new List<Label[]>
+            Tischblöcke = new List<TextBlock[]>
             {
-                new Label[] { S_T1_P1, S_T1_P2, S_T1_P3, S_T1_P4, S_T1_P5, S_T1_P6, S_T1_P7, S_T1_P8 },
-                new Label[] { S_T2_P1, S_T2_P2, S_T2_P3, S_T2_P4, S_T2_P5, S_T2_P6, S_T2_P7, S_T2_P8 },
-                new Label[] { S_T3_P1, S_T3_P2, S_T3_P3, S_T3_P4, S_T3_P5, S_T3_P6, S_T3_P7, S_T3_P8 },
-                new Label[] { S_T4_P1, S_T4_P2, S_T4_P3, S_T4_P4, S_T4_P5, S_T4_P6, S_T4_P7, S_T4_P8 },
-                new Label[] { S_T5_P1, S_T5_P2, S_T5_P3, S_T5_P4, S_T5_P5, S_T5_P6, S_T5_P7, S_T5_P8 },
-                new Label[] { S_T6_P1, S_T6_P2, S_T6_P3, S_T6_P4, S_T6_P5, S_T6_P6, S_T6_P7, S_T6_P8 }
+                new TextBlock[] { S_T1_P1, S_T1_P2, S_T1_P3, S_T1_P4, S_T1_P5, S_T1_P6, S_T1_P7, S_T1_P8 },
+                new TextBlock[] { S_T2_P1, S_T2_P2, S_T2_P3, S_T2_P4, S_T2_P5, S_T2_P6, S_T2_P7, S_T2_P8 },
+                new TextBlock[] { S_T3_P1, S_T3_P2, S_T3_P3, S_T3_P4, S_T3_P5, S_T3_P6, S_T3_P7, S_T3_P8 },
+                new TextBlock[] { S_T4_P1, S_T4_P2, S_T4_P3, S_T4_P4, S_T4_P5, S_T4_P6, S_T4_P7, S_T4_P8 },
+                new TextBlock[] { S_T5_P1, S_T5_P2, S_T5_P3, S_T5_P4, S_T5_P5, S_T5_P6, S_T5_P7, S_T5_P8 },
+                new TextBlock[] { S_T6_P1, S_T6_P2, S_T6_P3, S_T6_P4, S_T6_P5, S_T6_P6, S_T6_P7, S_T6_P8 }
             };
         }
 
@@ -75,7 +75,7 @@ namespace ProjektSitzplan
             {
                 TischBlock tisch = ÜAusgewählterSitzplan.Tische[tischIndex];
 
-                Label[] tischLabel = Tischblöcke[tischIndex];
+                TextBlock[] tischLabel = Tischblöcke[tischIndex];
 
                 for (int sitzplatzIndex = 0; sitzplatzIndex < tisch.Sitzplätze.Count; sitzplatzIndex++)
                 {
@@ -85,10 +85,10 @@ namespace ProjektSitzplan
 
                     if (schüler != null)
                     {
-                        name = $"{schüler.Vorname} {schüler.Nachname}";
+                        name = $"{schüler.Vorname} {schüler.Nachname}\n{schüler.BerufString}\n{schüler.Betrieb}";
                     }
 
-                    tischLabel[sitzplatzIndex].Content = name;
+                    tischLabel[sitzplatzIndex].Text = name;
                 }
 
             }
