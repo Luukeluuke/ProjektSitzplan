@@ -442,11 +442,13 @@ namespace ProjektSitzplan.Structures
 
             Schüler schüler1 = tisch1.HohleSchülerVonIndex(sitzplatzIndex1);
             Schüler schüler2 = tisch2.HohleSchülerVonIndex(sitzplatzIndex2);
-            
-            if (schüler1.UniqueId.Equals(schüler2.UniqueId))
+
+            if (schüler1 == schüler2)
             {
                 return true;
             }
+
+            //TODOD iwie sterben hier die schüler jetzt ka uff
 
             tisch1.SchülerEntfernen(sitzplatzIndex1);
             tisch2.SchülerEntfernen(sitzplatzIndex2);

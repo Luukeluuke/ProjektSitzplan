@@ -561,7 +561,6 @@ namespace ProjektSitzplan
 
                     int[] indexes = GetIndexes(sender);
                     zielPlatz = new Platz(indexes[0], indexes[1]);
-
                 }
                 else
                 {
