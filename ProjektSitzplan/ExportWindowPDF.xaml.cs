@@ -27,7 +27,7 @@ namespace ProjektSitzplan
 
         public string KlassenName { get => AktuelleKlasse.Name; }
 
-        public List<Sitzplan> GefundeneSitzpläne { get => AktuelleKlasse.Sitzpläne; }
+        public List<Sitzplan> GefundeneSitzpläne { get => AktuelleKlasse.Sitzplaene; }
 
         public Sitzplan ausgewählterSitzplan = null;
         public Sitzplan AusgewählterSitzplan
@@ -205,20 +205,11 @@ namespace ProjektSitzplan
                 return;
             }
 
+            string pfad = sitzplan.AlsPDFExportieren();
 
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "PDF files (*.pdf)|*.pdf";
-            saveFileDialog.FileName = $"{sitzplan.Name}.pdf";
-            saveFileDialog.DefaultExt = ".pdf";
-            saveFileDialog.InitialDirectory = $@"{Environment.CurrentDirectory}\SchulKlassen";
+            if (pfad == null) return;
 
-
-            if (!saveFileDialog.ShowDialog().Value)
-                return;
-
-            sitzplan.AlsPDFExportieren(saveFileDialog.FileName);
-
-            exportPath = saveFileDialog.FileName;
+            exportPath = pfad;
             exportSitzplan = sitzplan.Name;
 
             DialogResult = true;

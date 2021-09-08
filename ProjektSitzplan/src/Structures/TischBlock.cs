@@ -15,16 +15,16 @@ namespace ProjektSitzplan.Structures
         [JsonIgnore]
         Dictionary<int, string> SchülerIds = null;
 
-        public Dictionary<int, string> ShortSchüler => Sitzplätze.ToDictionary(k=>k.Key, k => (k.Value != null) ? k.Value.UniqueId : null);
+        public Dictionary<int, string> ShortSchueler => Sitzplätze.ToDictionary(k=>k.Key, k => (k.Value != null) ? k.Value.UniqueId : null);
 
         private static string errorEntfernen = "Schüler konnte nicht von dem TischBlock entfernt werden.";
         private static string errorHinzufügen = "Schüler konnte dem TischBlock nicht hinzugefügt werden.";
 
 
         [JsonConstructor]
-        public TischBlock(Dictionary<int, string> shortSchüler)
+        public TischBlock(Dictionary<int, string> shortSchueler)
         {
-            SchülerIds = shortSchüler;
+            SchülerIds = shortSchueler;
         }
 
         public TischBlock() 

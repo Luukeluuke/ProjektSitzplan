@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using static ProjektSitzplan.PsMessageBox;
 
 namespace ProjektSitzplan.Structures
@@ -14,11 +16,11 @@ namespace ProjektSitzplan.Structures
         public static readonly int MaxSchüler = 48;
 
         public string Name { get; private set; }
-        public readonly List<Schüler> SchülerListe;
-        public readonly List<Sitzplan> Sitzpläne = new List<Sitzplan>();
+        public readonly List<Schüler> SchuelerListe;
+        public readonly List<Sitzplan> Sitzplaene = new List<Sitzplan>();
 
         [JsonIgnore]
-        public int AnzahlSchüler { get => SchülerListe.Count; }
+        public int AnzahlSchüler { get => SchuelerListe.Count; }
 
         [JsonIgnore]
         public string ToolTipÜbersicht { get => ToToolTipString(); }
@@ -33,19 +35,19 @@ namespace ProjektSitzplan.Structures
         #endregion
 
         #region Constructors
-        public SchulKlasse(string name, List<Schüler> schülerListe = null)
+        public SchulKlasse(string name, List<Schüler> schuelerListe = null)
         {
             Name = name;
-            SchülerListe = (schülerListe == null) ? new List<Schüler>() : schülerListe;
+            SchuelerListe = (schuelerListe == null) ? new List<Schüler>() : schuelerListe;
         }
 
         [JsonConstructor]
-        public SchulKlasse(string name, List<Schüler> schülerListe, List<Sitzplan> sitzpläne) : this(name)
+        public SchulKlasse(string name, List<Schüler> schuelerListe, List<Sitzplan> sitzplaene) : this(name)
         {
-            SchülerListe = schülerListe;
-            Sitzpläne = sitzpläne;
+            SchuelerListe = schuelerListe;
+            Sitzplaene = sitzplaene;
 
-            foreach (Sitzplan sitzplan in Sitzpläne)
+            foreach (Sitzplan sitzplan in Sitzplaene)
             {
                 sitzplan.HohleSchülerPerId(this);
             }
@@ -62,12 +64,12 @@ namespace ProjektSitzplan.Structures
                 throw new SitzplanNullException(errorSchülerHinzufügen);
             }
 
-            if (Sitzpläne.Any(s => s.Name.Equals(sitzplan.Name)))
+            if (Sitzplaene.Any(s => s.Name.Equals(sitzplan.Name)))
             {
                 throw new SitzplanInListeException(sitzplan, errorSitzplanHinzufügen);
             }
 
-            Sitzpläne.Add(sitzplan);
+            Sitzplaene.Add(sitzplan);
         }
 
         public void SitzplanEntfernen(Sitzplan sitzplan)
@@ -77,12 +79,12 @@ namespace ProjektSitzplan.Structures
                 throw new SitzplanNullException(errorSchülerEntfernen);
             }
 
-            if (!Sitzpläne.Contains(sitzplan))
+            if (!Sitzplaene.Contains(sitzplan))
             {
                 throw new SitzplanNichtInListeException(sitzplan, errorSitzplanEntfernen);
             }
 
-            Sitzpläne.Remove(sitzplan);
+            Sitzplaene.Remove(sitzplan);
         }
 
         public Sitzplan ErstelleSitzplanDialog()
@@ -130,7 +132,7 @@ namespace ProjektSitzplan.Structures
             foreach (SchulBlock block in Enum.GetValues(typeof(SchulBlock)))
             {
                 schulBlock = block;
-                if (!Sitzpläne.Any(sitzplan => sitzplan.BlockSitzplan.Equals(block))) break;
+                if (!Sitzplaene.Any(sitzplan => sitzplan.BlockSitzplan.Equals(block))) break;
             }
 
             return schulBlock.Equals(SchulBlock.Current) ? SchulBlock.Custom : schulBlock;
@@ -140,7 +142,7 @@ namespace ProjektSitzplan.Structures
         #region Schüler
         public void SchülerHinzufügen(Schüler schüler)
         {
-            if (SchülerListe.Count >= MaxSchüler)
+            if (SchuelerListe.Count >= MaxSchüler)
             {
                 ErrorHandler.ZeigeFehler(ErrorHandler.ERR_MaxSchüler);
             }
@@ -150,14 +152,14 @@ namespace ProjektSitzplan.Structures
                 throw new SchülerNullException(errorSchülerHinzufügen);
             }
 
-            if (SchülerListe.Contains(schüler))
+            if (SchuelerListe.Contains(schüler))
             {
                 throw new SchülerInListeException(schüler, errorSchülerHinzufügen);
             }
 
-            SchülerListe.Add(schüler);
+            SchuelerListe.Add(schüler);
 
-            DataHandler.SpeicherSchulKlasse(this);
+            SpeichernAsync();
         }
 
         public void SchülerEntfernen(Schüler schüler)
@@ -167,14 +169,14 @@ namespace ProjektSitzplan.Structures
                 throw new SchülerNullException(errorSchülerEntfernen);
             }
 
-            if (!SchülerListe.Contains(schüler))
+            if (!SchuelerListe.Contains(schüler))
             {
                 throw new SchülerNichtInListeException(schüler, errorSchülerEntfernen);
             }
 
-            SchülerListe.Remove(schüler);
+            SchuelerListe.Remove(schüler);
 
-            DataHandler.SpeicherSchulKlasse(this);
+            SpeichernAsync();
         }
 
         public void SchülerAktuallisieren(Schüler schüler)
@@ -184,7 +186,7 @@ namespace ProjektSitzplan.Structures
                 return;
             }
 
-            Schüler original = SchülerListe.FirstOrDefault(s => s.UniqueId.Equals(schüler.UniqueId));
+            Schüler original = SchuelerListe.FirstOrDefault(s => s.UniqueId.Equals(schüler.UniqueId));
 
             if (original == null)
             {
@@ -192,9 +194,9 @@ namespace ProjektSitzplan.Structures
                 return;
             }
 
-            Sitzplan sitzplan = Sitzpläne.FirstOrDefault(s => s.BlockSitzplan.Equals(SchulBlock.Block6));
+            Sitzplan sitzplan = Sitzplaene.FirstOrDefault(s => s.BlockSitzplan.Equals(SchulBlock.Block6));
 
-            if (sitzplan != null && original.Verkürzt != schüler.Verkürzt)
+            if (sitzplan != null && original.Verkuerzt != schüler.Verkuerzt)
             {
                 PsMessageBox mbox = new PsMessageBox("Achtung", "Der Sitzplan für Block 6 wurde bereits generiert.\nBei einem Schüler hat sich der Verkürzungszustand geändert,\nsoll der Sitzplan neu generiert werden?", EPsMessageBoxButtons.YesNo);
                 mbox.ShowDialog();
@@ -210,45 +212,56 @@ namespace ProjektSitzplan.Structures
                 }
             }
 
-            SchülerListe[SchülerListe.IndexOf(original)] = schüler;
-            DataHandler.SpeicherSchulKlasse(this);
+            SchuelerListe[SchuelerListe.IndexOf(original)] = schüler;
+            SpeichernAsync();
         }
         #endregion
 
         #region Import / Export
-        public void AlsDateiSpeichern(string path)
+        public void AlsDateiSpeichern(string pfad)
         {
-            Directory.CreateDirectory(Path.GetDirectoryName(path));
-            File.WriteAllText(path, JsonConvert.SerializeObject(this));
+            WarteBisDateiFreiIst(pfad);
+            Directory.CreateDirectory(Path.GetDirectoryName(pfad));
+            File.WriteAllText(pfad, JsonConvert.SerializeObject(this));
         }
 
-        public static SchulKlasse AusDateiLaden(string path)
+        public static SchulKlasse AusDateiLaden(string pfad)
         {
-            if (File.Exists(path))
+            return AusDateiLaden(new FileInfo(pfad));
+        }
+        public static SchulKlasse AusDateiLaden(FileInfo pfad)
+        {
+            if (pfad.Exists)
             {
-                SchulKlasse klasse = AusJsonStringLaden(File.ReadAllText(path));
+                WarteBisDateiFreiIst(pfad);
+                
+                SchulKlasse klasse = AusJsonStringLaden(File.ReadAllText(pfad.FullName));
 
                 if (klasse == null)
                 {
-                    ErrorHandler.ZeigeFehler(ErrorHandler.ERR_JSON_KlasseLaden, Path.GetFullPath(path), "");
+                    ErrorHandler.ZeigeFehler(ErrorHandler.ERR_JSON_KlasseLaden, pfad.FullName, "");
                 }
 
                 return klasse;
             }
-            throw new PfadNichtGefundenException(path, "Beim laden der Klasse ist ein Fehler aufgetreten!");
+            throw new PfadNichtGefundenException(pfad.FullName, "Beim laden der Klasse ist ein Fehler aufgetreten!");
         }
 
         public static SchulKlasse AusJsonStringLaden(string json)
         {
-            Exception ex;
             try
             {
                 return JsonConvert.DeserializeObject<SchulKlasse>(json);
             }
-            catch (JsonReaderException exc) { ex = exc; }
-            catch (JsonSerializationException exc) { ex = exc; }
+            catch (Exception) { }
 
             return null;
+        }
+
+        //TODO: Test if this works finde lmao
+        public async Task SpeichernAsync()
+        {
+            await Task.Run(() => DataHandler.SpeicherSchulKlasse(this));
         }
 
         public void Speichern()
@@ -272,7 +285,7 @@ namespace ProjektSitzplan.Structures
 
             foreach (Person.EBeruf beruf in Enum.GetValues(typeof(Person.EBeruf)))
             {
-                int cnt = SchülerListe.Count(s => s.Beruf.Equals(beruf));
+                int cnt = SchuelerListe.Count(s => s.Beruf.Equals(beruf));
                 if (cnt > 0)
                 {
                     builder.Append($"\n{Person.BerufStrings[(int)beruf]}: {cnt}");
@@ -280,6 +293,41 @@ namespace ProjektSitzplan.Structures
             }
 
             return builder.ToString();
+        }
+        #endregion
+
+        #region private static
+        public static void WarteBisDateiFreiIst(string pfad)
+        {
+            WarteBisDateiFreiIst(new FileInfo(pfad));
+        }
+        private static void WarteBisDateiFreiIst(FileInfo datei)
+        {
+
+            while (IstDateiBlockiert(datei))
+            {
+                Thread.Sleep(100);
+            }
+        }
+
+        private static bool IstDateiBlockiert(FileInfo datei)
+        {
+            if (!datei.Exists)
+            {
+                return false;
+            }
+            try
+            {
+                using (datei.Open(FileMode.Open, FileAccess.Read)) { }
+            }
+            catch (IOException)
+            {
+                //Datei ist grade blockiert (wird von andem prozess benutzt oder nicht vorhanden)
+                return true;
+            }
+
+            //Datei kann genutzt werden
+            return false;
         }
         #endregion
     }

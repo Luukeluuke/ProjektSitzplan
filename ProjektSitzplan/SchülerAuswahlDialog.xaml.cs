@@ -10,33 +10,43 @@ using System.Windows.Media;
 namespace ProjektSitzplan
 {
     /// <summary>
-    /// Interaktionslogik für SitzplanVerkürzerWindow.xaml
+    /// Interaction logic for SchülerAuswahlDialog.xaml
     /// </summary>
-    public partial class SitzplanVerkürzerWindow : Window
+    public partial class SchülerAuswahlDialog : Window
     {
         public Label[] ContentLabels { get; private set; }
         internal PackIconSet[] ContentPackIconsSets { get; private set; }
 
         public bool Canceled = true;
 
-        public List<Schüler> Verkürzer;
-        public List<Schüler> NichtVerkürzer;
 
+
+        public List<Schüler> Ausgewählt = new List<Schüler>();
+        public List<Schüler> NichtAusgewählt = new List<Schüler>();
 
         #region Constructor
-        public SitzplanVerkürzerWindow(List<Schüler> schüler)
+        public SchülerAuswahlDialog(string titel, List<Schüler> schüler, bool istAusgewählt) : this(titel, schüler, istAusgewählt, "Ausgewählt", "Nicht Ausgewählt"){ }
+        public SchülerAuswahlDialog(string titel, List<Schüler> schüler, bool istAusgewählt, string ausgewähltTitel, string nichtAusgewähltTitel)
         {
             InitializeComponent();
 
-            Verkürzer = schüler;
-            NichtVerkürzer = new List<Schüler>();
+            SDTitelLbl.Content = titel;
+            SDAusgewähltLbl.Content = ausgewähltTitel;
+            SDNichtAusgewähltLbl.Content = nichtAusgewähltTitel;
 
-            SVVerkürzerDtGrd.ItemsSource = Verkürzer;
-            SVNichtVerkürzerDtGrd.ItemsSource = NichtVerkürzer;
+            if (istAusgewählt)
+            {
+                Ausgewählt = schüler;
+            } else
+            {
+                NichtAusgewählt = schüler;
+            }
 
-            new PsMessageBox("Achtung", $"Für den letzten Block wurden {Verkürzer.Count} Schüler gefunden die verkürzen.\nBitte überprüfen Korrektheit überprüfen.\nBeim Generieren des Sitzplans werden nicht berücksichtigt.\nLinks sind die Verkürzer, rechts die Nicht Verkürzer.", PsMessageBox.EPsMessageBoxButtons.OK).ShowDialog();
+            SDAusgewähltDtGrd.ItemsSource = Ausgewählt;
+            SDNichtAusgewähltDtGrd.ItemsSource = NichtAusgewählt;
         }
         #endregion
+
 
         #region TitleBarGrid
         private void TitleBarGrid_MouseDown(object sender, MouseButtonEventArgs e)
@@ -103,10 +113,10 @@ namespace ProjektSitzplan
         #region Window
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            ContentLabels = new Label[] { SVAbbrechenLbl, SVErstellenLbl };
+            ContentLabels = new Label[] { SDAbbrechenLbl, SDBestätigenLbl };
             ContentPackIconsSets = new PackIconSet[] {
-                new PackIconSet(SVAbbrechenPckIco, PackIconSet.EIconType.Content, PSColors.IconHoverRed, PSColors.IconPreviewRed),
-                new PackIconSet(SVErstellenPckIco, PackIconSet.EIconType.Content, PSColors.IconHoverGreen, PSColors.IconPreviewGreen)};
+                new PackIconSet(SDAbbrechenPckIco, PackIconSet.EIconType.Content, PSColors.IconHoverRed, PSColors.IconPreviewRed),
+                new PackIconSet(SDBestätigenPckIco, PackIconSet.EIconType.Content, PSColors.IconHoverGreen, PSColors.IconPreviewGreen)};
         }
         #endregion
 
@@ -149,54 +159,55 @@ namespace ProjektSitzplan
         }
         #endregion
 
-        private void SVVerkürzerDtGrd_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        private void Aktuallisieren()
+        {
+            SDAusgewähltDtGrd.SelectedIndex = -1;
+            SDNichtAusgewähltDtGrd.SelectedIndex = -1;
+
+            SDAusgewähltDtGrd.ItemsSource = null;
+            SDAusgewähltDtGrd.ItemsSource = Ausgewählt;
+
+            SDNichtAusgewähltDtGrd.ItemsSource = null;
+            SDNichtAusgewähltDtGrd.ItemsSource = NichtAusgewählt;
+        }
+
+
+
+        private void SDAusgewähltDtGrd_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
             Schüler selected = (Schüler)((DataGrid)sender).SelectedItem;
             if (selected != null)
             {
-                Verkürzer.Remove(selected);
-                NichtVerkürzer.Add(selected);
+                Ausgewählt.Remove(selected);
+                NichtAusgewählt.Add(selected);
 
-                AuswahlZurücksetzten();
-                return;
+                Aktuallisieren();
             }
         }
 
-        private void SVNichtVerkürzerDtGrd_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        private void SDNichtAusgewähltDtGrd_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
             Schüler selected = (Schüler)((DataGrid)sender).SelectedItem;
             if (selected != null)
             {
-                NichtVerkürzer.Remove(selected);
-                Verkürzer.Add(selected);
+                NichtAusgewählt.Remove(selected);
+                Ausgewählt.Add(selected);
 
-                AuswahlZurücksetzten();
-                return;
+                Aktuallisieren();
             }
         }
 
-        private void AuswahlZurücksetzten()
-        {
-            SVVerkürzerDtGrd.SelectedIndex = -1;
-            SVNichtVerkürzerDtGrd.SelectedIndex = -1;
 
-            SVVerkürzerDtGrd.ItemsSource = null;
-            SVVerkürzerDtGrd.ItemsSource = Verkürzer;
 
-            SVNichtVerkürzerDtGrd.ItemsSource = null;
-            SVNichtVerkürzerDtGrd.ItemsSource = NichtVerkürzer;
-        }
-
-        private void SVAbbrechenBtn_Click(object sender, RoutedEventArgs e)
+        private void SDAbbrechenBtn_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
-        private void SVErstellenBtn_Click(object sender, RoutedEventArgs e)
+        private void SDBestätigenBtn_Click(object sender, RoutedEventArgs e)
         {
             Canceled = false;
             Close();
         }
-
     }
 }

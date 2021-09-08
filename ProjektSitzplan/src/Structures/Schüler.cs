@@ -43,26 +43,27 @@ namespace ProjektSitzplan.Structures
         [JsonIgnore]
         public string Betrieb => AusbildungsBetrieb.Name;
 
+        [JsonIgnore]
         public BitmapImage BildBitmap => GetBitmapBild();
 
-        public bool Verkürzt;
+        public bool Verkuerzt;
 
         public byte[] bildBytes => BildZuBytes(Bild);
 
         [JsonIgnore]
         public Image Bild;
 
-        public Schüler(Person person, Betrieb ausbildungsBetrieb, bool verkürzt = false, Image bild = null) : base(person)
+        public Schüler(Person person, Betrieb ausbildungsBetrieb, bool verkuerzt = false, Image bild = null) : base(person)
         {
             AusbildungsBetrieb = ausbildungsBetrieb;
-            Verkürzt = verkürzt;
+            Verkuerzt = verkuerzt;
             Bild = bild;
         }
 
         public Schüler(Schüler schüler) : base(schüler)
         {
             AusbildungsBetrieb = schüler.AusbildungsBetrieb;
-            Verkürzt = schüler.Verkürzt;
+            Verkuerzt = schüler.Verkuerzt;
             Bild = schüler.Bild;
         }
 
@@ -110,7 +111,13 @@ namespace ProjektSitzplan.Structures
             byte[] bytes = null;
 
             // Dies kopie wird benötigt, weil das Image objekt "bild" gesperrt ist, um dies also als bytearray zu konvertieren wird temporär eine kopie erstellt
-            Image bildKopie = new Bitmap(bild);
+
+            Image bildKopie;
+            lock (bild)
+            {
+                bildKopie = new Bitmap(bild);
+            }
+
 
             try
             {
@@ -139,14 +146,14 @@ namespace ProjektSitzplan.Structures
         public Schüler(string vorname, string nachname, EGeschlecht geschlecht, EBeruf beruf, Betrieb ausbildungsBetrieb, bool verkürzt, byte[] bildBytes) : base(vorname, nachname, geschlecht, beruf)
         {
             AusbildungsBetrieb = ausbildungsBetrieb;
-            Verkürzt = verkürzt;
+            Verkuerzt = verkürzt;
 
             Bild = (bildBytes != null && bildBytes.Length > 0) ? BytesZuBild(bildBytes) : null;
         }
 
         public override string ToString()
         {
-            return $"{base.ToString()}, Betrieb: {AusbildungsBetrieb.Name}, Verkürzt: {Verkürzt}";
+            return $"{base.ToString()}, Betrieb: {AusbildungsBetrieb.Name}, Verkürzt: {Verkuerzt}";
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 
 namespace ProjektSitzplan
 {
@@ -49,14 +50,25 @@ namespace ProjektSitzplan
         }
 
         public static void LöscheSchulKlasse(string name) { LöscheSchulKlasse(HohleSchulKlasse(name)); }
-        public static void LöscheSchulKlasse(SchulKlasse schulKlasse)
+        public static void LöscheSchulKlasse(SchulKlasse klasse)
         {
-            if (ExistiertKlasseBereits(schulKlasse))
+            if (ExistiertKlasseBereits(klasse))
             {
-                //TODO: Delete json file....
-                SchulKlassen.Remove(schulKlasse);
+                SchulKlassen.Remove(klasse);
+                File.Delete(HohleSchulKlassenPfad(klasse));
             }
         }
+        
+        public static string HohleSchulKlassenPfad(SchulKlasse klasse)
+        {
+            if (klasse == null)
+            {
+                return "";
+            }
+
+            return $"SchulKlassen\\{klasse.Name}.json";
+        }
+
 
         /// <param name="name"></param>
         /// <returns>Gibt erste gefundene klasse mit dem entsprechenden namen zurück oder "null" wenn keine gefunden wurde</returns>
@@ -74,27 +86,27 @@ namespace ProjektSitzplan
 
         public static void SpeicherSchulKlasse(SchulKlasse klasse)
         {
-            klasse.AlsDateiSpeichern($"SchulKlassen\\{klasse.Name}.json");
+            klasse.AlsDateiSpeichern(HohleSchulKlassenPfad(klasse));
         }
 
         public static void LadeSchulKlassen()
         {
             SchulKlassen.Clear();
 
-            Parallel.ForEach(Directory.GetFiles("SchulKlassen"), LadeSchulKlasse);
+            Array.ForEach(Directory.GetFiles("SchulKlassen"), LadeSchulKlasse);
         }
 
-
-
-        public static void LadeSchulKlasse(string pfad) { LadeSchulKlasse(pfad, false); }
-        public static void LadeSchulKlasse(string pfad, bool speichern)
+        public static void LadeSchulKlasse(string pfad) { LadeSchulKlasse(new FileInfo(pfad)); }
+        public static void LadeSchulKlasse(string pfad, bool importieren) { LadeSchulKlasse(new FileInfo(pfad), importieren); }
+        public static void LadeSchulKlasse(FileInfo datei) { LadeSchulKlasse(datei, false); }
+        public static void LadeSchulKlasse(FileInfo datei, bool importieren)
         {
-            if (!pfad.EndsWith(".json"))
+            if (!datei.Extension.Equals(".json"))
             {
                 return;
             }
 
-            SchulKlasse klasse = SchulKlasse.AusDateiLaden(pfad);
+            SchulKlasse klasse = SchulKlasse.AusDateiLaden(datei);
             if (klasse == null)
             {
                 return;
@@ -107,7 +119,7 @@ namespace ProjektSitzplan
                 return;
             }
 
-            if (speichern) SpeicherSchulKlasse(klasse);
+            if (importieren) klasse.SpeichernAsync();
             SchulKlassen.Add(klasse);
         }
 
