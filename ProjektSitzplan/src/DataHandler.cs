@@ -50,14 +50,25 @@ namespace ProjektSitzplan
         }
 
         public static void LöscheSchulKlasse(string name) { LöscheSchulKlasse(HohleSchulKlasse(name)); }
-        public static void LöscheSchulKlasse(SchulKlasse schulKlasse)
+        public static void LöscheSchulKlasse(SchulKlasse klasse)
         {
-            if (ExistiertKlasseBereits(schulKlasse))
+            if (ExistiertKlasseBereits(klasse))
             {
-                //TODO: Delete json file....
-                SchulKlassen.Remove(schulKlasse);
+                SchulKlassen.Remove(klasse);
+                File.Delete(HohleSchulKlassenPfad(klasse));
             }
         }
+        
+        public static string HohleSchulKlassenPfad(SchulKlasse klasse)
+        {
+            if (klasse == null)
+            {
+                return "";
+            }
+
+            return $"SchulKlassen\\{klasse.Name}.json";
+        }
+
 
         /// <param name="name"></param>
         /// <returns>Gibt erste gefundene klasse mit dem entsprechenden namen zurück oder "null" wenn keine gefunden wurde</returns>
@@ -75,7 +86,7 @@ namespace ProjektSitzplan
 
         public static void SpeicherSchulKlasse(SchulKlasse klasse)
         {
-            klasse.AlsDateiSpeichern($"SchulKlassen\\{klasse.Name}.json");
+            klasse.AlsDateiSpeichern(HohleSchulKlassenPfad(klasse));
         }
 
         public static void LadeSchulKlassen()
