@@ -239,8 +239,8 @@ namespace ProjektSitzplan.Structures
             tisch1.SchülerEntfernen(sitzplatzIndex1);
             tisch2.SchülerEntfernen(sitzplatzIndex2);
 
-            tisch1.SchülerHinzufügen(schüler2, sitzplatzIndex2);
-            tisch2.SchülerHinzufügen(schüler1, sitzplatzIndex1);
+            tisch1.SchülerHinzufügen(schüler2, sitzplatzIndex1);
+            tisch2.SchülerHinzufügen(schüler1, sitzplatzIndex2);
 
             return true;
         }

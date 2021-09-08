@@ -39,7 +39,6 @@ namespace ProjektSitzplan
                 {
                     SKlasseTxbk.Text = $"{AusgewählteKlasse.Name} - {ÜAusgewählterSitzplan.Name}";
 
-
                     SetzeSchüler(true, false, false);
                 }
                 else
@@ -122,7 +121,6 @@ namespace ProjektSitzplan
                             KlasseÜbersichtGrd.Visibility = Visibility.Hidden;
 
                             LKeineKlasseAusgewähltStkPnl.Visibility = Visibility.Visible;
-
                             break;
                         }
                     case EWindowContent.KlasseErstellen:
@@ -290,6 +288,8 @@ namespace ProjektSitzplan
             //TODO: bilder tooltips...?
             //TODO: Fancy check um sitzplan mit anderen zu vergleichen dinsgs...
 
+            //TODO: Sitzplan generierung randomer machen wegen z.b. weibliche personen yk
+
             InitializeComponent();
 
             InitCommands();
@@ -439,6 +439,162 @@ namespace ProjektSitzplan
             if (isLoading) return;
 
             SetzeSchüler(SBerufCBx.IsChecked.Value, SBetriebCBx.IsChecked.Value, SGeschlechtCBx.IsChecked.Value);
+        }
+        #endregion
+
+        #region SitzplanPlätzeTextblöcke
+        private bool istAufPlatz = false;
+        private bool isDragging = false;
+        private TextBlock ausgewählterPlatz = null;
+        private Platz? ursprungsPlatz = null;
+        private Platz? zielPlatz = null;
+
+        private struct Platz
+        {
+            public Platz(int tischIndex, int platzIndex)
+            {
+                TischIndex = tischIndex;
+                PlatzIndex = platzIndex;
+            }
+
+            public int TischIndex;
+            public int PlatzIndex;
+        }
+
+        private TextBlock GetTB(object sender)
+        {
+            return sender as TextBlock;
+        }
+        private void ResetPlatz()
+        {
+            if (ausgewählterPlatz is null) return;
+
+            ausgewählterPlatz.Background = Brushes.Transparent;
+
+            EntsperreFenster();
+
+            ursprungsPlatz = null;
+            zielPlatz = null;
+
+            isDragging = false;
+        }
+        private int[] GetIndexes(object sender)
+        {
+            string[] coordinates = (sender as TextBlock).Uid.Split('_');
+
+            return new int[] { int.Parse(coordinates[0]), int.Parse(coordinates[1]) };
+        }
+
+        private void SperreFenster()
+        {
+            MainMenu.IsEnabled = false;
+            MenuKlassenDtGrd.IsEnabled = false;
+
+            MainMenuLbl.IsEnabled = false;
+            MMenuKlasseErstellenBtn.IsEnabled = false;
+            MMenuKlasseErstellenLbl.IsEnabled = false;
+            MMenuKlasseLöschenBtn.IsEnabled = false;
+            MMenuKlasseLöschenLbl.IsEnabled = false;
+
+            SZurückBtn.IsEnabled = false;
+            SExportBtn.IsEnabled = false;
+            SBerufCBx.IsEnabled = false;
+            SBetriebCBx.IsEnabled = false;
+            SGeschlechtCBx.IsEnabled = false;
+            ÜSitzplanVersteckenGrd.IsEnabled = false;
+        }
+
+        private void EntsperreFenster()
+        {
+            MainMenu.IsEnabled = true;
+            MenuKlassenDtGrd.IsEnabled = true;
+
+            MainMenuLbl.IsEnabled = true;
+            MMenuKlasseErstellenBtn.IsEnabled = true;
+            MMenuKlasseErstellenLbl.IsEnabled = true;
+            MMenuKlasseLöschenBtn.IsEnabled = true;
+            MMenuKlasseLöschenLbl.IsEnabled = true;
+
+            SZurückBtn.IsEnabled = true;
+            SExportBtn.IsEnabled = true;
+            SBerufCBx.IsEnabled = true;
+            SBetriebCBx.IsEnabled = true;
+            SGeschlechtCBx.IsEnabled = true;
+            ÜSitzplanVersteckenGrd.IsEnabled = true;
+        }
+
+        private void SitzplanPlatzTextblock_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (isDragging) return;
+
+            SperreFenster();
+            isDragging = true;
+
+            ausgewählterPlatz = GetTB(sender);
+            ausgewählterPlatz.Background = PSColors.ContentButtonPreviewBackground;
+
+            int[] indexes = GetIndexes(sender);
+            ursprungsPlatz = new Platz(indexes[0], indexes[1]);
+        }
+
+        private void SitzplanPlatzTextblock_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            ResetPlatz();
+
+            if (!isDragging)
+            {
+                GetTB(sender).Background = Brushes.Transparent;
+            }
+
+            //TODO: Label in Sitzplan Übersicht da die Änderungen direkt live sind
+
+            isDragging = false;
+        }
+
+        private void SitzplanPlatzTextblock_MouseEnter(object sender, MouseEventArgs e)
+        {
+            istAufPlatz = true;
+
+            if (isDragging)
+            {
+                if (!GetTB(sender).Equals(ausgewählterPlatz))
+                {
+                    GetTB(sender).Background = PSColors.ContentBackground;
+
+                    int[] indexes = GetIndexes(sender);
+                    zielPlatz = new Platz(indexes[0], indexes[1]);
+                }
+
+                ÜAusgewählterSitzplan.SchülerTauschen(ursprungsPlatz.Value.TischIndex, 
+                    ursprungsPlatz.Value.PlatzIndex, 
+                    zielPlatz.Value.TischIndex, 
+                    zielPlatz.Value.PlatzIndex);
+
+                SetzeSchüler(SBerufCBx.IsChecked.Value, SBetriebCBx.IsChecked.Value, SGeschlechtCBx.IsChecked.Value);
+            }
+        }
+
+        private void SitzplanPlatzTextblock_MouseLeave(object sender, MouseEventArgs e)
+        {
+            istAufPlatz = false;
+
+            if (isDragging && !GetTB(sender).Equals(ausgewählterPlatz))
+            {
+                GetTB(sender).Background = Brushes.Transparent;
+            }
+        }
+
+        private void MyMainWindow_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            if (!istAufPlatz)
+            {
+                ResetPlatz();
+            }
+        }
+
+        private void MyMainWindow_MouseLeave(object sender, MouseEventArgs e)
+        {
+            ResetPlatz();
         }
         #endregion
 
@@ -712,7 +868,8 @@ namespace ProjektSitzplan
                 ÜSchülerBildÄndernLbl,
                 ÜSitzplanAnzeigen1Lbl,
                 ÜSchülerBearbeitenErstellenLbl,
-                SZurückLbl
+                SZurückLbl,
+                SExportLbl
             };
             ContentPackIconsSets = new PackIconSet[]
             {
@@ -733,7 +890,8 @@ namespace ProjektSitzplan
                 null,
                 new PackIconSet(ÜSitzplanAnzeigen1PckIco, PackIconSet.EIconType.Content, PSColors.ContentHoverForeground, PSColors.ContentButtonPreviewForeground),
                 new PackIconSet(ÜSchülerBearbeitenErstellenPckIco, PackIconSet.EIconType.Content, PSColors.IconHoverGreen, PSColors.IconPreviewGreen),
-                null //17
+                null,
+                null //18
             };
 
             isLoading = false;

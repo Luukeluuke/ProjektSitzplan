@@ -76,7 +76,7 @@ namespace ProjektSitzplan.Structures
         {
             if (schüler == null)
             {
-                throw new SchülerNullException(errorHinzufügen);
+                return;
             }
 
             if (Sitzplätze.ContainsValue(schüler))
@@ -89,7 +89,7 @@ namespace ProjektSitzplan.Structures
         {
             if (schüler == null)
             {
-                throw new SchülerNullException(errorHinzufügen);
+                return;
             }
 
             if (Sitzplätze.ContainsValue(schüler))
