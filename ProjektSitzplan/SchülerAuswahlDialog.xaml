@@ -76,7 +76,7 @@
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Header="Nachname" Binding="{Binding Nachname}"/>
                                         <DataGridTextColumn Header="Vorname" Binding="{Binding Vorname}"/>
-                                        <DataGridTextColumn Header="Betrieb" Binding="{Binding AusbildungsBetrieb}"/>
+                                        <DataGridTextColumn Header="Betrieb" Binding="{Binding Betrieb}"/>
                                     </DataGrid.Columns>
 
                                     <!--#region Styling-->
@@ -175,7 +175,7 @@
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="Nachname" Binding="{Binding Nachname}"/>
                                     <DataGridTextColumn Header="Vorname" Binding="{Binding Vorname}"/>
-                                    <DataGridTextColumn Header="Betrieb" Binding="{Binding AusbildungsBetrieb}"/>
+                                    <DataGridTextColumn Header="Betrieb" Binding="{Binding Betrieb}"/>
                                 </DataGrid.Columns>
 
                                 <!--#region Styling-->

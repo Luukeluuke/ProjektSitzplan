@@ -188,7 +188,7 @@ namespace ProjektSitzplan.Structures
             ErfolgreichGeneriert = true;
         }
 
-        public void HohleSchülerPerId(SchulKlasse klasse)
+        public void LadeSchülerListeAusIdListe(SchulKlasse klasse)
         {
             if (SchülerIds == null || SchülerIds.Count == 0)
             {
@@ -214,6 +214,10 @@ namespace ProjektSitzplan.Structures
             }
         }
 
+        public bool HatSchüler(Schüler schüler)
+        {
+            return Schüler.Any(s => s.UniqueId.Equals(schüler.UniqueId));
+        }
 
         public bool SchülerTauschen(int tischIndex1, int sitzplatzIndex1, int tischIndex2, int sitzplatzIndex2)
         {
@@ -229,7 +233,6 @@ namespace ProjektSitzplan.Structures
                 return false;
             }
 
-            
             Schüler schüler1 = tisch1.HohleSchülerVonIndex(sitzplatzIndex1);
             Schüler schüler2 = tisch2.HohleSchülerVonIndex(sitzplatzIndex2);
 
@@ -260,6 +263,21 @@ namespace ProjektSitzplan.Structures
             return liste;
         }
 
+        public bool NeuGenerieren(List<Schüler> schüler)
+        {
+            List<Schüler> alteListe = new List<Schüler>(Schüler);
+            Schüler = schüler;
+
+            bool erfolg = Generieren();
+
+            if (!erfolg)
+            {
+                Schüler = new List<Schüler>(alteListe);
+            }
+
+            return erfolg;
+        }
+
         private bool Generieren()
         {
             if (BlockSitzplan.Equals(SchulBlock.Block6) && Schüler.Any(s => s.Verkuerzt))
@@ -286,13 +304,6 @@ namespace ProjektSitzplan.Structures
             {
                 Tische.Add(new TischBlock());
             }
-
-            /* Beispiel
-                6 tische mit 6 plätzen
-                30 Schüler
-                berechne anzahl pro tisch und rest
-                prüfe ob bereits vorhanden im sleben ausbildungsbetrieb/geschlecht/beruf
-             */
 
             for (int tischCount = 0; GemischteSchülerListe.Count > 0; tischCount++)
             {
