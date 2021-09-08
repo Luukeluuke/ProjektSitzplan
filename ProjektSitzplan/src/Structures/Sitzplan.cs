@@ -132,8 +132,7 @@ namespace ProjektSitzplan.Structures
         [JsonIgnore]
         public List<Schüler> Schüler { get; private set; } = new List<Schüler>();
 
-
-        public List<string> ShortSchuler => Schüler.Select(person => person.UniqueId).ToList();
+        public List<string> ShortSchueler => Schüler.Select(person => person.UniqueId).ToList();
         [JsonIgnore]
         private List<string> SchülerIds = null;
 
