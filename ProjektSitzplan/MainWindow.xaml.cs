@@ -647,12 +647,12 @@ namespace ProjektSitzplan
             ÜKlasseAnzahlSchülerLbl.Content = AusgewählteKlasse.AnzahlSchüler;
 
             ÜSchülerDtGrd.ItemsSource = null;
-            ÜSchülerDtGrd.ItemsSource = AusgewählteKlasse.SchülerListe;
+            ÜSchülerDtGrd.ItemsSource = AusgewählteKlasse.SchuelerListe;
             ÜKeineSchülerVorhandenLbl.Visibility = ÜSchülerDtGrd.Items.Count > 0 ? Visibility.Hidden : Visibility.Visible;
 
-            ÜSitzplanHinzufügenBtn.IsEnabled = AusgewählteKlasse.SchülerListe.Count > 0 ? true : false;
+            ÜSitzplanHinzufügenBtn.IsEnabled = AusgewählteKlasse.SchuelerListe.Count > 0 ? true : false;
             ÜSitzpläneDtGrd.ItemsSource = null;
-            ÜSitzpläneDtGrd.ItemsSource = AusgewählteKlasse.Sitzpläne;
+            ÜSitzpläneDtGrd.ItemsSource = AusgewählteKlasse.Sitzplaene;
             ÜKeineSitzpläneVorhandenLbl.Visibility = ÜSitzpläneDtGrd.Items.Count > 0 ? Visibility.Hidden : Visibility.Visible;
         }
         #endregion
@@ -1065,7 +1065,7 @@ namespace ProjektSitzplan
                             ÜSchülerBetriebTxbx.Text = ÜAusgewählterSchüler.AusbildungsBetrieb.Name;
                             ÜSchülerGeschlechtCb.SelectedIndex = (int)ÜAusgewählterSchüler.Geschlecht;
                             ÜSchülerBerufCb.SelectedIndex = (int)ÜAusgewählterSchüler.Beruf;
-                            ÜSchülerVerkürztCBx.IsChecked = ÜAusgewählterSchüler.Verkürzt;
+                            ÜSchülerVerkürztCBx.IsChecked = ÜAusgewählterSchüler.Verkuerzt;
                             ÜSchülerBildImg.Source = Convert(ÜAusgewählterSchüler.Bild);
 
                             if (ÜAusgewählterSchüler.Bild is null)
@@ -1130,7 +1130,7 @@ namespace ProjektSitzplan
         private void AktualisiereSchüler()
         {
             AktualisiereÜSchülerDtGrd();
-            ÜKlasseAnzahlSchülerLbl.Content = AusgewählteKlasse.SchülerListe.Count;
+            ÜKlasseAnzahlSchülerLbl.Content = AusgewählteKlasse.SchuelerListe.Count;
         }
 
         private void ÜSchülerEntfernenBtn_Click(object sender, RoutedEventArgs e)
@@ -1138,7 +1138,7 @@ namespace ProjektSitzplan
             AusgewählteKlasse.SchülerEntfernen((Schüler)ÜSchülerDtGrd.SelectedItem);
             AktualisiereSchüler();
 
-            ÜSitzplanHinzufügenBtn.IsEnabled = AusgewählteKlasse.SchülerListe.Count > 0 ? true : false;
+            ÜSitzplanHinzufügenBtn.IsEnabled = AusgewählteKlasse.SchuelerListe.Count > 0 ? true : false;
             ÜKeineSchülerVorhandenLbl.Visibility = ÜSchülerDtGrd.Items.Count > 0 ? Visibility.Hidden : Visibility.Visible;
         }
         #endregion
@@ -1148,7 +1148,7 @@ namespace ProjektSitzplan
         {
             AktualisiereSchüler();
 
-            ÜSitzplanHinzufügenBtn.IsEnabled = AusgewählteKlasse.SchülerListe.Count > 0 ? true : false;
+            ÜSitzplanHinzufügenBtn.IsEnabled = AusgewählteKlasse.SchuelerListe.Count > 0 ? true : false;
 
             ÜbersichtMode = EÜbersichtMode.Erstellen;
         }
@@ -1182,12 +1182,12 @@ namespace ProjektSitzplan
         private void AktualisiereSitzpläne()
         {
             ÜSitzpläneDtGrd.ItemsSource = null;
-            ÜSitzpläneDtGrd.ItemsSource = AusgewählteKlasse.Sitzpläne;
+            ÜSitzpläneDtGrd.ItemsSource = AusgewählteKlasse.Sitzplaene;
         }
 
         private void ÜSitzplanEntfernenBtn_Click(object sender, RoutedEventArgs e)
         {
-            AusgewählteKlasse.Sitzpläne.Remove((Sitzplan)ÜSitzpläneDtGrd.SelectedItem);
+            AusgewählteKlasse.Sitzplaene.Remove((Sitzplan)ÜSitzpläneDtGrd.SelectedItem);
             AktualisiereSitzpläne();
             ÜKeineSitzpläneVorhandenLbl.Visibility = ÜSchülerDtGrd.Items.Count > 0 ? Visibility.Hidden : Visibility.Visible;
         }
@@ -1266,7 +1266,7 @@ namespace ProjektSitzplan
         private void AktualisiereÜSchülerDtGrd()
         {
             ÜSchülerDtGrd.ItemsSource = null;
-            ÜSchülerDtGrd.ItemsSource = AusgewählteKlasse.SchülerListe;
+            ÜSchülerDtGrd.ItemsSource = AusgewählteKlasse.SchuelerListe;
         }
 
         private void ÜSchülerBearbeitenÜbernehmenBtn_Click(object sender, RoutedEventArgs e)
@@ -1304,11 +1304,11 @@ namespace ProjektSitzplan
             schüler.AusbildungsBetrieb.Name = betrieb;
             schüler.Geschlecht = geschlecht;
             schüler.Beruf = beruf;
-            schüler.Verkürzt = verkürzt;
+            schüler.Verkuerzt = verkürzt;
             schüler.Bild = schülerImg;
 
             ÜSchülerDtGrd.ItemsSource = null;
-            ÜSchülerDtGrd.ItemsSource = AusgewählteKlasse.SchülerListe;
+            ÜSchülerDtGrd.ItemsSource = AusgewählteKlasse.SchuelerListe;
             ÜSchülerBildImg.Source = null;
             schülerImg = null;
 
@@ -1353,7 +1353,7 @@ namespace ProjektSitzplan
 
             ÜSchülerDtGrd.ItemsSource = null;
             AusgewählteKlasse.SchülerHinzufügen(neuerSchüler);
-            ÜSchülerDtGrd.ItemsSource = AusgewählteKlasse.SchülerListe;
+            ÜSchülerDtGrd.ItemsSource = AusgewählteKlasse.SchuelerListe;
 
             DataHandler.SpeicherSchulKlasse(AusgewählteKlasse);
 

@@ -14,11 +14,11 @@ namespace ProjektSitzplan.Structures
         public static readonly int MaxSchüler = 48;
 
         public string Name { get; private set; }
-        public readonly List<Schüler> SchülerListe;
-        public readonly List<Sitzplan> Sitzpläne = new List<Sitzplan>();
+        public readonly List<Schüler> SchuelerListe;
+        public readonly List<Sitzplan> Sitzplaene = new List<Sitzplan>();
 
         [JsonIgnore]
-        public int AnzahlSchüler { get => SchülerListe.Count; }
+        public int AnzahlSchüler { get => SchuelerListe.Count; }
 
         [JsonIgnore]
         public string ToolTipÜbersicht { get => ToToolTipString(); }
@@ -33,19 +33,19 @@ namespace ProjektSitzplan.Structures
         #endregion
 
         #region Constructors
-        public SchulKlasse(string name, List<Schüler> schülerListe = null)
+        public SchulKlasse(string name, List<Schüler> schuelerListe = null)
         {
             Name = name;
-            SchülerListe = (schülerListe == null) ? new List<Schüler>() : schülerListe;
+            SchuelerListe = (schuelerListe == null) ? new List<Schüler>() : schuelerListe;
         }
 
         [JsonConstructor]
-        public SchulKlasse(string name, List<Schüler> schülerListe, List<Sitzplan> sitzpläne) : this(name)
+        public SchulKlasse(string name, List<Schüler> schuelerListe, List<Sitzplan> sitzplaene) : this(name)
         {
-            SchülerListe = schülerListe;
-            Sitzpläne = sitzpläne;
+            SchuelerListe = schuelerListe;
+            Sitzplaene = sitzplaene;
 
-            foreach (Sitzplan sitzplan in Sitzpläne)
+            foreach (Sitzplan sitzplan in Sitzplaene)
             {
                 sitzplan.HohleSchülerPerId(this);
             }
@@ -62,12 +62,12 @@ namespace ProjektSitzplan.Structures
                 throw new SitzplanNullException(errorSchülerHinzufügen);
             }
 
-            if (Sitzpläne.Any(s => s.Name.Equals(sitzplan.Name)))
+            if (Sitzplaene.Any(s => s.Name.Equals(sitzplan.Name)))
             {
                 throw new SitzplanInListeException(sitzplan, errorSitzplanHinzufügen);
             }
 
-            Sitzpläne.Add(sitzplan);
+            Sitzplaene.Add(sitzplan);
         }
 
         public void SitzplanEntfernen(Sitzplan sitzplan)
@@ -77,12 +77,12 @@ namespace ProjektSitzplan.Structures
                 throw new SitzplanNullException(errorSchülerEntfernen);
             }
 
-            if (!Sitzpläne.Contains(sitzplan))
+            if (!Sitzplaene.Contains(sitzplan))
             {
                 throw new SitzplanNichtInListeException(sitzplan, errorSitzplanEntfernen);
             }
 
-            Sitzpläne.Remove(sitzplan);
+            Sitzplaene.Remove(sitzplan);
         }
 
         public Sitzplan ErstelleSitzplanDialog()
@@ -130,7 +130,7 @@ namespace ProjektSitzplan.Structures
             foreach (SchulBlock block in Enum.GetValues(typeof(SchulBlock)))
             {
                 schulBlock = block;
-                if (!Sitzpläne.Any(sitzplan => sitzplan.BlockSitzplan.Equals(block))) break;
+                if (!Sitzplaene.Any(sitzplan => sitzplan.BlockSitzplan.Equals(block))) break;
             }
 
             return schulBlock.Equals(SchulBlock.Current) ? SchulBlock.Custom : schulBlock;
@@ -140,7 +140,7 @@ namespace ProjektSitzplan.Structures
         #region Schüler
         public void SchülerHinzufügen(Schüler schüler)
         {
-            if (SchülerListe.Count >= MaxSchüler)
+            if (SchuelerListe.Count >= MaxSchüler)
             {
                 ErrorHandler.ZeigeFehler(ErrorHandler.ERR_MaxSchüler);
             }
@@ -150,12 +150,12 @@ namespace ProjektSitzplan.Structures
                 throw new SchülerNullException(errorSchülerHinzufügen);
             }
 
-            if (SchülerListe.Contains(schüler))
+            if (SchuelerListe.Contains(schüler))
             {
                 throw new SchülerInListeException(schüler, errorSchülerHinzufügen);
             }
 
-            SchülerListe.Add(schüler);
+            SchuelerListe.Add(schüler);
 
             DataHandler.SpeicherSchulKlasse(this);
         }
@@ -167,12 +167,12 @@ namespace ProjektSitzplan.Structures
                 throw new SchülerNullException(errorSchülerEntfernen);
             }
 
-            if (!SchülerListe.Contains(schüler))
+            if (!SchuelerListe.Contains(schüler))
             {
                 throw new SchülerNichtInListeException(schüler, errorSchülerEntfernen);
             }
 
-            SchülerListe.Remove(schüler);
+            SchuelerListe.Remove(schüler);
 
             DataHandler.SpeicherSchulKlasse(this);
         }
@@ -184,7 +184,7 @@ namespace ProjektSitzplan.Structures
                 return;
             }
 
-            Schüler original = SchülerListe.FirstOrDefault(s => s.UniqueId.Equals(schüler.UniqueId));
+            Schüler original = SchuelerListe.FirstOrDefault(s => s.UniqueId.Equals(schüler.UniqueId));
 
             if (original == null)
             {
@@ -192,9 +192,9 @@ namespace ProjektSitzplan.Structures
                 return;
             }
 
-            Sitzplan sitzplan = Sitzpläne.FirstOrDefault(s => s.BlockSitzplan.Equals(SchulBlock.Block6));
+            Sitzplan sitzplan = Sitzplaene.FirstOrDefault(s => s.BlockSitzplan.Equals(SchulBlock.Block6));
 
-            if (sitzplan != null && original.Verkürzt != schüler.Verkürzt)
+            if (sitzplan != null && original.Verkuerzt != schüler.Verkuerzt)
             {
                 PsMessageBox mbox = new PsMessageBox("Achtung", "Der Sitzplan für Block 6 wurde bereits generiert.\nBei einem Schüler hat sich der Verkürzungszustand geändert,\nsoll der Sitzplan neu generiert werden?", EPsMessageBoxButtons.YesNo);
                 mbox.ShowDialog();
@@ -210,7 +210,7 @@ namespace ProjektSitzplan.Structures
                 }
             }
 
-            SchülerListe[SchülerListe.IndexOf(original)] = schüler;
+            SchuelerListe[SchuelerListe.IndexOf(original)] = schüler;
             DataHandler.SpeicherSchulKlasse(this);
         }
         #endregion
@@ -272,7 +272,7 @@ namespace ProjektSitzplan.Structures
 
             foreach (Person.EBeruf beruf in Enum.GetValues(typeof(Person.EBeruf)))
             {
-                int cnt = SchülerListe.Count(s => s.Beruf.Equals(beruf));
+                int cnt = SchuelerListe.Count(s => s.Beruf.Equals(beruf));
                 if (cnt > 0)
                 {
                     builder.Append($"\n{Person.BerufStrings[(int)beruf]}: {cnt}");

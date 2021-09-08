@@ -38,7 +38,7 @@ namespace ProjektSitzplan.Structures
         public SitzplanGenerator(SchulKlasse klasse, string name = "", int tischAnzahl = 6, int? seed = null, bool berücksichtigeBeruf = true, bool berücksichtigeBetrieb = true, bool berücksichtigeGeschlecht = true, SchulBlock blockSitzplan = SchulBlock.Current)
         {
             Klasse = klasse;
-            Schüler = klasse.SchülerListe;
+            Schüler = klasse.SchuelerListe;
             TischAnzahl = tischAnzahl;
             BerücksichtigeBeruf = berücksichtigeBeruf;
             BerücksichtigeBetrieb = berücksichtigeBetrieb;
@@ -116,7 +116,7 @@ namespace ProjektSitzplan.Structures
 
         private bool NameBereitsInliste(string name)
         {
-            return Klasse.Sitzpläne.Any(sitzplan => sitzplan.Name.Equals(name));
+            return Klasse.Sitzplaene.Any(sitzplan => sitzplan.Name.Equals(name));
         }
 
         #endregion
@@ -131,7 +131,7 @@ namespace ProjektSitzplan.Structures
         public List<Schüler> Schüler { get; private set; } = new List<Schüler>();
 
 
-        public List<string> ShortSchüler => Schüler.Select(person => person.UniqueId).ToList();
+        public List<string> ShortSchuler => Schüler.Select(person => person.UniqueId).ToList();
         [JsonIgnore]
         private List<string> SchülerIds = null;
 
@@ -141,9 +141,9 @@ namespace ProjektSitzplan.Structures
 
         public List<TischBlock> Tische { get; private set; }
 
-        public bool BerücksichtigeBeruf { get; private set; }
-        public bool BerücksichtigeBetrieb { get; private set; }
-        public bool BerücksichtigeGeschlecht { get; private set; }
+        public bool BeruecksichtigeBeruf { get; private set; }
+        public bool BeruecksichtigeBetrieb { get; private set; }
+        public bool BeruecksichtigeGeschlecht { get; private set; }
 
         public SchulBlock BlockSitzplan;
 
@@ -158,9 +158,9 @@ namespace ProjektSitzplan.Structures
             TischAnzahl = generator.TischAnzahl;
             Schüler = generator.Schüler;
 
-            BerücksichtigeBeruf = generator.BerücksichtigeBeruf;
-            BerücksichtigeBetrieb = generator.BerücksichtigeBetrieb;
-            BerücksichtigeGeschlecht = generator.BerücksichtigeGeschlecht;
+            BeruecksichtigeBeruf = generator.BerücksichtigeBeruf;
+            BeruecksichtigeBetrieb = generator.BerücksichtigeBetrieb;
+            BeruecksichtigeGeschlecht = generator.BerücksichtigeGeschlecht;
 
             BlockSitzplan = generator.BlockType;
             Seed = generator.Seed;
@@ -172,16 +172,16 @@ namespace ProjektSitzplan.Structures
         /// JSON Constructor | Dieser constructor sollte nur für das laden von json objekten genutzt werden!
         /// </summary>
         [JsonConstructor]
-        public Sitzplan(string name, int tischAnzahl, List<string> shortSchüler, List<TischBlock> tische, SchulBlock blockSitzplan, bool berücksichtigeBeruf, bool berücksichtigeBetrieb, bool berücksichtigeGeschlecht, int seed)
+        public Sitzplan(string name, int tischAnzahl, List<string> shortSchueler, List<TischBlock> tische, SchulBlock blockSitzplan, bool beruecksichtigeBeruf, bool beruecksichtigeBetrieb, bool beruecksichtigeGeschlecht, int seed)
         {
             Name = name;
             TischAnzahl = tischAnzahl;
-            SchülerIds = shortSchüler;
+            SchülerIds = shortSchueler;
             Tische = tische;
             BlockSitzplan = blockSitzplan;
-            BerücksichtigeBeruf = berücksichtigeBeruf;
-            BerücksichtigeBetrieb = berücksichtigeBetrieb;
-            BerücksichtigeGeschlecht = berücksichtigeGeschlecht;
+            BeruecksichtigeBeruf = beruecksichtigeBeruf;
+            BeruecksichtigeBetrieb = beruecksichtigeBetrieb;
+            BeruecksichtigeGeschlecht = beruecksichtigeGeschlecht;
             Seed = seed;
 
             ErfolgreichGeneriert = true;
@@ -198,7 +198,7 @@ namespace ProjektSitzplan.Structures
 
             foreach (string id in SchülerIds)
             {
-                Schüler schüler = SchülerHelfer.SchülerViaId(klasse.SchülerListe, id);
+                Schüler schüler = SchülerHelfer.SchülerViaId(klasse.SchuelerListe, id);
                 if (schüler != null)
                 {
                     Schüler.Add(schüler);
@@ -261,9 +261,9 @@ namespace ProjektSitzplan.Structures
 
         private bool Generieren()
         {
-            if (BlockSitzplan.Equals(SchulBlock.Block6) && Schüler.Any(s => s.Verkürzt))
+            if (BlockSitzplan.Equals(SchulBlock.Block6) && Schüler.Any(s => s.Verkuerzt))
             {
-                List<Schüler> verkürzer = Schüler.FindAll(s => s.Verkürzt);
+                List<Schüler> verkürzer = Schüler.FindAll(s => s.Verkuerzt);
 
                 SitzplanVerkürzerWindow verkürzerWindow = new SitzplanVerkürzerWindow(verkürzer);
 
@@ -352,11 +352,11 @@ namespace ProjektSitzplan.Structures
         {
             int punkte = 0;
 
-            if (BerücksichtigeBetrieb)
+            if (BeruecksichtigeBetrieb)
                 punkte += tisch.Sitzplätze.Any(sitzplatz => sitzplatz.Value != null && sitzplatz.Value.AusbildungsBetrieb.Name.Equals(schüler.AusbildungsBetrieb.Name, StringComparison.OrdinalIgnoreCase)) ? -1 : 1;
-            if (BerücksichtigeBeruf)
+            if (BeruecksichtigeBeruf)
                 punkte += tisch.Sitzplätze.Any(sitzplatz => sitzplatz.Value != null && sitzplatz.Value.Beruf == schüler.Beruf) ? -1 : 1;
-            if (BerücksichtigeGeschlecht)
+            if (BeruecksichtigeGeschlecht)
                 punkte += tisch.Sitzplätze.Any(sitzplatz => sitzplatz.Value != null && sitzplatz.Value.Geschlecht == schüler.Geschlecht) ? -1 : 1;
 
             return punkte;

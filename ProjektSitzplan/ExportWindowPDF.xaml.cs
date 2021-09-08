@@ -27,7 +27,7 @@ namespace ProjektSitzplan
 
         public string KlassenName { get => AktuelleKlasse.Name; }
 
-        public List<Sitzplan> GefundeneSitzpläne { get => AktuelleKlasse.Sitzpläne; }
+        public List<Sitzplan> GefundeneSitzpläne { get => AktuelleKlasse.Sitzplaene; }
 
         public Sitzplan ausgewählterSitzplan = null;
         public Sitzplan AusgewählterSitzplan
