@@ -1411,6 +1411,12 @@ namespace ProjektSitzplan
         }
         #endregion
 
+        #region SExportBtn
+        private void SExportBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ÜAusgewählterSitzplan.AlsPDFExportieren();
+        }
+        #endregion
         #endregion
     }
 }
