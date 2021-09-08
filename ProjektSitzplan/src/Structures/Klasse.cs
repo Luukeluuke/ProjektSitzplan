@@ -49,7 +49,7 @@ namespace ProjektSitzplan.Structures
 
             foreach (Sitzplan sitzplan in Sitzplaene)
             {
-                sitzplan.HohleSchülerPerId(this);
+                sitzplan.LadeSchülerListeAusIdListe(this);
             }
         }
         #endregion
@@ -159,6 +159,19 @@ namespace ProjektSitzplan.Structures
 
             SchuelerListe.Add(schüler);
 
+            foreach (Sitzplan sitzplan in Sitzplaene)
+            {
+                string text = $"{schüler.Nachname}, {schüler.Vorname} wurde hinzugefügt, er ist nicht in Sitzplan-{sitzplan.Name} enthalten. Soll dieser neu generiert werden?";
+
+                PsMessageBox dialog = new PsMessageBox("Achtung", text, EPsMessageBoxButtons.YesNo);
+                dialog.ShowDialog();
+
+                if (dialog.Result.Equals(EPsMessageBoxResult.Yes))
+                {
+                    sitzplan.NeuGenerieren(SchuelerListe);
+                }
+            }
+
             SpeichernAsync();
         }
 
@@ -175,6 +188,19 @@ namespace ProjektSitzplan.Structures
             }
 
             SchuelerListe.Remove(schüler);
+
+            foreach (Sitzplan sitzplan in Sitzplaene)
+            {
+                string text = $"{schüler.Nachname}, {schüler.Vorname} wurde entfernt, er ist in Sitzplan-{sitzplan.Name} enthalten. Soll dieser neu generiert werden?";
+
+                PsMessageBox dialog = new PsMessageBox("Achtung", text, EPsMessageBoxButtons.YesNo);
+                dialog.ShowDialog();
+
+                if (dialog.Result.Equals(EPsMessageBoxResult.Yes))
+                {
+                    sitzplan.NeuGenerieren(SchuelerListe);
+                }
+            }
 
             SpeichernAsync();
         }
