@@ -266,16 +266,17 @@ namespace ProjektSitzplan.Structures
             {
                 List<Schüler> verkürzer = Schüler.FindAll(s => s.Verkuerzt);
 
-                SitzplanVerkürzerWindow verkürzerWindow = new SitzplanVerkürzerWindow(verkürzer);
+                new PsMessageBox("Achtung", $"Für den letzten Block wurden {verkürzer.Count} Schüler gefunden die verkürzen.\nBitte überprüfen Korrektheit überprüfen.\nBeim Generieren des Sitzplans werden nicht berücksichtigt.\nLinks sind die Verkürzer, rechts die Nicht Verkürzer.", PsMessageBox.EPsMessageBoxButtons.OK).ShowDialog();
+                SchülerAuswahlDialog auswahlDialog = new SchülerAuswahlDialog("Verkürzer", verkürzer, true, "Verkürzer", "Nicht Verkürzer");
 
-                verkürzerWindow.ShowDialog();
+                auswahlDialog.ShowDialog();
 
-                if (verkürzerWindow.Canceled)
+                if (auswahlDialog.Canceled)
                 {
                     return false;
                 }
 
-                Schüler = Schüler.Except(verkürzerWindow.Verkürzer).ToList();
+                Schüler = Schüler.Except(auswahlDialog.Ausgewählt).ToList();
             }
 
             List<Schüler> GemischteSchülerListe = Mischen(Schüler);
@@ -384,7 +385,7 @@ namespace ProjektSitzplan.Structures
             StringBuilder builder = new StringBuilder();
 
             #region style/css
-            string style2 = "<link rel='stylesheet' href='styles.css'>";
+            //string style2 = "<link rel='stylesheet' href='styles.css'>";
 
             string style = "  <style type='text/css'>\n" +
 
@@ -460,7 +461,7 @@ namespace ProjektSitzplan.Structures
             builder.Append("<!DOCTYPE html>\n");
             builder.Append("<head>\n");
 
-            builder.Append(style2);
+            builder.Append(style);
 
             builder.Append("  <title>Sitzplan</title>\n");
             builder.Append("  <html lang = 'de'>\n");

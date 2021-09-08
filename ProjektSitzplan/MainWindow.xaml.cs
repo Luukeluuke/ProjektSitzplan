@@ -274,7 +274,6 @@ namespace ProjektSitzplan
 
             //TODO: Aktualisieren splitten? also so dass man im normal fall so die sachen intern einmal neu läd aber nicht immer unbedingt die datein komplett neu laden muss nur bei F5 vielleicht?
 
-            //TODO: Mindestlaufzeit von 3 sek einbauen... random bug idk f
             //TODO: Was machen wir eig wenn Sitzpläne erstellt wurden und dann ein Schüler gelöscht wird? xD
 
             //TODO: WFT reload bug... klasse löschen -> und F5 geht ned mehr bis man neu eintabt...?

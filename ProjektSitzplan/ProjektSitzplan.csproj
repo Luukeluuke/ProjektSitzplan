@@ -91,8 +91,8 @@
     <Compile Include="PsMessageBox.xaml.cs">
       <DependentUpon>PsMessageBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SitzplanVerkürzerWindow.xaml.cs">
-      <DependentUpon>SitzplanVerkürzerWindow.xaml</DependentUpon>
+    <Compile Include="SchülerAuswahlDialog.xaml.cs">
+      <DependentUpon>SchülerAuswahlDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="src\DataHandler.cs" />
     <Compile Include="src\Design\PSColors.cs" />
@@ -134,7 +134,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SitzplanVerkürzerWindow.xaml">
+    <Page Include="SchülerAuswahlDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

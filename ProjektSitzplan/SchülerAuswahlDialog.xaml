@@ -1,15 +1,13 @@
-﻿<Window x:Class="ProjektSitzplan.SitzplanVerkürzerWindow"
+﻿<Window x:Class="ProjektSitzplan.SchülerAuswahlDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ProjektSitzplan"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         WindowStyle="None" ResizeMode="NoResize" Background="{StaticResource ContentBackground}"
-        Title="Projekt Sitzplan - MessageBox" Height="350" Width="500" WindowStartupLocation="CenterScreen"
+        Title="Projekt Sitzplan - SchülerAuswahlDialog" Height="350" Width="500" WindowStartupLocation="CenterScreen"
         Loaded="Window_Loaded">
     <Border BorderBrush="{DynamicResource WindowBorderBrush}" BorderThickness="1">
         <Grid>
+
             <Grid.RowDefinitions>
                 <RowDefinition Height="31"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
@@ -20,7 +18,7 @@
                 <Grid x:Name="TitleBarGrid" Background="{StaticResource TopBarBackground}" MouseDown="TitleBarGrid_MouseDown">
                     <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5 0 0 0">
                         <Image VerticalAlignment="Center" Margin="0 7 0 7" Source="/ProjektSitzplan;component/src/Design/Images/Logos/Logo878B91.png"></Image>
-                        <Label Margin="1 0 0 0" Content="Verkürzer" Foreground="{StaticResource TopBarForeground}" FontFamily="Segoe UI Semibold" FontSize="16"></Label>
+                        <Label Margin="1 0 0 0" x:Name="SDTitelLbl" Content="Auswahl" Foreground="{StaticResource TopBarForeground}" FontFamily="Segoe UI Semibold" FontSize="16"></Label>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
                         <Button x:Name="MinimizeBtn" Uid="0" Template="{StaticResource FlatTopBar}" Background="{x:Null}" materialDesign:RippleAssist.IsDisabled="True" IsTabStop="False" Height="30" Click="TopBarButton_Click" MouseEnter="TopBarButton_MouseEnter" MouseLeave="TopBarButton_MouseLeave" PreviewMouseDown="TopBarButton_PreviewMouseDown" PreviewMouseUp="TopBarButton_PreviewMouseUp" Width="55">
@@ -38,45 +36,49 @@
                     </StackPanel>
                 </Grid>
             </Border>
-
             <!--#endregion-->
-
-
+            
+            
+            
             <!--#region Main Window-->
             <Grid Grid.Column="0" Grid.Row="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="40"/>
                 </Grid.RowDefinitions>
+
+
+
+                <!--#region Schüler Auswahl-->
                 <Grid Margin="5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
-                    <!--#region Verkürzer-->
+                    <!--#region Ausgewählt-->
                     <Border Grid.Column="0" Grid.Row="0" BorderBrush="{StaticResource ContentDivider}" BorderThickness="0 0 1 0">
-
                         <Grid Margin="0 0 5 0">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            
+
                             <Border Grid.Column="0" Grid.Row="0" BorderBrush="{StaticResource ContentDivider}" BorderThickness="0 0 0 1">
-                                <Label Content="Verkürzer" HorizontalAlignment="Left" Margin="0 0 0 5" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="15" Foreground="{StaticResource ContentTitleForeground}"/>
+                                <Label x:Name="SDAusgewähltLbl" Content="Ausgewählt" HorizontalAlignment="Left" Margin="0 0 0 5" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="15" Foreground="{StaticResource ContentTitleForeground}"/>
                             </Border>
+
 
                             <Border Grid.Column="0" Grid.Row="1" BorderThickness="2" BorderBrush="{StaticResource ContentControlBorder}" Margin="0 5 0 0">
 
                                 <!--#region DataGrid-->
-                                <DataGrid x:Name="SVVerkürzerDtGrd" DataContext="{Binding Verkürzer}" BorderBrush="{StaticResource ContentControlBorder}" Background="{x:Null}" Foreground="{StaticResource ContentForeground}" FontFamily="Segoe UI Semibold" CanUserDeleteRows="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserResizeColumns="True" CanUserResizeRows="False" CanUserSortColumns="True" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding AusgewählterVerkürzer}" HorizontalScrollBarVisibility="Auto" SelectedCellsChanged="SVVerkürzerDtGrd_SelectedCellsChanged">
+                                <DataGrid x:Name="SDAusgewähltDtGrd" DataContext="{Binding Ausgewählt}" BorderBrush="{StaticResource ContentControlBorder}" Background="{x:Null}" Foreground="{StaticResource ContentForeground}" FontFamily="Segoe UI Semibold" CanUserDeleteRows="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserResizeColumns="True" CanUserResizeRows="False" CanUserSortColumns="True" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" HorizontalScrollBarVisibility="Auto" SelectedCellsChanged="SDAusgewähltDtGrd_SelectedCellsChanged">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Header="Nachname" Binding="{Binding Nachname}"/>
                                         <DataGridTextColumn Header="Vorname" Binding="{Binding Vorname}"/>
                                         <DataGridTextColumn Header="Betrieb" Binding="{Binding AusbildungsBetrieb}"/>
                                     </DataGrid.Columns>
-                                    
+
                                     <!--#region Styling-->
                                     <DataGrid.Resources>
                                         <Style TargetType="{x:Type DataGridColumnHeader}">
@@ -146,12 +148,14 @@
 
                                 </DataGrid>
                                 <!--#endregion-->
-
                             </Border>
-                        </Grid>
 
+
+                        </Grid>
                     </Border>
                     <!--#endregion -->
+
+
 
                     <!--#region Nicht Verkürzer -->
                     <Grid Grid.Column="1" Grid.Row="0" Margin="5 0 0 0">
@@ -161,13 +165,13 @@
                         </Grid.RowDefinitions>
 
                         <Border Grid.Column="0" Grid.Row="0" BorderBrush="{StaticResource ContentDivider}" BorderThickness="0 0 0 1">
-                            <Label Content="Nicht Verkürzer" HorizontalAlignment="Left" Margin="0 0 0 5" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="15" Foreground="{StaticResource ContentTitleForeground}"/>
+                            <Label x:Name="SDNichtAusgewähltLbl" Content="Nicht Ausgewählt" HorizontalAlignment="Left" Margin="0 0 0 5" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="15" Foreground="{StaticResource ContentTitleForeground}"/>
                         </Border>
 
                         <Border Grid.Column="0" Grid.Row="1" BorderThickness="2" BorderBrush="{StaticResource ContentControlBorder}" Margin="0 5 0 0">
 
                             <!--#region DataGrid-->
-                            <DataGrid x:Name="SVNichtVerkürzerDtGrd" DataContext="{Binding NichtVerkürzer}" BorderBrush="{StaticResource ContentControlBorder}" Background="{x:Null}" Foreground="{StaticResource ContentForeground}" FontFamily="Segoe UI Semibold" CanUserDeleteRows="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserResizeColumns="True" CanUserResizeRows="False" CanUserSortColumns="True" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding AusgewählterNichtVerkürzer}" HorizontalScrollBarVisibility="Auto" SelectedCellsChanged="SVNichtVerkürzerDtGrd_SelectedCellsChanged">
+                            <DataGrid x:Name="SDNichtAusgewähltDtGrd" DataContext="{Binding NichtAusgewählt}" BorderBrush="{StaticResource ContentControlBorder}" Background="{x:Null}" Foreground="{StaticResource ContentForeground}" FontFamily="Segoe UI Semibold" CanUserDeleteRows="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserResizeColumns="True" CanUserResizeRows="False" CanUserSortColumns="True" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" HorizontalScrollBarVisibility="Auto" SelectedCellsChanged="SDNichtAusgewähltDtGrd_SelectedCellsChanged">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="Nachname" Binding="{Binding Nachname}"/>
                                     <DataGridTextColumn Header="Vorname" Binding="{Binding Vorname}"/>
@@ -243,14 +247,14 @@
 
                             </DataGrid>
                             <!--#endregion-->
-
                         </Border>
                     </Grid>
                     <!--#endregion -->
 
                 </Grid>
+                <!--#endregion-->
 
-                
+
                 <!--#region Buttons-->
                 <Border Grid.Column="0" Grid.Row="2" BorderBrush="{StaticResource ContentDivider}" BorderThickness="0 1 0 0">
                     <Grid Margin="6" VerticalAlignment="Stretch">
@@ -262,17 +266,19 @@
                         </Grid.ColumnDefinitions>
 
                         <Grid Grid.Column="0" Grid.Row="0">
-                            <Button x:Name="SVAbbrechenBtn" Click="SVAbbrechenBtn_Click" VerticalAlignment="Stretch" Uid="0" HorizontalAlignment="Stretch" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}"  materialDesign:RippleAssist.IsDisabled="True" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp"/>
+                            <Button x:Name="SDAbbrechenBtn" Click="SDAbbrechenBtn_Click" VerticalAlignment="Stretch" Uid="0" HorizontalAlignment="Stretch" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}"  materialDesign:RippleAssist.IsDisabled="True" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp"/>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label x:Name="SVAbbrechenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Abbrechen" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"/>
-                                <materialDesign:PackIcon x:Name="SVAbbrechenPckIco" IsHitTestVisible="False" Kind="CloseBold" Margin="5 0 0 0" Height="23" Width="23" Foreground="{StaticResource ContentButtonForeground}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <Label x:Name="SDAbbrechenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Abbrechen" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"/>
+                                <materialDesign:PackIcon x:Name="SDAbbrechenPckIco" IsHitTestVisible="False" Kind="CloseBold" Margin="5 0 0 0" Height="23" Width="23" Foreground="{StaticResource ContentButtonForeground}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Grid>
+                        
+                        
                         <Grid Grid.Column="2" Grid.Row="0">
-                            <Button  x:Name="SVErstellenBtn" Click="SVErstellenBtn_Click" VerticalAlignment="Center" Uid="1" HorizontalAlignment="Stretch" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}"  materialDesign:RippleAssist.IsDisabled="True" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp"/>
+                            <Button  x:Name="SDBestätigenBtn" Click="SDBestätigenBtn_Click" VerticalAlignment="Center" Uid="1" HorizontalAlignment="Stretch" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}"  materialDesign:RippleAssist.IsDisabled="True" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp"/>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label x:Name="SVErstellenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Generieren" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"/>
-                                <materialDesign:PackIcon x:Name="SVErstellenPckIco" IsHitTestVisible="False" Kind="CheckBold" Margin="5 0 0 0" Height="23" Width="23" Foreground="{StaticResource ContentButtonForeground}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <Label x:Name="SDBestätigenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Bestätigen" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"/>
+                                <materialDesign:PackIcon x:Name="SDBestätigenPckIco" IsHitTestVisible="False" Kind="CheckBold" Margin="5 0 0 0" Height="23" Width="23" Foreground="{StaticResource ContentButtonForeground}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Grid>
 
@@ -282,8 +288,7 @@
 
 
             </Grid>
-            <!--#endregion -->
-
+            <!--#endregion-->
         </Grid>
     </Border>
 </Window>
