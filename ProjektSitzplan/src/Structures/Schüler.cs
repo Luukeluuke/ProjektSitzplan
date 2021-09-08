@@ -111,7 +111,13 @@ namespace ProjektSitzplan.Structures
             byte[] bytes = null;
 
             // Dies kopie wird benötigt, weil das Image objekt "bild" gesperrt ist, um dies also als bytearray zu konvertieren wird temporär eine kopie erstellt
-            Image bildKopie = new Bitmap(bild);
+
+            Image bildKopie;
+            lock (bild)
+            {
+                bildKopie = new Bitmap(bild);
+            }
+
 
             try
             {

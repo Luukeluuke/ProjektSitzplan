@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using static ProjektSitzplan.PsMessageBox;
 
 namespace ProjektSitzplan.Structures
@@ -157,7 +159,7 @@ namespace ProjektSitzplan.Structures
 
             SchuelerListe.Add(schüler);
 
-            DataHandler.SpeicherSchulKlasse(this);
+            SpeichernAsync();
         }
 
         public void SchülerEntfernen(Schüler schüler)
@@ -174,7 +176,7 @@ namespace ProjektSitzplan.Structures
 
             SchuelerListe.Remove(schüler);
 
-            DataHandler.SpeicherSchulKlasse(this);
+            SpeichernAsync();
         }
 
         public void SchülerAktuallisieren(Schüler schüler)
@@ -211,31 +213,34 @@ namespace ProjektSitzplan.Structures
             }
 
             SchuelerListe[SchuelerListe.IndexOf(original)] = schüler;
-            DataHandler.SpeicherSchulKlasse(this);
+            SpeichernAsync();
         }
         #endregion
 
         #region Import / Export
-        public void AlsDateiSpeichern(string path)
+        public void AlsDateiSpeichern(string pfad)
         {
-            Directory.CreateDirectory(Path.GetDirectoryName(path));
-            File.WriteAllText(path, JsonConvert.SerializeObject(this));
+            WarteBisDateiFreiIst(pfad);
+            Directory.CreateDirectory(Path.GetDirectoryName(pfad));
+            File.WriteAllText(pfad, JsonConvert.SerializeObject(this));
         }
 
-        public static SchulKlasse AusDateiLaden(string path)
+        public static SchulKlasse AusDateiLaden(string pfad)
         {
-            if (File.Exists(path))
+            if (File.Exists(pfad))
             {
-                SchulKlasse klasse = AusJsonStringLaden(File.ReadAllText(path));
+                WarteBisDateiFreiIst(pfad);
+                SchulKlasse klasse = AusJsonStringLaden(File.ReadAllText(pfad));
 
                 if (klasse == null)
                 {
-                    ErrorHandler.ZeigeFehler(ErrorHandler.ERR_JSON_KlasseLaden, Path.GetFullPath(path), "");
+                    ErrorHandler.ZeigeFehler(ErrorHandler.ERR_JSON_KlasseLaden, Path.GetFullPath(pfad), "");
                 }
 
                 return klasse;
+
             }
-            throw new PfadNichtGefundenException(path, "Beim laden der Klasse ist ein Fehler aufgetreten!");
+            throw new PfadNichtGefundenException(pfad, "Beim laden der Klasse ist ein Fehler aufgetreten!");
         }
 
         public static SchulKlasse AusJsonStringLaden(string json)
@@ -249,6 +254,12 @@ namespace ProjektSitzplan.Structures
             catch (JsonSerializationException exc) { ex = exc; }
 
             return null;
+        }
+
+        //TODO: Test if this works finde lmao
+        public async Task SpeichernAsync()
+        {
+            await Task.Run(() => DataHandler.SpeicherSchulKlasse(this));
         }
 
         public void Speichern()
@@ -280,6 +291,38 @@ namespace ProjektSitzplan.Structures
             }
 
             return builder.ToString();
+        }
+        #endregion
+
+        #region private static
+        private static void WarteBisDateiFreiIst(string pfad)
+        {
+            FileInfo datei = new FileInfo(pfad);
+
+            while (IstDateiBlockiert(datei))
+            {
+                Thread.Sleep(100);
+            }
+        }
+
+        private static bool IstDateiBlockiert(FileInfo datei)
+        {
+            if (!datei.Exists)
+            {
+                return false;
+            }
+            try
+            {
+                using (datei.Open(FileMode.Open, FileAccess.Read)) { }
+            }
+            catch (IOException)
+            {
+                //Datei ist grade blockiert (wird von andem prozess benutzt oder nicht vorhanden)
+                return true;
+            }
+
+            //Datei kann genutzt werden
+            return false;
         }
         #endregion
     }

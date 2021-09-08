@@ -295,7 +295,6 @@ namespace ProjektSitzplan
                 {
                     WindowRestoreButton.Content = Utility.GetImage("Restore2B9BBBE");
                 }
-
             };
             SourceInitialized += (s, e) =>
             {
