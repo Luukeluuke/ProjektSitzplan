@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Windows.Media.Imaging;
 
 namespace ProjektSitzplan.Structures
 {
@@ -42,6 +43,7 @@ namespace ProjektSitzplan.Structures
         [JsonIgnore]
         public string Betrieb => AusbildungsBetrieb.Name;
 
+        public BitmapImage BildBitmap => GetBitmapBild();
 
         public bool Verkürzt;
 
@@ -64,6 +66,26 @@ namespace ProjektSitzplan.Structures
             Bild = schüler.Bild;
         }
 
+        public BitmapImage GetBitmapBild()
+        {
+            if (Bild is null) return null;
+
+            using (var memory = new MemoryStream())
+            {
+                System.Drawing.Image bildKopie = new System.Drawing.Bitmap(Bild);
+                bildKopie.Save(memory, System.Drawing.Imaging.ImageFormat.Bmp);
+
+                memory.Position = 0;
+
+                var bitmapImage = new BitmapImage();
+                bitmapImage.BeginInit();
+                bitmapImage.StreamSource = memory;
+                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapImage.EndInit();
+
+                return bitmapImage;
+            }
+        }
 
         public static Image LadeBildAusPfad(string pfad)
         {
