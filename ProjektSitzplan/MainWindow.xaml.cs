@@ -562,11 +562,16 @@ namespace ProjektSitzplan
                     int[] indexes = GetIndexes(sender);
                     zielPlatz = new Platz(indexes[0], indexes[1]);
                 }
+                else
+                {
+                    zielPlatz = ursprungsPlatz;
+                }
 
                 ÜAusgewählterSitzplan.SchülerTauschen(ursprungsPlatz.Value.TischIndex, 
                     ursprungsPlatz.Value.PlatzIndex, 
                     zielPlatz.Value.TischIndex, 
                     zielPlatz.Value.PlatzIndex);
+
 
                 SetzeSchüler(SBerufCBx.IsChecked.Value, SBetriebCBx.IsChecked.Value, SGeschlechtCBx.IsChecked.Value);
             }
@@ -576,9 +581,20 @@ namespace ProjektSitzplan
         {
             istAufPlatz = false;
 
-            if (isDragging && !GetTB(sender).Equals(ausgewählterPlatz))
+            if (isDragging)
             {
-                GetTB(sender).Background = Brushes.Transparent;
+                if (!GetTB(sender).Equals(ausgewählterPlatz))
+                {
+                    GetTB(sender).Background = Brushes.Transparent;
+                }
+
+                if (zielPlatz != null)
+                {
+                    ÜAusgewählterSitzplan.SchülerTauschen(zielPlatz.Value.TischIndex,
+                        zielPlatz.Value.PlatzIndex,
+                        ursprungsPlatz.Value.TischIndex,
+                        ursprungsPlatz.Value.PlatzIndex);
+                }
             }
         }
 
@@ -586,6 +602,14 @@ namespace ProjektSitzplan
         {
             if (!istAufPlatz)
             {
+                if (zielPlatz != null)
+                {
+                    ÜAusgewählterSitzplan.SchülerTauschen(zielPlatz.Value.TischIndex,
+                        zielPlatz.Value.PlatzIndex,
+                        ursprungsPlatz.Value.TischIndex,
+                        ursprungsPlatz.Value.PlatzIndex);
+                }
+
                 ResetPlatz();
             }
         }
