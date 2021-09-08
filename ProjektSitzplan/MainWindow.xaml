@@ -10,7 +10,8 @@
         Height="650" Width="1080"
         WindowStyle="None" ResizeMode="CanResize" AllowsTransparency="True"
         Loaded="Window_Loaded"
-        x:Name="MyMainWindow">
+        x:Name="MyMainWindow"
+        MouseUp="MyMainWindow_MouseUp" MouseLeave="MyMainWindow_MouseLeave">
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="32"></WindowChrome>
     </WindowChrome.WindowChrome>
@@ -22,7 +23,7 @@
             </Grid.RowDefinitions>
             <Grid Grid.Column="0" Grid.Row="0" Background="{StaticResource TopBarBackground}">
                 <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5 0 0 0">
-                    <Image VerticalAlignment="Center" Margin="0 7 0 7" Source="/ProjektSitzplan;component/src/Design/Images/Logos/Logo878B91.png"></Image>
+                    <Image VerticalAlignment="Center" Margin="0 7 0 7" Source="/ProjektSitzplan;component/src/Design/Images/Logos/Logo878B91.png" MouseUp="MyMainWindow_MouseUp"></Image>
                     <Label x:Name="SitzplanLbl" Margin="1 0 0 0" Content="Sitzplan" Foreground="{StaticResource TopBarForeground}" FontFamily="Segoe UI Semibold" FontSize="16" MouseDoubleClick="SitzplanLbl_MouseDoubleClick" WindowChrome.IsHitTestVisibleInChrome="True">
                         <Label.ToolTip>
                             <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12">
@@ -73,7 +74,7 @@
                             <RowDefinition Height="5"></RowDefinition>
                         </Grid.RowDefinitions>
                         <Grid Grid.Column="0" Grid.Row="0">
-                            <Menu Background="{StaticResource MenuBackground}" FontFamily="Segoe UI Semibold" FontSize="14" materialDesign:RippleAssist.IsDisabled="True">
+                            <Menu x:Name="MainMenu" Background="{StaticResource MenuBackground}" FontFamily="Segoe UI Semibold" FontSize="14" materialDesign:RippleAssist.IsDisabled="True">
                                 <MenuItem Height="30" Width="120">
                                     <MenuItem>
                                         <MenuItem.Header>
@@ -160,7 +161,7 @@
                                     </MenuItem>
                                 </MenuItem>
                             </Menu>
-                            <Label Content="Datei" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="14" IsHitTestVisible="False"></Label>
+                            <Label x:Name="MainMenuLbl" Content="Datei" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="14" IsHitTestVisible="False"></Label>
                         </Grid>
                         <Border Grid.Column="0" Grid.Row="1" Panel.ZIndex="0" BorderThickness="0 1 0 0" BorderBrush="{StaticResource TransitionStart}" Background="{StaticResource MenuBackground}">
                             <Grid>
@@ -632,7 +633,7 @@
                                             <RowDefinition Height="0.14*"></RowDefinition>
                                         </Grid.RowDefinitions>
                                         <TextBlock x:Name="SKlasseTxbk" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" TextTrimming="CharacterEllipsis" FontFamily="Segoe UI Semibold" FontSize="18" Foreground="{StaticResource MenuForeground}" Text="Klassenname - Sitzplanname"></TextBlock>
-                                        <Grid Grid.Column="0" Grid.ColumnSpan="7">
+                                        <Grid Grid.Column="0" Grid.ColumnSpan="7" Grid.Row="0">
                                             <Grid HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 2 -4">
                                                 <Button x:Name="SZurückBtn" Uid="17" Width="47" Template="{StaticResource FlatContent}" Background="{StaticResource ContentButtonBackground}" Click="ÜSitzplanVersteckenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp">
                                                     <Button.ToolTip>
@@ -642,7 +643,7 @@
                                                 <Label x:Name="SZurückLbl" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Zurück" Foreground="{StaticResource ContentButtonForeground}" FontSize="12" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"></Label>
                                             </Grid>
                                         </Grid>
-                                        <TextBlock Text="Schüler können per Drag 'n Drop umgesetzt werden" Visibility="Hidden" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="0" TextTrimming="CharacterEllipsis" TextAlignment="Left" Foreground="{StaticResource ContentForeground}" FontFamily="Segoe UI Semibold" FontSize="13" VerticalAlignment="Top"></TextBlock>
+                                        <TextBlock Text="Schüler können per Drag 'n Drop umgesetzt werden" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="0" TextTrimming="CharacterEllipsis" TextAlignment="Left" Foreground="{StaticResource ContentForeground}" FontFamily="Segoe UI Semibold" FontSize="13" VerticalAlignment="Top"></TextBlock>
                                         <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="4">
                                             <TextBlock Text="Anzeigen:" Visibility="Visible" TextTrimming="CharacterEllipsis" TextAlignment="Left" Foreground="{StaticResource ContentForeground}" FontFamily="Segoe UI Semibold" FontSize="13" VerticalAlignment="Center"></TextBlock>
                                             <CheckBox x:Name="SBerufCBx" Content="Beruf" IsChecked="True" Margin="5 0 0 0" FontFamily="Segoe UI Semibold" FontSize="13" Foreground="{StaticResource ContentForeground}" Click="SAnzeigenCBx_Checked">
@@ -664,7 +665,16 @@
                                                 </CheckBox.Resources>
                                             </CheckBox>
                                         </StackPanel>
-                                        <!-- TODO: Sollen wir das drinne lassen? -->
+                                        <Grid Grid.Column="0" Grid.ColumnSpan="7" Grid.Row="4">
+                                            <Grid HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 2 2">
+                                                <Button x:Name="SExportBtn" Uid="18" Width="47" Template="{StaticResource FlatContent}" Background="{StaticResource ContentButtonBackground}" Click="SExportBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp">
+                                                    <Button.ToolTip>
+                                                        <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12">Exportiere diesen Sitzplan</ToolTip>
+                                                    </Button.ToolTip>
+                                                </Button>
+                                                <Label x:Name="SExportLbl" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Export" Foreground="{StaticResource ContentButtonForeground}" FontSize="12" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"></Label>
+                                            </Grid>
+                                        </Grid>
                                         <Border Grid.Column="1" Grid.Row="1" BorderBrush="{StaticResource ContentControlBorder}" BorderThickness="5">
                                             <Grid Background="{StaticResource ContentButtonHoverBackground}">
                                                 <Grid.RowDefinitions>
@@ -695,34 +705,34 @@
                                                     <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="5" Background="{StaticResource ContentControlBorder}"></Grid>
                                                     
                                                     <Grid Grid.Column="0" Grid.Row="0">
-                                                        <TextBlock x:Name="S_T1_P1" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
+                                                        <TextBlock x:Name="S_T1_P1" Uid="0_0" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13" PreviewMouseDown="SitzplanPlatzTextblock_PreviewMouseDown" PreviewMouseUp="SitzplanPlatzTextblock_PreviewMouseUp" MouseEnter="SitzplanPlatzTextblock_MouseEnter" MouseLeave="SitzplanPlatzTextblock_MouseLeave"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="2" Grid.Row="0">
-                                                        <TextBlock x:Name="S_T1_P2" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
+                                                        <TextBlock x:Name="S_T1_P2" Uid="0_1" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13" PreviewMouseDown="SitzplanPlatzTextblock_PreviewMouseDown" PreviewMouseUp="SitzplanPlatzTextblock_PreviewMouseUp" MouseEnter="SitzplanPlatzTextblock_MouseEnter" MouseLeave="SitzplanPlatzTextblock_MouseLeave"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="0" Grid.Row="2">
-                                                        <TextBlock x:Name="S_T1_P3" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
+                                                        <TextBlock x:Name="S_T1_P3" Uid="0_2" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13" PreviewMouseDown="SitzplanPlatzTextblock_PreviewMouseDown" PreviewMouseUp="SitzplanPlatzTextblock_PreviewMouseUp" MouseEnter="SitzplanPlatzTextblock_MouseEnter" MouseLeave="SitzplanPlatzTextblock_MouseLeave"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="2" Grid.Row="2">
-                                                        <TextBlock x:Name="S_T1_P4" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
+                                                        <TextBlock x:Name="S_T1_P4" Uid="0_3" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13" PreviewMouseDown="SitzplanPlatzTextblock_PreviewMouseDown" PreviewMouseUp="SitzplanPlatzTextblock_PreviewMouseUp" MouseEnter="SitzplanPlatzTextblock_MouseEnter" MouseLeave="SitzplanPlatzTextblock_MouseLeave"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="0" Grid.Row="4">
-                                                        <TextBlock x:Name="S_T1_P5" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
+                                                        <TextBlock x:Name="S_T1_P5" Uid="0_4" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13" PreviewMouseDown="SitzplanPlatzTextblock_PreviewMouseDown" PreviewMouseUp="SitzplanPlatzTextblock_PreviewMouseUp" MouseEnter="SitzplanPlatzTextblock_MouseEnter" MouseLeave="SitzplanPlatzTextblock_MouseLeave"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="2" Grid.Row="4">
-                                                        <TextBlock x:Name="S_T1_P6" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
+                                                        <TextBlock x:Name="S_T1_P6" Uid="0_5" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13" PreviewMouseDown="SitzplanPlatzTextblock_PreviewMouseDown" PreviewMouseUp="SitzplanPlatzTextblock_PreviewMouseUp" MouseEnter="SitzplanPlatzTextblock_MouseEnter" MouseLeave="SitzplanPlatzTextblock_MouseLeave"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="0" Grid.Row="6">
-                                                        <TextBlock x:Name="S_T1_P7" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
+                                                        <TextBlock x:Name="S_T1_P7" Uid="0_6" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13" PreviewMouseDown="SitzplanPlatzTextblock_PreviewMouseDown" PreviewMouseUp="SitzplanPlatzTextblock_PreviewMouseUp" MouseEnter="SitzplanPlatzTextblock_MouseEnter" MouseLeave="SitzplanPlatzTextblock_MouseLeave"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="2" Grid.Row="6">
-                                                        <TextBlock x:Name="S_T1_P8" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
+                                                        <TextBlock x:Name="S_T1_P8" Uid="0_7" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13" PreviewMouseDown="SitzplanPlatzTextblock_PreviewMouseDown" PreviewMouseUp="SitzplanPlatzTextblock_PreviewMouseUp" MouseEnter="SitzplanPlatzTextblock_MouseEnter" MouseLeave="SitzplanPlatzTextblock_MouseLeave"></TextBlock>
                                                     </Grid>
                                                     
                                                 </Grid>
                                             </Grid>
                                         </Border>
-                                        <Border Grid.Column="1" Grid.Row="3" BorderBrush="{StaticResource ContentControlBorder}" BorderThickness="5">
+                                        <Border Grid.Column="3" Grid.Row="1" BorderBrush="{StaticResource ContentControlBorder}" BorderThickness="5">
                                             <Grid Background="{StaticResource ContentButtonHoverBackground}">
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="0.12*"></RowDefinition>
@@ -752,34 +762,34 @@
                                                     <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="5" Background="{StaticResource ContentControlBorder}"></Grid>
 
                                                     <Grid Grid.Column="0" Grid.Row="0">
-                                                        <TextBlock x:Name="S_T2_P1" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
+                                                        <TextBlock x:Name="S_T2_P1" Uid="1_0" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13" PreviewMouseDown="SitzplanPlatzTextblock_PreviewMouseDown" PreviewMouseUp="SitzplanPlatzTextblock_PreviewMouseUp" MouseEnter="SitzplanPlatzTextblock_MouseEnter" MouseLeave="SitzplanPlatzTextblock_MouseLeave"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="2" Grid.Row="0">
-                                                        <TextBlock x:Name="S_T2_P2" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
+                                                        <TextBlock x:Name="S_T2_P2" Uid="1_1" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13" PreviewMouseDown="SitzplanPlatzTextblock_PreviewMouseDown" PreviewMouseUp="SitzplanPlatzTextblock_PreviewMouseUp" MouseEnter="SitzplanPlatzTextblock_MouseEnter" MouseLeave="SitzplanPlatzTextblock_MouseLeave"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="0" Grid.Row="2">
-                                                        <TextBlock x:Name="S_T2_P3" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
+                                                        <TextBlock x:Name="S_T2_P3" Uid="1_2" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13" PreviewMouseDown="SitzplanPlatzTextblock_PreviewMouseDown" PreviewMouseUp="SitzplanPlatzTextblock_PreviewMouseUp" MouseEnter="SitzplanPlatzTextblock_MouseEnter" MouseLeave="SitzplanPlatzTextblock_MouseLeave"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="2" Grid.Row="2">
-                                                        <TextBlock x:Name="S_T2_P4" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
+                                                        <TextBlock x:Name="S_T2_P4" Uid="1_3" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13" PreviewMouseDown="SitzplanPlatzTextblock_PreviewMouseDown" PreviewMouseUp="SitzplanPlatzTextblock_PreviewMouseUp" MouseEnter="SitzplanPlatzTextblock_MouseEnter" MouseLeave="SitzplanPlatzTextblock_MouseLeave"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="0" Grid.Row="4">
-                                                        <TextBlock x:Name="S_T2_P5" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
+                                                        <TextBlock x:Name="S_T2_P5" Uid="1_4" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13" PreviewMouseDown="SitzplanPlatzTextblock_PreviewMouseDown" PreviewMouseUp="SitzplanPlatzTextblock_PreviewMouseUp" MouseEnter="SitzplanPlatzTextblock_MouseEnter" MouseLeave="SitzplanPlatzTextblock_MouseLeave"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="2" Grid.Row="4">
-                                                        <TextBlock x:Name="S_T2_P6" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
+                                                        <TextBlock x:Name="S_T2_P6" Uid="1_5" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13" PreviewMouseDown="SitzplanPlatzTextblock_PreviewMouseDown" PreviewMouseUp="SitzplanPlatzTextblock_PreviewMouseUp" MouseEnter="SitzplanPlatzTextblock_MouseEnter" MouseLeave="SitzplanPlatzTextblock_MouseLeave"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="0" Grid.Row="6">
-                                                        <TextBlock x:Name="S_T2_P7" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
+                                                        <TextBlock x:Name="S_T2_P7" Uid="1_6" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13" PreviewMouseDown="SitzplanPlatzTextblock_PreviewMouseDown" PreviewMouseUp="SitzplanPlatzTextblock_PreviewMouseUp" MouseEnter="SitzplanPlatzTextblock_MouseEnter" MouseLeave="SitzplanPlatzTextblock_MouseLeave"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="2" Grid.Row="6">
-                                                        <TextBlock x:Name="S_T2_P8" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
+                                                        <TextBlock x:Name="S_T2_P8" Uid="1_7" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13" PreviewMouseDown="SitzplanPlatzTextblock_PreviewMouseDown" PreviewMouseUp="SitzplanPlatzTextblock_PreviewMouseUp" MouseEnter="SitzplanPlatzTextblock_MouseEnter" MouseLeave="SitzplanPlatzTextblock_MouseLeave"></TextBlock>
                                                     </Grid>
 
                                                 </Grid>
                                             </Grid>
                                         </Border>
-                                        <Border Grid.Column="3" Grid.Row="1" BorderBrush="{StaticResource ContentControlBorder}" BorderThickness="5">
+                                        <Border Grid.Column="5" Grid.Row="1" BorderBrush="{StaticResource ContentControlBorder}" BorderThickness="5">
                                             <Grid Background="{StaticResource ContentButtonHoverBackground}">
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="0.12*"></RowDefinition>
@@ -809,34 +819,34 @@
                                                     <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="5" Background="{StaticResource ContentControlBorder}"></Grid>
 
                                                     <Grid Grid.Column="0" Grid.Row="0">
-                                                        <TextBlock x:Name="S_T3_P1" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
+                                                        <TextBlock x:Name="S_T3_P1" Uid="2_0" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13" PreviewMouseDown="SitzplanPlatzTextblock_PreviewMouseDown" PreviewMouseUp="SitzplanPlatzTextblock_PreviewMouseUp" MouseEnter="SitzplanPlatzTextblock_MouseEnter" MouseLeave="SitzplanPlatzTextblock_MouseLeave"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="2" Grid.Row="0">
-                                                        <TextBlock x:Name="S_T3_P2" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
+                                                        <TextBlock x:Name="S_T3_P2" Uid="2_1" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13" PreviewMouseDown="SitzplanPlatzTextblock_PreviewMouseDown" PreviewMouseUp="SitzplanPlatzTextblock_PreviewMouseUp" MouseEnter="SitzplanPlatzTextblock_MouseEnter" MouseLeave="SitzplanPlatzTextblock_MouseLeave"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="0" Grid.Row="2">
-                                                        <TextBlock x:Name="S_T3_P3" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
+                                                        <TextBlock x:Name="S_T3_P3" Uid="2_2" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13" PreviewMouseDown="SitzplanPlatzTextblock_PreviewMouseDown" PreviewMouseUp="SitzplanPlatzTextblock_PreviewMouseUp" MouseEnter="SitzplanPlatzTextblock_MouseEnter" MouseLeave="SitzplanPlatzTextblock_MouseLeave"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="2" Grid.Row="2">
-                                                        <TextBlock x:Name="S_T3_P4" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
+                                                        <TextBlock x:Name="S_T3_P4" Uid="2_3" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13" PreviewMouseDown="SitzplanPlatzTextblock_PreviewMouseDown" PreviewMouseUp="SitzplanPlatzTextblock_PreviewMouseUp" MouseEnter="SitzplanPlatzTextblock_MouseEnter" MouseLeave="SitzplanPlatzTextblock_MouseLeave"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="0" Grid.Row="4">
-                                                        <TextBlock x:Name="S_T3_P5" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
+                                                        <TextBlock x:Name="S_T3_P5" Uid="2_4" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13" PreviewMouseDown="SitzplanPlatzTextblock_PreviewMouseDown" PreviewMouseUp="SitzplanPlatzTextblock_PreviewMouseUp" MouseEnter="SitzplanPlatzTextblock_MouseEnter" MouseLeave="SitzplanPlatzTextblock_MouseLeave"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="2" Grid.Row="4">
-                                                        <TextBlock x:Name="S_T3_P6" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
+                                                        <TextBlock x:Name="S_T3_P6" Uid="2_5" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13" PreviewMouseDown="SitzplanPlatzTextblock_PreviewMouseDown" PreviewMouseUp="SitzplanPlatzTextblock_PreviewMouseUp" MouseEnter="SitzplanPlatzTextblock_MouseEnter" MouseLeave="SitzplanPlatzTextblock_MouseLeave"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="0" Grid.Row="6">
-                                                        <TextBlock x:Name="S_T3_P7" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
+                                                        <TextBlock x:Name="S_T3_P7" Uid="2_6" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13" PreviewMouseDown="SitzplanPlatzTextblock_PreviewMouseDown" PreviewMouseUp="SitzplanPlatzTextblock_PreviewMouseUp" MouseEnter="SitzplanPlatzTextblock_MouseEnter" MouseLeave="SitzplanPlatzTextblock_MouseLeave"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="2" Grid.Row="6">
-                                                        <TextBlock x:Name="S_T3_P8" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
+                                                        <TextBlock x:Name="S_T3_P8" Uid="2_7" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13" PreviewMouseDown="SitzplanPlatzTextblock_PreviewMouseDown" PreviewMouseUp="SitzplanPlatzTextblock_PreviewMouseUp" MouseEnter="SitzplanPlatzTextblock_MouseEnter" MouseLeave="SitzplanPlatzTextblock_MouseLeave"></TextBlock>
                                                     </Grid>
 
                                                 </Grid>
                                             </Grid>
                                         </Border>
-                                        <Border Grid.Column="3" Grid.Row="3" BorderBrush="{StaticResource ContentControlBorder}" BorderThickness="5">
+                                        <Border Grid.Column="1" Grid.Row="3" BorderBrush="{StaticResource ContentControlBorder}" BorderThickness="5">
                                             <Grid Background="{StaticResource ContentButtonHoverBackground}">
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="0.12*"></RowDefinition>
@@ -866,34 +876,34 @@
                                                     <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="5" Background="{StaticResource ContentControlBorder}"></Grid>
 
                                                     <Grid Grid.Column="0" Grid.Row="0">
-                                                        <TextBlock x:Name="S_T4_P1" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
+                                                        <TextBlock x:Name="S_T4_P1" Uid="3_0" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13" PreviewMouseDown="SitzplanPlatzTextblock_PreviewMouseDown" PreviewMouseUp="SitzplanPlatzTextblock_PreviewMouseUp" MouseEnter="SitzplanPlatzTextblock_MouseEnter" MouseLeave="SitzplanPlatzTextblock_MouseLeave"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="2" Grid.Row="0">
-                                                        <TextBlock x:Name="S_T4_P2" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
+                                                        <TextBlock x:Name="S_T4_P2" Uid="3_1" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13" PreviewMouseDown="SitzplanPlatzTextblock_PreviewMouseDown" PreviewMouseUp="SitzplanPlatzTextblock_PreviewMouseUp" MouseEnter="SitzplanPlatzTextblock_MouseEnter" MouseLeave="SitzplanPlatzTextblock_MouseLeave"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="0" Grid.Row="2">
-                                                        <TextBlock x:Name="S_T4_P3" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
+                                                        <TextBlock x:Name="S_T4_P3" Uid="3_2" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13" PreviewMouseDown="SitzplanPlatzTextblock_PreviewMouseDown" PreviewMouseUp="SitzplanPlatzTextblock_PreviewMouseUp" MouseEnter="SitzplanPlatzTextblock_MouseEnter" MouseLeave="SitzplanPlatzTextblock_MouseLeave"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="2" Grid.Row="2">
-                                                        <TextBlock x:Name="S_T4_P4" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
+                                                        <TextBlock x:Name="S_T4_P4" Uid="3_3" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13" PreviewMouseDown="SitzplanPlatzTextblock_PreviewMouseDown" PreviewMouseUp="SitzplanPlatzTextblock_PreviewMouseUp" MouseEnter="SitzplanPlatzTextblock_MouseEnter" MouseLeave="SitzplanPlatzTextblock_MouseLeave"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="0" Grid.Row="4">
-                                                        <TextBlock x:Name="S_T4_P5" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
+                                                        <TextBlock x:Name="S_T4_P5" Uid="3_4" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13" PreviewMouseDown="SitzplanPlatzTextblock_PreviewMouseDown" PreviewMouseUp="SitzplanPlatzTextblock_PreviewMouseUp" MouseEnter="SitzplanPlatzTextblock_MouseEnter" MouseLeave="SitzplanPlatzTextblock_MouseLeave"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="2" Grid.Row="4">
-                                                        <TextBlock x:Name="S_T4_P6" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
+                                                        <TextBlock x:Name="S_T4_P6" Uid="3_5" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13" PreviewMouseDown="SitzplanPlatzTextblock_PreviewMouseDown" PreviewMouseUp="SitzplanPlatzTextblock_PreviewMouseUp" MouseEnter="SitzplanPlatzTextblock_MouseEnter" MouseLeave="SitzplanPlatzTextblock_MouseLeave"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="0" Grid.Row="6">
-                                                        <TextBlock x:Name="S_T4_P7" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
+                                                        <TextBlock x:Name="S_T4_P7" Uid="3_6" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13" PreviewMouseDown="SitzplanPlatzTextblock_PreviewMouseDown" PreviewMouseUp="SitzplanPlatzTextblock_PreviewMouseUp" MouseEnter="SitzplanPlatzTextblock_MouseEnter" MouseLeave="SitzplanPlatzTextblock_MouseLeave"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="2" Grid.Row="6">
-                                                        <TextBlock x:Name="S_T4_P8" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
+                                                        <TextBlock x:Name="S_T4_P8" Uid="3_7" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13" PreviewMouseDown="SitzplanPlatzTextblock_PreviewMouseDown" PreviewMouseUp="SitzplanPlatzTextblock_PreviewMouseUp" MouseEnter="SitzplanPlatzTextblock_MouseEnter" MouseLeave="SitzplanPlatzTextblock_MouseLeave"></TextBlock>
                                                     </Grid>
                                                     
                                                 </Grid>
                                             </Grid>
                                         </Border>
-                                        <Border Grid.Column="5" Grid.Row="1" BorderBrush="{StaticResource ContentControlBorder}" BorderThickness="5">
+                                        <Border Grid.Column="3" Grid.Row="3" BorderBrush="{StaticResource ContentControlBorder}" BorderThickness="5">
                                             <Grid Background="{StaticResource ContentButtonHoverBackground}">
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="0.12*"></RowDefinition>
@@ -923,28 +933,28 @@
                                                     <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="5" Background="{StaticResource ContentControlBorder}"></Grid>
 
                                                     <Grid Grid.Column="0" Grid.Row="0">
-                                                        <TextBlock x:Name="S_T5_P1" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
+                                                        <TextBlock x:Name="S_T5_P1" Uid="4_0" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13" PreviewMouseDown="SitzplanPlatzTextblock_PreviewMouseDown" PreviewMouseUp="SitzplanPlatzTextblock_PreviewMouseUp" MouseEnter="SitzplanPlatzTextblock_MouseEnter" MouseLeave="SitzplanPlatzTextblock_MouseLeave"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="2" Grid.Row="0">
-                                                        <TextBlock x:Name="S_T5_P2" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
+                                                        <TextBlock x:Name="S_T5_P2" Uid="4_1" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13" PreviewMouseDown="SitzplanPlatzTextblock_PreviewMouseDown" PreviewMouseUp="SitzplanPlatzTextblock_PreviewMouseUp" MouseEnter="SitzplanPlatzTextblock_MouseEnter" MouseLeave="SitzplanPlatzTextblock_MouseLeave"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="0" Grid.Row="2">
-                                                        <TextBlock x:Name="S_T5_P3" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
+                                                        <TextBlock x:Name="S_T5_P3" Uid="4_2" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13" PreviewMouseDown="SitzplanPlatzTextblock_PreviewMouseDown" PreviewMouseUp="SitzplanPlatzTextblock_PreviewMouseUp" MouseEnter="SitzplanPlatzTextblock_MouseEnter" MouseLeave="SitzplanPlatzTextblock_MouseLeave"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="2" Grid.Row="2">
-                                                        <TextBlock x:Name="S_T5_P4" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
+                                                        <TextBlock x:Name="S_T5_P4" Uid="4_3" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13" PreviewMouseDown="SitzplanPlatzTextblock_PreviewMouseDown" PreviewMouseUp="SitzplanPlatzTextblock_PreviewMouseUp" MouseEnter="SitzplanPlatzTextblock_MouseEnter" MouseLeave="SitzplanPlatzTextblock_MouseLeave"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="0" Grid.Row="4">
-                                                        <TextBlock x:Name="S_T5_P5" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
+                                                        <TextBlock x:Name="S_T5_P5" Uid="4_4" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13" PreviewMouseDown="SitzplanPlatzTextblock_PreviewMouseDown" PreviewMouseUp="SitzplanPlatzTextblock_PreviewMouseUp" MouseEnter="SitzplanPlatzTextblock_MouseEnter" MouseLeave="SitzplanPlatzTextblock_MouseLeave"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="2" Grid.Row="4">
-                                                        <TextBlock x:Name="S_T5_P6" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
+                                                        <TextBlock x:Name="S_T5_P6" Uid="4_5" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13" PreviewMouseDown="SitzplanPlatzTextblock_PreviewMouseDown" PreviewMouseUp="SitzplanPlatzTextblock_PreviewMouseUp" MouseEnter="SitzplanPlatzTextblock_MouseEnter" MouseLeave="SitzplanPlatzTextblock_MouseLeave"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="0" Grid.Row="6">
-                                                        <TextBlock x:Name="S_T5_P7" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
+                                                        <TextBlock x:Name="S_T5_P7" Uid="4_6" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13" PreviewMouseDown="SitzplanPlatzTextblock_PreviewMouseDown" PreviewMouseUp="SitzplanPlatzTextblock_PreviewMouseUp" MouseEnter="SitzplanPlatzTextblock_MouseEnter" MouseLeave="SitzplanPlatzTextblock_MouseLeave"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="2" Grid.Row="6">
-                                                        <TextBlock x:Name="S_T5_P8" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
+                                                        <TextBlock x:Name="S_T5_P8" Uid="4_7" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13" PreviewMouseDown="SitzplanPlatzTextblock_PreviewMouseDown" PreviewMouseUp="SitzplanPlatzTextblock_PreviewMouseUp" MouseEnter="SitzplanPlatzTextblock_MouseEnter" MouseLeave="SitzplanPlatzTextblock_MouseLeave"></TextBlock>
                                                     </Grid>
 
                                                 </Grid>
@@ -980,28 +990,28 @@
                                                     <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="5" Background="{StaticResource ContentControlBorder}"></Grid>
 
                                                     <Grid Grid.Column="0" Grid.Row="0">
-                                                        <TextBlock x:Name="S_T6_P1" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
+                                                        <TextBlock x:Name="S_T6_P1" Uid="5_0" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13" PreviewMouseDown="SitzplanPlatzTextblock_PreviewMouseDown" PreviewMouseUp="SitzplanPlatzTextblock_PreviewMouseUp" MouseEnter="SitzplanPlatzTextblock_MouseEnter" MouseLeave="SitzplanPlatzTextblock_MouseLeave"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="2" Grid.Row="0">
-                                                        <TextBlock x:Name="S_T6_P2" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
+                                                        <TextBlock x:Name="S_T6_P2" Uid="5_1" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13" PreviewMouseDown="SitzplanPlatzTextblock_PreviewMouseDown" PreviewMouseUp="SitzplanPlatzTextblock_PreviewMouseUp" MouseEnter="SitzplanPlatzTextblock_MouseEnter" MouseLeave="SitzplanPlatzTextblock_MouseLeave"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="0" Grid.Row="2">
-                                                        <TextBlock x:Name="S_T6_P3" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
+                                                        <TextBlock x:Name="S_T6_P3" Uid="5_2" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13" PreviewMouseDown="SitzplanPlatzTextblock_PreviewMouseDown" PreviewMouseUp="SitzplanPlatzTextblock_PreviewMouseUp" MouseEnter="SitzplanPlatzTextblock_MouseEnter" MouseLeave="SitzplanPlatzTextblock_MouseLeave"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="2" Grid.Row="2">
-                                                        <TextBlock x:Name="S_T6_P4" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
+                                                        <TextBlock x:Name="S_T6_P4" Uid="5_3" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13" PreviewMouseDown="SitzplanPlatzTextblock_PreviewMouseDown" PreviewMouseUp="SitzplanPlatzTextblock_PreviewMouseUp" MouseEnter="SitzplanPlatzTextblock_MouseEnter" MouseLeave="SitzplanPlatzTextblock_MouseLeave"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="0" Grid.Row="4">
-                                                        <TextBlock x:Name="S_T6_P5" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
+                                                        <TextBlock x:Name="S_T6_P5" Uid="5_4" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13" PreviewMouseDown="SitzplanPlatzTextblock_PreviewMouseDown" PreviewMouseUp="SitzplanPlatzTextblock_PreviewMouseUp" MouseEnter="SitzplanPlatzTextblock_MouseEnter" MouseLeave="SitzplanPlatzTextblock_MouseLeave"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="2" Grid.Row="4">
-                                                        <TextBlock x:Name="S_T6_P6" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
+                                                        <TextBlock x:Name="S_T6_P6" Uid="5_5" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13" PreviewMouseDown="SitzplanPlatzTextblock_PreviewMouseDown" PreviewMouseUp="SitzplanPlatzTextblock_PreviewMouseUp" MouseEnter="SitzplanPlatzTextblock_MouseEnter" MouseLeave="SitzplanPlatzTextblock_MouseLeave"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="0" Grid.Row="6">
-                                                        <TextBlock x:Name="S_T6_P7" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
+                                                        <TextBlock x:Name="S_T6_P7" Uid="5_6" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13" PreviewMouseDown="SitzplanPlatzTextblock_PreviewMouseDown" PreviewMouseUp="SitzplanPlatzTextblock_PreviewMouseUp" MouseEnter="SitzplanPlatzTextblock_MouseEnter" MouseLeave="SitzplanPlatzTextblock_MouseLeave"></TextBlock>
                                                     </Grid>
                                                     <Grid Grid.Column="2" Grid.Row="6">
-                                                        <TextBlock x:Name="S_T6_P8" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13"></TextBlock>
+                                                        <TextBlock x:Name="S_T6_P8" Uid="5_7" TextAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="{StaticResource MenuForeground}" FontFamily="Segoe UI Semibold" FontSize="13" PreviewMouseDown="SitzplanPlatzTextblock_PreviewMouseDown" PreviewMouseUp="SitzplanPlatzTextblock_PreviewMouseUp" MouseEnter="SitzplanPlatzTextblock_MouseEnter" MouseLeave="SitzplanPlatzTextblock_MouseLeave"></TextBlock>
                                                     </Grid>
 
                                                 </Grid>
@@ -1493,9 +1503,7 @@
                             </Grid>
                         </Border>
                     </Border>
-                    <Grid Grid.Column="0" Grid.Row="2" Background="{StaticResource MenuBackground}">
-
-                    </Grid>
+                    <Grid Grid.Column="0" Grid.Row="2" Background="{StaticResource MenuBackground}"></Grid>
                 </Grid>
             </Grid>
         </Grid>
