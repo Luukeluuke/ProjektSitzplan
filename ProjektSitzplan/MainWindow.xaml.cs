@@ -1379,7 +1379,6 @@ namespace ProjektSitzplan
             animation.DecelerationRatio = 0.4D;
             animation.Completed += Animation_Completed;
             storyboard.Children.Add(animation);
-            ZeigtSitzplanAn = false;
 
             storyboard.Begin(KlasseÜbersichtContentGrd);
         }
@@ -1387,6 +1386,7 @@ namespace ProjektSitzplan
         private void Animation_Completed(object sender, EventArgs e)
         {
             KlasseÜbersichtSitzplanGrd.Visibility = Visibility.Hidden;
+            ZeigtSitzplanAn = false;
         }
         #endregion
         #endregion

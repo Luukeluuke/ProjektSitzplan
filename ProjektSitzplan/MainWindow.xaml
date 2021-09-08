@@ -1047,6 +1047,32 @@
                                                                             <Setter Property="Background" Value="{x:Null}"></Setter>
                                                                             <Setter Property="Margin" Value="0"></Setter>
                                                                             <Setter Property="IsHitTestVisible" Value="True"></Setter>
+                                                                            <Setter Property="ToolTip">
+                                                                                <Setter.Value>
+                                                                                    <ControlTemplate>
+                                                                                        <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12">
+                                                                                            <ToolTip.Resources>
+                                                                                                <Style TargetType="{x:Type ToolTip}">
+                                                                                                    <Setter Property="Width" Value="200"></Setter>
+                                                                                                    <Setter Property="Height" Value="200"></Setter>
+                                                                                                    <Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+                                                                                                    <Setter Property="Template">
+                                                                                                        <Setter.Value>
+                                                                                                            <ControlTemplate TargetType="{x:Type ToolTip}">
+                                                                                                                <Border CornerRadius="4" Width="{Binding ElementName=ttImg, Path=Width}" Height="{Binding ElementName=ttImg, Path=Height}" Background="{StaticResource ToolTipBackground}" DataContext="{Binding AusgewählteKlasse.SchülerListe}">
+                                                                                                                    <StackPanel Orientation="Vertical">
+                                                                                                                        <Image x:Name="ttImg" Margin="4 4 4 0" Source="{Binding BildBitmap}" Stretch="Uniform"/>
+                                                                                                                    </StackPanel>
+                                                                                                                </Border>
+                                                                                                            </ControlTemplate>
+                                                                                                        </Setter.Value>
+                                                                                                    </Setter>
+                                                                                                </Style>
+                                                                                            </ToolTip.Resources>
+                                                                                        </ToolTip>
+                                                                                    </ControlTemplate>
+                                                                                </Setter.Value>
+                                                                            </Setter>
                                                                             <Style.Triggers>
                                                                                 <Trigger Property="DataGridRow.IsSelected" Value="True">
                                                                                     <Setter Property="Background" Value="{StaticResource ContentDataGridRowBorderSelectedBackground}" />
