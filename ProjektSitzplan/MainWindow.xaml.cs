@@ -76,7 +76,7 @@ namespace ProjektSitzplan
             SBetriebCBx.IsChecked = betrieb;
             SGeschlechtCBx.IsChecked = geschlecht;
 
-            for (int tischIndex = 0; tischIndex < ÜAusgewählterSitzplan.Tische.Count; tischIndex++)
+            for (int tischIndex = 0; tischIndex < ÜAusgewählterSitzplan.Tische.Length; tischIndex++)
             {
                 TischBlock tisch = ÜAusgewählterSitzplan.Tische[tischIndex];
 

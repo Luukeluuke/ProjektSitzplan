@@ -76,7 +76,7 @@ namespace ProjektSitzplan.Structures
 
         public bool IstVoll()
         {
-            return Sitzplätze.Count >= MaxSchueler;
+            return !Sitzplätze.Any(platz => platz.Value == null);
         }
 
         public bool SchülerHinzufügen(Schüler schüler, int index)
@@ -108,20 +108,16 @@ namespace ProjektSitzplan.Structures
         {
             Sitzplätze[index] = null;
         }
-        public void SchülerEntfernen(Schüler schüler)
+        public bool SchülerEntfernen(Schüler schüler)
         {
-            if (schüler == null)
+            if (schüler == null || !Sitzplätze.ContainsValue(schüler))
             {
-                return;
-            }
-
-            if (!Sitzplätze.ContainsValue(schüler))
-            {
-                throw new SchülerNichtInListeException(schüler, errorEntfernen);
+                return false;
             }
 
             int key = HohleIndexVonSchüler(schüler);
             Sitzplätze[key] = null;
+            return true;
         }
     }
 }

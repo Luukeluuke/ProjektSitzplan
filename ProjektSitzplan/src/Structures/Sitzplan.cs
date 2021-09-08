@@ -172,7 +172,7 @@ namespace ProjektSitzplan.Structures
         public string Name { get; private set; }
         public int TischAnzahl { get; private set; }
 
-        public List<TischBlock> Tische { get; private set; }
+        public TischBlock[] Tische { get; private set; }
 
         public bool BeruecksichtigeBeruf { get; private set; }
         public bool BeruecksichtigeBetrieb { get; private set; }
@@ -210,7 +210,7 @@ namespace ProjektSitzplan.Structures
         /// JSON Constructor | Dieser constructor sollte nur für das laden von json objekten genutzt werden!
         /// </summary>
         [JsonConstructor]
-        public Sitzplan(string name, int tischAnzahl, List<string> shortSchueler, List<TischBlock> tische, SchulBlock blockSitzplan, bool beruecksichtigeBeruf, bool beruecksichtigeBetrieb, bool beruecksichtigeGeschlecht, int seed, Dictionary<int,int> tischPlatzVerteilung)
+        public Sitzplan(string name, int tischAnzahl, List<string> shortSchueler, TischBlock[] tische, SchulBlock blockSitzplan, bool beruecksichtigeBeruf, bool beruecksichtigeBetrieb, bool beruecksichtigeGeschlecht, int seed, Dictionary<int,int> tischPlatzVerteilung)
         {
             Name = name;
             TischAnzahl = tischAnzahl;
@@ -321,7 +321,7 @@ namespace ProjektSitzplan.Structures
 
             List<Schüler> GemischteSchülerListe = Mischen(Schüler);
 
-            Tische = new List<TischBlock>(TischAnzahl);
+            Tische = new TischBlock[TischAnzahl];
             foreach (KeyValuePair<int, int> tischPlatz in TischPlatzVerteilung.OrderBy(k => k.Key))
             {
                 Tische[tischPlatz.Key] = new TischBlock(tischPlatz.Value);
@@ -329,7 +329,7 @@ namespace ProjektSitzplan.Structures
 
             for (int tischCount = 0; GemischteSchülerListe.Count > 0; tischCount++)
             {
-                if (tischCount > Tische.Count - 1)
+                if (tischCount > Tische.Length - 1)
                 {
                     tischCount = 0;
                 }
@@ -443,7 +443,7 @@ namespace ProjektSitzplan.Structures
             Schüler schüler1 = tisch1.HohleSchülerVonIndex(sitzplatzIndex1);
             Schüler schüler2 = tisch2.HohleSchülerVonIndex(sitzplatzIndex2);
             
-            if (schüler1.UniqueId.Equals(schüler2.UniqueId))
+            if (schüler1 == schüler2)
             {
                 return true;
             }
@@ -562,7 +562,7 @@ namespace ProjektSitzplan.Structures
             builder.Append("</head>\n<body>\n");
             builder.Append("  <div class='mainWrapper'>\n");
 
-            for (int i = 0; i < Tische.Count; i++)
+            for (int i = 0; i < Tische.Length; i++)
             {
                 TischBlock tisch = Tische[i];
                 builder.Append($"    <div class='table'>\n");
