@@ -37,7 +37,9 @@ namespace ProjektSitzplan.Structures
 
         public SchulBlock BlockType;
 
-        public SitzplanGenerator(SchulKlasse klasse, string name = "", int tischAnzahl = 6, int? seed = null, bool berücksichtigeBeruf = true, bool berücksichtigeBetrieb = true, bool berücksichtigeGeschlecht = true, SchulBlock blockSitzplan = SchulBlock.Current)
+        public Dictionary<int, int> TischPlatzVerteilung;
+
+        public SitzplanGenerator(SchulKlasse klasse, string name = "", int tischAnzahl = 6, int? seed = null, bool berücksichtigeBeruf = true, bool berücksichtigeBetrieb = true, bool berücksichtigeGeschlecht = true, SchulBlock blockSitzplan = SchulBlock.Current, Dictionary<int, int> tischPlatzVerteilung = null)
         {
             Klasse = klasse;
             Schüler = klasse.SchuelerListe;
@@ -47,6 +49,36 @@ namespace ProjektSitzplan.Structures
             BerücksichtigeGeschlecht = berücksichtigeGeschlecht;
 
             BlockType = blockSitzplan.Equals(SchulBlock.Current) ? klasse.FreierBlock() : blockSitzplan;
+
+            #region Tischplatz
+            if (tischPlatzVerteilung == null)
+            {
+                tischPlatzVerteilung = new Dictionary<int, int>();
+                for (int i = 0; i < tischAnzahl; i++)
+                {
+                    tischPlatzVerteilung[i] = 8;
+                }
+            }
+            else
+            {
+                for (int i = 0; i < 6; i++)
+                {
+                    if (i < tischAnzahl)
+                    {
+                        if (!tischPlatzVerteilung.ContainsKey(i))
+                        {
+                            tischPlatzVerteilung[i] = 8;
+                        }
+                    }
+                    else
+                    {
+                        tischPlatzVerteilung.Remove(i);
+                    }
+                }
+            }
+            #endregion
+
+            TischPlatzVerteilung = tischPlatzVerteilung;
 
             if (seed == null)
                 Seed = Environment.TickCount;
@@ -62,7 +94,6 @@ namespace ProjektSitzplan.Structures
             }
             #endregion
         }
-
 
         #region Klassen Suchen
 
@@ -136,6 +167,7 @@ namespace ProjektSitzplan.Structures
         [JsonIgnore]
         private List<string> SchülerIds = null;
 
+        public Dictionary<int, int> TischPlatzVerteilung;
 
         public string Name { get; private set; }
         public int TischAnzahl { get; private set; }
@@ -153,6 +185,9 @@ namespace ProjektSitzplan.Structures
         [JsonIgnore]
         public bool ErfolgreichGeneriert { get; private set; }
 
+
+
+        #region Constructoren
         public Sitzplan(SitzplanGenerator generator)
         {
             Name = generator.Name;
@@ -162,6 +197,8 @@ namespace ProjektSitzplan.Structures
             BeruecksichtigeBeruf = generator.BerücksichtigeBeruf;
             BeruecksichtigeBetrieb = generator.BerücksichtigeBetrieb;
             BeruecksichtigeGeschlecht = generator.BerücksichtigeGeschlecht;
+
+            TischPlatzVerteilung = generator.TischPlatzVerteilung;
 
             BlockSitzplan = generator.BlockType;
             Seed = generator.Seed;
@@ -173,7 +210,7 @@ namespace ProjektSitzplan.Structures
         /// JSON Constructor | Dieser constructor sollte nur für das laden von json objekten genutzt werden!
         /// </summary>
         [JsonConstructor]
-        public Sitzplan(string name, int tischAnzahl, List<string> shortSchueler, List<TischBlock> tische, SchulBlock blockSitzplan, bool beruecksichtigeBeruf, bool beruecksichtigeBetrieb, bool beruecksichtigeGeschlecht, int seed)
+        public Sitzplan(string name, int tischAnzahl, List<string> shortSchueler, List<TischBlock> tische, SchulBlock blockSitzplan, bool beruecksichtigeBeruf, bool beruecksichtigeBetrieb, bool beruecksichtigeGeschlecht, int seed, Dictionary<int,int> tischPlatzVerteilung)
         {
             Name = name;
             TischAnzahl = tischAnzahl;
@@ -185,8 +222,13 @@ namespace ProjektSitzplan.Structures
             BeruecksichtigeGeschlecht = beruecksichtigeGeschlecht;
             Seed = seed;
 
+            TischPlatzVerteilung = tischPlatzVerteilung;
+
             ErfolgreichGeneriert = true;
         }
+        #endregion
+
+
 
         public void LadeSchülerListeAusIdListe(SchulKlasse klasse)
         {
@@ -214,38 +256,9 @@ namespace ProjektSitzplan.Structures
             }
         }
 
-        public bool HatSchüler(Schüler schüler)
-        {
-            return Schüler.Any(s => s.UniqueId.Equals(schüler.UniqueId));
-        }
-
-        public bool SchülerTauschen(int tischIndex1, int sitzplatzIndex1, int tischIndex2, int sitzplatzIndex2)
-        {
-            if (tischIndex1 >= TischAnzahl || tischIndex2 >= TischAnzahl)
-            {
-                return false;
-            }
-
-            TischBlock tisch1 = Tische[tischIndex1];
-            TischBlock tisch2 = Tische[tischIndex2];
-            if (tisch1 == null || tisch2 == null)
-            {
-                return false;
-            }
-
-            Schüler schüler1 = tisch1.HohleSchülerVonIndex(sitzplatzIndex1);
-            Schüler schüler2 = tisch2.HohleSchülerVonIndex(sitzplatzIndex2);
-
-            tisch1.SchülerEntfernen(sitzplatzIndex1);
-            tisch2.SchülerEntfernen(sitzplatzIndex2);
-
-            tisch1.SchülerHinzufügen(schüler2, sitzplatzIndex1);
-            tisch2.SchülerHinzufügen(schüler1, sitzplatzIndex2);
-
-            return true;
-        }
 
 
+        #region Generieren
         public List<Schüler> Mischen(List<Schüler> originalListe)
         {
             List<Schüler> liste = originalListe.OrderBy(schüler => schüler.Nachname).ToList();
@@ -278,7 +291,7 @@ namespace ProjektSitzplan.Structures
             return erfolg;
         }
 
-        private bool Generieren()
+        private bool VerkürzerEntfernen()
         {
             if (BlockSitzplan.Equals(SchulBlock.Block6) && Schüler.Any(s => s.Verkuerzt))
             {
@@ -296,13 +309,22 @@ namespace ProjektSitzplan.Structures
 
                 Schüler = Schüler.Except(auswahlDialog.Ausgewählt).ToList();
             }
+            return true;
+        }
+
+        private bool Generieren()
+        {
+            if (!VerkürzerEntfernen())
+            {
+                return false;
+            }
 
             List<Schüler> GemischteSchülerListe = Mischen(Schüler);
 
-            Tische = new List<TischBlock>();
-            for (int i = 0; i < TischAnzahl; i++)
+            Tische = new List<TischBlock>(TischAnzahl);
+            foreach (KeyValuePair<int, int> tischPlatz in TischPlatzVerteilung.OrderBy(k => k.Key))
             {
-                Tische.Add(new TischBlock());
+                Tische[tischPlatz.Key] = new TischBlock(tischPlatz.Value);
             }
 
             for (int tischCount = 0; GemischteSchülerListe.Count > 0; tischCount++)
@@ -312,7 +334,12 @@ namespace ProjektSitzplan.Structures
                     tischCount = 0;
                 }
 
-                TischBlock tisch = Tische[tischCount];
+                TischBlock tisch = NächsterFreierTisch(tischCount);
+                if (tisch == null)
+                {
+                    ErrorHandler.ZeigeFehler(ErrorHandler.ERR_GEN_ZuWenigFreiePlätze);
+                    break;
+                }
 
                 Schüler schüler = WähleGeeignetenSchüler(tisch, GemischteSchülerListe);
 
@@ -334,6 +361,21 @@ namespace ProjektSitzplan.Structures
             */
 
             return true;
+        }
+
+        private TischBlock NächsterFreierTisch(int startIndex)
+        {
+            TischBlock tisch = null;
+            for (int i = 0; i < TischAnzahl; i++, startIndex++)
+            {
+                if (startIndex >= TischAnzahl) 
+                    startIndex = 0;
+
+                tisch = Tische[startIndex];
+                if (!tisch.IstVoll())
+                    return tisch;
+            }
+            return tisch;
         }
 
         private Schüler WähleGeeignetenSchüler(TischBlock tisch, List<Schüler> gemischteSchüler)
@@ -373,6 +415,46 @@ namespace ProjektSitzplan.Structures
                 punkte += tisch.Sitzplätze.Any(sitzplatz => sitzplatz.Value != null && sitzplatz.Value.Geschlecht == schüler.Geschlecht) ? -1 : 1;
 
             return punkte;
+        }
+        #endregion
+
+
+
+
+        public bool HatSchüler(Schüler schüler)
+        {
+            return Schüler.Any(s => s.UniqueId.Equals(schüler.UniqueId));
+        }
+
+        public bool SchülerTauschen(int tischIndex1, int sitzplatzIndex1, int tischIndex2, int sitzplatzIndex2)
+        {
+            if (tischIndex1 >= TischAnzahl || tischIndex2 >= TischAnzahl)
+            {
+                return false;
+            }
+
+            TischBlock tisch1 = Tische[tischIndex1];
+            TischBlock tisch2 = Tische[tischIndex2];
+            if (tisch1 == null || tisch2 == null)
+            {
+                return false;
+            }
+
+            Schüler schüler1 = tisch1.HohleSchülerVonIndex(sitzplatzIndex1);
+            Schüler schüler2 = tisch2.HohleSchülerVonIndex(sitzplatzIndex2);
+            
+            if (schüler1.UniqueId.Equals(schüler2.UniqueId))
+            {
+                return true;
+            }
+
+            tisch1.SchülerEntfernen(sitzplatzIndex1);
+            tisch2.SchülerEntfernen(sitzplatzIndex2);
+
+            tisch1.SchülerHinzufügen(schüler2, sitzplatzIndex1);
+            tisch2.SchülerHinzufügen(schüler1, sitzplatzIndex2);
+
+            return true;
         }
 
 

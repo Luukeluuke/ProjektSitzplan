@@ -7,8 +7,6 @@ namespace ProjektSitzplan.Structures
 {
     public class TischBlock
     {
-        public static readonly int MaxSchüler = 8;
-
         [JsonIgnore]
         public Dictionary<int, Schüler> Sitzplätze { get; private set; } = new Dictionary<int, Schüler>();
 
@@ -20,16 +18,20 @@ namespace ProjektSitzplan.Structures
         private static string errorEntfernen = "Schüler konnte nicht von dem TischBlock entfernt werden.";
         private static string errorHinzufügen = "Schüler konnte dem TischBlock nicht hinzugefügt werden.";
 
+        public int MaxSchueler { get; private set; } = 8;
 
         [JsonConstructor]
-        public TischBlock(Dictionary<int, string> shortSchueler)
+        public TischBlock(Dictionary<int, string> shortSchueler, int maxSchueler)
         {
             SchülerIds = shortSchueler;
+            MaxSchueler = maxSchueler;
         }
 
-        public TischBlock() 
+        public TischBlock(int maxSchüler = 8) 
         {
-            for (int i = 0; i < MaxSchüler; i++)
+            MaxSchueler = maxSchüler;
+
+            for (int i = 0; i < MaxSchueler; i++)
             {
                 Sitzplätze[i] = null;
             }
@@ -72,29 +74,25 @@ namespace ProjektSitzplan.Structures
             } return -1;
         }
 
-        public void SchülerHinzufügen(Schüler schüler, int index)
+        public bool IstVoll()
         {
-            if (schüler == null)
-            {
-                return;
-            }
+            return Sitzplätze.Count >= MaxSchueler;
+        }
 
-            if (Sitzplätze.ContainsValue(schüler))
+        public bool SchülerHinzufügen(Schüler schüler, int index)
+        {
+            if (schüler == null || index > MaxSchueler - 1 || Sitzplätze.ContainsValue(schüler))
             {
-                throw new SchülerInListeException(schüler, errorHinzufügen);
+                return false;
             }
             Sitzplätze[index] = schüler;
+            return true;
         }
-        public void SchülerHinzufügen(Schüler schüler)
+        public bool SchülerHinzufügen(Schüler schüler)
         {
-            if (schüler == null)
+            if (schüler == null || IstVoll() || Sitzplätze.ContainsValue(schüler))
             {
-                return;
-            }
-
-            if (Sitzplätze.ContainsValue(schüler))
-            {
-                throw new SchülerInListeException(schüler, errorHinzufügen);
+                return false;
             }
 
             int i = 0;
@@ -103,6 +101,7 @@ namespace ProjektSitzplan.Structures
                 i++;
             }
             Sitzplätze[i] = schüler;
+            return true;
         }
 
         public void SchülerEntfernen(int index)
@@ -113,7 +112,7 @@ namespace ProjektSitzplan.Structures
         {
             if (schüler == null)
             {
-                throw new SchülerNullException(errorEntfernen);
+                return;
             }
 
             if (!Sitzplätze.ContainsValue(schüler))

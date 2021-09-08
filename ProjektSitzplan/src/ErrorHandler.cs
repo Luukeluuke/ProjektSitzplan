@@ -1,6 +1,4 @@
-﻿using System.Windows.Threading;
-
-namespace ProjektSitzplan
+﻿namespace ProjektSitzplan
 {
     static class ErrorHandler
     {
@@ -27,6 +25,8 @@ namespace ProjektSitzplan
 
         // eigentlich ein should never heppen ding aber naja egal :D
         public static readonly string ERR_EX_KeinSitzplanAusgewählt = "Kein Sitzplan zum exportieren ausgewählt.";
+
+        public static readonly string ERR_GEN_ZuWenigFreiePlätze = "Es gab leider nicht genug Sitzplätze für alle Schüler. Die überigen müssen leider stehen.";
         #endregion
 
 
