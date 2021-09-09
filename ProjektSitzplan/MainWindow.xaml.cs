@@ -56,9 +56,14 @@ namespace ProjektSitzplan
         }
 
         private List<TextBlock[]> Tischblöcke;
+        private Border[] Tische;
+        private TextBlock[] TischTxbks;
 
         private void SetzteTischblöcke()
         {
+            Tische = new Border[] { Tisch1Brd, Tisch2Brd, Tisch3Brd, Tisch4Brd, Tisch5Brd, Tisch6Brd };
+            TischTxbks = new TextBlock[] { Tisch1TxBk, Tisch2TxBk, Tisch3TxBk, Tisch4TxBk, Tisch5TxBk, Tisch6TxBk };
+
             Tischblöcke = new List<TextBlock[]>
             {
                 new TextBlock[] { S_T1_P1, S_T1_P2, S_T1_P3, S_T1_P4, S_T1_P5, S_T1_P6, S_T1_P7, S_T1_P8 },
@@ -70,8 +75,18 @@ namespace ProjektSitzplan
             };
         }
 
+        private void SetzeTische(int verfügbareTische)
+        {
+            for (int i = 0; i < verfügbareTische; i++)
+            {
+                Tische[i].Visibility = Visibility.Visible;
+            }
+        }
+
         private void SetzeSchüler(bool beruf, bool betrieb, bool geschlecht)
         {
+            SetzeTische(ÜAusgewählterSitzplan.TischAnzahl);
+
             SBerufCBx.IsChecked = beruf;
             SBetriebCBx.IsChecked = betrieb;
             SGeschlechtCBx.IsChecked = geschlecht;
@@ -80,24 +95,35 @@ namespace ProjektSitzplan
             {
                 TischBlock tisch = ÜAusgewählterSitzplan.Tische[tischIndex];
 
+                TischTxbks[tischIndex].Text = $"Tisch-{tischIndex + 1} | Plätze: {tisch.MaxSchueler}";
+
                 TextBlock[] tischLabel = Tischblöcke[tischIndex];
 
-                for (int sitzplatzIndex = 0; sitzplatzIndex < tisch.Sitzplätze.Count; sitzplatzIndex++)
+                for (int sitzplatzIndex = 0; sitzplatzIndex < 8; sitzplatzIndex++)
                 {
-                    Schüler schüler = tisch.Sitzplätze[sitzplatzIndex];
-
-                    string name = "";
-
-                    if (schüler != null)
+                    if (sitzplatzIndex >= tisch.MaxSchueler)
                     {
-                        name = $"{schüler.Vorname} {schüler.Nachname}";
-
-                        name += beruf ? $"\n{schüler.BerufString}" : "";
-                        name += betrieb ? $"\n{schüler.Betrieb}" : "";
-                        name += geschlecht ? $"\n{schüler.Geschlecht}" : "";
+                        tischLabel[sitzplatzIndex].IsEnabled = false; //TODO: geht das?
                     }
+                    else
+                    {
+                        Schüler schüler;
+                        tisch.Sitzplätze.TryGetValue(sitzplatzIndex, out schüler);
 
-                    tischLabel[sitzplatzIndex].Text = name;
+                        string name = "";
+
+                        if (schüler != null)
+                        {
+                            name = $"{schüler.Vorname} {schüler.Nachname}";
+
+                            name += beruf ? $"\n{schüler.BerufString}" : "";
+                            name += betrieb ? $"\n{schüler.Betrieb}" : "";
+                            name += geschlecht ? $"\n{schüler.Geschlecht}" : "";
+
+                        }
+
+                        tischLabel[sitzplatzIndex].Text = name;
+                    }
                 }
 
             }
@@ -243,7 +269,6 @@ namespace ProjektSitzplan
             CommandBindings.Add(new CommandBinding(CommandFullscreen, DoRestoreStuff));
 
             //TODO: @TESTCLASS REMOVE THIS WHEN REMOVING TEST CLASS
-
             CommandBindings.Add(new CommandBinding(CommandTest, TestingEvnt));
         }
         #endregion
@@ -463,6 +488,7 @@ namespace ProjektSitzplan
         {
             return sender as TextBlock;
         }
+
         private void ResetPlatz()
         {
             if (ausgewählterPlatz is null) return;
@@ -521,6 +547,21 @@ namespace ProjektSitzplan
             ÜSitzplanVersteckenGrd.IsEnabled = true;
         }
 
+        private bool PlatzVerfügbar(TextBlock platz)
+        {
+            int tischIndex = int.Parse(platz.Uid.Split('_')[0]);
+            int platzIndex = int.Parse(platz.Uid.Split('_')[1]);
+
+            if (ÜAusgewählterSitzplan.Tische[tischIndex].MaxSchueler <= platzIndex)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         private void SitzplanPlatzTextblock_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (isDragging) return;
@@ -545,8 +586,6 @@ namespace ProjektSitzplan
             {
                 GetTB(sender).Background = Brushes.Transparent;
             }
-
-            //TODO: Label in Sitzplan Übersicht da die Änderungen direkt live sind
 
             isDragging = false;
             Cursor = Cursors.Arrow;
@@ -574,7 +613,6 @@ namespace ProjektSitzplan
                     ursprungsPlatz.Value.PlatzIndex, 
                     zielPlatz.Value.TischIndex, 
                     zielPlatz.Value.PlatzIndex);
-
 
                 SetzeSchüler(SBerufCBx.IsChecked.Value, SBetriebCBx.IsChecked.Value, SGeschlechtCBx.IsChecked.Value);
             }
@@ -615,6 +653,8 @@ namespace ProjektSitzplan
 
                 ResetPlatz();
             }
+
+            Cursor = Cursors.Arrow;
         }
 
         private void MyMainWindow_MouseLeave(object sender, MouseEventArgs e)
@@ -938,7 +978,7 @@ namespace ProjektSitzplan
         #region SitzplanLbl
         private void SitzplanLbl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            Process.Start(Environment.CurrentDirectory);
+            Process.Start($@"{Environment.CurrentDirectory}\SchulKlassen");
         }
         #endregion
 
@@ -1214,7 +1254,8 @@ namespace ProjektSitzplan
             Storyboard storyboard = new Storyboard();
             DoubleAnimation animation = new DoubleAnimation(KlasseÜbersichtGrd.ActualWidth, 0D, new Duration(new TimeSpan(0, 0, 0, 0, 350)), FillBehavior.HoldEnd);
             Storyboard.SetTargetProperty(animation, new PropertyPath("Width"));
-            animation.DecelerationRatio = 0.4D;
+            animation.DecelerationRatio = 0.5D;
+            animation.AccelerationRatio = 0.5D;
             storyboard.Children.Add(animation);
             ZeigtSitzplanAn = true;
 
@@ -1570,7 +1611,7 @@ namespace ProjektSitzplan
             AusgewählteKlasse.SchülerHinzufügen(neuerSchüler);
             ÜSchülerDtGrd.ItemsSource = AusgewählteKlasse.SchuelerListe;
 
-            DataHandler.SpeicherSchulKlasse(AusgewählteKlasse);
+            //DataHandler.SpeicherSchulKlasse(AusgewählteKlasse);
 
             ÜKlasseAnzahlSchülerLbl.Content = AusgewählteKlasse.AnzahlSchüler;
 
@@ -1590,8 +1631,8 @@ namespace ProjektSitzplan
             Storyboard storyboard = new Storyboard();
             DoubleAnimation animation = new DoubleAnimation(0D, KlasseÜbersichtGrd.ActualWidth, new Duration(duotation), FillBehavior.Stop);
             Storyboard.SetTargetProperty(animation, new PropertyPath("Width"));
-            animation.AccelerationRatio = 0.4D;
-            animation.DecelerationRatio = 0.4D;
+            animation.AccelerationRatio = 0.5D;
+            animation.DecelerationRatio = 0.5D;
             animation.Completed += Animation_Completed;
             storyboard.Children.Add(animation);
 
@@ -1613,7 +1654,6 @@ namespace ProjektSitzplan
             ÜAusgewählterSitzplan.AlsPDFExportieren();
         }
         #endregion
-
         #endregion
     }
 }

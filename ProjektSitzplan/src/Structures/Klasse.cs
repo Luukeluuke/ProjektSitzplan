@@ -52,6 +52,8 @@ namespace ProjektSitzplan.Structures
                 sitzplan.LadeSchülerListeAusIdListe(this);
             }
         }
+
+        public SchulKlasse(SchulKlasse klasse) : this (klasse.Name, new List<Schüler>(klasse.SchuelerListe), new List<Sitzplan>(klasse.Sitzplaene)) { }
         #endregion
 
         #region Public Methods
@@ -251,9 +253,11 @@ namespace ProjektSitzplan.Structures
 
         public void AlsDateiSpeichern(string pfad)
         {
-            WarteBisDateiFreiIst(pfad);
+            SchulKlasse copy = new SchulKlasse(this);
+
             Directory.CreateDirectory(Path.GetDirectoryName(pfad));
-            File.WriteAllText(pfad, JsonConvert.SerializeObject(this));
+            WarteBisDateiFreiIst(pfad);
+            File.WriteAllText(pfad, JsonConvert.SerializeObject(copy));
         }
 
         public static SchulKlasse AusDateiLaden(string pfad)
@@ -349,7 +353,11 @@ namespace ProjektSitzplan.Structures
             }
             try
             {
-                using (datei.Open(FileMode.Open, FileAccess.Read)) { }
+                //using (datei.Open(FileMode.Open, FileAccess.Read)) { }
+                using (FileStream stream = datei.Open(FileMode.Open, FileAccess.Read, FileShare.None))
+                {
+                    stream.Close();
+                }
             }
             catch (IOException)
             {

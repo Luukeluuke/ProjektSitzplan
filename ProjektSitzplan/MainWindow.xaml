@@ -651,7 +651,7 @@
                                                 <Label x:Name="SZurückLbl" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Zurück" Foreground="{StaticResource ContentButtonForeground}" FontSize="12" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"></Label>
                                             </Grid>
                                         </Grid>
-                                        <TextBlock Text="Schüler können per Drag 'n Drop umgesetzt werden&#10;" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="0" TextTrimming="CharacterEllipsis" TextAlignment="Left" Foreground="{StaticResource ContentForeground}" FontFamily="Segoe UI Semibold" FontSize="13" VerticalAlignment="Top"></TextBlock>
+                                        <TextBlock Text="Schüler können per Drag 'n Drop umgesetzt werden&#10;Änderungen werden automatisch übernommen!" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="0" TextTrimming="CharacterEllipsis" TextAlignment="Left" Foreground="{StaticResource ContentForeground}" FontFamily="Segoe UI Semibold" FontSize="13" VerticalAlignment="Top"></TextBlock>
                                         <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="4">
                                             <TextBlock Text="Anzeigen:" Visibility="Visible" TextTrimming="CharacterEllipsis" TextAlignment="Left" Foreground="{StaticResource ContentForeground}" FontFamily="Segoe UI Semibold" FontSize="13" VerticalAlignment="Center"></TextBlock>
                                             <CheckBox x:Name="SBerufCBx" Content="Beruf" IsChecked="True" Margin="5 0 0 0" FontFamily="Segoe UI Semibold" FontSize="13" Foreground="{StaticResource ContentForeground}" Click="SAnzeigenCBx_Checked">
@@ -687,14 +687,14 @@
                                                 <Label x:Name="SExportLbl" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Export" Foreground="{StaticResource ContentButtonForeground}" FontSize="12" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"></Label>
                                             </Grid>
                                         </Grid>
-                                        <Border Grid.Column="1" Grid.Row="1" BorderBrush="{StaticResource ContentControlBorder}" BorderThickness="5">
+                                        <Border x:Name="Tisch1Brd" Uid="0" Grid.Column="1" Grid.Row="1" BorderBrush="{StaticResource ContentControlBorder}" BorderThickness="5" Visibility="Hidden">
                                             <Grid Background="{StaticResource ContentButtonHoverBackground}">
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="0.12*"></RowDefinition>
                                                     <RowDefinition Height="*"></RowDefinition>
                                                 </Grid.RowDefinitions>
                                                 <Border Grid.Column="0" Grid.Row="0" BorderBrush="{StaticResource ContentControlBorder}" BorderThickness="0 0 0 4">
-                                                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" TextTrimming="CharacterEllipsis" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="{StaticResource ContentForeground}" Text="Tisch-1"></TextBlock>
+                                                    <TextBlock x:Name="Tisch1TxBk" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" TextTrimming="CharacterEllipsis" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="{StaticResource ContentForeground}" Text="Tisch-1"></TextBlock>
                                                 </Border>
                                                 <Grid Grid.Column="0" Grid.Row="1">
                                                     <Grid.ColumnDefinitions>
@@ -744,14 +744,14 @@
                                                 </Grid>
                                             </Grid>
                                         </Border>
-                                        <Border Grid.Column="3" Grid.Row="1" BorderBrush="{StaticResource ContentControlBorder}" BorderThickness="5">
+                                        <Border x:Name="Tisch2Brd" Uid="1" Grid.Column="3" Grid.Row="1" BorderBrush="{StaticResource ContentControlBorder}" BorderThickness="5" Visibility="Hidden">
                                             <Grid Background="{StaticResource ContentButtonHoverBackground}">
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="0.12*"></RowDefinition>
                                                     <RowDefinition Height="*"></RowDefinition>
                                                 </Grid.RowDefinitions>
                                                 <Border Grid.Column="0" Grid.Row="0" BorderBrush="{StaticResource ContentControlBorder}" BorderThickness="0 0 0 4">
-                                                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" TextTrimming="CharacterEllipsis" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="{StaticResource ContentForeground}" Text="Tisch-2"></TextBlock>
+                                                    <TextBlock x:Name="Tisch2TxBk" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" TextTrimming="CharacterEllipsis" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="{StaticResource ContentForeground}" Text="Tisch-2"></TextBlock>
                                                 </Border>
                                                 <Grid Grid.Column="0" Grid.Row="1">
                                                     <Grid.ColumnDefinitions>
@@ -801,14 +801,14 @@
                                                 </Grid>
                                             </Grid>
                                         </Border>
-                                        <Border Grid.Column="5" Grid.Row="1" BorderBrush="{StaticResource ContentControlBorder}" BorderThickness="5">
+                                        <Border x:Name="Tisch3Brd" Uid="2" Grid.Column="5" Grid.Row="1" BorderBrush="{StaticResource ContentControlBorder}" BorderThickness="5" Visibility="Hidden">
                                             <Grid Background="{StaticResource ContentButtonHoverBackground}">
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="0.12*"></RowDefinition>
                                                     <RowDefinition Height="*"></RowDefinition>
                                                 </Grid.RowDefinitions>
                                                 <Border Grid.Column="0" Grid.Row="0" BorderBrush="{StaticResource ContentControlBorder}" BorderThickness="0 0 0 4">
-                                                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" TextTrimming="CharacterEllipsis" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="{StaticResource ContentForeground}" Text="Tisch-3"></TextBlock>
+                                                    <TextBlock x:Name="Tisch3TxBk" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" TextTrimming="CharacterEllipsis" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="{StaticResource ContentForeground}" Text="Tisch-3"></TextBlock>
                                                 </Border>
                                                 <Grid Grid.Column="0" Grid.Row="1">
                                                     <Grid.ColumnDefinitions>
@@ -858,14 +858,14 @@
                                                 </Grid>
                                             </Grid>
                                         </Border>
-                                        <Border Grid.Column="1" Grid.Row="3" BorderBrush="{StaticResource ContentControlBorder}" BorderThickness="5">
+                                        <Border x:Name="Tisch4Brd" Uid="3" Grid.Column="1" Grid.Row="3" BorderBrush="{StaticResource ContentControlBorder}" BorderThickness="5" Visibility="Hidden">
                                             <Grid Background="{StaticResource ContentButtonHoverBackground}">
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="0.12*"></RowDefinition>
                                                     <RowDefinition Height="*"></RowDefinition>
                                                 </Grid.RowDefinitions>
                                                 <Border Grid.Column="0" Grid.Row="0" BorderBrush="{StaticResource ContentControlBorder}" BorderThickness="0 0 0 4">
-                                                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" TextTrimming="CharacterEllipsis" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="{StaticResource ContentForeground}" Text="Tisch-4"></TextBlock>
+                                                    <TextBlock x:Name="Tisch4TxBk" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" TextTrimming="CharacterEllipsis" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="{StaticResource ContentForeground}" Text="Tisch-4"></TextBlock>
                                                 </Border>
                                                 <Grid Grid.Column="0" Grid.Row="1">
                                                     <Grid.ColumnDefinitions>
@@ -915,14 +915,14 @@
                                                 </Grid>
                                             </Grid>
                                         </Border>
-                                        <Border Grid.Column="3" Grid.Row="3" BorderBrush="{StaticResource ContentControlBorder}" BorderThickness="5">
+                                        <Border x:Name="Tisch5Brd" Uid="4" Grid.Column="3" Grid.Row="3" BorderBrush="{StaticResource ContentControlBorder}" BorderThickness="5" Visibility="Hidden">
                                             <Grid Background="{StaticResource ContentButtonHoverBackground}">
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="0.12*"></RowDefinition>
                                                     <RowDefinition Height="*"></RowDefinition>
                                                 </Grid.RowDefinitions>
                                                 <Border Grid.Column="0" Grid.Row="0" BorderBrush="{StaticResource ContentControlBorder}" BorderThickness="0 0 0 4">
-                                                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" TextTrimming="CharacterEllipsis" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="{StaticResource ContentForeground}" Text="Tisch-5"></TextBlock>
+                                                    <TextBlock x:Name="Tisch5TxBk" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" TextTrimming="CharacterEllipsis" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="{StaticResource ContentForeground}" Text="Tisch-5"></TextBlock>
                                                 </Border>
                                                 <Grid Grid.Column="0" Grid.Row="1">
                                                     <Grid.ColumnDefinitions>
@@ -972,14 +972,14 @@
                                                 </Grid>
                                             </Grid>
                                         </Border>
-                                        <Border Grid.Column="5" Grid.Row="3" BorderBrush="{StaticResource ContentControlBorder}" BorderThickness="5">
+                                        <Border x:Name="Tisch6Brd" Uid="5" Grid.Column="5" Grid.Row="3" BorderBrush="{StaticResource ContentControlBorder}" BorderThickness="5" Visibility="Hidden">
                                             <Grid Background="{StaticResource ContentButtonHoverBackground}">
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="0.12*"></RowDefinition>
                                                     <RowDefinition Height="*"></RowDefinition>
                                                 </Grid.RowDefinitions>
                                                 <Border Grid.Column="0" Grid.Row="0" BorderBrush="{StaticResource ContentControlBorder}" BorderThickness="0 0 0 4">
-                                                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" TextTrimming="CharacterEllipsis" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="{StaticResource ContentForeground}" Text="Tisch-6"></TextBlock>
+                                                    <TextBlock x:Name="Tisch6TxBk" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" TextTrimming="CharacterEllipsis" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="{StaticResource ContentForeground}" Text="Tisch-6"></TextBlock>
                                                 </Border>
                                                 <Grid Grid.Column="0" Grid.Row="1">
                                                     <Grid.ColumnDefinitions>
