@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using ProjektSitzplan.Exceptions;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -14,10 +13,7 @@ namespace ProjektSitzplan.Structures
         Dictionary<int, string> SchülerIds = null;
 
         public Dictionary<int, string> ShortSchueler => Sitzplätze.ToDictionary(k=>k.Key, k => (k.Value != null) ? k.Value.UniqueId : null);
-
-        private static string errorEntfernen = "Schüler konnte nicht von dem TischBlock entfernt werden.";
-        private static string errorHinzufügen = "Schüler konnte dem TischBlock nicht hinzugefügt werden.";
-
+        
         public int MaxSchueler { get; private set; } = 8;
 
         [JsonConstructor]
@@ -36,7 +32,6 @@ namespace ProjektSitzplan.Structures
                 Sitzplätze[i] = null;
             }
         }
-
 
         public void HohleSchülerPerId(Sitzplan sitzplan)
         {
