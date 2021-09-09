@@ -244,6 +244,11 @@ namespace ProjektSitzplan.Structures
         #endregion
 
         #region Import / Export
+        public void SchülerCSVImport()
+        {
+            //TODO: Sweer yeye
+        }
+
         public void AlsDateiSpeichern(string pfad)
         {
             WarteBisDateiFreiIst(pfad);

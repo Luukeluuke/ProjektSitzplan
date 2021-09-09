@@ -299,7 +299,7 @@
                     <Border Grid.Column="0" Grid.Row="1" BorderThickness="0 1 0 1" BorderBrush="{StaticResource TransitionStart}">
                         <Border BorderThickness="1" BorderBrush="{StaticResource TransitionEnd}" Background="{StaticResource ContentBackground}">
                             <Grid Margin="4">
-                                <Grid x:Name="KlasseHinzufügenGrd" Visibility="Hidden">
+                                <Grid x:Name="KlasseHinzufügenGrd" Visibility="Visible">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="1.25*"></ColumnDefinition>
                                         <ColumnDefinition Width="*"></ColumnDefinition>
@@ -462,8 +462,11 @@
                                                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                                                 </Grid.ColumnDefinitions>
                                                                 <Grid Grid.Column="0" Grid.Row="1" Visibility="Visible">
-                                                                    <Button x:Name="KEFelderLeerenBtn" Uid="0" TabIndex="106" HorizontalAlignment="Stretch" Height="Auto" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp" Click="KEFelderLeerenBtn_Click"></Button>
-                                                                    <Label x:Name="KEFelderLeerenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Felder leeren" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"></Label>
+                                                                    <Button x:Name="KECSVImportBtn" Uid="0" TabIndex="106" HorizontalAlignment="Stretch" Height="Auto" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp" Click="KECSVImportBtn_Click"></Button>
+                                                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                                                                        <Label x:Name="KECSVImportLbl" HorizontalAlignment="Center" VerticalAlignment="Center" Content="CSV Import" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"></Label>
+                                                                        <materialDesign:PackIcon x:Name="KECSVImportPckIco" Margin="2 0 0 0" VerticalAlignment="Center" Kind="FileImport" Height="20" Width="20" Foreground="{StaticResource ContentButtonForeground}" IsHitTestVisible="False"></materialDesign:PackIcon>
+                                                                    </StackPanel>
                                                                 </Grid>
                                                                 <Grid Grid.Column="2" Grid.Row="1">
                                                                     <Button x:Name="KESchülerHinzufügenBtn" Uid="1" TabIndex="107" HorizontalAlignment="Stretch" Height="Auto" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}" materialDesign:RippleAssist.IsDisabled="True" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp" Click="KESchülerHinzufügenBtn_Click"></Button>
@@ -609,13 +612,13 @@
                                         </Grid>
                                     </Grid>
                                 </Grid>
-                                <Grid x:Name="KlasseÜbersichtGrd" Visibility="Visible">
+                                <Grid x:Name="KlasseÜbersichtGrd" Visibility="Hidden">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="1.35*"></ColumnDefinition>
                                         <ColumnDefinition Width="*"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
                                     <Grid x:Name="container" Grid.Column="1" Grid.Row="0"></Grid>
-                                    <Grid x:Name="KlasseÜbersichtSitzplanGrd" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Background="{StaticResource ContentBackground}" Visibility="Visible">
+                                    <Grid x:Name="KlasseÜbersichtSitzplanGrd" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Background="{StaticResource ContentBackground}" Visibility="Hidden">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="0.22*"></ColumnDefinition>
                                             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -1034,7 +1037,7 @@
                                             <materialDesign:PackIcon x:Name="ÜSitzplanVersteckenPkIco" HorizontalAlignment="Center" VerticalAlignment="Center" Kind="ArrowCollapseRight" Height="23" Width="23" Foreground="{StaticResource ContentButtonForeground}" IsHitTestVisible="False"></materialDesign:PackIcon>
                                         </Grid>
                                     </Grid>
-                                    <Grid x:Name="KlasseÜbersichtContentGrd" Visibility="Hidden" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Width="{Binding ElementName=KlasseÜbersichtGrd, Path=Width}" HorizontalAlignment="Left" VerticalAlignment="Stretch" Background="{StaticResource ContentBackground}">
+                                    <Grid x:Name="KlasseÜbersichtContentGrd" Visibility="Visible" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Width="{Binding ElementName=KlasseÜbersichtGrd, Path=Width}" HorizontalAlignment="Left" VerticalAlignment="Stretch" Background="{StaticResource ContentBackground}">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="1.35*"></ColumnDefinition>
                                             <ColumnDefinition Width="*"></ColumnDefinition>

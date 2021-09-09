@@ -873,7 +873,7 @@ namespace ProjektSitzplan
 
             ContentLabels = new Label[]
             {
-                KEFelderLeerenLbl,
+                KECSVImportLbl,
                 KEKSchülerHinzufügenLbl,
                 KESchülerEntfernenLbl,
                 KEAbbrechenLbl,
@@ -895,7 +895,7 @@ namespace ProjektSitzplan
             };
             ContentPackIconsSets = new PackIconSet[]
             {
-                null, //Kein Icon vorhanden dann null, aber die Uids sollten halt trotzdem ausgefüllt werden
+                new PackIconSet(KECSVImportPckIco, PackIconSet.EIconType.Content, PSColors.ContentButtonHoverForeground, PSColors.ContentButtonPreviewForeground),
                 new PackIconSet(KESchülerHinzufügenPkIco, PackIconSet.EIconType.Content, PSColors.IconHoverGreen, PSColors.IconPreviewGreen),
                 new PackIconSet(KESchülerEntfernenPkIco, PackIconSet.EIconType.Content, PSColors.IconHoverRed, PSColors.IconPreviewRed),
                 new PackIconSet(KEAbbrechenPkIco, PackIconSet.EIconType.Content, PSColors.IconHoverRed, PSColors.IconPreviewRed),
@@ -1064,10 +1064,10 @@ namespace ProjektSitzplan
         }
         #endregion
 
-        #region KEFelderLeerenBtn
-        private void KEFelderLeerenBtn_Click(object sender, RoutedEventArgs e)
+        #region KEUnitsImportBtn
+        private void KECSVImportBtn_Click(object sender, RoutedEventArgs e)
         {
-            KESchülerFelderLeeren();
+            //TODO: HIer die aktuelle klasse import dings sweer yisgnngj
         }
 
         private void KESchülerFelderLeeren()
