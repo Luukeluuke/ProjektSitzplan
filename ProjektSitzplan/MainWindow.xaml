@@ -609,13 +609,13 @@
                                         </Grid>
                                     </Grid>
                                 </Grid>
-                                <Grid x:Name="KlasseÜbersichtGrd" Visibility="Hidden">
+                                <Grid x:Name="KlasseÜbersichtGrd" Visibility="Visible">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="1.35*"></ColumnDefinition>
                                         <ColumnDefinition Width="*"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
                                     <Grid x:Name="container" Grid.Column="1" Grid.Row="0"></Grid>
-                                    <Grid x:Name="KlasseÜbersichtSitzplanGrd" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Background="{StaticResource ContentBackground}" Visibility="Hidden">
+                                    <Grid x:Name="KlasseÜbersichtSitzplanGrd" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Background="{StaticResource ContentBackground}" Visibility="Visible">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="0.22*"></ColumnDefinition>
                                             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -633,9 +633,13 @@
                                             <RowDefinition Height="0.14*"></RowDefinition>
                                         </Grid.RowDefinitions>
                                         <TextBlock x:Name="SKlasseTxbk" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" TextTrimming="CharacterEllipsis" FontFamily="Segoe UI Semibold" FontSize="18" Foreground="{StaticResource MenuForeground}" Text="Klassenname - Sitzplanname"></TextBlock>
-                                        <Grid Grid.Column="0" Grid.ColumnSpan="7" Grid.Row="0">
-                                            <Grid HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 2 -4">
-                                                <Button x:Name="SZurückBtn" Uid="17" Width="47" Template="{StaticResource FlatContent}" Background="{StaticResource ContentButtonBackground}" Click="ÜSitzplanVersteckenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp">
+                                        <Grid Grid.Column="6" Grid.Row="0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="0.1*"></ColumnDefinition>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                                <Button x:Name="SZurückBtn" Uid="17" Template="{StaticResource FlatContent}" Background="{StaticResource ContentButtonBackground}" Click="ÜSitzplanVersteckenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp">
                                                     <Button.ToolTip>
                                                         <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12">Kehre zur Klassen-Übersicht zurück</ToolTip>
                                                     </Button.ToolTip>
@@ -665,9 +669,13 @@
                                                 </CheckBox.Resources>
                                             </CheckBox>
                                         </StackPanel>
-                                        <Grid Grid.Column="0" Grid.ColumnSpan="7" Grid.Row="4">
-                                            <Grid HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 2 2">
-                                                <Button x:Name="SExportBtn" Uid="18" Width="47" Template="{StaticResource FlatContent}" Background="{StaticResource ContentButtonBackground}" Click="SExportBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp">
+                                        <Grid Grid.Column="6" Grid.Row="4">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="0.1*"></ColumnDefinition>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                                <Button x:Name="SExportBtn" Uid="18" Template="{StaticResource FlatContent}" Background="{StaticResource ContentButtonBackground}" Click="SExportBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp">
                                                     <Button.ToolTip>
                                                         <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12">Exportiere diesen Sitzplan</ToolTip>
                                                     </Button.ToolTip>
@@ -1026,7 +1034,7 @@
                                             <materialDesign:PackIcon x:Name="ÜSitzplanVersteckenPkIco" HorizontalAlignment="Center" VerticalAlignment="Center" Kind="ArrowCollapseRight" Height="23" Width="23" Foreground="{StaticResource ContentButtonForeground}" IsHitTestVisible="False"></materialDesign:PackIcon>
                                         </Grid>
                                     </Grid>
-                                    <Grid x:Name="KlasseÜbersichtContentGrd" Visibility="Visible" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Width="{Binding ElementName=KlasseÜbersichtGrd, Path=Width}" HorizontalAlignment="Left" VerticalAlignment="Stretch" Background="{StaticResource ContentBackground}">
+                                    <Grid x:Name="KlasseÜbersichtContentGrd" Visibility="Hidden" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Width="{Binding ElementName=KlasseÜbersichtGrd, Path=Width}" HorizontalAlignment="Left" VerticalAlignment="Stretch" Background="{StaticResource ContentBackground}">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="1.35*"></ColumnDefinition>
                                             <ColumnDefinition Width="*"></ColumnDefinition>
