@@ -528,6 +528,8 @@ namespace ProjektSitzplan
             SperreFenster();
             isDragging = true;
 
+            Cursor = Cursors.Cross;
+
             ausgewählterPlatz = GetTB(sender);
             ausgewählterPlatz.Background = PSColors.ContentButtonPreviewBackground;
 
@@ -547,6 +549,7 @@ namespace ProjektSitzplan
             //TODO: Label in Sitzplan Übersicht da die Änderungen direkt live sind
 
             isDragging = false;
+            Cursor = Cursors.Arrow;
         }
 
         private void SitzplanPlatzTextblock_MouseEnter(object sender, MouseEventArgs e)
@@ -791,6 +794,8 @@ namespace ProjektSitzplan
 
         private void KlassenAktualisieren(bool voll = true)
         {
+            Cursor = Cursors.AppStarting;
+
             if (voll)
             {
                 DataHandler.LadeSchulKlassen();
@@ -817,6 +822,8 @@ namespace ProjektSitzplan
                 KeineKlassenGefundenStkPnl.Visibility = Visibility.Visible;
                 MenuKlasseExportierenBtn.IsEnabled = false;
             }
+
+            Cursor = Cursors.Arrow;
         }
 
         private void AktualisiereKESchülerDtGrd()
@@ -853,6 +860,14 @@ namespace ProjektSitzplan
         #endregion
 
         #region Window
+        private void MyMainWindow_Closing(object sender, CancelEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+            ShowInTaskbar = false;
+
+            DataHandler.SpeicherSchulKlassen();
+        }
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             if (DataHandler.HatKlassen())
@@ -865,7 +880,6 @@ namespace ProjektSitzplan
                 KeineKlassenGefundenStkPnl.Visibility = Visibility.Visible;
                 MenuKlasseExportierenBtn.IsEnabled = false;
             }
-
 
             MenuKlassenDtGrd.ItemsSource = DataHandler.SchulKlassen;
 
@@ -1582,6 +1596,8 @@ namespace ProjektSitzplan
             storyboard.Children.Add(animation);
 
             storyboard.Begin(KlasseÜbersichtContentGrd);
+
+            AusgewählteKlasse.SpeichernAsync();
         }
 
         private void Animation_Completed(object sender, EventArgs e)
@@ -1597,6 +1613,7 @@ namespace ProjektSitzplan
             ÜAusgewählterSitzplan.AlsPDFExportieren();
         }
         #endregion
+
         #endregion
     }
 }

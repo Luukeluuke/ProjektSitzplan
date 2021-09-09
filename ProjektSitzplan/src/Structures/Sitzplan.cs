@@ -448,8 +448,6 @@ namespace ProjektSitzplan.Structures
                 return true;
             }
 
-            //TODOD iwie sterben hier die schüler jetzt ka uff
-
             tisch1.SchülerEntfernen(sitzplatzIndex1);
             tisch2.SchülerEntfernen(sitzplatzIndex2);
 
