@@ -101,11 +101,9 @@
     <Compile Include="SitzplanGenerierenWindow.xaml.cs">
       <DependentUpon>SitzplanGenerierenWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="src\Structures\Betrieb.cs" />
     <Compile Include="src\Structures\Klasse.cs" />
     <Compile Include="src\Structures\Person.cs" />
     <Compile Include="src\Structures\Schüler.cs" />
-    <Compile Include="src\SchülerException.cs" />
     <Compile Include="src\Structures\Sitzplan.cs" />
     <Compile Include="src\Structures\TischBlock.cs" />
     <Compile Include="src\Utility.cs" />

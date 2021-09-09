@@ -1067,7 +1067,9 @@ namespace ProjektSitzplan
         #region KEUnitsImportBtn
         private void KECSVImportBtn_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: HIer die aktuelle klasse import dings sweer yisgnngj
+            KESchülerListe.AddRange(SchulKlasse.SchülerImportCSV());
+
+            AktualisiereKESchülerDtGrd();
         }
 
         private void KESchülerFelderLeeren()
@@ -1110,7 +1112,7 @@ namespace ProjektSitzplan
 
             bool verkürzt = KESchülerVerkürztCBx.IsChecked.Value;
 
-            Schüler neuerSchüler = new Schüler(new Person(vorname, nachname, geschlecht, beruf), new Betrieb(betrieb), verkürzt, keSchülerBild);
+            Schüler neuerSchüler = new Schüler(new Person(vorname, nachname, geschlecht, beruf), betrieb, verkürzt, keSchülerBild);
 
             if (KESchülerListe.Count >= SchulKlasse.MaxSchüler)
             {
@@ -1263,7 +1265,7 @@ namespace ProjektSitzplan
                             ÜSchülerNameLbl.Content = $"Bearbeite - {ÜAusgewählterSchüler.Vorname} {ÜAusgewählterSchüler.Nachname}";
                             ÜSchülerVornameTxbx.Text = ÜAusgewählterSchüler.Vorname;
                             ÜSchülerNachnameTxbx.Text = ÜAusgewählterSchüler.Nachname;
-                            ÜSchülerBetriebTxbx.Text = ÜAusgewählterSchüler.AusbildungsBetrieb.Name;
+                            ÜSchülerBetriebTxbx.Text = ÜAusgewählterSchüler.Betrieb;
                             ÜSchülerGeschlechtCb.SelectedIndex = (int)ÜAusgewählterSchüler.Geschlecht;
                             ÜSchülerBerufCb.SelectedIndex = (int)ÜAusgewählterSchüler.Beruf;
                             ÜSchülerVerkürztCBx.IsChecked = ÜAusgewählterSchüler.Verkuerzt;
@@ -1502,7 +1504,7 @@ namespace ProjektSitzplan
 
             schüler.Vorname = vorname;
             schüler.Nachname = nachname;
-            schüler.AusbildungsBetrieb.Name = betrieb;
+            schüler.Betrieb = betrieb;
             schüler.Geschlecht = geschlecht;
             schüler.Beruf = beruf;
             schüler.Verkuerzt = verkürzt;
@@ -1547,7 +1549,7 @@ namespace ProjektSitzplan
 
             bool verkürzt = ÜSchülerVerkürztCBx.IsChecked.Value;
 
-            Schüler neuerSchüler = new Schüler(new Person(vorname, nachname, geschlecht, beruf), new Betrieb(betrieb), verkürzt);
+            Schüler neuerSchüler = new Schüler(new Person(vorname, nachname, geschlecht, beruf), betrieb, verkürzt);
             neuerSchüler.Bild = schülerImg;
             schülerImg = null;
             ÜSchülerBildImg.Source = null;

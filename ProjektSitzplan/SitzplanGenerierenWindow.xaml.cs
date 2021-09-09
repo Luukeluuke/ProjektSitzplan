@@ -240,11 +240,10 @@ namespace ProjektSitzplan
         #region Buttons
         private void SGErstellenBtn_Click(object sender, RoutedEventArgs e)
         {
-            SchulBlock blockType = IsImStandardModus() ? SchulBlock.Custom : SchulBlock.Current;
-
-            Generator = new SitzplanGenerator(Klasse, null, tischAnzahl, null, SGBerufCBx.IsChecked.Value, SGBetriebCBx.IsChecked.Value, SGGeschlechtCBx.IsChecked.Value, blockType, tischPlatzVerteilung);
+            Generator = new SitzplanGenerator(Klasse, null, tischAnzahl, null, SGBerufCBx.IsChecked.Value, SGBetriebCBx.IsChecked.Value, SGGeschlechtCBx.IsChecked.Value, SchulBlock.Current, tischPlatzVerteilung);
 
             Erfolgreich = true;
+
             Close();
         }
 

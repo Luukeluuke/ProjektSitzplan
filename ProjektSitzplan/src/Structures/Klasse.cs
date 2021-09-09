@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using ProjektSitzplan.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using static ProjektSitzplan.PsMessageBox;
 
 namespace ProjektSitzplan.Structures
@@ -59,14 +59,10 @@ namespace ProjektSitzplan.Structures
         #region Sitzpläne
         public void SitzplanHinzufügen(Sitzplan sitzplan)
         {
-            if (sitzplan == null)
+            if (sitzplan == null || Sitzplaene.Any(s => s.Name.Equals(sitzplan.Name)))
             {
-                throw new SitzplanNullException(errorSchülerHinzufügen);
-            }
-
-            if (Sitzplaene.Any(s => s.Name.Equals(sitzplan.Name)))
-            {
-                throw new SitzplanInListeException(sitzplan, errorSitzplanHinzufügen);
+                //TODO: Fehlermeldung
+                //Der sitzplan konnte nicht hinzugefügt werden weil dieser entweder fehlerhafte erstellt wurde oder bereits einer mit diesem namen existiert! oder sowas in der art...
             }
 
             Sitzplaene.Add(sitzplan);
@@ -74,15 +70,12 @@ namespace ProjektSitzplan.Structures
 
         public void SitzplanEntfernen(Sitzplan sitzplan)
         {
-            if (sitzplan == null)
+            if (sitzplan == null || !Sitzplaene.Contains(sitzplan))
             {
-                throw new SitzplanNullException(errorSchülerEntfernen);
+                //TODO: Fehlermeldung
+                //Der sitzplan konnte nicht entfernt werden weil dieser bereits nicht meher existiert oder so...
             }
 
-            if (!Sitzplaene.Contains(sitzplan))
-            {
-                throw new SitzplanNichtInListeException(sitzplan, errorSitzplanEntfernen);
-            }
 
             Sitzplaene.Remove(sitzplan);
         }
@@ -147,14 +140,10 @@ namespace ProjektSitzplan.Structures
                 ErrorHandler.ZeigeFehler(ErrorHandler.ERR_MaxSchüler);
             }
 
-            if (schüler == null)
+            if (schüler == null || SchuelerListe.Any(s => s.UniqueId.Equals(schüler.UniqueId)))
             {
-                throw new SchülerNullException(errorSchülerHinzufügen);
-            }
-
-            if (SchuelerListe.Contains(schüler))
-            {
-                throw new SchülerInListeException(schüler, errorSchülerHinzufügen);
+                //TODO: Error message...
+                //Schüler ist wurde fehlerhaft geladen/erstellt oder ist bereits in der klasse vorhanden?
             }
 
             SchuelerListe.Add(schüler);
@@ -177,14 +166,10 @@ namespace ProjektSitzplan.Structures
 
         public void SchülerEntfernen(Schüler schüler)
         {
-            if (schüler == null)
+            if (schüler == null || !SchuelerListe.Contains(schüler))
             {
-                throw new SchülerNullException(errorSchülerEntfernen);
-            }
-
-            if (!SchuelerListe.Contains(schüler))
-            {
-                throw new SchülerNichtInListeException(schüler, errorSchülerEntfernen);
+                //TODO: Error message...
+                //Schüler nicht fehlerhaft oder gar nicht erst in der klasse...
             }
 
             SchuelerListe.Remove(schüler);
@@ -244,9 +229,63 @@ namespace ProjektSitzplan.Structures
         #endregion
 
         #region Import / Export
-        public void SchülerCSVImport()
+        public static List<Schüler> SchülerImportCSV()
         {
-            //TODO: Sweer yeye
+            List<Schüler> schüler = new List<Schüler>();
+
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Json files (*.json)|*.json";
+            openFileDialog.InitialDirectory = $@"{Environment.CurrentDirectory}\SchulKlassen";
+            if (!openFileDialog.ShowDialog().Equals(DialogResult.OK))
+            {
+                return schüler;
+            }
+
+            string[] zeilen = File.ReadAllLines(openFileDialog.FileName);
+
+            if (zeilen.Length <= 1)
+            {
+                //TODO: Fehler Message: zu wenig zeilen, csv falsches Format oder csv leer?
+                return schüler;
+            }
+
+            if (zeilen[0].Split(',').Length < 5)
+            {
+                //TODO: Fehler Message: zu wenig spalten, csv falsches Format
+                return schüler;
+            }
+
+            List<string> fehler = new List<string>();
+            for (int i = 1; i < zeilen.Length; i++)
+            {
+                string zeilenFehler;
+
+                Schüler neuerSchüeler = SchülerHelfer.SchülerAusCSVString(zeilen[i], out zeilenFehler);
+
+                if (schüler == null)
+                {
+                    fehler.Append(zeilenFehler);
+                }
+                else
+                {
+                    schüler.Append(neuerSchüeler);
+                }
+            }
+
+            //TODO: @Sweer diese fertig machen... mit schnike anzeige wo was kapput is lmao
+            return schüler;
+        }
+
+        //public string CSVString => $"{Vorname},{Nachname},{Beruf},{Betrieb},{Geschlecht}";
+        private static readonly string CSVHeader = "Vorname, Nachname, Beruf, Betrieb, Geschlecht";
+
+        public void SchülerExportCSV()
+        {
+            string pfad = $@"{Environment.CurrentDirectory}\SchulKlassen\{Name}.csv";
+            Directory.CreateDirectory(Path.GetDirectoryName(pfad));
+
+            string csvResult = $"{CSVHeader}\n{string.Join("\n", SchuelerListe.Select(schüler => schüler.CSVString).ToList())}";
+            File.WriteAllText(pfad, csvResult);
         }
 
         public void AlsDateiSpeichern(string pfad)
@@ -262,20 +301,22 @@ namespace ProjektSitzplan.Structures
         }
         public static SchulKlasse AusDateiLaden(FileInfo pfad)
         {
-            if (pfad.Exists)
+            if (!pfad.Exists)
             {
-                WarteBisDateiFreiIst(pfad);
-                
-                SchulKlasse klasse = AusJsonStringLaden(File.ReadAllText(pfad.FullName));
-
-                if (klasse == null)
-                {
-                    ErrorHandler.ZeigeFehler(ErrorHandler.ERR_JSON_KlasseLaden, pfad.FullName, "");
-                }
-
-                return klasse;
+                //TODO: Error Message
+                //klasse konnte nicht geladen werden da der pfad/ die datei nicht existiert
+                return null;
             }
-            throw new PfadNichtGefundenException(pfad.FullName, "Beim laden der Klasse ist ein Fehler aufgetreten!");
+            WarteBisDateiFreiIst(pfad);
+
+            SchulKlasse klasse = AusJsonStringLaden(File.ReadAllText(pfad.FullName));
+
+            if (klasse == null)
+            {
+                ErrorHandler.ZeigeFehler(ErrorHandler.ERR_JSON_KlasseLaden, pfad.FullName, "");
+            }
+
+            return klasse;
         }
 
         public static SchulKlasse AusJsonStringLaden(string json)

@@ -34,14 +34,43 @@ namespace ProjektSitzplan.Structures
 
             return null;
         }
+
+        public static Schüler SchülerAusCSVString(string csv, out string fehler)
+        {
+            //TODO: Bessere fehler dinger...
+            //Format Vorname,Nachname,Beruf,Betrieb,Geschlecht
+
+            string[] split = csv.Split(',').Select(s => s.Trim()).ToArray();
+
+            fehler = "";
+
+            if (split.Length < 5)
+            {
+                fehler = "Zu wenig Attribute";
+                return null;
+            }
+
+            Person.EGeschlecht geschlecht;
+            if (Enum.TryParse(split[4].Replace(" ", ""), true, out geschlecht))
+            {
+                fehler = "Kein valides Geschlecht";
+                return null;
+            }
+
+            Person.EBeruf beruf;
+            if (Enum.TryParse(split[2].Replace(" ", ""), true, out beruf))
+            {
+                fehler = "Kein valider Beruf";
+                return null;
+            }
+
+            return new Schüler(new Person(split[0], split[1], geschlecht, beruf), split[3]);
+        }
     }
 
     public class Schüler : Person
     {
-        public Betrieb AusbildungsBetrieb;
-
-        [JsonIgnore]
-        public string Betrieb => AusbildungsBetrieb.Name;
+        public string Betrieb;
 
         [JsonIgnore]
         public BitmapImage BildBitmap => GetBitmapBild();
@@ -53,16 +82,25 @@ namespace ProjektSitzplan.Structures
         [JsonIgnore]
         public Image Bild;
 
-        public Schüler(Person person, Betrieb ausbildungsBetrieb, bool verkuerzt = false, Image bild = null) : base(person)
+        [JsonConstructor]
+        public Schüler(string vorname, string nachname, EGeschlecht geschlecht, EBeruf beruf, string betrieb, bool verkürzt, byte[] bildBytes) : base(vorname, nachname, geschlecht, beruf)
         {
-            AusbildungsBetrieb = ausbildungsBetrieb;
+            Betrieb = betrieb;
+            Verkuerzt = verkürzt;
+
+            Bild = (bildBytes != null && bildBytes.Length > 0) ? BytesZuBild(bildBytes) : null;
+        }
+
+        public Schüler(Person person, string betrieb, bool verkuerzt = false, Image bild = null) : base(person)
+        {
+            Betrieb = betrieb;
             Verkuerzt = verkuerzt;
             Bild = bild;
         }
 
         public Schüler(Schüler schüler) : base(schüler)
         {
-            AusbildungsBetrieb = schüler.AusbildungsBetrieb;
+            Betrieb = schüler.Betrieb;
             Verkuerzt = schüler.Verkuerzt;
             Bild = schüler.Bild;
         }
@@ -142,18 +180,11 @@ namespace ProjektSitzplan.Structures
             }
         }
 
-        [JsonConstructor]
-        public Schüler(string vorname, string nachname, EGeschlecht geschlecht, EBeruf beruf, Betrieb ausbildungsBetrieb, bool verkürzt, byte[] bildBytes) : base(vorname, nachname, geschlecht, beruf)
-        {
-            AusbildungsBetrieb = ausbildungsBetrieb;
-            Verkuerzt = verkürzt;
-
-            Bild = (bildBytes != null && bildBytes.Length > 0) ? BytesZuBild(bildBytes) : null;
-        }
+        public string CSVString => $"{Vorname},{Nachname},{Beruf},{Betrieb},{Geschlecht}";
 
         public override string ToString()
         {
-            return $"{base.ToString()}, Betrieb: {AusbildungsBetrieb.Name}, Verkürzt: {Verkuerzt}";
+            return $"{base.ToString()}, Betrieb: {Betrieb}, Verkürzt: {Verkuerzt}";
         }
     }
 }

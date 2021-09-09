@@ -256,20 +256,30 @@ namespace ProjektSitzplan.Structures
             }
         }
 
-
+        [JsonIgnore]
+        private Random zufall = null;
+        [JsonIgnore]
+        private Random Zufall { get
+            {
+                if (zufall == null)
+                {
+                    zufall = new Random(Seed);
+                }
+                return zufall;
+            } 
+        }
 
         #region Generieren
-        public List<Schüler> Mischen(List<Schüler> originalListe)
+        public List<T> Mischen<T>(List<T> originalListe)
         {
-            List<Schüler> liste = originalListe.OrderBy(schüler => schüler.Nachname).ToList();
+            List<T> liste = new List<T>(originalListe);
             //Fisher-Yates shuffle https://en.wikipedia.org/wiki/Fisher–Yates_shuffle
-            Random rand = new Random(Seed);
             int n = liste.Count;
             while (n > 1)
             {
                 n--;
-                int randomInt = rand.Next(n + 1);
-                Schüler randomSchüler = liste[randomInt];
+                int randomInt = Zufall.Next(n + 1);
+                T randomSchüler = liste[randomInt];
                 liste[randomInt] = liste[n];
                 liste[n] = randomSchüler;
             }
@@ -291,27 +301,6 @@ namespace ProjektSitzplan.Structures
             return erfolg;
         }
 
-        private bool VerkürzerEntfernen()
-        {
-            if (BlockSitzplan.Equals(SchulBlock.Block6) && Schüler.Any(s => s.Verkuerzt))
-            {
-                List<Schüler> verkürzer = Schüler.FindAll(s => s.Verkuerzt);
-
-                new PsMessageBox("Achtung", $"Für den letzten Block wurden {verkürzer.Count} Schüler gefunden die verkürzen.\nBitte überprüfen Korrektheit überprüfen.\nBeim Generieren des Sitzplans werden nicht berücksichtigt.\nLinks sind die Verkürzer, rechts die Nicht Verkürzer.", PsMessageBox.EPsMessageBoxButtons.OK).ShowDialog();
-                SchülerAuswahlDialog auswahlDialog = new SchülerAuswahlDialog("Verkürzer", verkürzer, true, "Verkürzer", "Nicht Verkürzer");
-
-                auswahlDialog.ShowDialog();
-
-                if (auswahlDialog.Canceled)
-                {
-                    return false;
-                }
-
-                Schüler = Schüler.Except(auswahlDialog.Ausgewählt).ToList();
-            }
-            return true;
-        }
-
         private bool Generieren()
         {
             if (!VerkürzerEntfernen())
@@ -327,14 +316,9 @@ namespace ProjektSitzplan.Structures
                 Tische[tischPlatz.Key] = new TischBlock(tischPlatz.Value);
             }
 
-            for (int tischCount = 0; GemischteSchülerListe.Count > 0; tischCount++)
+            while (GemischteSchülerListe.Count > 0)
             {
-                if (tischCount > Tische.Length - 1)
-                {
-                    tischCount = 0;
-                }
-
-                TischBlock tisch = NächsterFreierTisch(tischCount);
+                TischBlock tisch = NächsterFreierRandomTisch();
                 if (tisch == null)
                 {
                     ErrorHandler.ZeigeFehler(ErrorHandler.ERR_GEN_ZuWenigFreiePlätze);
@@ -363,24 +347,36 @@ namespace ProjektSitzplan.Structures
             return true;
         }
 
-        private TischBlock NächsterFreierTisch(int startIndex)
-        {
-            TischBlock tisch = null;
-            for (int i = 0; i < TischAnzahl; i++, startIndex++)
+        #region Random Tisch
+        [JsonIgnore]
+        private List<int> randomTischIndexListe = null;
+        [JsonIgnore]
+        private List<int> RandomTischIndexListe { get
             {
-                if (startIndex >= TischAnzahl) 
-                    startIndex = 0;
+                if (randomTischIndexListe == null || randomTischIndexListe.Count == 0)
+                    randomTischIndexListe = Enumerable.Range(0, TischAnzahl).ToList();
+                return randomTischIndexListe;
+            } 
+        }
+        private TischBlock NächsterFreierRandomTisch()
+        {
+            
 
-                tisch = Tische[startIndex];
+            for (int i = 0; i < TischAnzahl; i++)
+            {
+                int randomTischIndex = RandomTischIndexListe[Zufall.Next(0, RandomTischIndexListe.Count)];
+                RandomTischIndexListe.Remove(randomTischIndex);
+
+                TischBlock tisch = Tische[randomTischIndex];
                 if (!tisch.IstVoll())
                     return tisch;
             }
-            return tisch;
+            return null;
         }
+        #endregion
 
         private Schüler WähleGeeignetenSchüler(TischBlock tisch, List<Schüler> gemischteSchüler)
         {
-            Random rand = new Random(Seed);
             Schüler höchsterSchüler = gemischteSchüler[0];
             int höchstePunkte = BerechneSchülerpunkte(tisch, höchsterSchüler);
             for (int i = 1; i < gemischteSchüler.Count; i++)
@@ -394,7 +390,7 @@ namespace ProjektSitzplan.Structures
                     höchsterSchüler = aktuellerSchüler;
                 }
                 // Zusätzlicher Zufallsfaktor
-                else if (schülerpunkte == höchstePunkte && rand.Next(0, 2) == 1)
+                else if (schülerpunkte == höchstePunkte && Zufall.Next(0, 2) == 1)
                 {
                     höchsterSchüler = aktuellerSchüler;
                 }
@@ -408,7 +404,7 @@ namespace ProjektSitzplan.Structures
             int punkte = 0;
 
             if (BeruecksichtigeBetrieb)
-                punkte += tisch.Sitzplätze.Any(sitzplatz => sitzplatz.Value != null && sitzplatz.Value.AusbildungsBetrieb.Name.Equals(schüler.AusbildungsBetrieb.Name, StringComparison.OrdinalIgnoreCase)) ? -1 : 1;
+                punkte += tisch.Sitzplätze.Any(sitzplatz => sitzplatz.Value != null && sitzplatz.Value.Betrieb.Equals(schüler.Betrieb, StringComparison.OrdinalIgnoreCase)) ? -1 : 1;
             if (BeruecksichtigeBeruf)
                 punkte += tisch.Sitzplätze.Any(sitzplatz => sitzplatz.Value != null && sitzplatz.Value.Beruf == schüler.Beruf) ? -1 : 1;
             if (BeruecksichtigeGeschlecht)
@@ -416,6 +412,29 @@ namespace ProjektSitzplan.Structures
 
             return punkte;
         }
+
+
+        private bool VerkürzerEntfernen()
+        {
+            if (BlockSitzplan.Equals(SchulBlock.Block6) && Schüler.Any(s => s.Verkuerzt))
+            {
+                List<Schüler> verkürzer = Schüler.FindAll(s => s.Verkuerzt);
+
+                new PsMessageBox("Achtung", $"Für den letzten Block wurden {verkürzer.Count} Schüler gefunden die verkürzen.\nBitte überprüfen Korrektheit überprüfen.\nBeim Generieren des Sitzplans werden nicht berücksichtigt.\nLinks sind die Verkürzer, rechts die Nicht Verkürzer.", PsMessageBox.EPsMessageBoxButtons.OK).ShowDialog();
+                SchülerAuswahlDialog auswahlDialog = new SchülerAuswahlDialog("Verkürzer", verkürzer, true, "Verkürzer", "Nicht Verkürzer");
+
+                auswahlDialog.ShowDialog();
+
+                if (auswahlDialog.Canceled)
+                {
+                    return false;
+                }
+
+                Schüler = Schüler.Except(auswahlDialog.Ausgewählt).ToList();
+            }
+            return true;
+        }
+
         #endregion
 
 
@@ -464,7 +483,7 @@ namespace ProjektSitzplan.Structures
         {
             //Speicher dialog für pfad
             SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "PDF files (*.pdf)|*.pdf";
+            saveFileDialog.Filter = "HTML files (*.html)|*.html";//TODO put this pdf when pdf is included... "PDF files (*.pdf)|*.pdf";
             saveFileDialog.FileName = $"{Name}.pdf";
             saveFileDialog.DefaultExt = ".pdf";
             saveFileDialog.InitialDirectory = $@"{Environment.CurrentDirectory}\SchulKlassen";
