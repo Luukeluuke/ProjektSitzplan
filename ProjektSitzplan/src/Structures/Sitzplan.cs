@@ -256,20 +256,22 @@ namespace ProjektSitzplan.Structures
             }
         }
 
+        #region Generieren
         [JsonIgnore]
         private Random zufall = null;
         [JsonIgnore]
-        private Random Zufall { get
+        private Random Zufall
+        {
+            get
             {
                 if (zufall == null)
                 {
                     zufall = new Random(Seed);
                 }
                 return zufall;
-            } 
+            }
         }
 
-        #region Generieren
         public List<T> Mischen<T>(List<T> originalListe)
         {
             List<T> liste = new List<T>(originalListe);
@@ -438,7 +440,15 @@ namespace ProjektSitzplan.Structures
         #endregion
 
 
+        public void SchülerEntfernen(Schüler schüler)
+        {
+            Schüler.Remove(schüler);
 
+            foreach (TischBlock tisch in Tische)
+            {
+                tisch.SchülerEntfernen(schüler);
+            }
+        }
 
         public bool HatSchüler(Schüler schüler)
         {
@@ -627,7 +637,6 @@ namespace ProjektSitzplan.Structures
 
 
             return pfad;
-
         }
     }
 }

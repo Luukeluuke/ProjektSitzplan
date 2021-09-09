@@ -103,7 +103,8 @@ namespace ProjektSitzplan
                 {
                     if (sitzplatzIndex >= tisch.MaxSchueler)
                     {
-                        tischLabel[sitzplatzIndex].IsEnabled = false; //TODO: geht das?
+                        tischLabel[sitzplatzIndex].IsEnabled = false;
+                        tischLabel[sitzplatzIndex].Background = PSColors.ContentControlBorder;
                     }
                     else
                     {
@@ -308,7 +309,6 @@ namespace ProjektSitzplan
             //TODO: Aktualisieren splitten? also so dass man im normal fall so die sachen intern einmal neu läd aber nicht immer unbedingt die datein komplett neu laden muss nur bei F5 vielleicht?
 
             //TODO: WFT reload bug... klasse löschen -> und F5 geht ned mehr bis man neu eintabt...?
-            //TODO: bilder tooltips...?
             //TODO: Fancy check um sitzplan mit anderen zu vergleichen dinsgs...
 
             //TODO: Sitzplan generierung randomer machen wegen z.b. weibliche personen yk
@@ -945,7 +945,8 @@ namespace ProjektSitzplan
                 ÜSitzplanAnzeigen1Lbl,
                 ÜSchülerBearbeitenErstellenLbl,
                 SZurückLbl,
-                SExportLbl
+                SExportLbl,
+                SNeuGenerierenLbl
             };
             ContentPackIconsSets = new PackIconSet[]
             {
@@ -967,7 +968,8 @@ namespace ProjektSitzplan
                 new PackIconSet(ÜSitzplanAnzeigen1PckIco, PackIconSet.EIconType.Content, PSColors.ContentHoverForeground, PSColors.ContentButtonPreviewForeground),
                 new PackIconSet(ÜSchülerBearbeitenErstellenPckIco, PackIconSet.EIconType.Content, PSColors.IconHoverGreen, PSColors.IconPreviewGreen),
                 null,
-                null //18
+                null, 
+                new PackIconSet(SNeuGenerierenPckIco, PackIconSet.EIconType.Content, PSColors.ContentHoverForeground, PSColors.ContentButtonPreviewForeground)//19
             };
 
             isLoading = false;
@@ -1638,6 +1640,11 @@ namespace ProjektSitzplan
             animation.Completed += Animation_Completed;
             storyboard.Children.Add(animation);
 
+            foreach (Border tisch in Tische)
+            {
+                tisch.Visibility = Visibility.Hidden;
+            }
+
             storyboard.Begin(KlasseÜbersichtContentGrd);
 
             AusgewählteKlasse.SpeichernAsync();
@@ -1654,6 +1661,15 @@ namespace ProjektSitzplan
         private void SExportBtn_Click(object sender, RoutedEventArgs e)
         {
             ÜAusgewählterSitzplan.AlsPDFExportieren();
+        }
+        #endregion
+
+        #region SNeuGenerierenBtn
+        private void SNeuGenerierenBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ÜAusgewählterSitzplan.NeuGenerieren(AusgewählteKlasse.SchuelerListe);
+
+            SetzeSchüler(SBerufCBx.IsChecked.Value, SBetriebCBx.IsChecked.Value, SGeschlechtCBx.IsChecked.Value);
         }
         #endregion
         #endregion

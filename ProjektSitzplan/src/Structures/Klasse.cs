@@ -178,7 +178,7 @@ namespace ProjektSitzplan.Structures
 
             foreach (Sitzplan sitzplan in Sitzplaene)
             {
-                string text = $"{schüler.Nachname}, {schüler.Vorname} wurde entfernt, er ist in Sitzplan-{sitzplan.Name} enthalten. Soll dieser neu generiert werden?";
+                string text = $"{schüler.Nachname}, {schüler.Vorname} wurde entfernt, er ist in Sitzplan-{sitzplan.Name} enthalten. Soll dieser neu generiert werden?\nAnsonsten ist er futsch.";
 
                 PsMessageBox dialog = new PsMessageBox("Achtung", text, EPsMessageBoxButtons.YesNo);
                 dialog.ShowDialog();
@@ -186,6 +186,10 @@ namespace ProjektSitzplan.Structures
                 if (dialog.Result.Equals(EPsMessageBoxResult.Yes))
                 {
                     sitzplan.NeuGenerieren(SchuelerListe);
+                }
+                else
+                {
+                    sitzplan.SchülerEntfernen(schüler);
                 }
             }
 

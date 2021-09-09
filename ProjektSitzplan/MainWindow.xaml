@@ -643,7 +643,7 @@
                                                 <ColumnDefinition Width="*"></ColumnDefinition>
                                             </Grid.ColumnDefinitions>
                                             <Grid Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                                                <Button x:Name="SZurückBtn" Uid="17" Template="{StaticResource FlatContent}" Background="{StaticResource ContentButtonBackground}" Click="ÜSitzplanVersteckenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp">
+                                                <Button x:Name="SZurückBtn" Uid="17" Template="{StaticResource FlatContent}" Background="{StaticResource ContentButtonBackground}" Click="ÜSitzplanVersteckenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp" materialDesign:RippleAssist.IsDisabled="True">
                                                     <Button.ToolTip>
                                                         <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12">Kehre zur Klassen-Übersicht zurück</ToolTip>
                                                     </Button.ToolTip>
@@ -673,13 +673,31 @@
                                                 </CheckBox.Resources>
                                             </CheckBox>
                                         </StackPanel>
+                                        <Grid Grid.Column="5" Grid.Row="5">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="0.4*"></ColumnDefinition>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                                <ColumnDefinition Width="0.4*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid Grid.Column="1" Grid.Row="0">
+                                                <Button x:Name="SNeuGenerierenBtn" Uid="19" Template="{StaticResource FlatContent}" Background="{StaticResource ContentButtonBackground}" Click="SNeuGenerierenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp" materialDesign:RippleAssist.IsDisabled="True">
+                                                    <Button.ToolTip>
+                                                        <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12">Generiere diesen Sitzplan neu</ToolTip>
+                                                    </Button.ToolTip>
+                                                </Button>
+                                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5 0 0 0" Orientation="Horizontal">
+                                                    <Label x:Name="SNeuGenerierenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Neu Generieren" Foreground="{StaticResource ContentButtonForeground}" FontSize="12" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"></Label>
+                                                    <materialDesign:PackIcon x:Name="SNeuGenerierenPckIco" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource ContentButtonForeground}" Kind="Refresh" Height="20" Width="20" IsHitTestVisible="False"></materialDesign:PackIcon>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Grid>
                                         <Grid Grid.Column="6" Grid.Row="4">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="0.1*"></ColumnDefinition>
                                                 <ColumnDefinition Width="*"></ColumnDefinition>
                                             </Grid.ColumnDefinitions>
                                             <Grid Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                                                <Button x:Name="SExportBtn" Uid="18" Template="{StaticResource FlatContent}" Background="{StaticResource ContentButtonBackground}" Click="SExportBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp">
+                                                <Button x:Name="SExportBtn" Uid="18" Template="{StaticResource FlatContent}" Background="{StaticResource ContentButtonBackground}" Click="SExportBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp" materialDesign:RippleAssist.IsDisabled="True">
                                                     <Button.ToolTip>
                                                         <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12">Exportiere diesen Sitzplan</ToolTip>
                                                     </Button.ToolTip>
