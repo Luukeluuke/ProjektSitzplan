@@ -11,7 +11,8 @@
         WindowStyle="None" ResizeMode="CanResize" AllowsTransparency="True"
         Loaded="Window_Loaded"
         x:Name="MyMainWindow"
-        MouseUp="MyMainWindow_MouseUp" MouseLeave="MyMainWindow_MouseLeave">
+        MouseUp="MyMainWindow_MouseUp" MouseLeave="MyMainWindow_MouseLeave"
+        Closing="MyMainWindow_Closing">
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="32"></WindowChrome>
     </WindowChrome.WindowChrome>
@@ -299,7 +300,7 @@
                     <Border Grid.Column="0" Grid.Row="1" BorderThickness="0 1 0 1" BorderBrush="{StaticResource TransitionStart}">
                         <Border BorderThickness="1" BorderBrush="{StaticResource TransitionEnd}" Background="{StaticResource ContentBackground}">
                             <Grid Margin="4">
-                                <Grid x:Name="KlasseHinzufügenGrd" Visibility="Visible">
+                                <Grid x:Name="KlasseHinzufügenGrd" Visibility="Hidden">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="1.25*"></ColumnDefinition>
                                         <ColumnDefinition Width="*"></ColumnDefinition>
@@ -650,7 +651,7 @@
                                                 <Label x:Name="SZurückLbl" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Zurück" Foreground="{StaticResource ContentButtonForeground}" FontSize="12" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"></Label>
                                             </Grid>
                                         </Grid>
-                                        <TextBlock Text="Schüler können per Drag 'n Drop umgesetzt werden" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="0" TextTrimming="CharacterEllipsis" TextAlignment="Left" Foreground="{StaticResource ContentForeground}" FontFamily="Segoe UI Semibold" FontSize="13" VerticalAlignment="Top"></TextBlock>
+                                        <TextBlock Text="Schüler können per Drag 'n Drop umgesetzt werden&#10;" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="0" TextTrimming="CharacterEllipsis" TextAlignment="Left" Foreground="{StaticResource ContentForeground}" FontFamily="Segoe UI Semibold" FontSize="13" VerticalAlignment="Top"></TextBlock>
                                         <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="4">
                                             <TextBlock Text="Anzeigen:" Visibility="Visible" TextTrimming="CharacterEllipsis" TextAlignment="Left" Foreground="{StaticResource ContentForeground}" FontFamily="Segoe UI Semibold" FontSize="13" VerticalAlignment="Center"></TextBlock>
                                             <CheckBox x:Name="SBerufCBx" Content="Beruf" IsChecked="True" Margin="5 0 0 0" FontFamily="Segoe UI Semibold" FontSize="13" Foreground="{StaticResource ContentForeground}" Click="SAnzeigenCBx_Checked">
@@ -1069,7 +1070,7 @@
                                                         <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="15" Foreground="{StaticResource ContentTitleForeground}" Content="Schüler"></Label>
                                                         <Border Grid.Column="0" Grid.Row="1" BorderBrush="{StaticResource ContentControlBorder}" BorderThickness="2">
                                                             <Grid>
-                                                                <DataGrid x:Name="ÜSchülerDtGrd" DataContext="{Binding AusgewählteKlasse.SchülerListe}" BorderBrush="{StaticResource ContentControlBorder}" Background="{x:Null}" Foreground="{StaticResource ContentForeground}" FontFamily="Segoe UI Semibold" CanUserDeleteRows="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserResizeColumns="True" CanUserResizeRows="False" CanUserSortColumns="True" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding ÜAusgewählterSchüler}" HorizontalScrollBarVisibility="Auto" SelectedCellsChanged="ÜSchülerDtGrd_SelectedCellsChanged">
+                                                                <DataGrid x:Name="ÜSchülerDtGrd" DataContext="{Binding AusgewählteKlasse.SchuelerListe}" BorderBrush="{StaticResource ContentControlBorder}" Background="{x:Null}" Foreground="{StaticResource ContentForeground}" FontFamily="Segoe UI Semibold" CanUserDeleteRows="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserResizeColumns="True" CanUserResizeRows="False" CanUserSortColumns="True" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding ÜAusgewählterSchüler}" HorizontalScrollBarVisibility="Auto" SelectedCellsChanged="ÜSchülerDtGrd_SelectedCellsChanged">
                                                                     <DataGrid.Columns>
                                                                         <DataGridTextColumn Header="Nachname" Binding="{Binding Nachname}"></DataGridTextColumn>
                                                                         <DataGridTextColumn Header="Vorname" Binding="{Binding Vorname}"></DataGridTextColumn>
