@@ -303,10 +303,20 @@ namespace ProjektSitzplan
 
         public MainWindow()
         {
-            //TODO: Fix data grid selection bug
-            //TODO: Bei allen Datagrids den fix einbauen, dass man überall hinclicken kann
+            /*
 
-            //TODO: Fancy check um sitzplan mit anderen zu vergleichen dinsgs...
+            TODO: Fix data grid selection bug
+            TODO: Bei allen Datagrids den fix einbauen, dass man überall hinclicken kann
+            
+            TODO: Fancy check um sitzplan mit anderen zu vergleichen dinsgs...
+            
+
+            @Luca
+            TODO: "Betriebe" werden in datagrids nicht richtig angezeigt...
+            TODO: Update Bug. Wenn man ne neue klasse erstellt und dann nochmal eine erstellt sind die alten schüler immer noch da drin vom vorherigen erstellvorgang
+                sobald man aber einen löscht oder was bearbetiet verschwinden die wieder... also nur n anzeigefehler
+
+            */
 
             InitializeComponent();
 

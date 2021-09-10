@@ -240,7 +240,7 @@ namespace ProjektSitzplan.Structures
             List<Schüler> schüler = new List<Schüler>();
 
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Json files (*.json)|*.json";
+            openFileDialog.Filter = "CSV files (*.csv)|*.csv";
             openFileDialog.InitialDirectory = $@"{Environment.CurrentDirectory}\SchulKlassen";
             if (!openFileDialog.ShowDialog().Equals(DialogResult.OK))
             {
@@ -252,33 +252,71 @@ namespace ProjektSitzplan.Structures
             if (zeilen.Length <= 1)
             {
                 //TODO: Fehler Message: zu wenig zeilen, csv falsches Format oder csv leer?
+                ErrorHandler.ZeigeFehler(ErrorHandler.TEMP_CSV_ERROR + "\n\nleer/keine zeilen");
                 return schüler;
             }
 
-            if (zeilen[0].Split(',').Length < 5)
+            //Format Vorname,Nachname,Beruf,Betrieb,Geschlecht
+            Dictionary<string, int> anordnung = new Dictionary<string, int>();
+
+            string[] spalten = zeilen[0].Split(',');
+
+            List<string> benötigteSpalten = new List<string>{ "vorname", "nachname", "beruf", "betrieb", "geschlecht"};
+
+            for (int i = 0; i < spalten.Length; i++ )
             {
-                //TODO: Fehler Message: zu wenig spalten, csv falsches Format
+                string spaltenName = spalten[i].Trim().ToLowerInvariant();
+                if (benötigteSpalten.Contains(spaltenName))
+                {
+                    anordnung[spaltenName] = i;
+                    benötigteSpalten.Remove(spaltenName);
+                }
+            }
+
+            if (benötigteSpalten.Count > 0)
+            {
+                //TODO Fehler meldung:
+                //Nicht alle notwendigen spalten vorhaden
+                ErrorHandler.ZeigeFehler(ErrorHandler.TEMP_CSV_ERROR + $"\n\nDiese spalten fehlen: {string.Join(",", benötigteSpalten)}");
                 return schüler;
             }
 
-            List<string> fehler = new List<string>();
+            Dictionary<int, string> importFehler = new Dictionary<int, string>();
             for (int i = 1; i < zeilen.Length; i++)
             {
                 string zeilenFehler;
 
-                Schüler neuerSchüeler = SchülerHelfer.SchülerAusCSVString(zeilen[i], out zeilenFehler);
+                Schüler neuerSchüeler = SchülerCSVParser.SchülerAusCSVString(zeilen[i], anordnung, out zeilenFehler);
 
-                if (schüler == null)
+                if (neuerSchüeler == null)
                 {
-                    fehler.Append(zeilenFehler);
+                    importFehler[i] = zeilenFehler;
                 }
                 else
                 {
-                    schüler.Append(neuerSchüeler);
+                    schüler.Add(neuerSchüeler);
                 }
             }
 
-            //TODO: @Sweer diese fertig machen... mit schnike anzeige wo was kapput is lmao
+            if (importFehler.Count > 0)
+            {
+                StringBuilder builder = new StringBuilder();
+
+                builder.Append($"{importFehler.Count} gefundene fehler in der CSV datei.\n");
+            
+                foreach(string fehler in importFehler.Values.Distinct())
+                {
+                    builder.Append($"\n{fehler} : {importFehler.Values.Count(f => f.Equals(fehler))} mal.");
+                }
+
+                ErrorHandler.ZeigeFehler(builder.ToString());
+
+                //TODO: Behandlung der fehler...
+
+
+            }
+
+            //import erfolgreich :D yay
             return schüler;
         }
 

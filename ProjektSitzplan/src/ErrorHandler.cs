@@ -29,6 +29,9 @@
         public static readonly string ERR_GEN_ZuWenigFreiePlätze = "Es gab nicht genügend freie Sitzplätze für alle Schüler. Die überigen müssen leider stehen.";
         #endregion
 
+        #region CSV
+        public static readonly string TEMP_CSV_ERROR = "CSV Fehler... die fehlermeldung muss noch angepasst werden bzw es soll verschiedene geben aber wahr noch zu faul die zu erstellen :D";
+        #endregion
 
         #region Schüler Hinzufügen
         public static readonly string ERR_SH_PflichtfelderNichtAusgefüllt = "Der Schüler konnte nicht erstellt werden.\nEs sind nicht alle Pflichtfelder ausgefüllt.";

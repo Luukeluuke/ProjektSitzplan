@@ -9,6 +9,44 @@ using System.Windows.Media.Imaging;
 
 namespace ProjektSitzplan.Structures
 {
+    public static class SchülerCSVParser
+    {
+        public static Schüler SchülerAusCSVString(string csv, Dictionary<string, int> anordnung, out string fehler)
+        {   
+            string[] split = csv.Split(',').Select(s => s.Trim()).ToArray();
+
+            fehler = "Keiner";
+
+            if (split.Length < 5)
+            {
+                fehler = "Der Schüler hat nicht alle benötigten Attribute.";
+                return null;
+            }
+
+            if (split.Any(s => string.IsNullOrWhiteSpace(s)))
+            {
+                fehler = "Ein oder mehrere Attribute fehlen oder sind leer.";
+                return null;
+            }
+
+            Person.EGeschlecht geschlecht;
+            if (!Enum.TryParse(split[anordnung["geschlecht"]].Replace(" ", ""), true, out geschlecht))
+            {
+                fehler = "Das Geschlecht konnte nicht bestimmt werden.";//todo: bessere fehlernachricht hierfür lmao..
+                return null;
+            }
+
+            Person.EBeruf beruf;
+            if (!Enum.TryParse(split[anordnung["beruf"]].Replace(" ", ""), true, out beruf))
+            {
+                fehler = "Die Berufsbezeichnung ist inkorrekt.";
+                return null;
+            }
+
+            return new Schüler(new Person(split[anordnung["vorname"]], split[anordnung["nachname"]], geschlecht, beruf), split[anordnung["betrieb"]]);
+        }
+    }
+
     public static class SchülerHelfer
     {
         public static Schüler SchülerViaId(List<Schüler> schülerList, string id)
@@ -33,38 +71,6 @@ namespace ProjektSitzplan.Structures
             }
 
             return null;
-        }
-
-        public static Schüler SchülerAusCSVString(string csv, out string fehler)
-        {
-            //TODO: Bessere fehler dinger...
-            //Format Vorname,Nachname,Beruf,Betrieb,Geschlecht
-
-            string[] split = csv.Split(',').Select(s => s.Trim()).ToArray();
-
-            fehler = "";
-
-            if (split.Length < 5)
-            {
-                fehler = "Zu wenig Attribute";
-                return null;
-            }
-
-            Person.EGeschlecht geschlecht;
-            if (Enum.TryParse(split[4].Replace(" ", ""), true, out geschlecht))
-            {
-                fehler = "Kein valides Geschlecht";
-                return null;
-            }
-
-            Person.EBeruf beruf;
-            if (Enum.TryParse(split[2].Replace(" ", ""), true, out beruf))
-            {
-                fehler = "Kein valider Beruf";
-                return null;
-            }
-
-            return new Schüler(new Person(split[0], split[1], geschlecht, beruf), split[3]);
         }
     }
 
