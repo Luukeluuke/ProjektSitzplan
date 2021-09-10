@@ -22,9 +22,6 @@ namespace ProjektSitzplan
 
         public SchulKlasse Klasse { get; private set; }
 
-        //TODO: Beim aktivieren der erweiterten einstellungen sollte eine meldung ausgegeben werden was das genau heißt
-
-
         #region Constructor
         public SitzplanGenerierenWindow(SchulKlasse klasse)
         {
@@ -108,8 +105,8 @@ namespace ProjektSitzplan
             ContentPackIconsSets = new PackIconSet[] {
                 new PackIconSet(SGAbbrechenPckIco, PackIconSet.EIconType.Content, PSColors.IconHoverRed, PSColors.IconPreviewRed),
                 new PackIconSet(SGErstellenPckIco, PackIconSet.EIconType.Content, PSColors.IconHoverGreen, PSColors.IconPreviewGreen),
-                
-                
+
+
                 new PackIconSet(SGTischPlusPckIco, PackIconSet.EIconType.Content, PSColors.ContentButtonHoverForeground, PSColors.ContentButtonPreviewForeground),
                 new PackIconSet(SGTischMinusPckIco, PackIconSet.EIconType.Content, PSColors.ContentButtonHoverForeground, PSColors.ContentButtonPreviewForeground),
 
@@ -227,7 +224,7 @@ namespace ProjektSitzplan
             SGTisch5PlusBtn.IsEnabled = tischPlatzVerteilung[4] < maxPlätze;
             SGTisch6PlusBtn.IsEnabled = tischPlatzVerteilung[5] < maxPlätze;
 
-            Height = IsImStandardModus() ? 240 : 240 + ((tischAnzahl-1) * 30);
+            Height = IsImStandardModus() ? 240 : 240 + ((tischAnzahl - 1) * 30);
         }
 
         public bool IsImStandardModus()

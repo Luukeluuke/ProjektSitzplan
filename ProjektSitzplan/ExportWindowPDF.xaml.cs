@@ -1,5 +1,4 @@
-﻿using Microsoft.Win32;
-using ProjektSitzplan.Design;
+﻿using ProjektSitzplan.Design;
 using ProjektSitzplan.Structures;
 using System;
 using System.Collections.Generic;

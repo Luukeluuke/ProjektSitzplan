@@ -82,8 +82,6 @@ namespace ProjektSitzplan
 
             EXGefundenKlassenDtGrd.ItemsSource = GefundeneKlassen;
         }
-
-        //TODO: constructor mit schulklasse schon drin?
         #endregion
 
         #region General Events

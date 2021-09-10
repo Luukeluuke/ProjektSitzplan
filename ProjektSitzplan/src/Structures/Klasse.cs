@@ -53,7 +53,7 @@ namespace ProjektSitzplan.Structures
             }
         }
 
-        public SchulKlasse(SchulKlasse klasse) : this (klasse.Name, new List<Schüler>(klasse.SchuelerListe), new List<Sitzplan>(klasse.Sitzplaene)) { }
+        public SchulKlasse(SchulKlasse klasse) : this(klasse.Name, new List<Schüler>(klasse.SchuelerListe), new List<Sitzplan>(klasse.Sitzplaene)) { }
         #endregion
 
         #region Public Methods
@@ -338,7 +338,6 @@ namespace ProjektSitzplan.Structures
             return null;
         }
 
-        //TODO: Test if this works finde lmao
         public async Task SpeichernAsync()
         {
             await Task.Run(() => DataHandler.SpeicherSchulKlasse(this));

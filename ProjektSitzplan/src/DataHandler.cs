@@ -3,8 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Threading;
 
 namespace ProjektSitzplan
 {
@@ -58,7 +56,7 @@ namespace ProjektSitzplan
                 File.Delete(HohleSchulKlassenPfad(klasse));
             }
         }
-        
+
         public static string HohleSchulKlassenPfad(SchulKlasse klasse)
         {
             if (klasse == null)
@@ -123,7 +121,7 @@ namespace ProjektSitzplan
             SchulKlassen.Add(klasse);
         }
 
-        
+
         #endregion
     }
 }

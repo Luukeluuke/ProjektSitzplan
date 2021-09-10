@@ -12,8 +12,8 @@ namespace ProjektSitzplan.Structures
         [JsonIgnore]
         Dictionary<int, string> SchülerIds = null;
 
-        public Dictionary<int, string> ShortSchueler => Sitzplätze.ToDictionary(k=>k.Key, k => (k.Value != null) ? k.Value.UniqueId : null);
-        
+        public Dictionary<int, string> ShortSchueler => Sitzplätze.ToDictionary(k => k.Key, k => (k.Value != null) ? k.Value.UniqueId : null);
+
         public int MaxSchueler { get; private set; } = 8;
 
         [JsonConstructor]
@@ -23,7 +23,7 @@ namespace ProjektSitzplan.Structures
             MaxSchueler = maxSchueler;
         }
 
-        public TischBlock(int maxSchüler = 8) 
+        public TischBlock(int maxSchüler = 8)
         {
             MaxSchueler = maxSchüler;
 
@@ -66,7 +66,8 @@ namespace ProjektSitzplan.Structures
             if (Sitzplätze.ContainsValue(schüler))
             {
                 return Sitzplätze.First(map => map.Value.Equals(schüler)).Key; //TODO: Hier kommt ein Fehler wenn man schnell schüler entfernt und man dabei die sitzpläne auch nicht neu generiert
-            } return -1;
+            }
+            return -1;
         }
 
         public bool IstVoll()
@@ -91,7 +92,7 @@ namespace ProjektSitzplan.Structures
             }
 
             int i = 0;
-            while(Sitzplätze[i] != null)
+            while (Sitzplätze[i] != null)
             {
                 i++;
             }

@@ -210,7 +210,7 @@ namespace ProjektSitzplan.Structures
         /// JSON Constructor | Dieser constructor sollte nur für das laden von json objekten genutzt werden!
         /// </summary>
         [JsonConstructor]
-        public Sitzplan(string name, int tischAnzahl, List<string> shortSchueler, TischBlock[] tische, SchulBlock blockSitzplan, bool beruecksichtigeBeruf, bool beruecksichtigeBetrieb, bool beruecksichtigeGeschlecht, int seed, Dictionary<int,int> tischPlatzVerteilung)
+        public Sitzplan(string name, int tischAnzahl, List<string> shortSchueler, TischBlock[] tische, SchulBlock blockSitzplan, bool beruecksichtigeBeruf, bool beruecksichtigeBetrieb, bool beruecksichtigeGeschlecht, int seed, Dictionary<int, int> tischPlatzVerteilung)
         {
             Name = name;
             TischAnzahl = tischAnzahl;
@@ -353,16 +353,18 @@ namespace ProjektSitzplan.Structures
         [JsonIgnore]
         private List<int> randomTischIndexListe = null;
         [JsonIgnore]
-        private List<int> RandomTischIndexListe { get
+        private List<int> RandomTischIndexListe
+        {
+            get
             {
                 if (randomTischIndexListe == null || randomTischIndexListe.Count == 0)
                     randomTischIndexListe = Enumerable.Range(0, TischAnzahl).ToList();
                 return randomTischIndexListe;
-            } 
+            }
         }
         private TischBlock NächsterFreierRandomTisch()
         {
-            
+
 
             for (int i = 0; i < TischAnzahl; i++)
             {

@@ -25,7 +25,7 @@ namespace ProjektSitzplan
         public List<Schüler> NichtAusgewählt = new List<Schüler>();
 
         #region Constructor
-        public SchülerAuswahlDialog(string titel, List<Schüler> schüler, bool istAusgewählt) : this(titel, schüler, istAusgewählt, "Ausgewählt", "Nicht Ausgewählt"){ }
+        public SchülerAuswahlDialog(string titel, List<Schüler> schüler, bool istAusgewählt) : this(titel, schüler, istAusgewählt, "Ausgewählt", "Nicht Ausgewählt") { }
         public SchülerAuswahlDialog(string titel, List<Schüler> schüler, bool istAusgewählt, string ausgewähltTitel, string nichtAusgewähltTitel)
         {
             InitializeComponent();
@@ -37,7 +37,8 @@ namespace ProjektSitzplan
             if (istAusgewählt)
             {
                 Ausgewählt = schüler;
-            } else
+            }
+            else
             {
                 NichtAusgewählt = schüler;
             }

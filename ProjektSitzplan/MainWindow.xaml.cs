@@ -306,12 +306,7 @@ namespace ProjektSitzplan
             //TODO: Fix data grid selection bug
             //TODO: Bei allen Datagrids den fix einbauen, dass man überall hinclicken kann
 
-            //TODO: Aktualisieren splitten? also so dass man im normal fall so die sachen intern einmal neu läd aber nicht immer unbedingt die datein komplett neu laden muss nur bei F5 vielleicht?
-
-            //TODO: WFT reload bug... klasse löschen -> und F5 geht ned mehr bis man neu eintabt...?
             //TODO: Fancy check um sitzplan mit anderen zu vergleichen dinsgs...
-
-            //TODO: Sitzplan generierung randomer machen wegen z.b. weibliche personen yk
 
             InitializeComponent();
 
@@ -609,9 +604,9 @@ namespace ProjektSitzplan
                     zielPlatz = ursprungsPlatz;
                 }
 
-                ÜAusgewählterSitzplan.SchülerTauschen(ursprungsPlatz.Value.TischIndex, 
-                    ursprungsPlatz.Value.PlatzIndex, 
-                    zielPlatz.Value.TischIndex, 
+                ÜAusgewählterSitzplan.SchülerTauschen(ursprungsPlatz.Value.TischIndex,
+                    ursprungsPlatz.Value.PlatzIndex,
+                    zielPlatz.Value.TischIndex,
                     zielPlatz.Value.PlatzIndex);
 
                 SetzeSchüler(SBerufCBx.IsChecked.Value, SBetriebCBx.IsChecked.Value, SGeschlechtCBx.IsChecked.Value);
@@ -968,7 +963,7 @@ namespace ProjektSitzplan
                 new PackIconSet(ÜSitzplanAnzeigen1PckIco, PackIconSet.EIconType.Content, PSColors.ContentHoverForeground, PSColors.ContentButtonPreviewForeground),
                 new PackIconSet(ÜSchülerBearbeitenErstellenPckIco, PackIconSet.EIconType.Content, PSColors.IconHoverGreen, PSColors.IconPreviewGreen),
                 null,
-                null, 
+                null,
                 new PackIconSet(SNeuGenerierenPckIco, PackIconSet.EIconType.Content, PSColors.ContentHoverForeground, PSColors.ContentButtonPreviewForeground)//19
             };
 
@@ -1085,6 +1080,9 @@ namespace ProjektSitzplan
 
                 KlassenAktualisieren(false);
                 new PsMessageBox("Achtung", $"Die Klasse \"{AusgewählteKlasse.Name}\" wurde gelöscht.", PsMessageBox.EPsMessageBoxButtons.OK).ShowDialog();
+
+                Keyboard.ClearFocus();
+                Focus();
             }
         }
         #endregion
@@ -1478,7 +1476,7 @@ namespace ProjektSitzplan
                 case EÜbersichtMode.Bearbeiten:
                     {
                         ÜSchülerBildImg.Source = null;
-                        
+
                         break;
                     }
                 case EÜbersichtMode.Erstellen:
