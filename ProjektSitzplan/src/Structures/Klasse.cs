@@ -251,8 +251,7 @@ namespace ProjektSitzplan.Structures
 
             if (zeilen.Length <= 1)
             {
-                //TODO: Fehler Message: zu wenig zeilen, csv falsches Format oder csv leer?
-                ErrorHandler.ZeigeFehler(ErrorHandler.TEMP_CSV_ERROR + "\n\nleer/keine zeilen");
+                ErrorHandler.ZeigeFehler(ErrorHandler.ERR_CSV_Leer);
                 return schüler;
             }
 
@@ -275,9 +274,7 @@ namespace ProjektSitzplan.Structures
 
             if (benötigteSpalten.Count > 0)
             {
-                //TODO Fehler meldung:
-                //Nicht alle notwendigen spalten vorhaden
-                ErrorHandler.ZeigeFehler(ErrorHandler.TEMP_CSV_ERROR + $"\n\nDiese spalten fehlen: {string.Join(",", benötigteSpalten)}");
+                ErrorHandler.ZeigeFehler(ErrorHandler.ERR_CSV_NichtAlleSpalten, string.Join(", ", benötigteSpalten), "");
                 return schüler;
             }
 
@@ -302,12 +299,14 @@ namespace ProjektSitzplan.Structures
             {
                 StringBuilder builder = new StringBuilder();
 
-                builder.Append($"{importFehler.Count} gefundene fehler in der CSV datei.\n");
+                builder.Append($"Es wurden {importFehler.Count} Fehler in der CSV Datei gefunden.");
             
                 foreach(string fehler in importFehler.Values.Distinct())
                 {
-                    builder.Append($"\n{fehler} : {importFehler.Values.Count(f => f.Equals(fehler))} mal.");
+                    builder.Append($"\n{string.Format(fehler, importFehler.Values.Count(f => f.Equals(fehler)))}");
                 }
+
+                builder.Append($"\nIn Zeile {string.Join(", ", importFehler.Keys)} wurde ein Fehler gefunden.");
 
                 ErrorHandler.ZeigeFehler(builder.ToString());
 
