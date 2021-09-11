@@ -13,8 +13,6 @@ namespace ProjektSitzplan.Structures
 
         public string UniqueId { get; set; }
 
-
-
         public enum EGeschlecht : ushort
         {
             Männlich = 0,
