@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -1250,6 +1251,8 @@ namespace ProjektSitzplan
 
             KESchülerFelderLeeren();
             KEKlassenNameTxbx.Text = "";
+            KESchülerDtGrd.ItemsSource = null;
+            KEAnzahlSchülerTxbk.Text = "0";
 
 
             WindowContent = EWindowContent.Leer;

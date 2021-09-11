@@ -70,10 +70,10 @@ namespace ProjektSitzplan.Structures
 
     public class Schüler : Person
     {
-        public string Betrieb;
+        public string Betrieb { get; set; }
 
         [JsonIgnore]
-        public BitmapImage BildBitmap => GetBitmapBild();
+        public BitmapImage BildBitmap { get => GetBitmapBild(); }
 
         public bool Verkuerzt;
 
