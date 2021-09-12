@@ -30,7 +30,8 @@
         #endregion
 
         #region CSV
-        public static readonly string TEMP_CSV_ERROR = "CSV Fehler... die fehlermeldung muss noch angepasst werden bzw es soll verschiedene geben aber wahr noch zu faul die zu erstellen :D";
+        public static readonly string ERR_CSV_Leer = "Die CSV Datei ist leer.";
+        public static readonly string ERR_CSV_NichtAlleSpalten = "In der CSV Datei fehlen die Spalten {0}.";
         #endregion
 
         #region Schüler Hinzufügen

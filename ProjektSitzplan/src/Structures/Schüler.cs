@@ -17,29 +17,23 @@ namespace ProjektSitzplan.Structures
 
             fehler = "Keiner";
 
-            if (split.Length < 5)
+            if (split.Length < 5 || split.Any(s => string.IsNullOrWhiteSpace(s)))
             {
-                fehler = "Der Schüler hat nicht alle benötigten Attribute.";
-                return null;
-            }
-
-            if (split.Any(s => string.IsNullOrWhiteSpace(s)))
-            {
-                fehler = "Ein oder mehrere Attribute fehlen oder sind leer.";
+                fehler = "Bei {0} Schülern fehlen ein oder mehrere Attribute.";
                 return null;
             }
 
             Person.EGeschlecht geschlecht;
             if (!Enum.TryParse(split[anordnung["geschlecht"]].Replace(" ", ""), true, out geschlecht))
             {
-                fehler = "Das Geschlecht konnte nicht bestimmt werden.";//todo: bessere fehlernachricht hierfür lmao..
+                fehler = "Bei {0} Schülern konnte das Geschlecht nicht bestimmt werden.";//todo: bessere fehlernachricht hierfür lmao..
                 return null;
             }
 
             Person.EBeruf beruf;
             if (!Enum.TryParse(split[anordnung["beruf"]].Replace(" ", ""), true, out beruf))
             {
-                fehler = "Die Berufsbezeichnung ist inkorrekt.";
+                fehler = "Bei {0} Schülern wahr die Berufsbezeichnung ist inkorrekt.";
                 return null;
             }
 
