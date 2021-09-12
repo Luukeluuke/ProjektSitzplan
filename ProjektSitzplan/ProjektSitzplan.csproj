@@ -82,6 +82,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CSVImportErrDialog.xaml.cs">
+      <DependentUpon>CSVImportErrDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CSVKorrekturDialog.xaml.cs">
+      <DependentUpon>CSVKorrekturDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ExportWindow.xaml.cs">
       <DependentUpon>ExportWindow.xaml</DependentUpon>
     </Compile>
@@ -108,6 +114,14 @@
     <Compile Include="src\Structures\TischBlock.cs" />
     <Compile Include="src\Utility.cs" />
     <Compile Include="Testing.cs" />
+    <Page Include="CSVImportErrDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CSVKorrekturDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ExportWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

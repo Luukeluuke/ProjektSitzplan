@@ -287,7 +287,7 @@ namespace ProjektSitzplan.Structures
 
                 if (neuerSchüeler == null)
                 {
-                    importFehler[i] = zeilenFehler;
+                    importFehler[i+1] = zeilenFehler;
                 }
                 else
                 {
@@ -295,28 +295,57 @@ namespace ProjektSitzplan.Structures
                 }
             }
 
-            if (importFehler.Count > 0)
+            if (importFehler.Count == 0)
             {
-                StringBuilder builder = new StringBuilder();
+                new PsMessageBox("Import Erfolgreich", "Der CSV Import wahr erfolgreich.", EPsMessageBoxButtons.OK).ShowDialog();
+                return schüler;
+            }
 
-                builder.Append($"Es wurden {importFehler.Count} Fehler in der CSV Datei gefunden.");
-            
-                foreach(string fehler in importFehler.Values.Distinct())
-                {
-                    builder.Append($"\n{string.Format(fehler, importFehler.Values.Count(f => f.Equals(fehler)))}");
-                }
+            StringBuilder builder = new StringBuilder();
 
-                builder.Append($"\nIn Zeile {string.Join(", ", importFehler.Keys)} wurde ein Fehler gefunden.");
+            builder.Append($"Es wurden {importFehler.Count} Fehler in der CSV Datei gefunden.");
 
-                ErrorHandler.ZeigeFehler(builder.ToString());
+            foreach (string fehler in importFehler.Values.Distinct())
+            {
+                builder.Append($"\n{string.Format(fehler, importFehler.Values.Count(f => f.Equals(fehler)))}");
+            }
 
-                //TODO: Behandlung der fehler...
+            builder.Append($"\n\nIn Zeile {string.Join(", ", importFehler.Keys)} wurde ein Fehler gefunden.\n");
+
+            //TODO: Some good text lmao...
+            builder.Append("\nFortfahren: Import fortsetzen und fehlerhafte Zeilen ignorieren.");
+            builder.Append("\nKorriegieren: Alle fehlerhaften Zeilen manuell korrigieren.");
+            builder.Append("\nAbbrechen: CSV Import abbrechen.");
+
+            CSVImportErrDialog dialog = new CSVImportErrDialog(builder.ToString());
+
+            dialog.ShowDialog();
+
+            switch (dialog.Eingabe)
+            {
+                case CSVImportErrDialog.DialogEingabe.Abbrechen:
+                    {
+                        return new List<Schüler>();
+                    }
+                case CSVImportErrDialog.DialogEingabe.Fortfahren:
+                    {
+                        return schüler;
+                    }
+                case CSVImportErrDialog.DialogEingabe.Korrigieren:
+                    {
+                        break;
+                    }
+            }
+
+            foreach(KeyValuePair<int, string> fehler in importFehler)
+            {
+                string zeile = zeilen[fehler.Key - 1];
 
 
             }
 
-            //import erfolgreich :D yay
             return schüler;
+            //TODO: Behandlung der fehler...
         }
 
         //public string CSVString => $"{Vorname},{Nachname},{Beruf},{Betrieb},{Geschlecht}";
