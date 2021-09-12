@@ -12,7 +12,8 @@
         Loaded="Window_Loaded"
         x:Name="MyMainWindow"
         MouseUp="MyMainWindow_MouseUp" MouseLeave="MyMainWindow_MouseLeave"
-        Closing="MyMainWindow_Closing">
+        Closing="MyMainWindow_Closing"
+        MinWidth="500">
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="32"></WindowChrome>
     </WindowChrome.WindowChrome>

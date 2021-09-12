@@ -345,12 +345,14 @@ namespace ProjektSitzplan
         }
 
         #region WindowProc Handling
+        private static int myMinHeigt = 550;
+        private static int myMinWidth = 1100;
+
         private IntPtr WindowProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
             switch (msg)
             {
                 case 0x0024:
-
                     WmGetMinMaxInfo(hwnd, lParam);
                     handled = true;
                     break;
@@ -373,6 +375,8 @@ namespace ProjektSitzplan
                 mmi.ptMaxPosition.y = Math.Abs(rcWorkArea.top - rcMonitorArea.top);
                 mmi.ptMaxSize.x = Math.Abs(rcWorkArea.right - rcWorkArea.left);
                 mmi.ptMaxSize.y = Math.Abs(rcWorkArea.bottom - rcWorkArea.top);
+                mmi.ptMinTrackSize.x = myMinWidth;
+                mmi.ptMinTrackSize.y = myMinHeigt;
             }
             Marshal.StructureToPtr(mmi, lParam, true);
         }
