@@ -333,19 +333,6 @@ namespace ProjektSitzplan.Structures
                 GemischteSchülerListe.Remove(schüler);
             }
 
-
-            // todo test if this realy works...
-
-            /*
-            Möglichst unterschiedliche Verteilung in den maximal 6 Blöcken 
-            Maximale Trennung von Azubis aus demselben Betrieb 
-            Anzahl der Tische und Plätze pro Tisch einstellbar
-
-            Maximale Trennung von Berufen (optional) 
-            Berücksichtigung des Geschlechts (optional) 
-            Verteilparameter einstellbar (optional)
-            */
-
             return true;
         }
 
@@ -493,9 +480,9 @@ namespace ProjektSitzplan.Structures
         {
             //Speicher dialog für pfad
             SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "HTML files (*.html)|*.html";//TODO put this pdf when pdf is included... "PDF files (*.pdf)|*.pdf";
-            saveFileDialog.FileName = $"{Name}.pdf";
-            saveFileDialog.DefaultExt = ".pdf";
+            saveFileDialog.Filter = "HTML files (*.html)|*.html";
+            saveFileDialog.FileName = $"{Name}.html";
+            saveFileDialog.DefaultExt = ".html";
             saveFileDialog.InitialDirectory = $@"{Environment.CurrentDirectory}\SchulKlassen";
 
             if (!saveFileDialog.ShowDialog().Equals(DialogResult.OK))
@@ -587,7 +574,7 @@ namespace ProjektSitzplan.Structures
 
             builder.Append(style);
 
-            builder.Append("  <title>Sitzplan</title>\n");
+            builder.Append($"  <title>{Name}</title>\n");
             builder.Append("  <html lang = 'de'>\n");
             builder.Append("  <meta charset = 'UTF-8'>\n");
             builder.Append("</head>\n<body>\n");
@@ -618,25 +605,8 @@ namespace ProjektSitzplan.Structures
 
             string html = builder.ToString();
 
-            //erstellen der pdf
-
-            //TODO: put this as PDF...
-            File.WriteAllText(pfad.Replace(".pdf", ".html"), html);
-
-            // TODO: @Marco convert html to pdf...
-            /*
-            HtmlToPdfConverter converter = new HtmlToPdfConverter(HtmlRenderingEngine.WebKit);
-
-            WebKitConverterSettings webKitSettings = new WebKitConverterSettings();
-            webKitSettings.WebKitPath = @"D:\Projects\github\ProjektSitzplan\packages\Syncfusion.HtmlToPdfConverter.QtWebKit.Wpf.19.2.0.55\lib\QtBinaries";
-            webKitSettings.EnableForm = true;
-            converter.ConverterSettings = webKitSettings;
-
-            PdfDocument doc = converter.Convert(html, @"D:\Projects\github\ProjektSitzplan\ProjektSitzplan\bin\Debug\SchulKlassen");
-            doc.Save(pfad);
-            doc.Close(true);
-            */
-
+            //TODO: Perfektioniere die HTML lol
+            File.WriteAllText(pfad, html, Encoding.Unicode);
 
             return pfad;
         }

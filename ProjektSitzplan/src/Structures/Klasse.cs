@@ -341,6 +341,13 @@ namespace ProjektSitzplan.Structures
             {
                 string zeile = zeilen[fehler.Key - 1];
 
+                CSVKorrekturDialog korrekturDialog = new CSVKorrekturDialog(zeile, anordnung);
+                korrekturDialog.ShowDialog();
+
+                if (korrekturDialog.Eingabe.Equals(CSVKorrekturDialog.DialogEingabe.Erfolgreich))
+                {
+                    schüler.Add(korrekturDialog.Schüler);
+                }
 
             }
 

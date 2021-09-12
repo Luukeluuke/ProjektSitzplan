@@ -1,12 +1,162 @@
 ﻿<Window x:Class="ProjektSitzplan.CSVKorrekturDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjektSitzplan"
         mc:Ignorable="d"
-        Title="CSVKorrekturDialog" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        WindowStyle="None" ResizeMode="NoResize" Background="{StaticResource ContentBackground}"
+        Title="CSVKorrekturDialog" Height="400" Width="280"
+        Loaded="Window_Loaded">
+    <Border BorderBrush="{DynamicResource WindowBorderBrush}" BorderThickness="1">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="31"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <!--#region Top Bar-->
+            <Border Grid.Column="0" Grid.Row="0" BorderBrush="{StaticResource TransitionStart}" BorderThickness="0 0 0 1">
+                <Grid x:Name="TitleBarGrid" Background="{StaticResource TopBarBackground}" MouseDown="TitleBarGrid_MouseDown">
+                    <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5 0 0 0">
+                        <Image VerticalAlignment="Center" Margin="0 7 0 7" Source="/ProjektSitzplan;component/src/Design/Images/Logos/Logo878B91.png"></Image>
+                        <Label x:Name="SitzplanLbl" Margin="1 0 0 0" Content="Schüler fehlerhaft" Foreground="{StaticResource TopBarForeground}" FontFamily="Segoe UI Semibold" FontSize="16"></Label>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+                        <Button x:Name="CloseBtn" Uid="2" Template="{StaticResource FlatTopBar}" Background="{x:Null}" materialDesign:RippleAssist.IsDisabled="True" IsTabStop="False" Height="30" Click="TopBarButton_Click" MouseEnter="TopBarButton_MouseEnter" MouseLeave="TopBarButton_MouseLeave" PreviewMouseDown="TopBarButton_PreviewMouseDown" PreviewMouseUp="TopBarButton_PreviewMouseUp" Width="55">
+                            <Button.ToolTip>
+                                <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12">Schließen</ToolTip>
+                            </Button.ToolTip>
+                            <Image x:Name="CloseButtonImage" Source="/ProjektSitzplan;component/src/Design/Images/CloseB9BBBE.png" Width="22" IsHitTestVisible="False"></Image>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
+            <!--#endregion-->
+            <Border Grid.Column="0" Grid.Row="1" BorderBrush="{StaticResource TransitionEnd}" BorderThickness="1">
+                <Grid Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="30"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Column="0" Grid.Row="0">
+                        <Grid x:Name="ÜSchülerÜbersichtGrd" Grid.Column="0" Grid.ColumnSpan="2" Width="{Binding ElementName=container, Path=ActualWidth}" Grid.Row="0" HorizontalAlignment="Stretch" Visibility="Visible">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Border Grid.Column="0" Grid.Row="1" BorderBrush="{StaticResource ContentDivider}" BorderThickness="0 0 0 1" Margin="0 0 0 5">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid Grid.Column="0" Grid.Row="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="14" Foreground="{StaticResource ContentForeground}" Content="Vorname*:&#x09;"></Label>
+                                        <TextBox Grid.Column="1" Grid.Row="0" x:Name="VornameTxbx" Margin="-20 0 0 0" TabIndex="100" HorizontalAlignment="Stretch" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" Foreground="{StaticResource ContentForeground}" BorderBrush="{StaticResource ContentForeground}" FontSize="14" materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource ContentTextBoxSelectedBorder}" CaretBrush="{StaticResource ContentTextBoxSelectedCaret}" GotKeyboardFocus="ContentTextBox_GotKeyboardFocus" LostKeyboardFocus="ContentTextBox_LostKeyboardFocus"></TextBox>
+                                    </Grid>
+                                    <Grid Grid.Column="0" Grid.Row="1" Margin="0 8 0 0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="14" Foreground="{StaticResource ContentForeground}" Content="Nachname*:&#x09;"></Label>
+                                        <TextBox Grid.Column="1" Grid.Row="0" x:Name="NachnameTxbx" Margin="-20 0 0 0" TabIndex="101" HorizontalAlignment="Stretch" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" Foreground="{StaticResource ContentForeground}" BorderBrush="{StaticResource ContentForeground}" FontSize="14" materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource ContentTextBoxSelectedBorder}" CaretBrush="{StaticResource ContentTextBoxSelectedCaret}" GotKeyboardFocus="ContentTextBox_GotKeyboardFocus" LostKeyboardFocus="ContentTextBox_LostKeyboardFocus"></TextBox>
+                                    </Grid>
+                                    <Grid Grid.Column="0" Grid.Row="2" Margin="0 8 0 0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="14" Foreground="{StaticResource ContentForeground}" Content="Betrieb*:&#x09;&#x09;"></Label>
+                                        <TextBox Grid.Column="1" Grid.Row="0" x:Name="BetriebTxbx" Margin="-20 0 0 0" TabIndex="101" HorizontalAlignment="Stretch" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" Foreground="{StaticResource ContentForeground}" BorderBrush="{StaticResource ContentForeground}" FontSize="14" materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource ContentTextBoxSelectedBorder}" CaretBrush="{StaticResource ContentTextBoxSelectedCaret}" GotKeyboardFocus="ContentTextBox_GotKeyboardFocus" LostKeyboardFocus="ContentTextBox_LostKeyboardFocus"></TextBox>
+                                    </Grid>
+                                    <Grid Grid.Column="0" Grid.Row="3" Margin="0 8 0 0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="14" Foreground="{StaticResource ContentForeground}" Content="Geschlecht*:&#x09;"></Label>
+                                        <ComboBox x:Name="GeschlechtCb" Grid.Column="1" Margin="-20 0 0 0" Grid.Row="0" TabIndex="104" HorizontalAlignment="Stretch" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" Foreground="{StaticResource ContentForeground}" BorderBrush="{StaticResource ContentForeground}" FontSize="14" materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource ContentComboBoxSelectedBorder}" GotKeyboardFocus="ContentComboBox_GotKeyboardFocus" LostKeyboardFocus="ContentComboBox_LostKeyboardFocus">
+                                            <ComboBox.Resources>
+                                                <SolidColorBrush x:Key="MaterialDesignPaper" Color="#32353B"/>
+                                                <SolidColorBrush x:Key="MaterialDesignTextFieldBoxHoverBackground" Color="Red"/>
+                                            </ComboBox.Resources>
+                                            <ComboBoxItem Content="Männlich"/>
+                                            <ComboBoxItem Content="Weiblich"/>
+                                        </ComboBox>
+                                    </Grid>
+                                    <Grid Grid.Column="0" Grid.Row="4" Margin="0 8 0 0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="14" Foreground="{StaticResource ContentForeground}" Content="Beruf*:&#x09;&#x09;"></Label>
+                                        <ComboBox x:Name="BerufCb" Grid.Column="1" Grid.Row="0" Margin="-20 0 0 0" TabIndex="104" HorizontalAlignment="Stretch" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" Foreground="{StaticResource ContentForeground}" BorderBrush="{StaticResource ContentForeground}" FontSize="14" materialDesign:TextFieldAssist.UnderlineBrush="{StaticResource ContentComboBoxSelectedBorder}" GotKeyboardFocus="ContentComboBox_GotKeyboardFocus" LostKeyboardFocus="ContentComboBox_LostKeyboardFocus">
+                                            <ComboBox.Resources>
+                                                <SolidColorBrush x:Key="MaterialDesignPaper" Color="#32353B"/>
+                                                <SolidColorBrush x:Key="MaterialDesignTextFieldBoxHoverBackground" Color="Red"/>
+                                            </ComboBox.Resources>
+                                            <ComboBoxItem Content="Anwendungsentwicklung"/>
+                                            <ComboBoxItem Content="Systemintegration"/>
+                                            <ComboBoxItem Content="Daten und Prozessanalyse"/>
+                                            <ComboBoxItem Content="Digitale Vernetzung"/>
+                                            <ComboBoxItem Content="IT Systemmanagement"/>
+                                            <ComboBoxItem Content="Digitalisierungsmanagement"/>
+                                            <ComboBoxItem Content="System Elektroniker"/>
+                                        </ComboBox>
+                                    </Grid>
+                                    <Grid Grid.Column="0" Grid.Row="5" Margin="0 8 0 0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <CheckBox x:Name="SchülerVerkürztCBx" Content="Verkürzt" IsChecked="False" Margin="0 5 0 0" FontFamily="Segoe UI Semibold" FontSize="13" Foreground="{StaticResource ContentForeground}">
+                                            <CheckBox.Resources>
+                                                <SolidColorBrush x:Key="MaterialDesignCheckBoxOff" Color="#D1DDDE"></SolidColorBrush>
+                                                <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#D1DDDE"/>
+                                            </CheckBox.Resources>
+                                        </CheckBox>
+                                    </Grid>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </Grid>
+                    <Grid Grid.Column="0" Grid.Row="1">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0" Grid.Row="0">
+                                <Button x:Name="AbbrechenBtn" Grid.Column="2" Grid.Row="0" Uid="0" IsTabStop="True" Background="{StaticResource ContentButtonBackground}" materialDesign:RippleAssist.IsDisabled="True" Height="Auto" Width="Auto" Template="{StaticResource FlatContent}" Click="AbbrechenBtn_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" PreviewMouseDown="Button_PreviewMouseDown" PreviewMouseUp="Button_PreviewMouseUp"></Button>
+                                <Label x:Name="AbbrechenLbl" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False" Content="Abbrechen"/>
+                            </Grid>
+                            <Grid Grid.Column="2" Grid.Row="0">
+                                <Button x:Name="ÜbernehmenBtn" Grid.Column="2" Grid.Row="0" Uid="1" IsTabStop="True" Background="{StaticResource ContentButtonBackground}" materialDesign:RippleAssist.IsDisabled="True" Height="Auto" Width="Auto" Template="{StaticResource FlatContent}" Click="ÜbernehmenBtn_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" PreviewMouseDown="Button_PreviewMouseDown" PreviewMouseUp="Button_PreviewMouseUp"></Button>
+                                <Label x:Name="ÜbernehmenLbl" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False" Content="Übernehmen"/>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
 </Window>
