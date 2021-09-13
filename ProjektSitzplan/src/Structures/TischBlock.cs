@@ -75,6 +75,11 @@ namespace ProjektSitzplan.Structures
             return !Sitzplätze.Any(platz => platz.Value == null);
         }
 
+        public bool IstLeer()
+        {
+            return !Sitzplätze.Any(platz => platz.Value != null);
+        }
+
         public bool SchülerHinzufügen(Schüler schüler, int index)
         {
             if (schüler == null || index > MaxSchueler - 1 || Sitzplätze.ContainsValue(schüler))

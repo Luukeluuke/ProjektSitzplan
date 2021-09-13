@@ -33,7 +33,7 @@ namespace ProjektSitzplan.Structures
         public int Seed;
         public List<Schüler> Schüler;
 
-        private SchulKlasse Klasse;
+        public SchulKlasse Klasse;
 
         public SchulBlock BlockType;
 
@@ -203,7 +203,7 @@ namespace ProjektSitzplan.Structures
             BlockSitzplan = generator.BlockType;
             Seed = generator.Seed;
 
-            ErfolgreichGeneriert = Generieren();
+            ErfolgreichGeneriert = Generieren(generator.Klasse);
         }
 
         /// <summary>
@@ -288,12 +288,12 @@ namespace ProjektSitzplan.Structures
             return liste;
         }
 
-        public bool NeuGenerieren(List<Schüler> schüler)
+        public bool NeuGenerieren(SchulKlasse klasse)
         {
             List<Schüler> alteListe = new List<Schüler>(Schüler);
-            Schüler = schüler;
+            Schüler = klasse.SchuelerListe;
 
-            bool erfolg = Generieren();
+            bool erfolg = Generieren(klasse);
 
             if (!erfolg)
             {
@@ -303,7 +303,7 @@ namespace ProjektSitzplan.Structures
             return erfolg;
         }
 
-        private bool Generieren()
+        private bool Generieren(SchulKlasse klasse)
         {
             if (!VerkürzerEntfernen())
             {
@@ -426,6 +426,36 @@ namespace ProjektSitzplan.Structures
             return true;
         }
 
+
+        /// <summary>
+        /// Der rückgabewert spiegelt die änlichkeit wieder. Je höher desto ähnlicher die Tische
+        /// Wenn der rückgabewert -1 ist gabe es ein fehler!
+        /// </summary>
+        public static int TischVergleich(TischBlock tisch1, TischBlock tisch2)
+        {
+            if (tisch1 == null || tisch2 == null)
+            {
+                return -1;
+            }
+
+            if (tisch1.IstLeer() || tisch2.IstLeer())
+            {
+                return 0;
+            }
+
+            int rückgabe = 0;
+
+            foreach (Schüler schüler in tisch1.Sitzplätze.Values)
+            {
+                if (schüler != null && tisch2.Sitzplätze.Values.Any(schülerAusT2 => schülerAusT2.UniqueId.Equals(schüler.UniqueId)))
+                {
+                    rückgabe++;
+                }
+            }
+
+            return rückgabe;
+        }
+
         #endregion
 
 
@@ -474,6 +504,7 @@ namespace ProjektSitzplan.Structures
 
             return true;
         }
+
 
 
         public string AlsPDFExportieren()

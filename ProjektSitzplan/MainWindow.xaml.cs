@@ -1670,7 +1670,8 @@ namespace ProjektSitzplan
         #region SNeuGenerierenBtn
         private void SNeuGenerierenBtn_Click(object sender, RoutedEventArgs e)
         {
-            ÜAusgewählterSitzplan.NeuGenerieren(AusgewählteKlasse.SchuelerListe);
+            //TODO: Kleines warnungsfenster oder so?
+            ÜAusgewählterSitzplan.NeuGenerieren(AusgewählteKlasse);
 
             SetzeSchüler(SBerufCBx.IsChecked.Value, SBetriebCBx.IsChecked.Value, SGeschlechtCBx.IsChecked.Value);
         }

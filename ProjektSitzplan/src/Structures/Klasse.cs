@@ -159,7 +159,7 @@ namespace ProjektSitzplan.Structures
 
                 if (dialog.Result.Equals(EPsMessageBoxResult.Yes))
                 {
-                    sitzplan.NeuGenerieren(SchuelerListe);
+                    sitzplan.NeuGenerieren(this);
                 }
             }
 
@@ -185,7 +185,7 @@ namespace ProjektSitzplan.Structures
 
                 if (dialog.Result.Equals(EPsMessageBoxResult.Yes))
                 {
-                    sitzplan.NeuGenerieren(SchuelerListe);
+                    sitzplan.NeuGenerieren(this);
                 }
                 else
                 {
