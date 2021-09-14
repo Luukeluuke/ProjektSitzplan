@@ -163,9 +163,15 @@ namespace ProjektSitzplan.Structures
         [JsonIgnore]
         public List<Schüler> Schüler { get; private set; } = new List<Schüler>();
 
-        public List<string> ShortSchueler => Schüler.Select(person => person.UniqueId).ToList();
         [JsonIgnore]
         private List<string> SchülerIds = null;
+
+        [JsonIgnore]
+        public bool ErfolgreichGeneriert { get; private set; }
+
+
+
+        public List<string> ShortSchueler => Schüler.Select(person => person.UniqueId).ToList();
 
         public Dictionary<int, int> TischPlatzVerteilung;
 
@@ -178,12 +184,10 @@ namespace ProjektSitzplan.Structures
         public bool BeruecksichtigeBetrieb { get; private set; }
         public bool BeruecksichtigeGeschlecht { get; private set; }
 
-        public SchulBlock BlockSitzplan;
+        public SchulBlock BlockSitzplan { get; private set; }
 
         public int Seed { get; private set; }
 
-        [JsonIgnore]
-        public bool ErfolgreichGeneriert { get; private set; }
 
 
 
@@ -206,6 +210,9 @@ namespace ProjektSitzplan.Structures
             ErfolgreichGeneriert = Generieren(generator.Klasse);
         }
 
+
+
+        #region Json Loading
         /// <summary>
         /// JSON Constructor | Dieser constructor sollte nur für das laden von json objekten genutzt werden!
         /// </summary>
@@ -226,9 +233,6 @@ namespace ProjektSitzplan.Structures
 
             ErfolgreichGeneriert = true;
         }
-        #endregion
-
-
 
         public void LadeSchülerListeAusIdListe(SchulKlasse klasse)
         {
@@ -255,6 +259,10 @@ namespace ProjektSitzplan.Structures
                 tisch.HohleSchülerPerId(this);
             }
         }
+        #endregion
+        #endregion
+
+
 
         #region Generieren
         [JsonIgnore]
@@ -307,12 +315,12 @@ namespace ProjektSitzplan.Structures
         {
             if (durchlauf == 0)
             {
-                if(!VerkürzerEntfernen())
+                if (!VerkürzerEntfernen())
                 {
                     return false;
                 }
             }
-            
+
             List<Schüler> GemischteSchülerListe = Mischen(Schüler);
 
             Tische = new TischBlock[TischAnzahl];
@@ -326,7 +334,10 @@ namespace ProjektSitzplan.Structures
                 TischBlock tisch = NächsterFreierRandomTisch();
                 if (tisch == null)
                 {
-                    ErrorHandler.ZeigeFehler(ErrorHandler.ERR_GEN_ZuWenigFreiePlätze);
+                    if (durchlauf == 0)
+                    {
+                        ErrorHandler.ZeigeFehler(ErrorHandler.ERR_GEN_ZuWenigFreiePlätze);
+                    }
                     break;
                 }
 
@@ -341,16 +352,9 @@ namespace ProjektSitzplan.Structures
                 return true;
             }
 
-            bool Ähnlichkeit = false;
-            foreach(Sitzplan sitzplan in klasse.Sitzplaene)
-            {
-                if (IstÄhnlich(this))
-                {
-                    Ähnlichkeit = true;
-                }
-            }
-            
-            return Ähnlichkeit ? Generieren(klasse, durchlauf++) : true;
+            bool Ähnlichkeit = klasse.Sitzplaene.Any(sitzplan => IstÄhnlich(sitzplan));
+
+            return (Ähnlichkeit && durchlauf < 5) ? Generieren(klasse, durchlauf + 1) : true;
         }
 
         #region Random Tisch
@@ -445,12 +449,12 @@ namespace ProjektSitzplan.Structures
 
         public bool IstÄhnlich(Sitzplan sitzplan)
         {
-            double maxAvg = 3;
-            double avr = Tische.Average(t => sitzplan.Tische.Average(t1 => TischVergleich(t, t1)));
-            new PsMessageBox($"{avr}", PsMessageBox.EPsMessageBoxButtons.OK).Show();
-            return maxAvg < avr;
+            // Dieser wert gibt an wie viele schüler maximal sich ähneln dürfen
+            // Also bei 3 darf die selbe dreierkombination nicht ein weiteres mal vorkommen
+            double maximalErlaubt = 0.4 * ((((double)sitzplan.Schüler.Count / (double)sitzplan.TischAnzahl) + ((double)Schüler.Count / (double)TischAnzahl)) / 2);
+            double avg = Tische.Average(t => sitzplan.Tische.Max(t1 => TischVergleich(t, t1)));
+            return maximalErlaubt < avg;
         }
-
         /// <summary>
         /// Der rückgabewert spiegelt die änlichkeit wieder. Je höher desto ähnlicher die Tische
         /// Wenn der rückgabewert -1 ist gabe es ein fehler!
@@ -467,22 +471,28 @@ namespace ProjektSitzplan.Structures
                 return 0;
             }
 
-            int rückgabe = 0;
-
-            foreach (Schüler schüler in tisch1.Sitzplätze.Values)
+            int ähnlichkeit = tisch1.Sitzplätze.Values.Sum(t1Schüler =>
             {
-                if (schüler != null && tisch2.Sitzplätze.Values.Any(schüler2 => (schüler2 == null) ? false : schüler2.UniqueId.Equals(schüler.UniqueId)))
+                if (t1Schüler != null)
                 {
-                    rückgabe++;
+                    if (tisch2.Sitzplätze.Values.Any(t2Schüler =>
+                    {
+                        if (t2Schüler == null) return false;
+                        return t2Schüler.UniqueId.Equals(t1Schüler.UniqueId);
+                    }))
+                    {
+                        return 1;
+                    }
                 }
-            }
+                return 0;
+            });
 
-            return rückgabe;
+            return ähnlichkeit;
         }
 
         #endregion
 
-
+        #region Schüler
         public void SchülerEntfernen(Schüler schüler)
         {
             Schüler.Remove(schüler);
@@ -528,9 +538,9 @@ namespace ProjektSitzplan.Structures
 
             return true;
         }
+        #endregion
 
-
-
+        #region Export
         public string AlsPDFExportieren()
         {
             //Speicher dialog für pfad
@@ -660,10 +670,10 @@ namespace ProjektSitzplan.Structures
 
             string html = builder.ToString();
 
-            //TODO: Perfektioniere die HTML lol
             File.WriteAllText(pfad, html, Encoding.Unicode);
 
             return pfad;
         }
+        #endregion
     }
 }

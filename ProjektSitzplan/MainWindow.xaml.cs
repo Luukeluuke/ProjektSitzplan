@@ -304,7 +304,8 @@ namespace ProjektSitzplan
         public MainWindow()
         {
             /*
-            TODO: Fancy check um sitzplan mit anderen zu vergleichen dinsgs...
+            TODO: Bilder von schülern löschen geht ned richtig
+            TODO: Wenn man schüler hinzufügt mit bild und dannach nochmal ohne bekommt der das trotzdem n bild :D
             */
 
             InitializeComponent();
