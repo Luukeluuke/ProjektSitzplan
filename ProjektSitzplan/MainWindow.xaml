@@ -8,6 +8,7 @@
         mc:Ignorable="d"
         DataContext="{Binding RelativeSource={RelativeSource self}}"
         Height="650" Width="1080"
+        Title="Sitzplan"
         WindowStyle="None" ResizeMode="CanResize" AllowsTransparency="True"
         Loaded="Window_Loaded"
         x:Name="MyMainWindow"
