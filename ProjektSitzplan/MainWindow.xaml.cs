@@ -1268,10 +1268,10 @@ namespace ProjektSitzplan
         private void ÜSitzplanAnzeigenBtn_Click(object sender, RoutedEventArgs e)
         {
             Storyboard storyboard = new Storyboard();
-            DoubleAnimation animation = new DoubleAnimation(KlasseÜbersichtGrd.ActualWidth, 0D, new Duration(new TimeSpan(0, 0, 0, 0, 350)), FillBehavior.HoldEnd);
+            DoubleAnimation animation = new DoubleAnimation(KlasseÜbersichtGrd.ActualWidth, 0D, new Duration(new TimeSpan(0, 0, 0, 0, 500)), FillBehavior.HoldEnd);
             Storyboard.SetTargetProperty(animation, new PropertyPath("Width"));
-            animation.DecelerationRatio = 0.5D;
-            animation.AccelerationRatio = 0.5D;
+            animation.AccelerationRatio = 0.2D;
+            animation.DecelerationRatio = 0.8D;
             storyboard.Children.Add(animation);
             ZeigtSitzplanAn = true;
 
@@ -1640,7 +1640,7 @@ namespace ProjektSitzplan
         #region ÜSitzplanVersteckenBtn
         private void ÜSitzplanVersteckenBtn_Click(object sender, RoutedEventArgs e)
         {
-            VersteckeSitzplanAnimation(new TimeSpan(0, 0, 0, 0, 350));
+            VersteckeSitzplanAnimation(new TimeSpan(0, 0, 0, 0, 500));
         }
 
         private void VersteckeSitzplanAnimation(TimeSpan duotation)
@@ -1648,8 +1648,8 @@ namespace ProjektSitzplan
             Storyboard storyboard = new Storyboard();
             DoubleAnimation animation = new DoubleAnimation(0D, KlasseÜbersichtGrd.ActualWidth, new Duration(duotation), FillBehavior.Stop);
             Storyboard.SetTargetProperty(animation, new PropertyPath("Width"));
-            animation.AccelerationRatio = 0.5D;
-            animation.DecelerationRatio = 0.5D;
+            animation.AccelerationRatio = 0.2D;
+            animation.DecelerationRatio = 0.8D;
             animation.Completed += Animation_Completed;
             storyboard.Children.Add(animation);
 
