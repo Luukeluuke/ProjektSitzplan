@@ -303,13 +303,16 @@ namespace ProjektSitzplan.Structures
             return erfolg;
         }
 
-        private bool Generieren(SchulKlasse klasse)
+        private bool Generieren(SchulKlasse klasse, int durchlauf = 0)
         {
-            if (!VerkürzerEntfernen())
+            if (durchlauf == 0)
             {
-                return false;
+                if(!VerkürzerEntfernen())
+                {
+                    return false;
+                }
             }
-
+            
             List<Schüler> GemischteSchülerListe = Mischen(Schüler);
 
             Tische = new TischBlock[TischAnzahl];
@@ -333,7 +336,21 @@ namespace ProjektSitzplan.Structures
                 GemischteSchülerListe.Remove(schüler);
             }
 
-            return true;
+            if (durchlauf > 4)
+            {
+                return true;
+            }
+
+            bool Ähnlichkeit = false;
+            foreach(Sitzplan sitzplan in klasse.Sitzplaene)
+            {
+                if (IstÄhnlich(this))
+                {
+                    Ähnlichkeit = true;
+                }
+            }
+            
+            return Ähnlichkeit ? Generieren(klasse, durchlauf++) : true;
         }
 
         #region Random Tisch
@@ -426,6 +443,13 @@ namespace ProjektSitzplan.Structures
             return true;
         }
 
+        public bool IstÄhnlich(Sitzplan sitzplan)
+        {
+            double maxAvg = 3;
+            double avr = Tische.Average(t => sitzplan.Tische.Average(t1 => TischVergleich(t, t1)));
+            new PsMessageBox($"{avr}", PsMessageBox.EPsMessageBoxButtons.OK).Show();
+            return maxAvg < avr;
+        }
 
         /// <summary>
         /// Der rückgabewert spiegelt die änlichkeit wieder. Je höher desto ähnlicher die Tische
@@ -447,7 +471,7 @@ namespace ProjektSitzplan.Structures
 
             foreach (Schüler schüler in tisch1.Sitzplätze.Values)
             {
-                if (schüler != null && tisch2.Sitzplätze.Values.Any(schülerAusT2 => schülerAusT2.UniqueId.Equals(schüler.UniqueId)))
+                if (schüler != null && tisch2.Sitzplätze.Values.Any(schüler2 => (schüler2 == null) ? false : schüler2.UniqueId.Equals(schüler.UniqueId)))
                 {
                     rückgabe++;
                 }
