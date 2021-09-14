@@ -65,7 +65,7 @@ namespace ProjektSitzplan.Structures
         {
             if (Sitzplätze.ContainsValue(schüler))
             {
-                return Sitzplätze.First(map => map.Value.Equals(schüler)).Key; //TODO: Hier kommt ein Fehler wenn man schnell schüler entfernt und man dabei die sitzpläne auch nicht neu generiert
+                return Sitzplätze.First(map => map.Value.Equals(schüler)).Key;
             }
             return -1;
         }

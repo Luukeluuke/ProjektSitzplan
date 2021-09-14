@@ -63,8 +63,7 @@ namespace ProjektSitzplan.Structures
         {
             if (sitzplan == null || Sitzplaene.Any(s => s.Name.Equals(sitzplan.Name)))
             {
-                //TODO: Fehlermeldung
-                //Der sitzplan konnte nicht hinzugefügt werden weil dieser entweder fehlerhafte erstellt wurde oder bereits einer mit diesem namen existiert! oder sowas in der art...
+                new PsMessageBox("Achtung", $"Der Sitzplan \"{sitzplan.Name}\" konnte nicht hinzugefügt werden.\nEntweder ist er Fehlerhaft, oder es exisitert bereits ein Sitzplan mit diesem Namen.", EPsMessageBoxButtons.OK).ShowDialog();
             }
 
             Sitzplaene.Add(sitzplan);
@@ -74,8 +73,7 @@ namespace ProjektSitzplan.Structures
         {
             if (sitzplan == null || !Sitzplaene.Contains(sitzplan))
             {
-                //TODO: Fehlermeldung
-                //Der sitzplan konnte nicht entfernt werden weil dieser bereits nicht meher existiert oder so...
+                new PsMessageBox("Achtung", $"Der Sitzplan \"{sitzplan.Name}\" konnte nicht entfernt werden.\nEr hat uns bereits verlassen (Existiert schon nicht mehr).", EPsMessageBoxButtons.OK).ShowDialog();
             }
 
 
@@ -144,8 +142,7 @@ namespace ProjektSitzplan.Structures
 
             if (schüler == null || SchuelerListe.Any(s => s.UniqueId.Equals(schüler.UniqueId)))
             {
-                //TODO: Error message...
-                //Schüler ist wurde fehlerhaft geladen/erstellt oder ist bereits in der klasse vorhanden?
+                new PsMessageBox("Achtung", $"Der Schüler \"{schüler.Vorname} {schüler.Nachname}\" konnte nicht geladen werden.\nEr ist bereits in der Klasse, oder ist Fehlerhaft.", EPsMessageBoxButtons.OK).ShowDialog();
             }
 
             SchuelerListe.Add(schüler);
@@ -170,8 +167,7 @@ namespace ProjektSitzplan.Structures
         {
             if (schüler == null || !SchuelerListe.Contains(schüler))
             {
-                //TODO: Error message...
-                //Schüler nicht fehlerhaft oder gar nicht erst in der klasse...
+                new PsMessageBox("Achtung", $"Der Schüler \"{schüler.Vorname} {schüler.Nachname}\" konnte nicht entfernt werden.\nEr ist nicht in der Klasse, oder er ist Fehlerhaft.", EPsMessageBoxButtons.OK).ShowDialog();
             }
 
             SchuelerListe.Remove(schüler);
@@ -312,7 +308,6 @@ namespace ProjektSitzplan.Structures
 
             builder.Append($"\n\nIn Zeile {string.Join(", ", importFehler.Keys)} wurde ein Fehler gefunden.\n");
 
-            //TODO: Some good text lmao...
             builder.Append("\nFortfahren: Import fortsetzen und fehlerhafte Zeilen ignorieren.");
             builder.Append("\nKorriegieren: Alle fehlerhaften Zeilen manuell korrigieren.");
             builder.Append("\nAbbrechen: CSV Import abbrechen.");
@@ -352,7 +347,6 @@ namespace ProjektSitzplan.Structures
             }
 
             return schüler;
-            //TODO: Behandlung der fehler...
         }
 
         //public string CSVString => $"{Vorname},{Nachname},{Beruf},{Betrieb},{Geschlecht}";
@@ -384,8 +378,7 @@ namespace ProjektSitzplan.Structures
         {
             if (!pfad.Exists)
             {
-                //TODO: Error Message
-                //klasse konnte nicht geladen werden da der pfad/ die datei nicht existiert
+                new PsMessageBox("Achtung", $"Die Klasse unter folgendem Pfad:\n\"{pfad.FullName}\"\nkonnte nicht geladen werden. Der Pfad existiert nicht.", EPsMessageBoxButtons.OK).ShowDialog();
                 return null;
             }
             WarteBisDateiFreiIst(pfad);

@@ -259,27 +259,14 @@ namespace ProjektSitzplan
             CommandRedo.InputGestures.Add(new KeyGesture(Key.Y, ModifierKeys.Control));
             CommandFullscreen.InputGestures.Add(new KeyGesture(Key.F11));
 
-            //TODO: @TESTCLASS REMOVE THIS WHEN REMOVING TEST CLASS
-            CommandTest.InputGestures.Add(new KeyGesture(Key.F2));
-
             CommandBindings.Add(new CommandBinding(CommandCreate, MenuKlasseErstellenBtn_Click));
             CommandBindings.Add(new CommandBinding(CommandImport, MenuKlasseImportierenBtn_Click));
             CommandBindings.Add(new CommandBinding(CommandExport, MenuKlasseExportierenBtn_Click));
             CommandBindings.Add(new CommandBinding(CommandSave, MenuKlasseSpeichernBtn_Click));
             CommandBindings.Add(new CommandBinding(CommandRefresh, KlassenAktualisieren));
             CommandBindings.Add(new CommandBinding(CommandFullscreen, DoRestoreStuff));
-
-            //TODO: @TESTCLASS REMOVE THIS WHEN REMOVING TEST CLASS
-            CommandBindings.Add(new CommandBinding(CommandTest, TestingEvnt));
         }
         #endregion
-
-        //TODO: @TESTCLASS REMOVE THIS WHEN REMOVING TEST CLASS
-        private void TestingEvnt(object sender = null, RoutedEventArgs e = null)
-        {
-            Testing.Test();
-            KlassenAktualisieren(false);
-        }
 
         private Label[] ContentLabels { get; set; }
         private PackIconSet[] ContentPackIconsSets { get; set; }
@@ -303,11 +290,6 @@ namespace ProjektSitzplan
 
         public MainWindow()
         {
-            /*
-            TODO: Bilder von schülern löschen geht ned richtig
-            TODO: Wenn man schüler hinzufügt mit bild und dannach nochmal ohne bekommt der das trotzdem n bild :D
-            */
-
             InitializeComponent();
 
             InitCommands();
@@ -1673,10 +1655,23 @@ namespace ProjektSitzplan
         #region SNeuGenerierenBtn
         private void SNeuGenerierenBtn_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: Kleines warnungsfenster oder so?
-            ÜAusgewählterSitzplan.NeuGenerieren(AusgewählteKlasse);
+            PsMessageBox msg = new PsMessageBox("Achtung", "Soll der Sitzplan wirklich neu generiert werden?\nDie alte Sitzplan wird überschrieben.", PsMessageBox.EPsMessageBoxButtons.YesNo);
+            msg.OnPsMessageBoxButtonPressed += Msg_OnPsMessageBoxButtonPressed;
+            msg.ShowDialog();
+        }
 
-            SetzeSchüler(SBerufCBx.IsChecked.Value, SBetriebCBx.IsChecked.Value, SGeschlechtCBx.IsChecked.Value);
+        private void Msg_OnPsMessageBoxButtonPressed(object source, PsMessagBoxEventArgs e)
+        {
+            switch (e.PsMessageBoxButtonResult)
+            {
+                case PsMessageBox.EPsMessageBoxResult.Yes:
+                    {
+                        ÜAusgewählterSitzplan.NeuGenerieren(AusgewählteKlasse);
+
+                        SetzeSchüler(SBerufCBx.IsChecked.Value, SBetriebCBx.IsChecked.Value, SGeschlechtCBx.IsChecked.Value);
+                        break;
+                    }
+            }
         }
         #endregion
         #endregion

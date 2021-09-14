@@ -26,7 +26,7 @@ namespace ProjektSitzplan.Structures
             Person.EGeschlecht geschlecht;
             if (!Enum.TryParse(split[anordnung["geschlecht"]].Replace(" ", ""), true, out geschlecht))
             {
-                fehler = "Bei {0} Schülern konnte das Geschlecht nicht bestimmt werden.";//todo: bessere fehlernachricht hierfür lmao..
+                fehler = "Bei {0} Schülern konnte das Geschlecht nicht ermittelt werden.";
                 return null;
             }
 

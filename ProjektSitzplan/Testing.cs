@@ -9,12 +9,6 @@ namespace ProjektSitzplan
 {
     static class Testing
     {
-        /*
-         this is a temporary class remove it later!
-         TODO: REMOVE THIS CLASS + ALL REFERENCE WHEN PROJECT IS DONE :D
-         Search for @TESTCLASS to find the references
-         */
-
         private static Random random = new Random();
         private static string testKlassenName = "test-class";
 
