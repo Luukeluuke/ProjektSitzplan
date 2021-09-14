@@ -311,7 +311,7 @@ namespace ProjektSitzplan
             InitializeComponent();
 
             InitCommands();
-
+            
             StateChanged += (s, e) =>
             {
                 if (WindowState.Equals(WindowState.Normal))
@@ -1182,6 +1182,7 @@ namespace ProjektSitzplan
             KESchülerListe.Add(neuerSchüler);
             KESchülerDtGrd.ItemsSource = null;
             KESchülerDtGrd.ItemsSource = KESchülerListe;
+            keSchülerBild = null;
 
             KEAnzahlSchülerTxbk.Text = KESchülerListe.Count.ToString();
             AktualisiereKESchülerDtGrd();
@@ -1476,6 +1477,7 @@ namespace ProjektSitzplan
         private void ÜSchülerBildLöschenBtn_Click(object sender, RoutedEventArgs e)
         {
             ÜSchülerBildImg.Source = null;
+            schülerImg = null;
 
             switch (ÜbersichtMode)
             {
