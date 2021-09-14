@@ -245,8 +245,6 @@ namespace ProjektSitzplan
         public static RoutedCommand CommandRedo = new RoutedCommand();
         public static RoutedCommand CommandFullscreen = new RoutedCommand();
 
-        public static RoutedCommand CommandTest = new RoutedCommand();
-
         private void InitCommands()
         {
             CommandCreate.InputGestures.Add(new KeyGesture(Key.N, ModifierKeys.Control));
@@ -259,14 +257,34 @@ namespace ProjektSitzplan
             CommandRedo.InputGestures.Add(new KeyGesture(Key.Y, ModifierKeys.Control));
             CommandFullscreen.InputGestures.Add(new KeyGesture(Key.F11));
 
+
+
             CommandBindings.Add(new CommandBinding(CommandCreate, MenuKlasseErstellenBtn_Click));
             CommandBindings.Add(new CommandBinding(CommandImport, MenuKlasseImportierenBtn_Click));
             CommandBindings.Add(new CommandBinding(CommandExport, MenuKlasseExportierenBtn_Click));
             CommandBindings.Add(new CommandBinding(CommandSave, MenuKlasseSpeichernBtn_Click));
             CommandBindings.Add(new CommandBinding(CommandRefresh, KlassenAktualisieren));
             CommandBindings.Add(new CommandBinding(CommandFullscreen, DoRestoreStuff));
+
+            #if DEBUG
+            // Shortcut for generating test classes
+            CommandTest.InputGestures.Add(new KeyGesture(Key.F2));
+            CommandBindings.Add(new CommandBinding(CommandTest, TestingEvnt));
+            #endif
         }
         #endregion
+
+
+        #if DEBUG
+        public static RoutedCommand CommandTest = new RoutedCommand();
+
+        private void TestingEvnt(object sender = null, RoutedEventArgs e = null)
+        {
+            Testing.Test();
+            KlassenAktualisieren(false);
+        }
+        #endif
+
 
         private Label[] ContentLabels { get; set; }
         private PackIconSet[] ContentPackIconsSets { get; set; }
@@ -1192,7 +1210,7 @@ namespace ProjektSitzplan
         #region KEAbbrechenBtn
         private void KEAbbrechenBtn_Click(object sender, RoutedEventArgs e)
         {
-            WindowContent = EWindowContent.Leer;
+            KEFensterLeeren();
         }
         #endregion
 
@@ -1223,6 +1241,15 @@ namespace ProjektSitzplan
             SchulKlasse neueKlasse = new SchulKlasse(klassenName, new List<Schüler>(KESchülerListe));
             DataHandler.FügeSchulKlasseHinzu(neueKlasse);
 
+            KEFensterLeeren();
+
+            KlassenAktualisieren(false);
+        }
+        #endregion
+
+        #region KEBereinigen
+        private void KEFensterLeeren()
+        {
             KESchülerListe.Clear();
 
             KESchülerFelderLeeren();
@@ -1232,8 +1259,6 @@ namespace ProjektSitzplan
 
 
             WindowContent = EWindowContent.Leer;
-
-            KlassenAktualisieren(false);
         }
         #endregion
         #endregion
