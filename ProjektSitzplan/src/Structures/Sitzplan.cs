@@ -577,8 +577,8 @@ namespace ProjektSitzplan.Structures
 
                 "  .table \n" +
                 "  {\n" +
-                "    height: 350px;\n" +
-                "    width: 350px;\n" +
+                "    height: 300px;\n" +
+                "    width: 300px;\n" +
                 "    display: grid;\n" +
                 "    grid-gap: 0.5rem;\n" +
                 "    grid-template-columns: repeat(2, 1fr);\n" +
