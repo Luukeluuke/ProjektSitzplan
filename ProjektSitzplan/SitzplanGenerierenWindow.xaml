@@ -333,15 +333,15 @@
                         <Grid Grid.Column="0" Grid.Row="0">
                             <Button x:Name="SGAbbrechenBtn" Click="SGAbbrechenBtn_Click" VerticalAlignment="Stretch" Uid="0" HorizontalAlignment="Stretch" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}"  materialDesign:RippleAssist.IsDisabled="True" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp"/>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label x:Name="SGAbbrechenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Abbrechen" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"/>
                                 <materialDesign:PackIcon x:Name="SGAbbrechenPckIco" IsHitTestVisible="False" Kind="CloseBold" Margin="5 0 0 0" Height="23" Width="23" Foreground="{StaticResource ContentButtonForeground}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <Label x:Name="SGAbbrechenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Abbrechen" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"/>
                             </StackPanel>
                         </Grid>
                         <Grid Grid.Column="2" Grid.Row="0">
                             <Button  x:Name="SGErstellenBtn" Click="SGErstellenBtn_Click" VerticalAlignment="Center" Uid="1" HorizontalAlignment="Stretch" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}"  materialDesign:RippleAssist.IsDisabled="True" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp"/>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Label x:Name="SGErstellenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Generieren" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"/>
                                 <materialDesign:PackIcon x:Name="SGErstellenPckIco" IsHitTestVisible="False" Kind="CheckBold" Margin="5 0 0 0" Height="23" Width="23" Foreground="{StaticResource ContentButtonForeground}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <Label x:Name="SGErstellenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Generieren" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"/>
                             </StackPanel>
                         </Grid>
 

@@ -525,6 +525,7 @@ namespace ProjektSitzplan
             SBetriebCBx.IsEnabled = false;
             SGeschlechtCBx.IsEnabled = false;
             ÜSitzplanVersteckenGrd.IsEnabled = false;
+            SNeuGenerierenBtn.IsEnabled = false;
         }
 
         private void EntsperreFenster()
@@ -544,6 +545,7 @@ namespace ProjektSitzplan
             SBetriebCBx.IsEnabled = true;
             SGeschlechtCBx.IsEnabled = true;
             ÜSitzplanVersteckenGrd.IsEnabled = true;
+            SNeuGenerierenBtn.IsEnabled = true;
         }
 
         private bool PlatzVerfügbar(TextBlock platz)
