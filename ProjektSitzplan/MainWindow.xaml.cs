@@ -1096,9 +1096,13 @@ namespace ProjektSitzplan
         #region KeineKlassenVorhandenKlasseErstellen
         private void MenuKlasseErstellenBtn_Click(object sender, RoutedEventArgs e)
         {
+            KEFensterLeeren();
+
             WindowContent = EWindowContent.KlasseErstellen;
             KeineKlassenGefundenStkPnl.Visibility = Visibility.Hidden;
             MenuKlassenDtGrd.SelectedIndex = -1;
+
+
 
             KESchülerListe.Clear();
         }
@@ -1259,6 +1263,7 @@ namespace ProjektSitzplan
             KESchülerDtGrd.ItemsSource = null;
             KEAnzahlSchülerTxbk.Text = "0";
 
+            KESchülerFelderLeeren();
 
             WindowContent = EWindowContent.Leer;
         }

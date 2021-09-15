@@ -72,8 +72,6 @@ namespace ProjektSitzplan
 
             SchulKlasse klasse = new SchulKlasse(testKlassenName, schüler);
 
-            klasse.SchülerExportCSV();
-
             klasse.ErstelleSitzplan();
             klasse.ErstelleSitzplan();
 

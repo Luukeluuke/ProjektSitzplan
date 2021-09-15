@@ -14,7 +14,7 @@ namespace ProjektSitzplan
     /// <summary>
     /// Interaction logic for ExportWindowPDF.xaml
     /// </summary>
-    public partial class ExportWindowPDF : Window, INotifyPropertyChanged
+    public partial class ExportWindowHTML : Window, INotifyPropertyChanged
     {
         private Label[] ContentLabels;
         private PackIconSet[] ContentPackIconsSets;
@@ -59,7 +59,7 @@ namespace ProjektSitzplan
         #endregion
 
         #region Constructor
-        public ExportWindowPDF(SchulKlasse klasse)
+        public ExportWindowHTML(SchulKlasse klasse)
         {
             InitializeComponent();
 

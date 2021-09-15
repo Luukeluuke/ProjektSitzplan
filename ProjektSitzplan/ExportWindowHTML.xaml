@@ -1,4 +1,4 @@
-﻿<Window x:Class="ProjektSitzplan.ExportWindowPDF"
+﻿<Window x:Class="ProjektSitzplan.ExportWindowHTML"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -22,7 +22,7 @@
                 <Grid x:Name="TitleBarGrid" Background="{StaticResource TopBarBackground}" MouseDown="TitleBarGrid_MouseDown">
                     <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5 0 0 0">
                         <Image VerticalAlignment="Center" Margin="0 7 0 7" Source="/ProjektSitzplan;component/src/Design/Images/Logos/Logo878B91.png"></Image>
-                        <Label Margin="1 0 0 0" Content="Export - PDF" Foreground="{StaticResource TopBarForeground}" FontFamily="Segoe UI Semibold" FontSize="16"></Label>
+                        <Label Margin="1 0 0 0" Content="Export - HTML" Foreground="{StaticResource TopBarForeground}" FontFamily="Segoe UI Semibold" FontSize="16"></Label>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
                         <Button x:Name="MinimizeBtn" Uid="0" Template="{StaticResource FlatTopBar}" Background="{x:Null}" materialDesign:RippleAssist.IsDisabled="True" IsTabStop="False" Height="30" Click="TopBarButton_Click" MouseEnter="TopBarButton_MouseEnter" MouseLeave="TopBarButton_MouseLeave" PreviewMouseDown="TopBarButton_PreviewMouseDown" PreviewMouseUp="TopBarButton_PreviewMouseUp" Width="55">

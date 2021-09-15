@@ -166,8 +166,9 @@
                             <!--#region Radio Buttons-->
                             <StackPanel Grid.Column="0" Grid.Row="0" Margin="5 5 0 0">
 
-                                <RadioButton x:Name="EXPDFRad" Content="PDF" GroupName="Group1" Checked="RadioButton_Checked" FontFamily="Segoe UI Semibold" FontSize="13" Foreground="{StaticResource ContentForeground}" Background="{StaticResource ContentButtonHoverForeground}"/>
+                                <RadioButton x:Name="EXHTMLRad" Content="HTML" GroupName="Group1" Checked="RadioButton_Checked" FontFamily="Segoe UI Semibold" FontSize="13" Foreground="{StaticResource ContentForeground}" Background="{StaticResource ContentButtonHoverForeground}"/>
                                 <RadioButton x:Name="EXJSONRad" Content="Json" GroupName="Group1" Checked="RadioButton_Checked" FontFamily="Segoe UI Semibold" FontSize="13" Foreground="{StaticResource ContentForeground}" Background="{StaticResource ContentButtonHoverForeground}" Margin="0 5 0 0"/>
+                                <RadioButton x:Name="EXCSVRad" Content="CSV" GroupName="Group1" Checked="RadioButton_Checked" FontFamily="Segoe UI Semibold" FontSize="13" Foreground="{StaticResource ContentForeground}" Background="{StaticResource ContentButtonHoverForeground}" Margin="0 5 0 0"/>
 
                             </StackPanel>
                             <!--#endregion-->

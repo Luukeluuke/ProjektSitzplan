@@ -352,9 +352,8 @@ namespace ProjektSitzplan.Structures
         //public string CSVString => $"{Vorname},{Nachname},{Beruf},{Betrieb},{Geschlecht}";
         private static readonly string CSVHeader = "Vorname, Nachname, Beruf, Betrieb, Geschlecht";
 
-        public void SchülerExportCSV()
+        public void SchülerExportCSV(string pfad)
         {
-            string pfad = $@"{Environment.CurrentDirectory}\SchulKlassen\{Name}.csv";
             Directory.CreateDirectory(Path.GetDirectoryName(pfad));
 
             string csvResult = $"{CSVHeader}\n{string.Join("\n", SchuelerListe.Select(schüler => schüler.CSVString).ToList())}";
