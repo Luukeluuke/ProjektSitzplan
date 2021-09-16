@@ -308,6 +308,11 @@ namespace ProjektSitzplan
 
         public MainWindow()
         {
+            /*
+             TODO: wenn eine schulklasse ausgewählt ist und mann von da aus eine neue importiert
+                wird das komisch angezeigt...
+             */
+
             InitializeComponent();
 
             InitCommands();
