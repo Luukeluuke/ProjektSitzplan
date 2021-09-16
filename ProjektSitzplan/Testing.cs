@@ -1,4 +1,5 @@
-﻿using ProjektSitzplan.Structures;
+﻿#if DEBUG
+using ProjektSitzplan.Structures;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -127,5 +128,4 @@ namespace ProjektSitzplan
         }
     }
 }
-
-
+#endif
