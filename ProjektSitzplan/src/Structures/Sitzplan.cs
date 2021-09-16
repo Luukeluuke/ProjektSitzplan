@@ -284,14 +284,14 @@ namespace ProjektSitzplan.Structures
         {
             List<T> liste = new List<T>(originalListe);
             //Fisher-Yates shuffle https://en.wikipedia.org/wiki/Fisher–Yates_shuffle
-            int n = liste.Count;
-            while (n > 1)
+            int i = liste.Count;
+            while (i > 1)
             {
-                n--;
-                int randomInt = Zufall.Next(n + 1);
+                i--;
+                int randomInt = Zufall.Next(i + 1);
                 T randomSchüler = liste[randomInt];
-                liste[randomInt] = liste[n];
-                liste[n] = randomSchüler;
+                liste[randomInt] = liste[i];
+                liste[i] = randomSchüler;
             }
             return liste;
         }
@@ -416,11 +416,25 @@ namespace ProjektSitzplan.Structures
             int punkte = 0;
 
             if (BeruecksichtigeBetrieb)
-                punkte += tisch.Sitzplätze.Any(sitzplatz => sitzplatz.Value != null && sitzplatz.Value.Betrieb.Equals(schüler.Betrieb, StringComparison.OrdinalIgnoreCase)) ? -1 : 1;
+            {
+                punkte += tisch.Sitzplätze
+                    .Where(sitzplatz => sitzplatz.Value != null)
+                    .Any(sitzplatz => sitzplatz.Value.Betrieb.Equals(schüler.Betrieb, StringComparison.OrdinalIgnoreCase)) ? -1 : 1;
+            }
+
             if (BeruecksichtigeBeruf)
-                punkte += tisch.Sitzplätze.Any(sitzplatz => sitzplatz.Value != null && sitzplatz.Value.Beruf == schüler.Beruf) ? -1 : 1;
+            {
+                punkte += tisch.Sitzplätze
+                    .Where(sitzplatz => sitzplatz.Value != null)
+                    .Any(sitzplatz => sitzplatz.Value.Beruf == schüler.Beruf) ? -1 : 1;
+            }
+
             if (BeruecksichtigeGeschlecht)
-                punkte += tisch.Sitzplätze.Any(sitzplatz => sitzplatz.Value != null && sitzplatz.Value.Geschlecht == schüler.Geschlecht) ? -1 : 1;
+            {
+                punkte += tisch.Sitzplätze
+                    .Where(sitzplatz => sitzplatz.Value != null)
+                    .Any(sitzplatz => sitzplatz.Value.Geschlecht == schüler.Geschlecht) ? -1 : 1;
+            }
 
             return punkte;
         }
