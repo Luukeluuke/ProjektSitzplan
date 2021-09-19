@@ -502,7 +502,7 @@
                                         </Border>
                                         <Border Grid.Column="0" Grid.Row="1" Margin="0 5 0 0" BorderThickness="2" BorderBrush="{StaticResource ContentControlBorder}">
                                             <Grid>
-                                                <Label x:Name="KEKeineSchülerVorhandenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe UI Semibold" FontSize="13" Foreground="{StaticResource ContentForeground}" Content="Es sind noch keine Schüler vorhanden"></Label>
+                                                <Label x:Name="KEKeineSchülerVorhandenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe UI Semibold" FontSize="13" Foreground="{StaticResource ContentForeground}" Content="Diese Klasse hat noch keine Schüler"></Label>
                                                 <DataGrid x:Name="KESchülerDtGrd" DataContext="{Binding KESchülerListe}" BorderBrush="{StaticResource ContentControlBorder}" Background="{x:Null}" Foreground="{StaticResource ContentForeground}" FontFamily="Segoe UI Semibold" CanUserDeleteRows="False" CanUserAddRows="False" CanUserReorderColumns="False" CanUserResizeColumns="True" CanUserResizeRows="False" CanUserSortColumns="True" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding KEAusgewählterSchüler}" HorizontalScrollBarVisibility="Auto" SelectedCellsChanged="KESchülerDtGrd_SelectedCellsChanged">
                                                     <DataGrid.Columns>
                                                         <DataGridTextColumn Header="Nachname" Binding="{Binding Nachname}"></DataGridTextColumn>
