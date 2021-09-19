@@ -1002,6 +1002,8 @@ namespace ProjektSitzplan
                 DataHandler.LadeSchulKlasse(openFileDialog.FileName, true);
             }
 
+            KlasseÜbersichtGrd.Visibility = Visibility.Hidden;
+
             KlassenAktualisieren(false);
         }
         #endregion
