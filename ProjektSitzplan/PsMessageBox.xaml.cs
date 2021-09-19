@@ -89,8 +89,8 @@ namespace ProjektSitzplan
                         if (!(OnPsMessageBoxButtonPressed is null))
                         {
                             OnPsMessageBoxButtonPressed(sender, new PsMessagBoxEventArgs(EPsMessageBoxResult.WindowClosed));
-                            Result = EPsMessageBoxResult.WindowClosed;
                         }
+                        Result = EPsMessageBoxResult.WindowClosed;
                         Close();
 
                         return;
