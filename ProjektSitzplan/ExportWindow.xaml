@@ -166,8 +166,9 @@
                             <!--#region Radio Buttons-->
                             <StackPanel Grid.Column="0" Grid.Row="0" Margin="5 5 0 0">
 
-                                <RadioButton x:Name="EXPDFRad" Content="PDF" GroupName="Group1" Checked="RadioButton_Checked" FontFamily="Segoe UI Semibold" FontSize="13" Foreground="{StaticResource ContentForeground}" Background="{StaticResource ContentButtonHoverForeground}"/>
+                                <RadioButton x:Name="EXHTMLRad" Content="HTML" GroupName="Group1" Checked="RadioButton_Checked" FontFamily="Segoe UI Semibold" FontSize="13" Foreground="{StaticResource ContentForeground}" Background="{StaticResource ContentButtonHoverForeground}"/>
                                 <RadioButton x:Name="EXJSONRad" Content="Json" GroupName="Group1" Checked="RadioButton_Checked" FontFamily="Segoe UI Semibold" FontSize="13" Foreground="{StaticResource ContentForeground}" Background="{StaticResource ContentButtonHoverForeground}" Margin="0 5 0 0"/>
+                                <RadioButton x:Name="EXCSVRad" Content="CSV" GroupName="Group1" Checked="RadioButton_Checked" FontFamily="Segoe UI Semibold" FontSize="13" Foreground="{StaticResource ContentForeground}" Background="{StaticResource ContentButtonHoverForeground}" Margin="0 5 0 0"/>
 
                             </StackPanel>
                             <!--#endregion-->
@@ -184,15 +185,15 @@
                                     <Grid Grid.Column="0" Grid.Row="0">
                                         <Button  x:Name="EXAbbrechenBtn" VerticalAlignment="Center" Uid="0" HorizontalAlignment="Stretch" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}"  materialDesign:RippleAssist.IsDisabled="True" Click="EXAbbrechenBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp"/>
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                            <Label x:Name="EXAbbrechenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Abbrechen" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"/>
                                             <materialDesign:PackIcon x:Name="EXExitPckIco" IsHitTestVisible="False" Kind="Close" Margin="5 0 0 0" Height="23" Width="23" Foreground="{StaticResource ContentButtonForeground}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            <Label x:Name="EXAbbrechenLbl" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Abbrechen" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"/>
                                         </StackPanel>
                                     </Grid>
                                     <Grid Grid.Column="2" Grid.Row="0">
                                         <Button  x:Name="EXExportBtn" VerticalAlignment="Center" Uid="1" HorizontalAlignment="Stretch" Background="{StaticResource ContentButtonBackground}" Template="{StaticResource FlatContent}"  materialDesign:RippleAssist.IsDisabled="True" Click="EXExportBtn_Click" MouseEnter="ContentButton_MouseEnter" MouseLeave="ContentButton_MouseLeave" PreviewMouseDown="ContentButton_PreviewMouseDown" PreviewMouseUp="ContentButton_PreviewMouseUp" IsEnabled="False"/>
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                            <Label x:Name="EXExportLbl" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Exportieren" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"/>
                                             <materialDesign:PackIcon x:Name="EXExportPckIco" IsHitTestVisible="False" Kind="Export" Margin="5 0 0 0" Height="23" Width="23" Foreground="{StaticResource ContentButtonForeground}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            <Label x:Name="EXExportLbl" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Exportieren" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False"/>
                                         </StackPanel>
                                     </Grid>
                                 </Grid>

@@ -309,6 +309,11 @@ namespace ProjektSitzplan
 
         public MainWindow()
         {
+            /*
+             TODO: wenn eine schulklasse ausgewählt ist und mann von da aus eine neue importiert
+                wird das komisch angezeigt...
+             */
+
             InitializeComponent();
 
             InitCommands();
@@ -526,6 +531,7 @@ namespace ProjektSitzplan
             SBetriebCBx.IsEnabled = false;
             SGeschlechtCBx.IsEnabled = false;
             ÜSitzplanVersteckenGrd.IsEnabled = false;
+            SNeuGenerierenBtn.IsEnabled = false;
         }
 
         private void EntsperreFenster()
@@ -545,6 +551,7 @@ namespace ProjektSitzplan
             SBetriebCBx.IsEnabled = true;
             SGeschlechtCBx.IsEnabled = true;
             ÜSitzplanVersteckenGrd.IsEnabled = true;
+            SNeuGenerierenBtn.IsEnabled = true;
         }
 
         private bool PlatzVerfügbar(TextBlock platz)
@@ -1102,9 +1109,13 @@ namespace ProjektSitzplan
         #region KeineKlassenVorhandenKlasseErstellen
         private void MenuKlasseErstellenBtn_Click(object sender, RoutedEventArgs e)
         {
+            KEFensterLeeren();
+
             WindowContent = EWindowContent.KlasseErstellen;
             KeineKlassenGefundenStkPnl.Visibility = Visibility.Hidden;
             MenuKlassenDtGrd.SelectedIndex = -1;
+
+
 
             KESchülerListe.Clear();
         }
@@ -1265,6 +1276,7 @@ namespace ProjektSitzplan
             KESchülerDtGrd.ItemsSource = null;
             KEAnzahlSchülerTxbk.Text = "0";
 
+            KESchülerFelderLeeren();
 
             WindowContent = EWindowContent.Leer;
         }
@@ -1276,10 +1288,10 @@ namespace ProjektSitzplan
         private void ÜSitzplanAnzeigenBtn_Click(object sender, RoutedEventArgs e)
         {
             Storyboard storyboard = new Storyboard();
-            DoubleAnimation animation = new DoubleAnimation(KlasseÜbersichtGrd.ActualWidth, 0D, new Duration(new TimeSpan(0, 0, 0, 0, 350)), FillBehavior.HoldEnd);
+            DoubleAnimation animation = new DoubleAnimation(KlasseÜbersichtGrd.ActualWidth, 0D, new Duration(new TimeSpan(0, 0, 0, 0, 500)), FillBehavior.HoldEnd);
             Storyboard.SetTargetProperty(animation, new PropertyPath("Width"));
-            animation.DecelerationRatio = 0.5D;
-            animation.AccelerationRatio = 0.5D;
+            animation.AccelerationRatio = 0.2D;
+            animation.DecelerationRatio = 0.8D;
             storyboard.Children.Add(animation);
             ZeigtSitzplanAn = true;
 
@@ -1648,7 +1660,7 @@ namespace ProjektSitzplan
         #region ÜSitzplanVersteckenBtn
         private void ÜSitzplanVersteckenBtn_Click(object sender, RoutedEventArgs e)
         {
-            VersteckeSitzplanAnimation(new TimeSpan(0, 0, 0, 0, 350));
+            VersteckeSitzplanAnimation(new TimeSpan(0, 0, 0, 0, 500));
         }
 
         private void VersteckeSitzplanAnimation(TimeSpan duotation)
@@ -1656,8 +1668,8 @@ namespace ProjektSitzplan
             Storyboard storyboard = new Storyboard();
             DoubleAnimation animation = new DoubleAnimation(0D, KlasseÜbersichtGrd.ActualWidth, new Duration(duotation), FillBehavior.Stop);
             Storyboard.SetTargetProperty(animation, new PropertyPath("Width"));
-            animation.AccelerationRatio = 0.5D;
-            animation.DecelerationRatio = 0.5D;
+            animation.AccelerationRatio = 0.2D;
+            animation.DecelerationRatio = 0.8D;
             animation.Completed += Animation_Completed;
             storyboard.Children.Add(animation);
 

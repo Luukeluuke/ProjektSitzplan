@@ -55,7 +55,8 @@ namespace ProjektSitzplan
         public enum EXType
         {
             JSON,
-            PDF,
+            HTML,
+            CSV,
 
             None
         }
@@ -64,11 +65,14 @@ namespace ProjektSitzplan
         {
             get
             {
-                if (EXPDFRad.IsChecked.Value)
-                    return EXType.PDF;
+                if (EXHTMLRad.IsChecked.Value)
+                    return EXType.HTML;
 
                 if (EXJSONRad.IsChecked.Value)
                     return EXType.JSON;
+
+                if (EXCSVRad.IsChecked.Value)
+                    return EXType.CSV;
 
                 return EXType.None;
             }
@@ -251,7 +255,32 @@ namespace ProjektSitzplan
                         EXErfolgreich($"Die Klasse \"{klasse.Name}\" wurde unter\n{saveFileDialog.FileName}\nabgelegt!");
                         return;
                     }
-                case EXType.PDF:
+                case EXType.CSV:
+                    {
+                        SchulKlasse klasse = (SchulKlasse)EXGefundenKlassenDtGrd.SelectedItem;
+
+                        if (klasse == null)
+                        {
+                            ErrorHandler.ZeigeFehler(ErrorHandler.ERR_EX_KeineKlasseAusgewählt);
+                            return;
+                        }
+
+                        SaveFileDialog saveFileDialog = new SaveFileDialog();
+                        saveFileDialog.Filter = "CSV files (*.csv)|*.csv";
+                        saveFileDialog.FileName = $"{klasse.Name}.csv";
+                        saveFileDialog.DefaultExt = ".csv";
+                        saveFileDialog.InitialDirectory = $@"{Environment.CurrentDirectory}\SchulKlassen";
+
+
+                        if (!saveFileDialog.ShowDialog().Value)
+                            return;
+
+                        klasse.SchülerExportCSV(saveFileDialog.FileName);
+
+                        EXErfolgreich($"Die Schüler der Klasse \"{klasse.Name}\" wurde unter\n{saveFileDialog.FileName}\nabgelegt!");
+                        return;
+                    }
+                case EXType.HTML:
                     {
                         SchulKlasse klasse = (SchulKlasse)EXGefundenKlassenDtGrd.SelectedItem;
 
@@ -267,10 +296,10 @@ namespace ProjektSitzplan
                             return;
                         }
 
-                        ExportWindowPDF pdfExportWindow = new ExportWindowPDF(klasse);
-                        if (pdfExportWindow.ShowDialog().Value)
+                        ExportWindowHTML htmlExportWindow = new ExportWindowHTML(klasse);
+                        if (htmlExportWindow.ShowDialog().Value)
                         {
-                            EXErfolgreich($"Der Sitzplan \"{pdfExportWindow.exportPath}\" aus der Klasse\n{klasse.Name}\nWurde als \"{pdfExportWindow.exportSitzplan}\" exportiert!");
+                            EXErfolgreich($"Der Sitzplan \"{htmlExportWindow.exportPath}\" aus der Klasse\n{klasse.Name}\nWurde als \"{htmlExportWindow.exportSitzplan}\" exportiert!");
                         }
                         return;
                     }
