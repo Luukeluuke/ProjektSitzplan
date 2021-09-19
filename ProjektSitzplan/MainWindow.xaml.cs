@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Windows;
@@ -1018,7 +1019,14 @@ namespace ProjektSitzplan
         #region MenuHilfeBtn
         private void MenuHilfeBtn_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: Hinterher die Anleitungs Pdf einfach aufrufen oder so.
+            if (File.Exists($"{Environment.CurrentDirectory}\\Betriebsanleitung.pdf"))
+            {
+                Process.Start($"{Environment.CurrentDirectory}\\Betriebsanleitung.pdf");
+            }
+            else
+            {
+                new PsMessageBox("Achtung", "Die Betriebsanleitung konnte nicht gefunden werden.", PsMessageBox.EPsMessageBoxButtons.OK).ShowDialog();
+            }
         }
         #endregion
 
