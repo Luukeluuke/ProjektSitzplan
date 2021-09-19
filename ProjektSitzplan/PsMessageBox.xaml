@@ -1,0 +1,76 @@
+﻿<Window x:Class="ProjektSitzplan.PsMessageBox"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProjektSitzplan"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        WindowStyle="None" ResizeMode="NoResize" Background="{StaticResource ContentBackground}"
+        Title="Projekt Sitzplan - MessageBox" Height="200" Width="400" WindowStartupLocation="CenterScreen"
+        Loaded="Window_Loaded">
+    <Border BorderBrush="{DynamicResource WindowBorderBrush}" BorderThickness="1">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="31"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Border Grid.Column="0" Grid.Row="0" BorderBrush="{StaticResource TransitionStart}" BorderThickness="0 0 0 1">
+                <Grid x:Name="TitleBarGrid" Background="{StaticResource TopBarBackground}" MouseDown="TitleBarGrid_MouseDown">
+                    <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5 0 0 0">
+                        <Image VerticalAlignment="Center" Margin="0 7 0 7" Source="/ProjektSitzplan;component/src/Design/Images/Logos/Logo878B91.png"></Image>
+                        <Label x:Name="SitzplanLbl" Margin="1 0 0 0" Content="Sitzplan" Foreground="{StaticResource TopBarForeground}" FontFamily="Segoe UI Semibold" FontSize="16"></Label>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+                        <Button x:Name="MinimizeBtn" Uid="0" Template="{StaticResource FlatTopBar}" Background="{x:Null}" materialDesign:RippleAssist.IsDisabled="True" IsTabStop="False" Height="30" Click="TopBarButton_Click" MouseEnter="TopBarButton_MouseEnter" MouseLeave="TopBarButton_MouseLeave" PreviewMouseDown="TopBarButton_PreviewMouseDown" PreviewMouseUp="TopBarButton_PreviewMouseUp" Width="55">
+                            <Button.ToolTip>
+                                <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12">Minimieren</ToolTip>
+                            </Button.ToolTip>
+                            <Image x:Name="MinimizeButtonImage" Source="/ProjektSitzplan;component/src/Design/Images/MinimizeB9BBBE.png" Width="22" IsHitTestVisible="False"></Image>
+                        </Button>
+                        <Button x:Name="CloseBtn" Uid="2" Template="{StaticResource FlatTopBar}" Background="{x:Null}" materialDesign:RippleAssist.IsDisabled="True" IsTabStop="False" Height="30" Click="TopBarButton_Click" MouseEnter="TopBarButton_MouseEnter" MouseLeave="TopBarButton_MouseLeave" PreviewMouseDown="TopBarButton_PreviewMouseDown" PreviewMouseUp="TopBarButton_PreviewMouseUp" Width="55">
+                            <Button.ToolTip>
+                                <ToolTip Background="{StaticResource ToolTipBackground}" Foreground="{StaticResource ToolTipForeground}" FontFamily="Segoe UI Semibold" FontSize="12">Schließen</ToolTip>
+                            </Button.ToolTip>
+                            <Image x:Name="CloseButtonImage" Source="/ProjektSitzplan;component/src/Design/Images/CloseB9BBBE.png" Width="22" IsHitTestVisible="False"></Image>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
+            <Border Grid.Column="0" Grid.Row="1" BorderBrush="{StaticResource TransitionEnd}" BorderThickness="0 1 0 1">
+                <Grid Margin="10 5 10 5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="30"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock x:Name="MessageTxbk" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" Foreground="{StaticResource ContentForeground}" FontSize="14" TextWrapping="Wrap"></TextBlock>
+                    <Grid Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right">
+                        <Grid x:Name="YesNoGrd" Visibility="Hidden">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="5"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0" Grid.Row="0">
+                                <Button x:Name="YesBtn" Grid.Column="2" Grid.Row="0" Uid="0" IsTabStop="True" Background="{StaticResource ContentButtonBackground}" materialDesign:RippleAssist.IsDisabled="True" Height="Auto" Width="65" Template="{StaticResource FlatContent}" Click="YesBtn_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" PreviewMouseDown="Button_PreviewMouseDown" PreviewMouseUp="Button_PreviewMouseUp"></Button>
+                                <Label x:Name="YesLbl" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False" Content="Ja"/>
+                            </Grid>
+                            <Grid Grid.Column="2" Grid.Row="0">
+                                <Button x:Name="NoBtn" Grid.Column="2" Grid.Row="0" Uid="1" IsTabStop="True" Background="{StaticResource ContentButtonBackground}" materialDesign:RippleAssist.IsDisabled="True" Height="Auto" Width="65" Template="{StaticResource FlatContent}" Click="NoBtn_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" PreviewMouseDown="Button_PreviewMouseDown" PreviewMouseUp="Button_PreviewMouseUp"></Button>
+                                <Label x:Name="NoLbl" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False" Content="Nein"/>
+                            </Grid>
+                        </Grid>
+                        <Grid x:Name="OKGrd" Visibility="Hidden" HorizontalAlignment="Right">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0" Grid.Row="0">
+                                <Button x:Name="OKBtn" Grid.Column="2" Grid.Row="0" Uid="2" IsTabStop="True" Background="{StaticResource ContentButtonBackground}" materialDesign:RippleAssist.IsDisabled="True" Height="Auto" Width="65" Template="{StaticResource FlatContent}" Click="OKBtn_Click" MouseEnter="Button_MouseEnter" MouseLeave="Button_MouseLeave" PreviewMouseDown="Button_PreviewMouseDown" PreviewMouseUp="Button_PreviewMouseUp"></Button>
+                                <Label x:Name="OKLbl" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource ContentButtonForeground}" FontSize="14" FontFamily="Segoe UI Semibold" IsHitTestVisible="False" Content="Ok"/>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+</Window>

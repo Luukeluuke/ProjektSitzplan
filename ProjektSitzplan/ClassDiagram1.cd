@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="ProjektSitzplan.CSVImportErrDialog" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="23" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AARAAAAAAAAAAgAAQEEAAAgAAAAAAQAACAIAIAEIEUA=</HashCode>
+      <FileName>CSVImportErrDialog.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ProjektSitzplan.CSVKorrekturDialog" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="23" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAQCEAAAAAAAEAAASEEARAgAAAAAAUAACEIBIgEIEUA=</HashCode>
+      <FileName>CSVKorrekturDialog.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ProjektSitzplan.ExportWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="23" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAANBAAAAEABICFAUEQIAgAgAAAAAQAIAAAIAEJAUA=</HashCode>
+      <FileName>ExportWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ProjektSitzplan.ExportWindowHTML" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="21.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABgAAAAABICFAUEQgAgAgAAAABgFIAgAIAFIAWA=</HashCode>
+      <FileName>ExportWindowHTML.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ProjektSitzplan.MainWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="21.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CCAQklAfZRkLZK23b8UWYkyqhEYlcSDrIcz4cAFN80o=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ProjektSitzplan.PsMessagBoxEventArgs" Collapsed="true">
+    <Position X="21.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>PsMessageBox.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjektSitzplan.PsMessageBox" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="23" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAIAAAQEEAAAwAAAACAQQAAAAQIAEIEUA=</HashCode>
+      <FileName>PsMessageBox.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ProjektSitzplan.SchülerAuswahlDialog" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="21.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABgAAgAAAACBgEGAAAgAAAAAACAAIAAAMQEIAUA=</HashCode>
+      <FileName>SchülerAuswahlDialog.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ProjektSitzplan.SitzplanGenerierenWindow" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="23" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAEAghAABoBUAADFTmEwAAiAEiAAIAAAYgAEIAEIEUA=</HashCode>
+      <FileName>SitzplanGenerierenWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ProjektSitzplan.DataHandler">
+    <Position X="15.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>JAgAAAgACQAQIAAAAAAAAAAAAAAEAAAgAAAAAAQAAAA=</HashCode>
+      <FileName>src\DataHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjektSitzplan.ErrorHandler">
+    <Position X="13.5" Y="1" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAiAAAAAACQAAAAwABAABAAAAAAIAAwAgQA=</HashCode>
+      <FileName>src\ErrorHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjektSitzplan.PackIconSet" Collapsed="true">
+    <Position X="19.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEgAAAAAAAAAAAAAAAAAAAAABAAAAAAAAQAACAAAAAI=</HashCode>
+      <FileName>src\PackIconSet.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjektSitzplan.Utility" Collapsed="true">
+    <Position X="19.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAABAAAAAAAAAAAAAAAQAAAAAAAAAAAAEAAAQAA=</HashCode>
+      <FileName>src\Utility.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjektSitzplan.Properties.Resources" Collapsed="true">
+    <Position X="23" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjektSitzplan.Properties.Settings" Collapsed="true">
+    <Position X="19.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjektSitzplan.Design.PSColors" Collapsed="true">
+    <Position X="19.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ATCAxCIBgkAAUAAAAAAEBJEC4oQAGQCMAQCqCBEABAg=</HashCode>
+      <FileName>src\Design\PSColors.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjektSitzplan.Structures.SchulKlasse">
+    <Position X="3.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gQAwAAIQQAIgIQCEQBACQARAAAAgAAAAAAIQAAAAJAA=</HashCode>
+      <FileName>src\Structures\Klasse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjektSitzplan.Structures.Person">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="ProjektSitzplan.Structures.Person.EGeschlecht" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>src\Structures\Person.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Enum Name="ProjektSitzplan.Structures.Person.EBeruf" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>src\Structures\Person.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>gAACAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAABAgAAQAI=</HashCode>
+      <FileName>src\Structures\Person.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjektSitzplan.Structures.SchülerCSVParser">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\Structures\Schüler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjektSitzplan.Structures.SchülerHelfer">
+    <Position X="3.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\Structures\Schüler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjektSitzplan.Structures.Schüler">
+    <Position X="0.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAkAABBQAAAAAEAABAAAAAAQEAAAAAAAAgAAAAACA=</HashCode>
+      <FileName>src\Structures\Schüler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjektSitzplan.Structures.SitzplanGenerator">
+    <Position X="9" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAgQAAkAACAQggAAIAEIACAAAAAAAEAA=</HashCode>
+      <FileName>src\Structures\Sitzplan.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjektSitzplan.Structures.Sitzplan">
+    <Position X="10.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgQIAAAEAASCYAYMQFACAAQgIIAAEEBCAAAQAAAEAAI=</HashCode>
+      <FileName>src\Structures\Sitzplan.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjektSitzplan.Structures.TischBlock">
+    <Position X="6.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAQAAAAAAACIAgAQAAAACAAAAAgACAAQIAAAAAAAAA=</HashCode>
+      <FileName>src\Structures\TischBlock.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="ProjektSitzplan.Structures.SchulBlock" Collapsed="true">
+    <Position X="9" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAgAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\Structures\Sitzplan.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Delegate Name="ProjektSitzplan.PsMessageBoxButtonPressedEventHandler" Collapsed="true">
+    <Position X="21.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAABAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PsMessageBox.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
