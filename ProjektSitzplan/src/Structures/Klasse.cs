@@ -25,15 +25,6 @@ namespace ProjektSitzplan.Structures
         [JsonIgnore]
         public string ToolTipÜbersicht { get => ToToolTipString(); }
 
-
-        #region error nachrichten
-        private static string errorSchülerEntfernen = "Schüler konnte nicht aus der Klasse entfernt werden.";
-        private static string errorSchülerHinzufügen = "Schüler konnte der Klasse nicht hinzugefügt werden.";
-
-        private static string errorSitzplanEntfernen = "Sitzplan konnte nicht aus der Klasse entfernt werden.";
-        private static string errorSitzplanHinzufügen = "Sitzplan konnte der Klasse nicht hinzugefügt werden.";
-        #endregion
-
         #region Constructors
         public SchulKlasse(string name, List<Schüler> schuelerListe = null)
         {

@@ -555,7 +555,7 @@ namespace ProjektSitzplan.Structures
         #endregion
 
         #region Export
-        public string AlsPDFExportieren()
+        public string AlsHTMLExportieren()
         {
             //Speicher dialog für pfad
             SaveFileDialog saveFileDialog = new SaveFileDialog();

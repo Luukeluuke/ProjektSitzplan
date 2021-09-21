@@ -204,7 +204,7 @@ namespace ProjektSitzplan
                 return;
             }
 
-            string pfad = sitzplan.AlsPDFExportieren();
+            string pfad = sitzplan.AlsHTMLExportieren();
 
             if (pfad == null) return;
 
