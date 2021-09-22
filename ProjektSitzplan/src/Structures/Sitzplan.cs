@@ -372,8 +372,6 @@ namespace ProjektSitzplan.Structures
         }
         private TischBlock NächsterFreierRandomTisch()
         {
-
-
             for (int i = 0; i < TischAnzahl; i++)
             {
                 int randomTischIndex = RandomTischIndexListe[Zufall.Next(0, RandomTischIndexListe.Count)];

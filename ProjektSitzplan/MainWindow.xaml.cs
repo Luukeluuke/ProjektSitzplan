@@ -1697,7 +1697,7 @@ namespace ProjektSitzplan
         #region SNeuGenerierenBtn
         private void SNeuGenerierenBtn_Click(object sender, RoutedEventArgs e)
         {
-            PsMessageBox msg = new PsMessageBox("Achtung", "Soll der Sitzplan wirklich neu generiert werden?\nDie alte Sitzplan wird überschrieben.", PsMessageBox.EPsMessageBoxButtons.YesNo);
+            PsMessageBox msg = new PsMessageBox("Achtung", "Soll der Sitzplan wirklich neu generiert werden?\nDer alte Sitzplan wird überschrieben.", PsMessageBox.EPsMessageBoxButtons.YesNo);
             msg.OnPsMessageBoxButtonPressed += Msg_OnPsMessageBoxButtonPressed;
             msg.ShowDialog();
         }
