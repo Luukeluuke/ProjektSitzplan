@@ -86,6 +86,15 @@ namespace ProjektSitzplan
 
         private void SetzeSchüler(bool beruf, bool betrieb, bool geschlecht)
         {
+            foreach (TextBlock[] tisch in Tischblöcke)
+            {
+                foreach (TextBlock platz in tisch)
+                {
+                    platz.IsEnabled = true;
+                    platz.Background = Brushes.Transparent;
+                }
+            }
+
             SetzeTische(ÜAusgewählterSitzplan.TischAnzahl);
 
             SBerufCBx.IsChecked = beruf;
