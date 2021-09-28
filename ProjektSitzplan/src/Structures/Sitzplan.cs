@@ -372,8 +372,6 @@ namespace ProjektSitzplan.Structures
         }
         private TischBlock NächsterFreierRandomTisch()
         {
-
-
             for (int i = 0; i < TischAnzahl; i++)
             {
                 int randomTischIndex = RandomTischIndexListe[Zufall.Next(0, RandomTischIndexListe.Count)];
@@ -446,7 +444,7 @@ namespace ProjektSitzplan.Structures
             {
                 List<Schüler> verkürzer = Schüler.FindAll(s => s.Verkuerzt);
 
-                new PsMessageBox("Achtung", $"Für den letzten Block wurden {verkürzer.Count} Schüler gefunden die verkürzen.\nBitte auf überprüfen Korrektheit.\nVerkürzer werden beim generieren des Sitzplans nicht berücksichtigt.\nLinks sind die Verkürzer, rechts die nicht Verkürzer.", PsMessageBox.EPsMessageBoxButtons.OK).ShowDialog();
+                new PsMessageBox("Achtung", $"Für den letzten Block wurden {verkürzer.Count} Schüler gefunden die verkürzen.\nBitte auf Korrektheit überprüfen.\nVerkürzer werden beim generieren des Sitzplans nicht berücksichtigt.\nLinks sind die Verkürzer, rechts die nicht Verkürzer.", PsMessageBox.EPsMessageBoxButtons.OK).ShowDialog();
                 SchülerAuswahlDialog auswahlDialog = new SchülerAuswahlDialog("Verkürzer", verkürzer, true, "Verkürzer", "Nicht Verkürzer");
 
                 auswahlDialog.ShowDialog();
@@ -555,7 +553,7 @@ namespace ProjektSitzplan.Structures
         #endregion
 
         #region Export
-        public string AlsPDFExportieren()
+        public string AlsHTMLExportieren()
         {
             //Speicher dialog für pfad
             SaveFileDialog saveFileDialog = new SaveFileDialog();

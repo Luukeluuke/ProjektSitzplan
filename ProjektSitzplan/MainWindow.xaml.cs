@@ -86,6 +86,15 @@ namespace ProjektSitzplan
 
         private void SetzeSchüler(bool beruf, bool betrieb, bool geschlecht)
         {
+            foreach (TextBlock[] tisch in Tischblöcke)
+            {
+                foreach (TextBlock platz in tisch)
+                {
+                    platz.IsEnabled = true;
+                    platz.Background = Brushes.Transparent;
+                }
+            }
+
             SetzeTische(ÜAusgewählterSitzplan.TischAnzahl);
 
             SBerufCBx.IsChecked = beruf;
@@ -309,11 +318,6 @@ namespace ProjektSitzplan
 
         public MainWindow()
         {
-            /*
-             TODO: wenn eine schulklasse ausgewählt ist und mann von da aus eine neue importiert
-                wird das komisch angezeigt...
-             */
-
             InitializeComponent();
 
             InitCommands();
@@ -1695,14 +1699,14 @@ namespace ProjektSitzplan
         #region SExportBtn
         private void SExportBtn_Click(object sender, RoutedEventArgs e)
         {
-            ÜAusgewählterSitzplan.AlsPDFExportieren();
+            ÜAusgewählterSitzplan.AlsHTMLExportieren();
         }
         #endregion
 
         #region SNeuGenerierenBtn
         private void SNeuGenerierenBtn_Click(object sender, RoutedEventArgs e)
         {
-            PsMessageBox msg = new PsMessageBox("Achtung", "Soll der Sitzplan wirklich neu generiert werden?\nDie alte Sitzplan wird überschrieben.", PsMessageBox.EPsMessageBoxButtons.YesNo);
+            PsMessageBox msg = new PsMessageBox("Achtung", "Soll der Sitzplan wirklich neu generiert werden?\nDer alte Sitzplan wird überschrieben.", PsMessageBox.EPsMessageBoxButtons.YesNo);
             msg.OnPsMessageBoxButtonPressed += Msg_OnPsMessageBoxButtonPressed;
             msg.ShowDialog();
         }
