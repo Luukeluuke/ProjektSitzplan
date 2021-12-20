@@ -246,7 +246,7 @@ namespace ProjektSitzplan.Structures
             Dictionary<string, int> anordnung = new Dictionary<string, int>();
 
             string[] spalten = zeilen[0].Split(';').Select(s => s.Trim().ToLowerInvariant()).ToArray();
-            if (spalten.Length == 0)
+            if (spalten.Length <= 1)
             {
                 spalten = zeilen[0].Split(',').Select(s => s.Trim().ToLowerInvariant()).ToArray();
             }

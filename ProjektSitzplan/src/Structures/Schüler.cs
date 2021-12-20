@@ -16,7 +16,7 @@ namespace ProjektSitzplan.Structures
         {
             string[] split = zeile.Split(';').Select(s => s.Trim()).ToArray();
 
-            if (split.Length == 0)
+            if (split.Length <= 1)
             {
                 return zeile.Split(';').Select(s => s.Trim()).ToArray();
             }
