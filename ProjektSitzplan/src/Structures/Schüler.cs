@@ -11,9 +11,22 @@ namespace ProjektSitzplan.Structures
 {
     public static class SchülerCSVParser
     {
+
+        public static string[] TeileZeile(string zeile)
+        {
+            string[] split = zeile.Split(';').Select(s => s.Trim()).ToArray();
+
+            if (split.Length == 0)
+            {
+                return zeile.Split(';').Select(s => s.Trim()).ToArray();
+            }
+
+            return split;
+        }
+
         public static Schüler SchülerAusCSVString(string csv, Dictionary<string, int> anordnung, out string fehler)
-        {   
-            string[] split = csv.Split(',').Select(s => s.Trim()).ToArray();
+        {
+            string[] split = TeileZeile(csv);
 
             fehler = "Keiner";
 

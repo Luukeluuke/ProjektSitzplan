@@ -245,7 +245,11 @@ namespace ProjektSitzplan.Structures
             //Format Vorname,Nachname,Beruf,Betrieb,Geschlecht
             Dictionary<string, int> anordnung = new Dictionary<string, int>();
 
-            string[] spalten = zeilen[0].Split(',');
+            string[] spalten = zeilen[0].Split(';').Select(s => s.Trim().ToLowerInvariant()).ToArray();
+            if (spalten.Length == 0)
+            {
+                spalten = zeilen[0].Split(',').Select(s => s.Trim().ToLowerInvariant()).ToArray();
+            }
 
             List<string> benötigteSpalten = new List<string>{ "vorname", "nachname", "beruf", "betrieb", "geschlecht"};
 
